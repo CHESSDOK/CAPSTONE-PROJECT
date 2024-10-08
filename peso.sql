@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 06, 2024 at 01:40 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Oct 08, 2024 at 01:17 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin_profile` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `admin_level` varchar(100) DEFAULT NULL
+  `id` int NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_level` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -45,7 +45,10 @@ INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level
 (3, 'jerving123', '$2y$10$AvSxZd27fLrwIIFprAJC1eYvMEiZ9zZdW689Uvta6pXcVZQEIl4T6', 'jervinguevarra123@gmail.com', NULL),
 (4, 'Jima', '$2y$10$DeLy5nNImdzDJT8Q61F8/.2MVCNj9M4lKU2b1H5ONAnUXyocPD/4S', 'bernabegiemer@gmail.com', NULL),
 (5, 'Jima', '$2y$10$x4lMG.vRA1QvU/Hrjg8ire.u5EcgHXwP2UqdQz2R/w9PONLwBcBuK', 'bernabegiemer@gmail.com', NULL),
-(6, 'Azure', '$2y$10$lZyxZFyzc9pIxdNESm9pI.Aaxa80D.zxkls7LcqEl3RCgiRDhsbqu', 'ict1mercado.cdlb@gmail.com', NULL);
+(6, 'Azure', '$2y$10$lZyxZFyzc9pIxdNESm9pI.Aaxa80D.zxkls7LcqEl3RCgiRDhsbqu', 'ict1mercado.cdlb@gmail.com', NULL),
+(7, 'Mark', '$2y$10$ZODJ37OaJ8a8Eaj6A5v9vuIqCsIQ3HXZop.1V2HX8IvD6aeOwIMG2', 'ict1mercado.cdlb@gmail.com', NULL),
+(8, 'Azure123', '$2y$10$hrWjfunJ0GOVP4yVTSizSuRcNEZiLFuHwdSgUPMOINDzAalwgkEky', 'mercadomarklawrence55@gmail.com', NULL),
+(9, 'Azure123', '$2y$10$AzcQso28OxN7m/XpNJOEpOGRijxAY.LCvsN84QRRkSDAgt/smlA5O', 'ict1mercado.cdlb@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -54,47 +57,47 @@ INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level
 --
 
 CREATE TABLE `applicant_profile` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `first_name` varchar(100) DEFAULT NULL,
-  `last_name` varchar(100) DEFAULT NULL,
-  `middle_name` varchar(100) DEFAULT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `first_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `middle_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `specialization` varchar(255) DEFAULT NULL,
-  `sex` enum('male','female') DEFAULT NULL,
-  `civil_status` enum('Single','Married','Widowed') DEFAULT NULL,
-  `contact_no` int(11) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT 'user.png',
-  `house_address` varchar(255) DEFAULT NULL,
-  `sss_no` varchar(20) DEFAULT NULL,
-  `pagibig_no` varchar(20) DEFAULT NULL,
-  `philhealth_no` varchar(20) DEFAULT NULL,
-  `passport_no` varchar(20) DEFAULT NULL,
-  `immigration_status` enum('Documented','Undocumented','Returning','Repatriated') DEFAULT NULL,
-  `spouse_name` varchar(100) DEFAULT NULL,
-  `spouse_contact` varchar(15) DEFAULT NULL,
-  `fathers_name` varchar(100) DEFAULT NULL,
-  `fathers_address` varchar(255) DEFAULT NULL,
-  `mothers_name` varchar(100) DEFAULT NULL,
-  `mothers_address` varchar(255) DEFAULT NULL,
-  `emergency_contact_name` varchar(100) DEFAULT NULL,
-  `next_of_kin_relationship` varchar(50) DEFAULT NULL,
-  `next_of_kin_contact` varchar(15) DEFAULT NULL,
-  `education_level` enum('Elementary Undergraduate','Elementary Graduate','High School Undergraduate','High School Graduate','College Undergraduate','College Graduate','Vocational') DEFAULT NULL,
-  `occupation` enum('Administrative Work','Medical Work','Factory/Manufacturing','Farmers (Agriculture)','Teaching','Information Technology','Engineering','Restaurant Jobs (F&B)','Seaman (Sea-Based)','Household Service Worker (Domestic Helper)','Construction Work','Entertainment','Tourism Sector','Hospitality Sector','Others') DEFAULT NULL,
-  `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII') DEFAULT NULL,
-  `emergency_contact_num` int(11) DEFAULT NULL,
-  `income` int(11) DEFAULT NULL,
-  `country` varchar(100) DEFAULT NULL,
-  `employment_type` varchar(100) DEFAULT NULL,
-  `employment_form` enum('Recruitment Agency','Government Hire','Name Hire','Referral') DEFAULT NULL,
-  `employer_name` varchar(100) DEFAULT NULL,
-  `contact_number` int(11) DEFAULT NULL,
-  `employer_address` varchar(100) DEFAULT NULL,
-  `local_agency_name` varchar(100) DEFAULT NULL,
-  `local_agency_address` varchar(100) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `specialization` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sex` enum('male','female') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `civil_status` enum('Single','Married','Widowed') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `contact_no` int DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'user.png',
+  `house_address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sss_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pagibig_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `philhealth_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `passport_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `immigration_status` enum('Documented','Undocumented','Returning','Repatriated') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `spouse_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `spouse_contact` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fathers_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fathers_address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mothers_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mothers_address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `emergency_contact_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `next_of_kin_relationship` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `next_of_kin_contact` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `education_level` enum('Elementary Undergraduate','Elementary Graduate','High School Undergraduate','High School Graduate','College Undergraduate','College Graduate','Vocational') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `occupation` enum('Administrative Work','Medical Work','Factory/Manufacturing','Farmers (Agriculture)','Teaching','Information Technology','Engineering','Restaurant Jobs (F&B)','Seaman (Sea-Based)','Household Service Worker (Domestic Helper)','Construction Work','Entertainment','Tourism Sector','Hospitality Sector','Others') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `emergency_contact_num` int DEFAULT NULL,
+  `income` int DEFAULT NULL,
+  `country` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `employment_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `employment_form` enum('Recruitment Agency','Government Hire','Name Hire','Referral') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `employer_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `contact_number` int DEFAULT NULL,
+  `employer_address` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `local_agency_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `local_agency_address` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `arrival_date` date DEFAULT NULL,
   `dept_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -116,12 +119,12 @@ INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_n
 --
 
 CREATE TABLE `applications` (
-  `id` int(11) NOT NULL,
-  `applicant_id` int(11) DEFAULT NULL,
-  `job_posting_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `applicant_id` int DEFAULT NULL,
+  `job_posting_id` int DEFAULT NULL,
   `application_date` date DEFAULT NULL,
-  `status` varchar(50) DEFAULT 'pending',
-  `job` varchar(255) DEFAULT NULL
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
+  `job` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -134,7 +137,9 @@ INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application
 (34, 28, 1, '2024-10-05', 'accepted', 'Laborer'),
 (35, 27, 4, '2024-10-05', 'accepted', 'electrician'),
 (36, 27, 1, '2024-10-05', 'accepted', 'Laborer'),
-(37, 27, 13, '2024-10-05', 'accepted', 'Security Guard');
+(37, 27, 13, '2024-10-05', 'accepted', 'Security Guard'),
+(38, 27, 11, '2024-10-08', 'pending', 'Carpenter'),
+(39, 27, 13, '2024-10-08', 'pending', 'Security Guard');
 
 -- --------------------------------------------------------
 
@@ -143,13 +148,13 @@ INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application
 --
 
 CREATE TABLE `cases` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `file` varchar(255) DEFAULT NULL,
-  `status` enum('filed','in_progress','resolved') DEFAULT 'filed',
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('filed','in_progress','resolved') COLLATE utf8mb4_unicode_ci DEFAULT 'filed',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -164,7 +169,7 @@ INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, 
 (7, 1, 'little pay', 'sadgfsdargs', NULL, 'filed', '2024-09-29 12:56:45'),
 (8, 4, 'little pay', 'fasdafawe', NULL, 'filed', '2024-09-29 12:56:45'),
 (9, 5, 'little pay', 'fawefasdfwaeaa', NULL, 'filed', '2024-09-29 12:56:45'),
-(11, 28, 'Overwork', 'having too much work and task with pay', '../uploads/1284700.png', 'filed', '2024-10-02 03:41:56');
+(11, 28, 'Overwork', 'having too much work and task with pay', '../uploads/1284700.png', 'in_progress', '2024-10-02 03:41:56');
 
 -- --------------------------------------------------------
 
@@ -173,11 +178,11 @@ INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, 
 --
 
 CREATE TABLE `contact_us` (
-  `id` int(11) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `subject` varchar(255) DEFAULT NULL,
-  `messages` varchar(255) DEFAULT NULL
+  `id` int NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `messages` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -198,10 +203,10 @@ INSERT INTO `contact_us` (`id`, `email`, `name`, `subject`, `messages`) VALUES
 --
 
 CREATE TABLE `courses` (
-  `id` int(11) NOT NULL,
-  `course_name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `module_count` int(11) NOT NULL
+  `id` int NOT NULL,
+  `course_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `module_count` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -211,7 +216,8 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id`, `course_name`, `description`, `module_count`) VALUES
 (1, 'Dressmaking', 'sewing', 3),
 (5, 'Digital Marketing Essentials', 'Master the fundamentals of digital marketing, including SEO, social media strategies, content creation, and paid advertising.', 3),
-(6, 'Auto motive', 'Car and Motor workshop', 2);
+(6, 'Auto motive', 'Car and Motor workshop', 2),
+(19, 'Wood works', 'Sculpting, chair, cabinet making', 4);
 
 -- --------------------------------------------------------
 
@@ -220,12 +226,12 @@ INSERT INTO `courses` (`id`, `course_name`, `description`, `module_count`) VALUE
 --
 
 CREATE TABLE `employer_documents` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `document_name` varchar(100) DEFAULT NULL,
-  `document_path` varchar(255) DEFAULT NULL,
-  `is_verified` tinyint(1) DEFAULT 0,
-  `comment` varchar(255) DEFAULT NULL
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `document_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `document_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_verified` tinyint(1) DEFAULT '0',
+  `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -243,16 +249,16 @@ INSERT INTO `employer_documents` (`id`, `user_id`, `document_name`, `document_pa
 --
 
 CREATE TABLE `employer_profile` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `company_name` varchar(100) DEFAULT NULL,
-  `company_address` varchar(255) DEFAULT NULL,
-  `tel_num` varchar(255) DEFAULT NULL,
-  `president` varchar(255) DEFAULT NULL,
-  `HR` varchar(255) DEFAULT NULL,
-  `company_mail` varchar(255) DEFAULT NULL,
-  `HR_mail` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `company_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tel_num` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `president` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `HR` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `HR_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -271,18 +277,18 @@ INSERT INTO `employer_profile` (`id`, `user_id`, `company_name`, `company_addres
 --
 
 CREATE TABLE `empyers` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `Fname` varchar(255) DEFAULT NULL,
-  `Lname` varchar(255) DEFAULT NULL,
-  `Bdate` varchar(255) DEFAULT NULL,
-  `contact` int(11) DEFAULT NULL,
-  `is_verified` tinyint(4) DEFAULT NULL,
-  `otp` varchar(255) DEFAULT NULL,
+  `id` int NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Fname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Lname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Bdate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact` int DEFAULT NULL,
+  `is_verified` tinyint DEFAULT NULL,
+  `otp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `otp_expiry` datetime DEFAULT NULL,
-  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -302,14 +308,14 @@ INSERT INTO `empyers` (`id`, `username`, `password`, `email`, `Fname`, `Lname`, 
 --
 
 CREATE TABLE `interview` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `Job_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `Job_id` int DEFAULT NULL,
   `sched_date` date DEFAULT NULL,
   `sched_time` time DEFAULT NULL,
-  `interview` varchar(200) DEFAULT NULL,
-  `meeting` varchar(200) DEFAULT NULL,
-  `is_read` tinyint(4) NOT NULL DEFAULT 0
+  `interview` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meeting` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -327,18 +333,18 @@ INSERT INTO `interview` (`id`, `user_id`, `Job_id`, `sched_date`, `sched_time`, 
 --
 
 CREATE TABLE `job_postings` (
-  `j_id` int(11) NOT NULL,
-  `employer_id` int(11) DEFAULT NULL,
-  `admin_id` int(11) DEFAULT NULL,
-  `job_title` varchar(100) NOT NULL,
-  `job_description` text NOT NULL,
-  `specialization` varchar(255) NOT NULL,
-  `vacant` int(11) NOT NULL,
-  `requirment` varchar(255) NOT NULL,
-  `work_location` varchar(255) NOT NULL,
-  `remarks` varchar(255) NOT NULL,
+  `j_id` int NOT NULL,
+  `employer_id` int DEFAULT NULL,
+  `admin_id` int DEFAULT NULL,
+  `job_title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `specialization` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vacant` int NOT NULL,
+  `requirment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `work_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_posted` date NOT NULL,
-  `is_active` tinyint(1) DEFAULT 1
+  `is_active` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -351,8 +357,11 @@ INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job
 (8, 1, NULL, 'backend dev', 'database, php, mysql', 'Information and technology', 1, '', '', '', '2024-09-28', 1),
 (9, 1, NULL, 'front end', 'dasfesargcvgbbdnnjghtydhdrtfggrt', 'Information and Technology', 0, '', '', '', '2024-09-30', 0),
 (10, 1, NULL, 'system Administration', '-Installing, configuring, maintaining, and securing an organization\'s computer systems and networks.\r\n-Supporting, troubleshooting, and maintaining computer servers and networks.\r\n-Identifying and fixing network issues.\r\n-Updating equipment and software.\r\n-Advising on IT policies and optimizing computer networks.', 'Information and Technology', 0, '-College Graduate\r\n-4yrs of work experience\r\n-can use command line', 'Gotham city, back street', '', '2024-09-23', 0),
-(11, NULL, 1, 'Carpenter', 'Wood crafting and stuff', '', 12, 'Has experience on woodsman ship', 'Bayog', '', '2024-10-04', 1),
-(13, NULL, 1, 'Security Guard', 'Mall Security Guard', '', 2, 'Security Guard License, can work on night shift', 'Olivares plaza, Los Banos', '', '2024-10-04', 1);
+(11, NULL, 1, 'Carpenter', 'Wood crafting and stuff', '', 12, 'Has experience on woodsman ship', 'Bayog', '', '2024-10-08', 1),
+(13, NULL, 1, 'Security Guard', 'Mall Security Guard', '', 2, 'Security Guard License, can work on night shift', 'Olivares plaza, Los Banos', '', '2024-10-08', 1),
+(14, 1, NULL, 'Office desk', 'Social desk helper, document managers', NULL, 12, 'College graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
+(15, NULL, 1, 'Housewife', 'care giver', '', 12, 'Girl with big boob daw sabi ni jervin', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
+(16, NULL, 1, 'Warehouse man', 'Heavy work labor', '', 12, 'High graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1);
 
 -- --------------------------------------------------------
 
@@ -361,10 +370,10 @@ INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job
 --
 
 CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `message` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -372,7 +381,9 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `user_id`, `message`, `created_at`) VALUES
-(13, 28, 'Hi can you please help me financially?', '2024-10-02 09:48:43');
+(13, 28, 'Hi can you please help me financially?', '2024-10-02 09:48:43'),
+(14, 27, 'Hi! good evening', '2024-10-07 12:33:11'),
+(15, 27, 'Wait a sec', '2024-10-07 13:05:12');
 
 -- --------------------------------------------------------
 
@@ -381,9 +392,9 @@ INSERT INTO `messages` (`id`, `user_id`, `message`, `created_at`) VALUES
 --
 
 CREATE TABLE `modules` (
-  `id` int(11) NOT NULL,
-  `course_id` int(11) DEFAULT NULL,
-  `module_name` varchar(255) NOT NULL
+  `id` int NOT NULL,
+  `course_id` int DEFAULT NULL,
+  `module_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -405,7 +416,24 @@ INSERT INTO `modules` (`id`, `course_id`, `module_name`) VALUES
 (13, 2, 'dfe'),
 (14, 2, 'dsaadw'),
 (15, 2, 'wfd3we'),
-(16, 1, 'Drafting');
+(16, 1, 'Drafting'),
+(19, 18, NULL),
+(20, 18, NULL),
+(21, 18, NULL),
+(22, 19, 'Sculpture'),
+(23, 19, 'Chair & table building'),
+(24, 19, 'Bamboo Item'),
+(27, 20, NULL),
+(28, 20, NULL),
+(29, 20, NULL),
+(30, 20, NULL),
+(31, 20, NULL),
+(32, 20, NULL),
+(33, 20, NULL),
+(34, 20, NULL),
+(35, 20, NULL),
+(36, 20, NULL),
+(37, 20, NULL);
 
 -- --------------------------------------------------------
 
@@ -414,10 +442,10 @@ INSERT INTO `modules` (`id`, `course_id`, `module_name`) VALUES
 --
 
 CREATE TABLE `modules_taken` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `module_id` int(11) NOT NULL,
-  `status` varchar(200) DEFAULT 'fail',
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `module_id` int NOT NULL,
+  `status` varchar(200) COLLATE utf8mb4_general_ci DEFAULT 'fail',
   `date_taken` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -431,7 +459,9 @@ INSERT INTO `modules_taken` (`id`, `user_id`, `module_id`, `status`, `date_taken
 (6, 28, 2, 'fail', '2024-10-06'),
 (7, 27, 2, 'passed', '2024-10-06'),
 (10, 27, 3, 'passed', '2024-10-06'),
-(11, 27, 16, 'passed', '2024-10-06');
+(11, 27, 16, 'passed', '2024-10-06'),
+(12, 27, 9, 'passed', '2024-10-08'),
+(13, 27, 10, 'passed', '2024-10-08');
 
 -- --------------------------------------------------------
 
@@ -440,11 +470,11 @@ INSERT INTO `modules_taken` (`id`, `user_id`, `module_id`, `status`, `date_taken
 --
 
 CREATE TABLE `module_content` (
-  `id` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `video` varchar(255) NOT NULL,
-  `file_path` varchar(255) NOT NULL,
-  `modules_id` int(11) NOT NULL
+  `id` int NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `video` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modules_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -476,15 +506,15 @@ INSERT INTO `module_content` (`id`, `description`, `video`, `file_path`, `module
 --
 
 CREATE TABLE `question` (
-  `id` int(11) NOT NULL,
-  `quiz_id` int(11) DEFAULT NULL,
-  `question` varchar(255) DEFAULT NULL,
-  `option_a` varchar(255) DEFAULT NULL,
-  `option_b` varchar(255) DEFAULT NULL,
-  `option_c` varchar(255) DEFAULT NULL,
-  `option_d` varchar(255) DEFAULT NULL,
-  `correct_answer` varchar(255) DEFAULT NULL,
-  `marks` int(11) DEFAULT 1
+  `id` int NOT NULL,
+  `quiz_id` int DEFAULT NULL,
+  `question` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_b` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_c` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_d` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `correct_answer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `marks` int DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -650,14 +680,14 @@ INSERT INTO `question` (`id`, `quiz_id`, `question`, `option_a`, `option_b`, `op
 --
 
 CREATE TABLE `quiz_name` (
-  `id` int(11) NOT NULL,
-  `module_id` int(11) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
-  `correct_ans` int(11) DEFAULT NULL,
-  `wrong_ans` int(11) DEFAULT NULL,
-  `total` int(11) DEFAULT NULL,
-  `tag` varchar(255) DEFAULT NULL,
-  `date` datetime DEFAULT NULL ON UPDATE current_timestamp()
+  `id` int NOT NULL,
+  `module_id` int DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `correct_ans` int DEFAULT NULL,
+  `wrong_ans` int DEFAULT NULL,
+  `total` int DEFAULT NULL,
+  `tag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -682,7 +712,7 @@ INSERT INTO `quiz_name` (`id`, `module_id`, `title`, `correct_ans`, `wrong_ans`,
 (25, 0, 'Meyokop', 2, 2, 1, 'sdaf', '2024-10-01 09:59:30'),
 (26, 4, 'Nezuko', 2, 2, 1, 'sadfasdfawhgfsdgdrt', '2024-10-01 13:44:11'),
 (27, 5, 'Nezuko', 1, 1, 1, 'sdfasdvczxc vzdfvvzsdf', '2024-10-01 13:46:51'),
-(28, 1, 'Taking Measurements', 2, 2, 5, 'accurate measurement will make dress fit perfectly', '2024-10-05 19:12:57'),
+(28, 1, 'How To Take Measurements', 2, 2, 7, 'accurate measurement will make dress fit perfectly', '2024-10-07 16:11:28'),
 (29, 2, 'Learning Needle And Thread', 2, 2, 5, 'sewing', '2024-10-05 19:18:47'),
 (30, 3, 'Cutting Dress', 2, 2, 5, 'Cutting smoothly ', '2024-10-05 19:27:23'),
 (31, 16, 'Layouts For Dressmaking', 2, 2, 5, 'designing perfect fit', '2024-10-05 19:37:33'),
@@ -696,14 +726,14 @@ INSERT INTO `quiz_name` (`id`, `module_id`, `title`, `correct_ans`, `wrong_ans`,
 --
 
 CREATE TABLE `register` (
-  `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `is_verified` tinyint(1) NOT NULL DEFAULT 0,
-  `otp` varchar(6) DEFAULT NULL,
+  `id` int NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT '0',
+  `otp` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `otp_expiry` datetime DEFAULT NULL,
-  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -724,11 +754,11 @@ INSERT INTO `register` (`id`, `email`, `username`, `password`, `is_verified`, `o
 --
 
 CREATE TABLE `replies` (
-  `id` int(11) NOT NULL,
-  `message_id` int(11) DEFAULT NULL,
-  `admin_id` int(11) DEFAULT NULL,
-  `reply` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `message_id` int DEFAULT NULL,
+  `admin_id` int DEFAULT NULL,
+  `reply` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -738,7 +768,12 @@ CREATE TABLE `replies` (
 INSERT INTO `replies` (`id`, `message_id`, `admin_id`, `reply`, `created_at`) VALUES
 (8, 0, 0, 'Okay but please pay the service first', '2024-10-02 09:51:29'),
 (9, 1, 0, 'Okay, but please the service fee of 3000php first', '2024-10-02 09:54:07'),
-(10, 13, 1, 'Yes, but you have to pay the fee of 500php first', '2024-10-02 09:54:49');
+(10, 13, 1, 'Yes, but you have to pay the fee of 500php first', '2024-10-02 09:54:49'),
+(11, 14, 1, 'Hello, how can we help you?', '2024-10-07 13:04:48'),
+(12, 13, 1, 'dfsgsdfgdsf', '2024-10-07 13:48:07'),
+(13, 14, 1, 'dfgdfgfdgfd', '2024-10-07 13:48:22'),
+(14, 14, 1, 'asdfsadfgfdgsdf', '2024-10-07 13:53:17'),
+(15, 14, 1, 'hi hi hi', '2024-10-07 13:53:31');
 
 -- --------------------------------------------------------
 
@@ -747,9 +782,9 @@ INSERT INTO `replies` (`id`, `message_id`, `admin_id`, `reply`, `created_at`) VA
 --
 
 CREATE TABLE `survey_form` (
-  `id` int(11) NOT NULL,
-  `question` varchar(200) DEFAULT NULL,
-  `category` varchar(255) NOT NULL
+  `id` int NOT NULL,
+  `question` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `category` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -768,10 +803,10 @@ INSERT INTO `survey_form` (`id`, `question`, `category`) VALUES
 --
 
 CREATE TABLE `survey_reponse` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `survey_id` int(11) DEFAULT NULL,
-  `reponse` varchar(100) DEFAULT NULL
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `survey_id` int DEFAULT NULL,
+  `reponse` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -795,11 +830,11 @@ INSERT INTO `survey_reponse` (`id`, `user_id`, `survey_id`, `reponse`) VALUES
 --
 
 CREATE TABLE `user_answers` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `question_id` int(11) DEFAULT NULL,
-  `quiz_id` int(11) DEFAULT NULL,
-  `answer` char(1) DEFAULT NULL
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `question_id` int DEFAULT NULL,
+  `quiz_id` int DEFAULT NULL,
+  `answer` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -908,7 +943,19 @@ INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `quiz_id`, `answer`)
 (581, 27, 163, 31, 'b'),
 (582, 27, 164, 31, 'c'),
 (583, 27, 165, 31, 'b'),
-(584, 27, 166, 31, 'b');
+(584, 27, 166, 31, 'b'),
+(585, 27, 172, 37, 'b'),
+(586, 27, 173, 37, 'b'),
+(587, 27, 174, 37, 'b'),
+(588, 27, 175, 37, 'b'),
+(589, 27, 176, 37, 'b'),
+(590, 27, 177, 38, 'a'),
+(591, 27, 178, 38, 'c'),
+(592, 27, 179, 38, 'b'),
+(593, 27, 180, 38, 'b'),
+(594, 27, 181, 38, 'b'),
+(595, 27, 182, 38, 'b'),
+(596, 27, 183, 38, 'c');
 
 -- --------------------------------------------------------
 
@@ -917,12 +964,12 @@ INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `quiz_id`, `answer`)
 --
 
 CREATE TABLE `user_score` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `quiz_id` int(11) DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
-  `correct_answers` int(11) DEFAULT NULL,
-  `wrong_answers` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `quiz_id` int DEFAULT NULL,
+  `score` int DEFAULT NULL,
+  `correct_answers` int DEFAULT NULL,
+  `wrong_answers` int DEFAULT NULL,
   `dates` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -948,7 +995,9 @@ INSERT INTO `user_score` (`id`, `user_id`, `quiz_id`, `score`, `correct_answers`
 (59, 28, 29, 2, 2, 3, '2024-10-05 16:00:00'),
 (63, 27, 29, 5, 5, 0, '2024-10-05 16:00:00'),
 (64, 27, 30, 3, 3, 2, '2024-10-05 16:00:00'),
-(66, 27, 31, 4, 4, 1, '2024-10-05 16:00:00');
+(66, 27, 31, 4, 4, 1, '2024-10-05 16:00:00'),
+(67, 27, 37, 5, 5, 0, '2024-10-07 16:00:00'),
+(68, 27, 38, 3, 3, 4, '2024-10-07 16:00:00');
 
 --
 -- Indexes for dumped tables
@@ -1029,7 +1078,8 @@ ALTER TABLE `job_postings`
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `this` (`user_id`);
 
 --
 -- Indexes for table `modules`
@@ -1105,139 +1155,139 @@ ALTER TABLE `user_score`
 -- AUTO_INCREMENT for table `admin_profile`
 --
 ALTER TABLE `admin_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `applicant_profile`
 --
 ALTER TABLE `applicant_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `cases`
 --
 ALTER TABLE `cases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `employer_documents`
 --
 ALTER TABLE `employer_documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employer_profile`
 --
 ALTER TABLE `employer_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `empyers`
 --
 ALTER TABLE `empyers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `interview`
 --
 ALTER TABLE `interview`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `job_postings`
 --
 ALTER TABLE `job_postings`
-  MODIFY `j_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `modules_taken`
 --
 ALTER TABLE `modules_taken`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `module_content`
 --
 ALTER TABLE `module_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT for table `quiz_name`
 --
 ALTER TABLE `quiz_name`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `replies`
 --
 ALTER TABLE `replies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `survey_form`
 --
 ALTER TABLE `survey_form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `survey_reponse`
 --
 ALTER TABLE `survey_reponse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=585;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=597;
 
 --
 -- AUTO_INCREMENT for table `user_score`
 --
 ALTER TABLE `user_score`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
