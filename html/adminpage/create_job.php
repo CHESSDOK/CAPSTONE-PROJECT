@@ -83,53 +83,56 @@ $result = $conn->query($sql);
 
 <div class="table-containers">
     <div class="row align-items-start">
-        <div class="col-auto">
+        <div class="col-12 col-md-auto mb-2">
             <button class="btn btn-primary openCourseBtn" id="openCourseBtn">Create Job</button>
         </div>
-        <div class="col">
-            <table class="table table-borderless table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Title</th>
-                        <th>Job Description</th>
-                        <th>Specialization</th>
-                        <th>Vacant</th>
-                        <th>Status</th>
-                        <th colspan="2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <?php
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>
-                                    <form action='update_jobs.php' method='post'>
-                                        <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
-                                        <td><input type='text' class='form-control custom-input-size' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
-                                        <td><input type='text' class='form-control custom-input-size' name='desc' value='" . htmlspecialchars($row['job_description']) . "'></td>
-                                        <td><input type='text' class='form-control custom-input-size' name='spe' value='" . htmlspecialchars($row['specialization']) . "'></td>
-                                        <td><input type='number' class='form-control custom-input-size value-display mt-1' name='vacant' value='" . $row['vacant'] . "'></td>
-                                        <td><input type='number' class='form-control custom-input-size value-display mt-1' name='act' value='" . $row['is_active'] . "'></td>
+        <div class="col-12 col-md">
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead class="thead-light d-none d-md-table-header-group">
+                        <tr>
+                            <th>Title</th>
+                            <th>Job Description</th>
+                            <th>Specialization</th>
+                            <th>Vacant</th>
+                            <th>Status</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr class='mb-3 d-flex flex-column flex-md-row align-items-md-center'>
+                                        <form action='update_jobs.php' method='post' class='d-flex flex-column flex-md-row w-100'>
+                                            <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
+                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
+                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='desc' value='" . htmlspecialchars($row['job_description']) . "'></td>
+                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='spe' value='" . htmlspecialchars($row['specialization']) . "'></td>
+                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='vacant' value='" . $row['vacant'] . "'></td>
+                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='act' value='" . $row['is_active'] . "'></td>
 
+                                            <td>
+                                                <button type='submit' class='btn btn-success custom-input-size mb-2 mb-md-0'>Update</button>
+                                            </td>
+                                        </form>
                                         <td>
-                                            <button type='submit' class='btn btn-success custom-input-size mt-1'>Update</button>
+                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0'>Applicants</a>
                                         </td>
-                                    </form>
-                                    <td>
-                                        <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mt-1'>Applicants</a>
-                                    </td>
-                                </tr>";
+                                    </tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='6' class='text-center'>No Job found</td></tr>";
                         }
-                    } else {
-                        echo "<tr><td colspan='6' class='text-center'>No Job found</td></tr>";
-                    }
-                    $conn->close();
-                    ?>
-                </tbody>
-            </table>
+                        $conn->close();
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
 
 
     <div id="jobModal" class="modal modal-container-upload">

@@ -17,7 +17,7 @@ function checkSession() {
 
 $userId = checkSession();
 $module_id = $_GET['course_id'];
-$user_id = $_GET['user_id'];
+
 // Fetch all modules for the course
 $sql = "SELECT * FROM modules WHERE course_id = ?";
 $stmt = $conn->prepare($sql);
@@ -118,48 +118,55 @@ if ($modules_result->num_rows > 0) {
                 echo "<table border='1'>
                         <tr>
                             <td class='img_cell'><img class='icon' src='../../img/file_icon.png' alt='Logo'></td>
-                            <td class='title_cell'> <p> " . $module_row["module_name"] . " </td>
+                            <td class='num_cell'> <p> " . $module_row["id"] . " </td>
+                            <td class='title_cell'> <p> " . $module_row["module_name"] . " (Finished) </td>
                             <td class='btn_cell'>
                                 <a class='btn' style='background-color: grey;' href='#' onclick='return false;'>Passed <i class='fas fa-check'></i></a>
                             </td>
                         </tr>
                     </table>";
             } else {
-                // Logic for unlocking and locking modules based on quiz score and progress
-                if ($previous_module_passed || $passed) {
-                    // Allow access to this module
-                    echo "<table>
-                            <tr>
-                                <td class='img_cell'><img class='icon' src='../../img/file_icon.png' alt='Logo'></td>
-                                <td class='num_cell'> <p> " . $module_row["id"] . " </td>
-                                <td class='title_cell'> <p> " . $module_row["module_name"] . " </td>
-                                <td class='btn_cell'>
-                                    <a class='btn' href='module_content.php?user_id=" . $user_id . "&modules_id=" . $module_row["id"] . "&course_id=" . $module_id . "&module_name=" . $module_row["module_name"] . "'>view more <i class='fas fa-chevron-right'></i></a>
-                                </td>
-                            </tr>
-                        </table>";
-                    $previous_module_passed = $passed; // Set if current module passed
-                } else {
-                    // Lock this module because the user hasn't passed the previous module
-                    echo "<table>
-                            <tr>
-                                <td class='img_cell'><img class='icon' src='../../img/file_icon_disabled.png' alt='Logo'></td>
-                                <td class='num_cell'> <p> " . $module_row["id"] . " </td>
-                                <td class='title_cell'> <p> " . $module_row["module_name"] . " (Locked) </td>
-                                <td class='btn_cell'>
-                                    <a class='btn' style='background-color: grey;' href='#' onclick='return false;'>Locked <i class='fas fa-lock'></i></a>
-                                </td>
-                            </tr>
-                        </table>";
-                    $previous_module_passed = false; // Ensure following modules stay locked
-                }
+                // Module is not passed
+                echo "<table border='1'>
+                        <tr>
+                            <td class='img_cell'><img class='icon' src='../../img/file_icon.png' alt='Logo'></td>
+                            <td class='num_cell'> <p> " . $module_row["id"] . " </td>
+                            <td class='title_cell'> <p> " . $module_row["module_name"] . " </td>
+                            <td class='btn_cell'>
+                                <a class='btn' href='module_content.php?user_id=" . $userId . "&modules_id=" . $module_row["id"] . "&course_id=" . $module_id . "&module_name=" . $module_row["module_name"] . "'>View More <i class='fas fa-chevron-right'></i></a>
+                            </td>
+                        </tr>
+                    </table>";
             }
+        } else {
+            // Module is locked
+            echo "<table border='1'>
+                    <tr>
+                        <td class='img_cell'><img class='icon' src='../../img/file_icon_disabled.png' alt='Logo'></td>
+                        <td class='num_cell'> <p> " . $module_row["id"] . " </td>
+                        <td class='title_cell'> <p> " . $module_row["module_name"] . " (Locked) </td>
+                        <td class='btn_cell'>
+                            <a class='btn' style='background-color: grey;' href='#' onclick='return false;'>Locked <i class='fas fa-lock'></i></a>
+                        </td>
+                    </tr>
+                </table>";
         }
-    } }else {
-        echo "<tr><td colspan='4'>No modules found</td></tr>";
+
+        // Update $previous_module_passed based on whether the current module quiz is passed
+        $previous_module_passed = $passed;
+
     }
-    $conn->close();
-    ?>
+
+    // After the loop, if all modules are passed, show the print certificate button
+    if ($all_modules_passed) {
+        echo "<a href='print_certificate.php?user_id=$userId&course_id=$module_id' target='_blank' class='btn btn-success'>Print Certificate</a>";
+    }
+} else {
+    echo "<tr><td colspan='4'>No modules found</td></tr>";
+}
+$conn->close();
+?>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
