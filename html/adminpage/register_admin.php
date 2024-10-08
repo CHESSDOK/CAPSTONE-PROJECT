@@ -31,14 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script type='text/javascript'> 
                     alert('Account Created, password is send to email');
                     window.location.href='admin_home.php'; 
-                  </script>";;
+                  </script>";
 
         // Send email with PHPMailer
         $mail = new PHPMailer(true);
         try {
             // Server settings
             $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = 'smtp.example.com';                     // Set SMTP server to send through
+            $mail->Host       = 'smtp.gmail.com';                     // Set SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
             $mail->Username   = 'jervinguevarra123@gmail.com';               // SMTP username
             $mail->Password   = 'wdul asom bddj yhfd';                  // SMTP password

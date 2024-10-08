@@ -9,14 +9,20 @@ $numm = $_POST['module_count'];
 $sql = "INSERT INTO courses (course_name, description, module_count) VALUES (?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $course, $description, $numm );
-
+$stmt->bind_param("ssi", $course, $description, $numm); // Assuming module_count is an integer
 
 if ($stmt->execute()) {
     $last_id = $stmt->insert_id;
     $_SESSION['id'] = $last_id;
     $_SESSION['modules'] = $numm;
-    header("Location: course_list.php");
+    
+    // Insert null modules after course creation
+    for ($i = 1; $i <= $numm; $i++) {
+        $module_name = null; // Set module_name to null
+        saveModuleToDatabase($last_id, $module_name);
+    }
+
+    header("Location: course_list.php?user_id=$last_id"); // Redirect after inserting modules
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
@@ -25,4 +31,26 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 
+function saveModuleToDatabase($course_id, $module_name) {
+    // Database connection (replace with your actual connection details)
+    $conn = new mysqli('localhost', 'root', '', 'peso');
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO modules (course_id, module_name) VALUES (?, ?)");
+    $stmt->bind_param("is", $course_id, $module_name); // 's' for string, but null should work as well
+
+    // Execute the statement
+    if (!$stmt->execute()) {
+        echo "Error inserting module: " . $stmt->error;
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
+}
 ?>

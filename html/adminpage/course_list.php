@@ -96,9 +96,7 @@ $result = $conn->query($sql);
                         <td><input type='text' name='course_name' value='".$row["course_name"]."'></td>
                         <td><input type='text' name='course_desc' value='".$row["description"]."'></td>                        
                         <td><input class='btn btn-success' type='submit' value='Update'></td>
-                        <td><a class='btn btn-danger' href='delete_survey.php?course_id=".$row["id"]."'>DELETE</a></td>
-                        <td><a href='#' id='moduleBtn'  class='openModuleBtn btn btn-primary '
-                                    data-module-id='" . htmlspecialchars($row["id"]) . "'>Edit Label</a></td>
+                        <td><a class='btn btn-danger' href='delete_course.php?course_id=".$row["id"]."'>DELETE</a></td>
                         <td><a class='btn btn-primary' href='module_list.php?course_id=" . $row["id"] . "'>Edit Items</a></td>
                         </form>
                     </tr>";
@@ -132,18 +130,6 @@ $result = $conn->query($sql);
                 <input class="btn btn-primary" type="submit" value="Submit">
             </form>
         </div>
-    </div>
-
-
-<!-- create module -->
-    <div id="moduleModal" class="modal modal-container">
-    <div class="modal-content">
-        
-    <span class="btn-close closBtn closeBtn seccloseBtn">&times;</span>
-        <div id="uploadModuleContent">
-            <!-- Profile details will be dynamically loaded here -->
-        </div>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

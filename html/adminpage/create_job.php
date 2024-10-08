@@ -103,12 +103,13 @@ $result = $conn->query($sql);
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
+                                $spe = !empty($row['specialization']) ? $row['specialization'] : 'NONE';
                                 echo "<tr class='mb-3 d-flex flex-column flex-md-row align-items-md-center'>
                                         <form action='update_jobs.php' method='post' class='d-flex flex-column flex-md-row w-100'>
                                             <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
                                             <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
                                             <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='desc' value='" . htmlspecialchars($row['job_description']) . "'></td>
-                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='spe' value='" . htmlspecialchars($row['specialization']) . "'></td>
+                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='spe' value='" . htmlspecialchars($spe) . "'></td>
                                             <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='vacant' value='" . $row['vacant'] . "'></td>
                                             <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='act' value='" . $row['is_active'] . "'></td>
 
