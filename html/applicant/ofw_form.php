@@ -45,6 +45,24 @@
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/ofw_form.css">
+    <style>
+        #messageList {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .user-message {
+            color: blue;
+            text-align: left;
+        }
+        .admin-reply {
+            color: green;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -198,56 +216,62 @@
         <h5 id="chatOffcanvasLabel">Chat with Admin</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-              <?php
-              $sql = "SELECT m.*, ap.first_name, ap.middle_name, ap.last_name, r.reply, ad.username AS admin_username
-              FROM messages m 
-              JOIN applicant_profile ap ON m.user_id = ap.user_id
-              LEFT JOIN replies r ON m.id = r.message_id
-              LEFT JOIN admin_profile ad ON r.admin_id = ad.id
-              WHERE m.user_id = '$userId'"; 
-              $result = $conn->query($sql);
-              echo "
-                      <table class='table table-borderless table-hover'>
-                                  <thead>
-                                      <tr>
-                                          <th>Message</th>
-                                          <th>Reply</th>
-                                          <th></th>
-                                          <th></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                      ";
+      <h1>Your Messages</h1>
+      <div id="messageList"></div>
 
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
-                  $message = $row['message'];
-                  $reply = $row['reply'];
-                  $admin_username = $row['admin_username'];
-          
-                  echo "<tr>
-                          <td>".$full_name." : ".$message."</td></tr>";
-          
-                  if (!empty($reply)) {
-                      echo "<tr><td>".$admin_username." : ".$reply."</td>";
-                  } else {
-                        echo "<p>No replies found.</p>";
-                        }
-                    }
-                  } else {
-                    echo "<tr><td colspan='2'>No messages found</td></tr>";
-                }
-                echo "</tbody>
-                        </table>";
-                $conn->close();
-    ?>
-    <form action="../../php/applicant/send_message.php" method="post">
-      <input type="hidden" name="user_id" value="<?php echo $userId ?>">
-      <label for="message">Message:</label>
-      <textarea id="message" name="message"></textarea><br><br>
-      <input type="submit" value="Send Message">
-    </form>
+      <input type="text" id="userMessage" placeholder="Type your message here...">
+      <button onclick="sendMessage()">Send Message</button>
+
+      <script>
+          const customerId = <?php echo json_encode($userId); ?>; // Replace with the actual customer ID from the session or authentication system
+      function fetchMessages() {
+          fetch(`../../php/applicant/get_messages.php?customer_id=${customerId}`)
+              .then(response => response.json())
+              .then(data => {
+                  const messageList = document.getElementById('messageList');
+                  messageList.innerHTML = ''; // Clear existing messages
+                  data.forEach(msg => {
+                      const messageDiv = document.createElement('div');
+                      messageDiv.className = 'message';
+
+                      // Check if the message is from the user or admin
+                      if (msg.sender === 'user') {
+                          // User's message
+                          messageDiv.className += ' user-message';
+                          messageDiv.innerHTML = `<strong>You:</strong> ${msg.message} <em>${new Date(msg.timestamp).toLocaleString()}</em>`;
+                      } else {
+                          // Admin's reply
+                          messageDiv.className += ' admin-reply';
+                          messageDiv.innerHTML = `<strong>Admin:</strong> ${msg.message} <em>${new Date(msg.timestamp).toLocaleString()}</em>`;
+                      }
+
+                      messageList.appendChild(messageDiv);
+                  });
+              });
+      }
+
+
+          function sendMessage() {
+              const userMessage = document.getElementById('userMessage').value;
+
+              if (userMessage) {
+                  fetch('../../php/applicant/send_message.php', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/x-www-form-urlencoded'
+                      },
+                      body: `customer_id=${customerId}&message=${encodeURIComponent(userMessage)}`
+                  })
+                  .then(response => response.text())
+                  .then(() => {
+                      document.getElementById('userMessage').value = ''; // Clear input
+                      fetchMessages(); // Refresh messages
+                  });
+              }
+          }
+
+          fetchMessages(); // Fetch messages on page load
+      </script>
     </div>
 
     <div class="chat-conainer">

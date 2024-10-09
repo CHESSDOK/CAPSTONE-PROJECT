@@ -1,19 +1,3 @@
-<?php
-include 'conn_db.php';
-$sql = "SELECT m.id, m.user_id, m.message, m.created_at, 
-        CONCAT(ap.first_name, ' ', IFNULL(ap.middle_name, ''), ' ', ap.last_name) AS full_name
-        FROM messages m
-        INNER JOIN applicant_profile ap ON m.user_id = ap.user_id
-        WHERE m.created_at = (
-            SELECT MAX(m2.created_at) 
-            FROM messages m2 
-            WHERE m2.user_id = m.user_id
-        )
-        ORDER BY m.created_at DESC";
-
-$result = $conn->query($sql);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +12,30 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_ofw.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
+        <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        #chat {
+            display: none;
+            margin-top: 20px;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .user-message {
+            color: blue;
+        }
+        .admin-reply {
+            color: green;
+        }
+    </style>
 </head>
 <body>
 
@@ -48,85 +56,104 @@ $result = $conn->query($sql);
   </ol>
 </nav>
 
-<div class="table-container">
-<table class="table table-borderless table-hover">
-        <thead>
+<h1>Customer Messages</h1>
+<table>
+    <thead>
         <tr>
-            <th>ID</th>
-            <th>User_Info</th>
-            <th>Message</th>
-            <th>Date</th>
+            <th>Customer Name</th>
+            <th>Message Count</th>
             <th>Action</th>
         </tr>
-        </thead>
-        <tbody>
-        <?php
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "<tr>
-                        <td>" . $row["id"] . "</td>
-                        <td>" . $row["full_name"] . "</td>
-                        <td>" . $row["message"] . "</td>
-                        <td>" . $row["created_at"] . "</td>
-                        <td><a class='docu' href='ofw_chat.php?user_id=" . $row["user_id"] ."&message_id=".$row["id"]."'>View Chat</a></td>
-                        <td><button id='adminChatBtn' class='adminChatBtn btn btn-primary'
-                                    data-user-id='" . htmlspecialchars($row["user_id"]) . "' 
-                                    data-message-id='" . htmlspecialchars($row["id"]) . "'>View Profile</button></td>
-                    </tr>";
-            }
-        } else {
-            echo "<tr><td colspan='5'>No messages found</td></tr>";
-        }
-        $conn->close();
-        ?>
-        </tbody>
-    </table>
-</div>
+    </thead>
+    <tbody id="customerTable"></tbody>
+</table>
 
-<!-- Modal for OFW chat -->
-<div id="chatModal" class="modal modal-container">
+<div id="chat" class="modal">
     <div class="modal-content">
-        <span class="btn-close closeBtn"></span>
-        <div id="ofwChatContent">
-            <!-- Profile details will be dynamically loaded here -->
-        </div>
+        <span class="closeBtn">&times;</span>
+        <h3 id="chatTitle"></h3>
+        <div id="messageList"></div>
+        <input type="text" id="replyMessage" placeholder="Type your reply here...">
+        <button onclick="sendReply()">Send Reply</button>
     </div>
+</div>
 </div>
 
 <script>
-    // Get modal and button elements for viewing profile
-    const chatModal = document.getElementById('chatModal');
+    let selectedCustomerId = null; // To hold the ID of the selected customer
+
+    function fetchCustomers() {
+        fetch('get_customers.php')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('customerTable');
+                tableBody.innerHTML = ''; // Clear existing data
+                data.forEach(customer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.first_name}</td>
+                        <td>${customer.message_count}</td>
+                        <td><button onclick="viewMessages(${customer.user_id}, '${customer.first_name}')">View Messages</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+    }
+
+    function viewMessages(customerId, customerName) {
+        selectedCustomerId = customerId;
+        document.getElementById('chat').style.display = 'block';
+        document.getElementById('chatTitle').innerText = `Messages from ${customerName}`;
+        fetch(`get_messages.php?customer_id=${customerId}`)
+            .then(response => response.json())
+            .then(data => {
+                const messageList = document.getElementById('messageList');
+                messageList.innerHTML = ''; // Clear existing messages
+                data.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message';
+                    
+                    if (msg.sender === 'user') {
+                        messageDiv.innerHTML = `<span class="user-message">${msg.message} (User)</span>`;
+                    } else {
+                        messageDiv.innerHTML = `<span class="admin-reply">${msg.message} (Admin)</span>`;
+                    }
+
+                    messageList.appendChild(messageDiv);
+                });
+            });
+    }
+
+    function sendReply() {
+        const replyMessage = document.getElementById('replyMessage').value;
+
+        if (replyMessage && selectedCustomerId) {
+            fetch('send_reply.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `customer_id=${selectedCustomerId}&message=${encodeURIComponent(replyMessage)}`
+            })
+            .then(response => response.text())
+            .then(() => {
+                document.getElementById('replyMessage').value = ''; // Clear input
+                // Refresh messages to include the reply
+                viewMessages(selectedCustomerId, document.getElementById('chatTitle').innerText.split(' ')[2]);
+            });
+        }
+    }
+
+    fetchCustomers(); // Fetch customers on page load
     const closeBtn = document.querySelector('.closeBtn');
-
-    // Open profile modal and load data via AJAX
-    $(document).on('click', '.adminChatBtn', function(e) {
-        e.preventDefault();
-        const userId = $(this).data('user-id');
-        const messageId = $(this).data('message-id');
-        
-        $.ajax({
-            url: 'ofw_chat.php',
-            method: 'GET',
-            data: { user_id: userId, message_id: messageId },
-            success: function(response) {
-                $('#ofwChatContent').html(response);
-                chatModal.style.display = 'flex';
-            }
-        });
-    });
-
-    // Close profile modal when 'x' is clicked
     closeBtn.addEventListener('click', function() {
-        chatModal.style.display = 'none';
+        document.getElementById('chat').style.display = 'none';
     });
-
-    // Close profile modal when clicking outside the modal content
     window.addEventListener('click', function(event) {
-        if (event.target === chatModal) {
-            chatModal.style.display = 'none';
+        if (event.target === document.getElementById('chat')) {
+            document.getElementById('chat').style.display = 'none';
         }
     });
 </script>
-
 </body>
 </html>

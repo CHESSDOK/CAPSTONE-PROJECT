@@ -67,7 +67,6 @@ $result = $conn->query($sql);
                     <tr><td><a href="employer_list.php" class="active nav-link">Employer List</a></td></tr>
                     <tr><td><a href="course_list.php" class="nav-link">Course List</a></td></tr>
                     <tr><td><a href="ofw_case.php" class="nav-link">OFW Cases</a></td></tr>
-                    <tr><td><a href="user_master_list.php" class="nav-link">User List</a></td></tr>
                 </table>
             </div>
         </div>
@@ -89,22 +88,20 @@ $result = $conn->query($sql);
         <div class="col-12 col-md">
             <div class="table-responsive">
                 <table class="table table-borderless table-hover">
-                    <thead class="thead-light d-none d-md-table-header-group">
-                        <tr>
+                    <thead class="thead-light d-md-table-header-group">
                             <th>Title</th>
                             <th>Job Description</th>
                             <th>Specialization</th>
                             <th>Vacant</th>
                             <th>Status</th>
                             <th colspan="2">Actions</th>
-                        </tr>
                     </thead>
                     <tbody class="table-group-divider">
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $spe = !empty($row['specialization']) ? $row['specialization'] : 'NONE';
-                                echo "<tr class='mb-3 d-flex flex-column flex-md-row align-items-md-center'>
+                                echo "<tr class='mb-3 flex-column flex-md-row align-items-md-center'>
                                         <form action='update_jobs.php' method='post' class='d-flex flex-column flex-md-row w-100'>
                                             <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
                                             <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
