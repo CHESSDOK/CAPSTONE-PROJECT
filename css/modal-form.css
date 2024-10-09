@@ -51,7 +51,9 @@
 .seccloseBtn:hover,
 .seccloseBtn:focus,
 .thirdcloseBtn:hover,
-.thirdcloseBtn:focus {
+.thirdcloseBtn:focus
+.fourthcloseBtn:hover,
+.fourthcloseBtn:focus {
   color: red; /* Optional hover effect */
 }
 
@@ -72,6 +74,12 @@
   }
 
   .thirdcloseBtn {
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .fourthcloseBtn {
     float: right;
     font-size: 30px;
     cursor: pointer;

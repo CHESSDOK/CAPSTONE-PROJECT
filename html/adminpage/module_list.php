@@ -87,6 +87,7 @@ $result = $conn->query($sql);
 </nav>
 
 <div class="table-container">
+    <button class='btn btn-primary openAddmmodBtn' id='openCourseBtn' data-addmodule-id="<?php echo $course_id;?>">Create accoount</button>
     <table class="table table-borderless table-hover">
         <thead>
             <th>Module Title</th>
@@ -118,7 +119,21 @@ $result = $conn->query($sql);
         ?>
     </table>
 </div>
-
+<!-- addmodule -->
+    <div id="addmodModal" class="modal modal-container">
+            <div class="modal-content">
+                <span class="btn-close fourthcloseBtn"></span>
+                <h2>Add modules</h2>
+                <form action="addmodule.php" method="post">
+                    <input type="hidden" id="course" name="course_id">
+                    <!-- Text Input for Course -->
+                    <label for="Module">Module Name:</label>
+                    <input class="form-control" type="text" id="module" name="module" required>
+                    <!-- Submit Button -->
+                    <input class="btn btn-primary" type="submit" value="ADD">
+                </form>
+            </div>
+        </div>
 <!-- upload file -->
     <div id="fileModal" class="modal modal-container">
         <div class="modal-content">
@@ -215,13 +230,21 @@ $result = $conn->query($sql);
         </div>
 
 
-    <script>
+<script>
         const filemodal = document.getElementById('fileModal');
         const quizmodal = document.getElementById('quizModal');
+        const addmodmodal = document.getElementById('addmodModal');
+
+
         const closeBtn = document.querySelector('.closeBtn');
         const seccloseBtn = document.querySelector('.seccloseBtn');
+        const fourthcloseBtn = document.querySelector('.fourthcloseBtn');
+        
         const moduleIdField = document.getElementById('moduleId');
         const courseIdField = document.getElementById('courseId');
+
+        const addmodIdField = document.getElementById('course');
+
         const secmoduleIdField = document.getElementById('secmoduleId');
         const seccourseIdField = document.getElementById('seccourseId');
 
@@ -251,6 +274,16 @@ $result = $conn->query($sql);
                 // Open the modal
                 quizmodal.style.display = 'flex';
             }
+            //addmodule
+            if (event.target.classList.contains('openAddmmodBtn')) {
+                const course  = event.target.getAttribute('data-addmodule-id');
+                
+                // Set the module ID in the hidden field
+                addmodIdField.value = course;
+
+                // Open the modal
+                addmodmodal.style.display = 'flex';
+            }
         });
 
     //cotent module
@@ -262,6 +295,9 @@ $result = $conn->query($sql);
         seccloseBtn.addEventListener('click', function() {
             quizmodal.style.display = 'none';
         });
+        fourthcloseBtn.addEventListener('click', function() {
+            addmodmodal.style.display = 'none';
+        });
         // Close modal when clicked outside of the modal content
         window.addEventListener('click', function(event) {
             if (event.target === filemodal) {
@@ -269,6 +305,9 @@ $result = $conn->query($sql);
             }
             if (event.target === quizmodal) {
                 quizmodal.style.display = 'none';
+            }
+            if (event.target === addmodmodal) {
+                addmodmodal.style.display = 'none';
             }
         });
 
@@ -303,8 +342,6 @@ $result = $conn->query($sql);
                 contentModal.style.display = 'none';
             }
         });
-
-        
     </script>
     <script src="../../javascript/a_profile.js"></script> 
     <script src="../../javascript/script.js"></script> 
