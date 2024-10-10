@@ -54,7 +54,7 @@ if (!$row) {
 
     <div class="profile-icons">
         <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-            <img id="#" src="img/notif.png" alt="Profile Picture" class="rounded-circle">
+            <a href="html/applicant/sched_list.php"><img id="#" src="img/notif.png" alt="Profile Picture" class="rounded-circle"></a>
         </div>
         
         <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
