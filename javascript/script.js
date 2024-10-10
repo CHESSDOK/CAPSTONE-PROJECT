@@ -23,6 +23,28 @@ $(document).ready(function(){
         animation: true, // Enable animation
         content: function() {
             return `
+                <a class="link" href="admin_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="logout.php">Logout</a>
+            `;
+        }
+    });
+// Close popover when clicking outside
+$(document).on('click', function (e) {
+    const target = $(e.target);
+    if (!target.closest('.profile-icon').length) {
+        $('.profile-icon').popover('hide');
+    }
+});
+});
+
+$(document).ready(function(){
+    // Initialize popover with multiple links in the content
+    $('.profile-icon').popover({
+        trigger: 'click', 
+        html: true, // Allow HTML content
+        animation: true, // Enable animation
+        content: function() {
+            return `
                 <a class="link" href="html/applicant/a_profile.php"  id="emprof">Profile</a><br>
                 <a class="link" href="logout.php">Logout</a>
             `;

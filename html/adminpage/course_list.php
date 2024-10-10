@@ -92,8 +92,8 @@ $result = $conn->query($sql);
                 echo "<tr>
                         <form method='POST' action='update_course.php'>
                         <input type='hidden' name='course_id' value='".$row["id"]."'>
-                        <td><input type='text' name='course_name' value='".$row["course_name"]."'></td>
-                        <td><input type='text' name='course_desc' value='".$row["description"]."'></td>                        
+                        <td><input class='form-control' type='text' name='course_name' value='".$row["course_name"]."'></td>
+                        <td><input class='form-control' type='text' name='course_desc' value='".$row["description"]."'></td>                        
                         <td><input class='btn btn-success' type='submit' value='Update'></td>
                         <td><a class='btn btn-danger' href='delete_course.php?course_id=".$row["id"]."'>DELETE</a></td>
                         <td><a class='btn btn-primary' href='module_list.php?course_id=" . $row["id"] . "'>Edit Items</a></td>

@@ -82,7 +82,7 @@ $result = $conn->query($sql);
   </ol>
 </nav>
 
-<div class="table-containers">
+<div class="table-container">
     <div class="row align-items-start">
         <div class="col-12 col-md-auto mb-2">
             <a href="create_job.php" class="btn btn-primary">Admin Job Post</a>

@@ -101,7 +101,7 @@ $result = $conn->query($sql);
                         <form method='POST' action='module_update.php'>
                         <input type='hidden' name='module_id' value='".$row["id"]."'>
                         <input type='hidden' name='course_id' value='".$course_id."'>
-                        <td><input type='text' name='module_name' value='".$row["module_name"]."'></td>
+                        <td><input class='form-control' type='text' name='module_name' value='".$row["module_name"]."'></td>
                         <td><input class='btn btn-success mt-2' type='submit' value='Update'></td>
                         <td><a class='btn btn-danger mt-2' href='delete_modules.php?course_id=".$course_id."&module_id=".$row["id"]."'>DELETE</a></td>
                         <td><a class='btn btn-primary openFileBtn mt-2' href='#' data-module-id=" . htmlspecialchars($row['id']) . "
