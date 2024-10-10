@@ -139,6 +139,7 @@
   <li class="breadcrumb-item active" aria-current="page">Applicants</li>
   </ol>
 </nav>
+
 <div class="table-containers">
     <div class="row align-items-start">
         <?php
@@ -146,11 +147,10 @@
                 echo "<h3>$status_label</h3>";
                 echo "<table class='table table-borderless'>
                         <thead class='thead-light'>
-                            <th>ID</th>
                             <th>Full Name</th>
                             <th>Job</th>
                             <th>Status</th>
-                            <th>Actions</th>
+                            <th class='action-btn'>Actions</th>
                         </thead>";
                 
                 if (!empty($applicants)) {
@@ -158,28 +158,28 @@
                         $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
                         $status = $row['status'];
 
-                        // Conditionally disable the interview button for "review" or "rejected" status
+                        // Conditionally disable the interview button for "interview" or "accepted" status
                         $interview_button_disabled = ($status == 'interview' || $status == 'accepted') ? 'disabled' : '';
                         $accept_link_disabled = ($status == 'accepted') ? 'disabled-link' : '';
+                        
                         echo "
                         <tr>
-                            <td>" . htmlspecialchars($row['applicant_id']) . "</td>
-                            <td>" . htmlspecialchars($full_name) . "</td>
+                            <td class='full-name'>" . htmlspecialchars($full_name) . "</td>
                             <td>" . htmlspecialchars($row['job']) . "</td>
                             <td>" . ucfirst($row['status']) . "</td>
-                            <td>
-                                <a href='application_process.php?id= ". htmlspecialchars($row['user_id']). "' 
-                                class='".$accept_link_disabled."'>Accept</a>
+
+                            <td class='btn-job'>
+                                <a href='application_process.php?id=" . htmlspecialchars($row['user_id']) . "' 
+                                class='btn btn-success mx-2" . $accept_link_disabled . "'>Accept</a>
+                            
+                                <a href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) . "'
+                                class='btn btn-danger mx-2" . $accept_link_disabled . "'>Rejected</a>
+                            
+                                <button class='btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row['applicant_id']) . "
+                                data-job-id=" . htmlspecialchars($row['job_posting_id']) . " $interview_button_disabled>Interview</button>
+                           
+                                <button id='profileFormBtn' class='btn btn-primary openProfileBtn mx-2' data-applicant-id='" . htmlspecialchars($row['applicant_id']) . "'>View Profile</button>
                             </td>
-                            <td>
-                            <a href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) . "'
-                            class='".$accept_link_disabled."'>rejected</a>
-                            </td>
-                            <td>
-                                <button id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
-                                data-job-id=" . htmlspecialchars($row["job_posting_id"]) . " $interview_button_disabled>Interview</button>
-                            </td>
-                            <td><button id='profileFormBtn' class='openProfileBtn' data-applicant-id='" . htmlspecialchars($row["applicant_id"]) . "'>View Profile</button></td>
                         </tr>";
                     }
                 } else {
@@ -191,26 +191,27 @@
             
             // Display each category vertically with centered alignment
             echo "<div class='category-section'>";
-            display_table($pending, 'Applied applicant');
+            display_table($pending, 'Applied Applicant');
             echo "</div>";
 
             echo "<div class='category-section'>";
-            display_table($review, 'For interview');
+            display_table($review, 'For Interview');
             echo "</div>";
 
             echo "<div class='category-section'>";
             display_table($rejected, 'Accepted Applicant');
             echo "</div>";
-            
+
             $conn->close();
         ?>
-        </div>
     </div>
+</div>
 
 
-    <div id="formModal" class="modal">
+
+    <div id="formModal" class="modal modal-container">
         <div class="modal-content">
-            <span class="closeBtn">&times;</span>
+            <span class="btn-close closBtn closeBtn">&times;</span>
             <h2>Interview</h2>
             <form action="interview.php" method="post">
                 <input type="hidden" id="applicantId" name="applicant_id">

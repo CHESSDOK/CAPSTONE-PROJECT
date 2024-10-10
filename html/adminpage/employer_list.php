@@ -82,39 +82,43 @@ $result = $conn->query($sql);
     <li class="breadcrumb-item active" aria-current="page">Employer List</li>
   </ol>
 </nav>
+
 <div class="table-containers">
-    <div class="button-container">
-        <a href="create_job.php" class="btn btn-primary">Post Job</a>
-    </div>
-    <div class="table-wrapper">
-        <table class="table table-borderless table-hover">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Documents</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                                <td>" . htmlspecialchars($row["username"]) . "</td>
-                                <td>" . htmlspecialchars($row["email"]) . "</td>
-                                <td><a class='docu openEmployersBtn' href='#' data-employer-id=".htmlspecialchars($row['id']).">View Documents</a></td>
-                            </tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='3'>No employers found</td></tr>";
-                }
-                $conn->close();
-                ?>
-            </tbody>
-        </table>
+    <div class="row align-items-start">
+        <div class="col-12 col-md-auto mb-2">
+            <a href="create_job.php" class="btn btn-primary">Admin Job Post</a>
+        </div>
+        <div class="col-12 col-md">
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead class="thead-light d-md-table-header-group">
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Documents</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr>
+                                        <td>" . htmlspecialchars($row["username"]) . "</td>
+                                        <td>" . htmlspecialchars($row["email"]) . "</td>
+                                        <td><a class='docu openEmployersBtn' href='#' data-employer-id=".htmlspecialchars($row['id']).">View Documents</a></td>
+                                    </tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='3'>No employers found</td></tr>";
+                        }
+                        $conn->close();
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-
 
 
 <!-- employer list -->

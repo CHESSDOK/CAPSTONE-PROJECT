@@ -241,6 +241,21 @@ nav {
     box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.applicant-container {
+    overflow: auto;
+    text-align: center;
+    background-color: #fff;
+    max-height: 220px; 
+    width: 600px; 
+    max-width: auto;
+    border-radius: 15px;
+    box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.applicant-container table {
+    width: 100%; /* Make the table take up full width of the container */
+}
+
 .job-container {
     text-align: center;
     background-color: #fff;
@@ -276,3 +291,10 @@ nav {
 	margin: 5vh;
 	gap: 1rem; 
 }
+
+.admin-container {
+    margin: 0 auto; /* Centers the container horizontally */
+    width: 100%; /* Adjust the width as needed */
+    max-width: 1200px; /* Optional: for controlling the maximum width */
+}
+

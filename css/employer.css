@@ -51,6 +51,43 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.table-containers {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 5vh auto;
+  width: 80%;
+}
+
+.full-name{
+  width: 20vw;
+  max-width: auto;
+}
+.btn-job{
+  width: 34vw;
+  max-width: auto;
+}
+
+.table {
+  border-radius: 20px;
+  background-color: #fff;
+  margin: 0; 
+  font-size: 0.95rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.table td, .table th {
+  background-color: transparent;/* Adjust padding for better spacing */
+  text-align: center;
+}
+
+.disabled-link {
+  pointer-events: none; /* Prevents clicking */
+  color: gray; /* Makes it look disabled */
+  text-decoration: none;
+  }
+
 /* all */
 .bcrumb-container{
   position: relative;

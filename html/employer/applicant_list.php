@@ -69,45 +69,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/employer.css">
-    <style>
-            .category-container {
-                display: flex;
-                flex-direction: column; /* Align categories and tables vertically */
-                gap: 20px; /* Space between categories */
-            }
-            .category-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center; /* Center align headers and tables */
-                width: 100%;
-            }
-            .category-section h3 {
-                margin-bottom: 10px; /* Space between header and table */
-            }
-            table {
-                width: 80%; /* Adjust table width */
-                border-collapse: collapse;
-            }
-            table, th, td {
-                border: 1px solid black; /* Add borders to the table */
-            }
-            th, td {
-                padding: 8px;
-                text-align: left;
-            }
-            .disabled-link {
-            pointer-events: none; /* Prevents clicking */
-            color: gray; /* Makes it look disabled */
-            text-decoration: none;
-            }
-    </style>
-
 </head>
 <body>
 <!-- Navigation -->
@@ -172,23 +137,18 @@
   </ol>
 </nav>
 
-    <header>
-        <h1 class="h1"></h1>
-    </header>
-    
-    <div class='ep-container'>
-        <div class="category-container">
+<div class='table-containers'>
+    <div class="row align-items-start">
         <?php
             function display_table($applicants, $status_label) {
                 echo "<h3>$status_label</h3>";
-                echo "<table>
-                        <tr>
-                            <th>ID</th>
+                echo "<table class='table table-borderless'>
+                        <thead class='thead-light'>
                             <th>Full Name</th>
                             <th>Job</th>
                             <th>Status</th>
-                            <th>Actions</th>
-                        </tr>";
+                            <th class='action-btn'>Actions</th>
+                        </thead>";
                 
                 if (!empty($applicants)) {
                     foreach ($applicants as $row) {
@@ -200,23 +160,22 @@
                         $accept_link_disabled = ($status == 'accepted') ? 'disabled-link' : '';
                         echo "
                         <tr>
-                            <td>" . htmlspecialchars($row['applicant_id']) . "</td>
-                            <td>" . htmlspecialchars($full_name) . "</td>6
+                            <td class='full-name'>" . htmlspecialchars($full_name) . "</td>
                             <td>" . htmlspecialchars($row['job']) . "</td>
                             <td>" . ucfirst($row['status']) . "</td>
-                            <td>
+                            
+                            <td class='btn-job'>
                                 <a href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "' 
-                                class='".$accept_link_disabled."'>Accept</a>
-                            </td>
-                            <td>
-                            <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'
-                            class='".$accept_link_disabled."'>rejected</a>
-                            </td>
-                            <td>
-                                <button id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
+                                class='btn btn-success mx-2 ".$accept_link_disabled."'>Accept</a>
+                            
+                                <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'
+                                class='btn btn-danger mx-2 ".$accept_link_disabled."'>Rejected</a>
+                          
+                                <button class='btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
                                 data-job-id=" . htmlspecialchars($row["job_posting_id"]) . " $interview_button_disabled>Interview</button>
+                            
+                                <button id='profileFormBtn' class='btn btn-primary openProfileBtn mx-2' data-applicant-id='" . htmlspecialchars($row["applicant_id"]) . "'>View Profile</button>
                             </td>
-                            <td><button id='profileFormBtn' class='openProfileBtn' data-applicant-id='" . htmlspecialchars($row["applicant_id"]) . "'>View Profile</button></td>
                         </tr>";
                     }
                 } else {
@@ -295,6 +254,9 @@
     document.getElementById('date').setAttribute('min', currentDate);
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../javascript/script.js"></script>
 </body>
 </html>

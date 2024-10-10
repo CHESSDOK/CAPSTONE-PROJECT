@@ -143,13 +143,7 @@ $result = $conn->query($sql);
         <span></span>
     </div>
 </nav>
-<?php 
-if ($admin_level === "super_admin") {
-    echo "<button class='btn btn-primary' id='openCourseBtn'>Create account</button>";
-} else {
-    echo "";
-}
-?>
+
 <!-- Offcanvas Menu -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     
@@ -167,10 +161,85 @@ if ($admin_level === "super_admin") {
         </table>
     </div>
 </div>
+
+<div class="admin-container">
+    <div class="num-container">
+        <!--hiring rate-->
+        <div class="job-container">
+            <h5>Total Job Hiring Rate</h5>
+            <p>Total Applications: <?php echo $total_applications; ?><p>
+            <p>Hired Applications: <?php echo $hired_applications; ?><p>
+            <p>Hiring Rate: <?php echo round($hiring_rate, 2); ?>%<p>
+        </div>
+        <div class="combine-num-container">
+            <!--job count-->
+            <div class="job-container">
+                <h5>Active Job Postings</h5>
+                <p>Total Active Jobs Posted: <?php echo $active_job_postings; ?></p>
+            </div>
+
+            <!--User count-->
+            <div class="job-container">
+                <h5>Inactive User</h5>
+                <p>Total Inactive Applicants: <?php echo $other_percentage; ?></p>
+            </div>
+        </div>
+
+        <div class="applicant-container">
+            <table>
+                <thead>
+                    <th>Lastname</th>
+                    <th>Specialization</th>
+                    <th>Job Applied</th>
+                    <th>Status</th>
+                </thead>
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $specialization = $row["specialization"] ?? 'None';
+                        echo "<tr>
+                                <td>" . htmlspecialchars($row["last_name"]) . "</td>
+                                <td>" . htmlspecialchars($specialization) . "</td>
+                                <td>" . htmlspecialchars($row["job"]) . "</td>
+                                <td>" . htmlspecialchars($row["status"]) . "</td>
+                            </tr>";
+                    }
+                } else {
+                    echo "
+                    <tr><td colspan='7'>No user found</td></tr>";
+                }
+                $conn->close();
+                ?>
+            </table>
+        </div>
+    </div>       
+
+    <div class="chart-container">
+    <!-- Pie Chart -->
+        <div class="pie-container">
+            <h3>Applicants Chart</h3>
+            <canvas id="userPieChart" width="200" height="200"></canvas>
+        </div>
+
+    <!-- Bar Chart -->
+        <div class="bar-container">
+            <h3>OFW Chart</h3>
+            <canvas id="casesBarChart" width="500" height="200"></canvas>
+        </div>
+    <?php 
+    if ($admin_level === "super_admin") {
+        echo "<button class='btn btn-primary' id='openCourseBtn'>Create account</button>";
+    } else {
+        echo "";
+    }
+    ?>
+</div>
+</div>
+
 <div id="courseModal" class="modal modal-container">
     <div class="modal-content">
-        <span class="btn-close closeBtn"></span>
-        <table>
+        <span class="btn-close closBtn closeBtn">&times;</span>
+        <table class="table table-borderless table-hover">
             <tr>
                 <td>
                     <p class="title">Admin Account</p>
@@ -235,42 +304,6 @@ if ($admin_level === "super_admin") {
     </div>
 </div>
 
-<div class="num-container">
-    <!--hiring rate-->
-    <div class="job-container">
-        <h5>Total Job Hiring Rate</h5>
-        <p>Total Applications: <?php echo $total_applications; ?><p>
-        <p>Hired Applications: <?php echo $hired_applications; ?><p>
-        <p>Hiring Rate: <?php echo round($hiring_rate, 2); ?>%<p>
-    </div>
-    <div class="combine-num-container">
-        <!--job count-->
-        <div class="job-container">
-            <h5>Active Job Postings</h5>
-            <p>Total Active Jobs Posted: <?php echo $active_job_postings; ?></p>
-        </div>
-
-        <!--User count-->
-        <div class="job-container">
-            <h5>Inactive User</h5>
-            <p>Total Inactive Applicants: <?php echo $other_percentage; ?></p>
-        </div>
-    </div>
-</div>       
-
-<div class="chart-container">
-<!-- Pie Chart -->
-<div class="pie-container">
-    <h3>Applicants Chart</h3>
-    <canvas id="userPieChart" width="200" height="200"></canvas>
-</div>
-
-<!-- Bar Chart -->
-<div class="bar-container">
-    <h3>OFW Chart</h3>
-    <canvas id="casesBarChart" width="500" height="200"></canvas>
-</div>
-</div>
 
 <!-- Applicant Pie Chart -->
 <script>
@@ -343,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Number of Unique Cases'
+                        text: ''
                     }
                 },
                 x: {
@@ -351,17 +384,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         display: true,
                         text: 'Case Title'
                     }
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                },
-                title: {
-                    display: true,
-                    text: 'Ranking of Unique Cases by Title'
                 }
             }
         }
@@ -382,32 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("Total Active Job Postings: " + activeJobPostings);
 </script>
 
-<table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Specialization</th>
-            <th>Job Applied</th>
-            <th>Status</th>
-        </tr>
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
-                $specialization = $row["specialization"] ?? 'None';
-                echo "<tr>
-                        <td>" . htmlspecialchars($full_name) . "</td>
-                        <td>" . htmlspecialchars($specialization) . "</td>
-                        <td>" . htmlspecialchars($row["job"]) . "</td>
-                        <td>" . htmlspecialchars($row["status"]) . "</td>
-                    </tr>";
-            }
-        } else {
-            echo "
-            <tr><td colspan='7'>No user found</td></tr>";
-        }
-        $conn->close();
-        ?>
-    </table>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
