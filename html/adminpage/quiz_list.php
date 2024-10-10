@@ -104,8 +104,9 @@ $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>
                             <form action='quiz_update.php' method='post'>
-                            <td><input type='hidden' name='id' value='" . $row['id'] . "'>
-                            <td><input type='hidden' name='module_id' value='" . $row['module_id'] . "'>
+                            <input type='hidden' name='id' value='" . $row['id'] . "'>
+                            <input type='hidden' name='course_id' value='" . $course_id . "'>
+                            <input type='hidden' name='module_id' value='" . $row['module_id'] . "'>
                             <td><input class='form-control' type='text' name='name' value='" . $row['title'] . "'></td>
                             <td><input class='form-control' type='text' name='tag' value='" . $row['tag'] . "'></td>
                             <td><input class='form-control' type='text' name='total' value='" . $row['total'] . "'></td>

@@ -3,6 +3,7 @@
 include '../../php/conn_db.php';
 $q_id = $_GET['q_id'];
 $module_id = $_GET['module_id'];
+$course_id = $_GET['course_id'];
 $total = $_GET['total'];
 
 
@@ -83,7 +84,7 @@ $result = $conn->query($sql);
     <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
     <li class="breadcrumb-item"><a href="course_list.php" >Courses</a></li>
     <li class="breadcrumb-item"><a href="module_list.php?course_id=<?php echo $course_id; ?>">Module List</a></li>
-    <li class="breadcrumb-item"><a href="add_question.php?course_id=<?php echo $course_id; ?>">Quiz List</a></li>
+    <li class="breadcrumb-item"><a href="quiz_list.php?course_id=<?php echo $course_id; ?>&modules_id=<?php echo $module_id; ?>">Quiz List</a></li>
     <li class="breadcrumb-item active" aria-current="page">Quiz Question</li>
   </ol>
 </nav>
