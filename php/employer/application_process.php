@@ -1,6 +1,20 @@
 <?php
 include 'conn_db.php';
+function checkSession() {
+    session_start(); // Start the session
 
+    // Check if the session variable 'id' is set
+    if (!isset($_SESSION['id'])) {
+        // Redirect to login page if session not found
+        header("Location: html/login_employer.html");
+        exit();
+    } else {
+        // If session exists, store the session data in a variable
+        return $_SESSION['id'];
+    }
+}
+
+$userId = checkSession();
 $user_id = $_GET['id'];
 
 
@@ -48,7 +62,7 @@ if ($conn->query($sql) === TRUE) {
     }
 
     // Redirect to the applicant list
-    header("Location: applicant_list.php?job_id=".$job_id);
+    header("Location: ../../html/employer/applicant_list.php?job_id=".$job_id);
     exit(); // Ensure to stop further script execution
 } else {
     // Display an error message if the query fails

@@ -14,7 +14,7 @@
         }
     }
 
-    $userId = checkSession();
+    $adminId = checkSession();
     $jobid = $_GET['job_id'];
 
     // SQL JOIN to fetch applicant details and their applications
@@ -49,7 +49,7 @@
     // Fetch employer profile
     $sql = "SELECT * FROM empyers WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param("i", $adminId);
     $stmt->execute();
     $res = $stmt->get_result();
 
@@ -71,10 +71,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/modal-form.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/admin_employer.css">
-
+    <style>
+            .category-container {
+                display: flex;
+                flex-direction: column; /* Align categories and tables vertically */
+                gap: 20px; /* Space between categories */
+            }
+            .category-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Center align headers and tables */
+                width: 100%;
+            }
+            .category-section h3 {
+                margin-bottom: 10px; /* Space between header and table */
+            }
+            table {
+                width: 80%; /* Adjust table width */
+                border-collapse: collapse;
+            }
+            table, th, td {
+                border: 1px solid black; /* Add borders to the table */
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+            }
+            .disabled-link {
+            pointer-events: none; /* Prevents clicking */
+            color: gray; /* Makes it look disabled */
+            text-decoration: none;
+            }
+    </style>
 </head>
 <body>
 <!-- Navigation -->
@@ -190,6 +224,7 @@
             }
             
             // Display each category vertically with centered alignment
+            // Display each category vertically with centered alignment
             echo "<div class='category-section'>";
             display_table($pending, 'Applied Applicant');
             echo "</div>";
@@ -244,43 +279,11 @@
         </div>
     </div>
 </div>
-
+<script src="../../javascript/applicant_admin.js"></script>
     <script>
-        // Get modal and button elements
-const modal = document.getElementById('formModal');
-const openBtn = document.getElementById('openFormBtn');
-const closeBtn = document.querySelector('.closeBtn');
-const applicantIdField = document.getElementById('applicantId');
-const anotherIdField = document.getElementById('jobid');
-
-// Open modal and set applicant_id in hidden field
-openBtn.addEventListener('click', function() {
-  const applicantId = this.getAttribute('data-applicant-id');
-  const jobid = this.getAttribute('data-job-id');
-  
-  // Set the applicant ID in the hidden field
-  applicantIdField.value = applicantId;
-  anotherIdField.value = jobid;
-
-  // Open the modal
-  modal.style.display = 'flex';
-});
-
-// Close modal when 'x' is clicked
-closeBtn.addEventListener('click', function() {
-  modal.style.display = 'none';
-});
-
-// Close modal when clicked outside of the modal content
-window.addEventListener('click', function(event) {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-});
-
     // Get modal and button elements for viewing profile
     const profileModal = document.getElementById('profileModal');
-    const secclosepBtn = document.querySelector('.seccloseBtn');
+    const closepBtn = document.querySelector('.seccloseBtn');
 
     // Open profile modal and load data via AJAX
     $(document).on('click', '.openProfileBtn', function(e) {
@@ -299,7 +302,7 @@ window.addEventListener('click', function(event) {
     });
 
     // Close profile modal when 'x' is clicked
-    secclosepBtn.addEventListener('click', function() {
+    closepBtn.addEventListener('click', function() {
         profileModal.style.display = 'none';
     });
 
@@ -310,23 +313,15 @@ window.addEventListener('click', function(event) {
         }
     });
 
-
-
-    </script>
-    <script>
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
     const yyyy = today.getFullYear();
     const currentDate = `${yyyy}-${mm}-${dd}`;
-
     // Set the min attribute to today's date
     document.getElementById('date').setAttribute('min', currentDate);
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../javascript/script.js"></script>  
 </body>
 </html>

@@ -54,22 +54,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO employer_profile (user_id, company_name, company_address) 
             VALUES ('$last_id', '', '')";
-    if ($conn->query($sql) === TRUE) {
-        // Send the OTP email
-        sendOtpEmail($email, $otp);
+            if ($conn->query($sql) === TRUE) {
+                // Send OTP email
+                sendOtpEmail($email, $otp);
 
-        // Redirect or alert the user
-        echo "<script type='text/javascript'> 
-                alert('Registration successful! Please verify your email using the OTP sent.');
-                window.location.href='../../html/employer/otp_verification.html'; 
-              </script>";
-        } else {
+                // Redirect to OTP verification page with email
+                header("Location: ../../html/employer/otp_ver.php?email=" . urlencode($email));
+                exit();
+            } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
-        } else {
+            } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-        $conn->close();
-            
-}
+            }
+
+            $conn->close();
+            }
 ?>

@@ -150,10 +150,10 @@
                             <th class='action-btn'>Actions</th>
                         </thead>";
                 
-                if (!empty($applicants)) {
-                    foreach ($applicants as $row) {
-                        $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
-                        $status = $row['status'];
+    if (!empty($applicants)) {
+        foreach ($applicants as $row) {
+            $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
+            $status = $row['status'];
 
                         // Conditionally disable the interview button for "review" or "rejected" status
                         $interview_button_disabled = ($status == 'interview' || $status == 'accepted') ? 'disabled' : '';
@@ -241,9 +241,42 @@
         </div>
     </div>
 </div>
-
+    
     <script src="../../javascript/popup-modal.js"></script>
     <script>
+        
+    // Get modal and button elements for viewing profile
+    const profileModal = document.getElementById('profileModal');
+    const closepBtn = document.querySelector('.seccloseBtn');
+
+    // Open profile modal and load data via AJAX
+    $(document).on('click', '.openProfileBtn', function(e) {
+        e.preventDefault();
+        const applicantId = $(this).data('applicant-id');
+        
+        $.ajax({
+            url: 'fetch_applicant_profile.php',
+            method: 'GET',
+            data: { applicant_id: applicantId },
+            success: function(response) {
+                $('#applicantProfileContent').html(response);
+                profileModal.style.display = 'flex';
+            }
+        });
+    });
+
+    // Close profile modal when 'x' is clicked
+    closepBtn.addEventListener('click', function() {
+        profileModal.style.display = 'none';
+    });
+
+    // Close profile modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target === profileModal) {
+            profileModal.style.display = 'none';
+        }
+    });
+
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0

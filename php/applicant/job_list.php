@@ -16,11 +16,12 @@ $searchQuery = isset($_GET['search']) ? '%' . $_GET['search'] . '%' : '%';
 
 // Base SQL for fetching jobs
 
-$sql = "SELECT jp.*, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username
+$sql = "SELECT jp.*, a.status, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username
         FROM job_postings jp
         LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
         LEFT JOIN admin_profile ad ON jp.admin_id = ad.id
-        WHERE jp.is_active = 1 AND jp.job_title LIKE ?";
+        LEFT JOIN applications a ON a.job_posting_id = jp.j_id AND  a.applicant_id = $userId
+        WHERE jp.is_active = 1 AND a.status IS NULL AND jp.job_title LIKE ?";
 
 //$sql = "SELECT * FROM job_postings WHERE is_active = 1 AND job_title LIKE ?";
 
