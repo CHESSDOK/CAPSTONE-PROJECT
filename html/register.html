@@ -11,7 +11,6 @@
 <body>
 
     <!-- Navigation -->
-
     <nav>
         <div class="logo">
             <img src="../img/logo_peso.png" alt="Logo">
@@ -22,101 +21,63 @@
     <!-- Body -->
     <table>
         <tr>
-            <td>
-                <p class="title2">Applicant</p>
-            </td>
+            <td><p class="title2">Applicant</p></td>
         </tr>
         <tr>
-            <td>
-                <p class="title">Registration</p>
-            </td>
+            <td><p class="title">Registration</p></td>
         </tr>
-        
         <tr>
-            <td>
-                <div class="logol">
-                    <img src="../img/logo_peso.png" alt="Logo">
-                </div>
-            </td>
+            <td><div class="logol"><img src="../img/logo_peso.png" alt="Logo"></div></td>
         </tr>
-        
-        <tr>
-            <td>
-                <p class="subtitle">Signup now and get access to our job portal.</p>
-            </td>
-        </tr>
-        
+        <tr><td><p class="subtitle">Signup now and get access to our job portal.</p></td></tr>
         <tr>
             <td>
                 <form class="form" action="../php/register.php" method="POST" id="registrationForm">
                     <div class="input-group">
                         <input required type="email" class="input" name="email" id="emailInput" placeholder="Email">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="input-group">
-                    <input required type="text" class="input" name="user" placeholder="Username">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="input-group">
-                    <input required type="password" class="input" name="password" minlength="8" maxlength="16" id="passwordInput" placeholder="Password">
-                </div>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <button class="btn btn-primary sign" type="submit">Submit</button>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <p class="signup">Already have an account? <a href="login.html">Signin</a></p>
+                    </div>
+                    <div class="input-group">
+                        <input required type="text" class="input" name="user" placeholder="Username">
+                    </div>
+                    <div class="input-group">
+                        <input required type="password" class="input" name="password" minlength="8" maxlength="16" id="passwordInput" placeholder="Password">
+                    </div>
+                    <button class="btn btn-primary sign" type="submit">Submit</button>
                 </form>
             </td>
         </tr>
-    <tr>
-        <td>
-          <p class="signin">Employer Signup? Click here 
-            <a href="../html/employer/register_employer.html">Employer page</a>
-          </p>
-        </td>
-      </tr>
+        <tr>
+            <td><p class="signup">Already have an account? <a href="login.html">Signin</a></p></td>
+        </tr>
+        <tr>
+            <td><p class="signin">Employer Signup? <a href="../html/employer/register_employer.html">Employer page</a></p></td>
+        </tr>
     </table>
 
-    <script src="../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
     <script>
+        // Optional: Add client-side validation for password or email before submission
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             const password = document.getElementById('passwordInput').value;
             const email = document.getElementById('emailInput').value;
 
-            // Define the patterns for required conditions
-            const hasUpperCase = /[A-Z]/.test(password); // Must have at least one uppercase letter
-            const hasLowerCase = /[a-z]/.test(password); // Must have at least one lowercase letter
-            const hasDigit = /\d/.test(password);        // Must have at least one digit
-            const hasSpecialChar = /[\W_]/.test(password); // Special character is optional
-            
-            // Email regex for validation
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasDigit = /\d/.test(password);
+
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault();
                 alert('Please enter a valid email address.');
                 return;
             }
 
-            // Ensure all required conditions are met (uppercase, lowercase, digit)
             if (!hasUpperCase || !hasLowerCase || !hasDigit) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault();
                 alert('Password must contain at least one uppercase letter, one lowercase letter, and one digit.');
+                return;
             }
         });
     </script>
-    
+
 </body>
 </html>

@@ -190,42 +190,42 @@
                             <th>Actions</th>
                         </tr>";
                 
-                if (!empty($applicants)) {
-                    foreach ($applicants as $row) {
-                        $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
-                        $status = $row['status'];
+    if (!empty($applicants)) {
+        foreach ($applicants as $row) {
+            $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
+            $status = $row['status'];
 
-                        // Conditionally disable the interview button for "review" or "rejected" status
-                        $interview_button_disabled = ($status == 'interview' || $status == 'accepted') ? 'disabled' : '';
-                        $accept_link_disabled = ($status == 'accepted') ? 'disabled-link' : '';
-                        echo "
-                        <tr>
-                            <td>" . htmlspecialchars($row['applicant_id']) . "</td>
-                            <td>" . htmlspecialchars($full_name) . "</td>6
-                            <td>" . htmlspecialchars($row['job']) . "</td>
-                            <td>" . ucfirst($row['status']) . "</td>
-                            <td>
-                                <a href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "' 
-                                class='".$accept_link_disabled."'>Accept</a>
-                            </td>
-                            <td>
-                            <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'
-                            class='".$accept_link_disabled."'>rejected</a>
-                            </td>
-                            <td>
-                                <button id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
-                                data-job-id=" . htmlspecialchars($row["job_posting_id"]) . " $interview_button_disabled>Interview</button>
-                            </td>
-                            <td><button id='profileFormBtn' class='openProfileBtn' data-applicant-id='" . htmlspecialchars($row["applicant_id"]) . "'>View Profile</button></td>
-                        </tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='5'>No applicants found</td></tr>";
-                }
-            
-                echo "</table>";
+            echo "
+            <tr>
+                <td>" . htmlspecialchars($row['applicant_id']) . "</td>
+                <td>" . htmlspecialchars($full_name) . "</td>
+                <td>" . htmlspecialchars($row['job']) . "</td>
+                <td>" . ucfirst($status) . "</td>
+                <td>";
+                
+            // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
+            if ($status != 'accepted' && $status != 'interview') {
+                echo "
+                <a href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>
+                <button class='openFormBtn' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
+                data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
+            }elseif ($status === 'interview') {
+                    echo " <a href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                            <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
             }
-            
+
+            echo "<button id='profileFormBtn' class='openProfileBtn' data-applicant-id='". htmlspecialchars($row["applicant_id"]) . "'>View Profile</button>
+                </td>
+            </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='5'>No applicants found</td></tr>";
+    }
+
+    echo "</table>";
+}
+
             // Display each category vertically with centered alignment
             echo "<div class='category-section'>";
             display_table($pending, 'Applied applicant');
@@ -282,9 +282,42 @@
         </div>
     </div>
 </div>
-
+    
     <script src="../../javascript/popup-modal.js"></script>
     <script>
+        
+    // Get modal and button elements for viewing profile
+    const profileModal = document.getElementById('profileModal');
+    const closepBtn = document.querySelector('.seccloseBtn');
+
+    // Open profile modal and load data via AJAX
+    $(document).on('click', '.openProfileBtn', function(e) {
+        e.preventDefault();
+        const applicantId = $(this).data('applicant-id');
+        
+        $.ajax({
+            url: 'fetch_applicant_profile.php',
+            method: 'GET',
+            data: { applicant_id: applicantId },
+            success: function(response) {
+                $('#applicantProfileContent').html(response);
+                profileModal.style.display = 'flex';
+            }
+        });
+    });
+
+    // Close profile modal when 'x' is clicked
+    closepBtn.addEventListener('click', function() {
+        profileModal.style.display = 'none';
+    });
+
+    // Close profile modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target === profileModal) {
+            profileModal.style.display = 'none';
+        }
+    });
+
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0

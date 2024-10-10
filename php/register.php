@@ -61,18 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         $last_id = $conn->insert_id;
 
-        // Insert a new row in applicant_profile table
+        // Insert into `applicant_profile`
         $sql = "INSERT INTO applicant_profile (user_id, email) VALUES ('$last_id','$email')";
-
         if ($conn->query($sql) === TRUE) {
-            // Send the OTP email
+            // Send OTP email
             sendOtpEmail($email, $otp);
 
-            // Redirect or alert the user
-            echo "<script type='text/javascript'> 
-                    alert('Registration successful! Please verify your email using the OTP sent.');
-                    window.location.href='../html/otp_verification.html'; 
-                  </script>";
+            // Redirect to OTP verification page with email
+            header("Location: ../html/otp_ver.php?email=" . urlencode($email));
+            exit();
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -81,5 +78,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-}
+    }
 ?>

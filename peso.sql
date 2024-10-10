@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 08, 2024 at 01:17 PM
+-- Generation Time: Oct 10, 2024 at 04:08 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -102,16 +102,6 @@ CREATE TABLE `applicant_profile` (
   `dept_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `applicant_profile`
---
-
-INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `age`, `specialization`, `sex`, `civil_status`, `contact_no`, `photo`, `house_address`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `prefix`, `emergency_contact_num`, `income`, `country`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`) VALUES
-(8, 25, 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '66f7a9dcefbc2.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 27, 'marklawrencemercado8@gmail.com', 'Jervin', 'De guzman', 'Castalone', NULL, NULL, NULL, NULL, NULL, NULL, '66f7bc41c6174.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 28, 'mercadomarklawrence55@gmail.com', 'Mark', 'Mercado', 'Aranda', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 29, 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -126,20 +116,6 @@ CREATE TABLE `applications` (
   `status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
   `job` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `applications`
---
-
-INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(32, 28, 8, '2024-10-05', 'accepted', 'backend dev'),
-(33, 28, 4, '2024-10-05', 'accepted', 'electrician'),
-(34, 28, 1, '2024-10-05', 'accepted', 'Laborer'),
-(35, 27, 4, '2024-10-05', 'accepted', 'electrician'),
-(36, 27, 1, '2024-10-05', 'accepted', 'Laborer'),
-(37, 27, 13, '2024-10-05', 'accepted', 'Security Guard'),
-(38, 27, 11, '2024-10-08', 'pending', 'Carpenter'),
-(39, 27, 13, '2024-10-08', 'pending', 'Security Guard');
 
 -- --------------------------------------------------------
 
@@ -157,19 +133,19 @@ CREATE TABLE `cases` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `cases`
+-- Table structure for table `chat_messages`
 --
 
-INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, `created_at`) VALUES
-(3, 1, 'stalking', 'following everywhere', '../uploads/LSPU-LB CCS - Participant Certificates.pdf', 'filed', '2024-09-07 07:56:16'),
-(4, 2, 'physical abuse', 'fawfaesfreafgre', NULL, 'filed', '2024-09-29 12:54:36'),
-(5, 1, 'stalking', 'rwefdw3fwdfer', NULL, 'filed', '2024-09-29 12:54:36'),
-(6, 3, 'little pay', 'gfsrgsergsfdg', NULL, 'filed', '2024-09-29 12:56:45'),
-(7, 1, 'little pay', 'sadgfsdargs', NULL, 'filed', '2024-09-29 12:56:45'),
-(8, 4, 'little pay', 'fasdafawe', NULL, 'filed', '2024-09-29 12:56:45'),
-(9, 5, 'little pay', 'fawefasdfwaeaa', NULL, 'filed', '2024-09-29 12:56:45'),
-(11, 28, 'Overwork', 'having too much work and task with pay', '../uploads/1284700.png', 'in_progress', '2024-10-02 03:41:56');
+CREATE TABLE `chat_messages` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `sender` varchar(100) NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -184,17 +160,6 @@ CREATE TABLE `contact_us` (
   `subject` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `messages` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `contact_us`
---
-
-INSERT INTO `contact_us` (`id`, `email`, `name`, `subject`, `messages`) VALUES
-(1, 'meyekop757@buzblox.com', 'meyokop', 'Trying', 'try lng to <./.>'),
-(2, 'mercadomarklawrence55@gmail.com', 'nezuko', 'Trying', 'b**bies'),
-(3, 'ict1mercado.cdlb@gmail.com', 'nezuko', 'Trying', '2143rfsg5rdhg5dr6u5r67uftyhjft'),
-(4, 'marklawrencemercado8@gmail.com', 'meyokop', 'Trying', 'yhtgnyrthnbnbytdrh5rtd54etyegwe4tf3wrfsdf34wtdfgfhbhthbrty54'),
-(5, 'marklawrencemercado8@gmail.com', 'meyokop', 'Trying', 'spam');
 
 -- --------------------------------------------------------
 
@@ -234,14 +199,6 @@ CREATE TABLE `employer_documents` (
   `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `employer_documents`
---
-
-INSERT INTO `employer_documents` (`id`, `user_id`, `document_name`, `document_path`, `is_verified`, `comment`) VALUES
-(1, 1, 'asdawdawf', 'uploads/a.jpg', 1, NULL),
-(2, 1, 'Widowed', 'uploads/supply.pdf', 1, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -260,15 +217,6 @@ CREATE TABLE `employer_profile` (
   `HR_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `employer_profile`
---
-
-INSERT INTO `employer_profile` (`id`, `user_id`, `company_name`, `company_address`, `tel_num`, `president`, `HR`, `company_mail`, `HR_mail`, `photo`) VALUES
-(1, 1, 'JOLLYBOYS', 'crossing kanto', '09162602288', 'JOE BIDEN', 'DUKIN TRUMPS', 'JOLLYBOYS@gmail.com', 'DUKIN TRUMPS@gmail.com', '66f686ecbd255.png'),
-(2, 2, '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 3, '', '', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -292,15 +240,6 @@ CREATE TABLE `empyers` (
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `empyers`
---
-
-INSERT INTO `empyers` (`id`, `username`, `password`, `email`, `Fname`, `Lname`, `Bdate`, `contact`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
-(1, 'azure', '$2y$10$uuxWdsGRfcNdTON/tfERYeeWaTngF9te5DMyjQjogMAY.xuxBZOKi', 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'block', '$2y$10$NZK88hsc5Te3/wCmEYdt2uY857JTy2/OM9baceUJGem1TXdCXBjny', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'd831e51998ed942c38323c252620e1b5604535816d1ebeb5b2b59c93565a368c108ce454da63b06c14602704622b6b5c12d1', '2024-09-28 22:18:33'),
-(3, 'Azure', '$2y$10$RodRrQUj/uS1n/Ig3FZhN.7FGIEiKlMdO6CsG4utmyNeRdFSezKri', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 0, '979191', '2024-09-28 22:04:14', 'd831e51998ed942c38323c252620e1b5604535816d1ebeb5b2b59c93565a368c108ce454da63b06c14602704622b6b5c12d1', '2024-09-28 22:18:33');
-
 -- --------------------------------------------------------
 
 --
@@ -317,14 +256,6 @@ CREATE TABLE `interview` (
   `meeting` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `interview`
---
-
-INSERT INTO `interview` (`id`, `user_id`, `Job_id`, `sched_date`, `sched_time`, `interview`, `meeting`, `is_read`) VALUES
-(6, 27, 1, '2024-10-08', '19:00:00', 'FacetoFace', 'sadwqfdsfsddwq', 0),
-(7, 27, 4, '2024-10-30', '16:08:00', 'FacetoFace', 'sadwqfdsfsddwq', 0);
 
 -- --------------------------------------------------------
 
@@ -352,38 +283,10 @@ CREATE TABLE `job_postings` (
 --
 
 INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_description`, `specialization`, `vacant`, `requirment`, `work_location`, `remarks`, `date_posted`, `is_active`) VALUES
-(1, 1, NULL, 'Laborer', 'construction worker', '', 10, '', '', '', '2024-09-30', 1),
-(4, 1, NULL, 'electrician', 'fix electrical', '', 0, '', '', '', '2024-09-30', 0),
-(8, 1, NULL, 'backend dev', 'database, php, mysql', 'Information and technology', 1, '', '', '', '2024-09-28', 1),
-(9, 1, NULL, 'front end', 'dasfesargcvgbbdnnjghtydhdrtfggrt', 'Information and Technology', 0, '', '', '', '2024-09-30', 0),
-(10, 1, NULL, 'system Administration', '-Installing, configuring, maintaining, and securing an organization\'s computer systems and networks.\r\n-Supporting, troubleshooting, and maintaining computer servers and networks.\r\n-Identifying and fixing network issues.\r\n-Updating equipment and software.\r\n-Advising on IT policies and optimizing computer networks.', 'Information and Technology', 0, '-College Graduate\r\n-4yrs of work experience\r\n-can use command line', 'Gotham city, back street', '', '2024-09-23', 0),
 (11, NULL, 1, 'Carpenter', 'Wood crafting and stuff', '', 12, 'Has experience on woodsman ship', 'Bayog', '', '2024-10-08', 1),
 (13, NULL, 1, 'Security Guard', 'Mall Security Guard', '', 2, 'Security Guard License, can work on night shift', 'Olivares plaza, Los Banos', '', '2024-10-08', 1),
-(14, 1, NULL, 'Office desk', 'Social desk helper, document managers', NULL, 12, 'College graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
 (15, NULL, 1, 'Housewife', 'care giver', '', 12, 'Girl with big boob daw sabi ni jervin', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
 (16, NULL, 1, 'Warehouse man', 'Heavy work labor', '', 12, 'High graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `messages`
---
-
-CREATE TABLE `messages` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `user_id`, `message`, `created_at`) VALUES
-(13, 28, 'Hi can you please help me financially?', '2024-10-02 09:48:43'),
-(14, 27, 'Hi! good evening', '2024-10-07 12:33:11'),
-(15, 27, 'Wait a sec', '2024-10-07 13:05:12');
 
 -- --------------------------------------------------------
 
@@ -448,20 +351,6 @@ CREATE TABLE `modules_taken` (
   `status` varchar(200) COLLATE utf8mb4_general_ci DEFAULT 'fail',
   `date_taken` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `modules_taken`
---
-
-INSERT INTO `modules_taken` (`id`, `user_id`, `module_id`, `status`, `date_taken`) VALUES
-(1, 27, 1, 'passed', '2024-10-06'),
-(2, 28, 1, 'passed', '2024-10-06'),
-(6, 28, 2, 'fail', '2024-10-06'),
-(7, 27, 2, 'passed', '2024-10-06'),
-(10, 27, 3, 'passed', '2024-10-06'),
-(11, 27, 16, 'passed', '2024-10-06'),
-(12, 27, 9, 'passed', '2024-10-08'),
-(13, 27, 10, 'passed', '2024-10-08');
 
 -- --------------------------------------------------------
 
@@ -737,44 +626,6 @@ CREATE TABLE `register` (
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `register`
---
-
-INSERT INTO `register` (`id`, `email`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
-(25, 'mercadomarklawrence55@gmail.com', 'magenta', '$2y$10$TFP.KapyuMoIk0Ca2Fl/AON3iuVR2/XqsC3ewgAf4u2pSpMyHv2Fm', 1, '228351', '2024-09-28 09:09:09', NULL, NULL),
-(27, 'marklawrencemercado8@gmail.com', 'Azure', '$2y$10$kJuH5XOuc7AUoF8vyH8TS.Ap9MAKdFr1Vkubdg83BslKC/3I5lWve', 1, '458613', '2024-09-28 10:25:10', NULL, NULL),
-(28, 'mercadomarklawrence55@gmail.com', 'Mark', '$2y$10$UFvpDK2U7plMIpBDmuaVButXIisDNEUSnXvr8WM92kyeEkh0rEDFO', 1, '420341', '2024-09-29 18:46:07', NULL, NULL),
-(29, 'mercadomarklawrence55@gmail.com', 'Lawrence', '$2y$10$ROqzyQiz60t7B6YiPHZ5Eu7iwLJ/Y4TF3TjRPfPHqrzb88Snkvwe.', 1, '619957', '2024-09-30 15:30:49', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `replies`
---
-
-CREATE TABLE `replies` (
-  `id` int NOT NULL,
-  `message_id` int DEFAULT NULL,
-  `admin_id` int DEFAULT NULL,
-  `reply` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `replies`
---
-
-INSERT INTO `replies` (`id`, `message_id`, `admin_id`, `reply`, `created_at`) VALUES
-(8, 0, 0, 'Okay but please pay the service first', '2024-10-02 09:51:29'),
-(9, 1, 0, 'Okay, but please the service fee of 3000php first', '2024-10-02 09:54:07'),
-(10, 13, 1, 'Yes, but you have to pay the fee of 500php first', '2024-10-02 09:54:49'),
-(11, 14, 1, 'Hello, how can we help you?', '2024-10-07 13:04:48'),
-(12, 13, 1, 'dfsgsdfgdsf', '2024-10-07 13:48:07'),
-(13, 14, 1, 'dfgdfgfdgfd', '2024-10-07 13:48:22'),
-(14, 14, 1, 'asdfsadfgfdgsdf', '2024-10-07 13:53:17'),
-(15, 14, 1, 'hi hi hi', '2024-10-07 13:53:31');
-
 -- --------------------------------------------------------
 
 --
@@ -786,15 +637,6 @@ CREATE TABLE `survey_form` (
   `question` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `category` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `survey_form`
---
-
-INSERT INTO `survey_form` (`id`, `question`, `category`) VALUES
-(1, 'workerssssss', 'life'),
-(2, 'nerver', 'tech'),
-(3, 'Enter survey Questions', 'tech');
 
 -- --------------------------------------------------------
 
@@ -808,20 +650,6 @@ CREATE TABLE `survey_reponse` (
   `survey_id` int DEFAULT NULL,
   `reponse` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `survey_reponse`
---
-
-INSERT INTO `survey_reponse` (`id`, `user_id`, `survey_id`, `reponse`) VALUES
-(12, 14, 1, 'Never'),
-(13, 14, 2, 'Sometimes'),
-(14, 15, 1, 'Never'),
-(15, 15, 2, 'Sometimes'),
-(16, 28, 1, 'Often'),
-(17, 28, 2, 'Sometimes'),
-(18, 28, 3, 'Always'),
-(19, 28, 4, 'Often');
 
 -- --------------------------------------------------------
 
@@ -842,31 +670,6 @@ CREATE TABLE `user_answers` (
 --
 
 INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `quiz_id`, `answer`) VALUES
-(413, 14, 95, 14, ''),
-(414, 14, 96, 14, 'a'),
-(415, 14, 97, 14, ''),
-(416, 14, 98, 14, 'a'),
-(417, 14, 99, 14, ''),
-(418, 14, 100, 14, ''),
-(419, 14, 101, 14, ''),
-(420, 14, 102, 14, ''),
-(421, 14, 103, 14, ''),
-(422, 14, 104, 14, 'a'),
-(423, 14, 105, 14, ''),
-(424, 14, 106, 14, 'a'),
-(425, 14, 107, 14, 'a'),
-(426, 14, 108, 14, 'a'),
-(427, 14, 109, 14, 'a'),
-(428, 14, 110, 14, 'a'),
-(429, 14, 111, 14, ''),
-(430, 14, 112, 14, 'a'),
-(431, 14, 113, 14, 'a'),
-(432, 14, 114, 14, 'a'),
-(433, 14, 115, 14, 'a'),
-(434, 14, 116, 14, ''),
-(435, 14, 117, 14, ''),
-(436, 14, 118, 14, ''),
-(437, 14, 119, 14, ''),
 (438, 14, 120, 14, ''),
 (439, 14, 121, 14, 'a'),
 (440, 14, 122, 14, 'a'),
@@ -974,32 +777,6 @@ CREATE TABLE `user_score` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `user_score`
---
-
-INSERT INTO `user_score` (`id`, `user_id`, `quiz_id`, `score`, `correct_answers`, `wrong_answers`, `dates`) VALUES
-(16, 1, 4, 2, 2, 2, NULL),
-(30, 14, 4, 4, 4, 0, '2024-09-24 16:00:00'),
-(32, 16, 0, 0, 0, 0, '2024-09-25 16:00:00'),
-(33, 16, 5, 0, 0, 2, '2024-09-25 16:00:00'),
-(40, 14, 14, 4, 4, 36, '2024-09-25 16:00:00'),
-(41, 14, 10, 1, 1, 4, '2024-09-26 16:00:00'),
-(42, 14, 5, 0, 0, 2, '2024-09-26 16:00:00'),
-(44, 14, 6, 7, 7, 3, '2024-09-26 16:00:00'),
-(45, 28, 0, 0, 0, 0, '2024-10-04 16:00:00'),
-(46, 28, 11, 1, 1, 4, '2024-10-04 16:00:00'),
-(49, 28, 30, 3, 3, 2, '2024-10-04 16:00:00'),
-(53, 28, 31, 5, 5, 0, '2024-10-04 16:00:00'),
-(55, 28, 28, 5, 5, 0, '2024-10-05 16:00:00'),
-(57, 27, 28, 5, 5, 0, '2024-10-05 16:00:00'),
-(59, 28, 29, 2, 2, 3, '2024-10-05 16:00:00'),
-(63, 27, 29, 5, 5, 0, '2024-10-05 16:00:00'),
-(64, 27, 30, 3, 3, 2, '2024-10-05 16:00:00'),
-(66, 27, 31, 4, 4, 1, '2024-10-05 16:00:00'),
-(67, 27, 37, 5, 5, 0, '2024-10-07 16:00:00'),
-(68, 27, 38, 3, 3, 4, '2024-10-07 16:00:00');
-
---
 -- Indexes for dumped tables
 --
 
@@ -1027,6 +804,12 @@ ALTER TABLE `applications`
 -- Indexes for table `cases`
 --
 ALTER TABLE `cases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat_messages`
+--
+ALTER TABLE `chat_messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1075,13 +858,6 @@ ALTER TABLE `job_postings`
   ADD KEY `employer_job_id` (`employer_id`);
 
 --
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `this` (`user_id`);
-
---
 -- Indexes for table `modules`
 --
 ALTER TABLE `modules`
@@ -1115,12 +891,6 @@ ALTER TABLE `quiz_name`
 -- Indexes for table `register`
 --
 ALTER TABLE `register`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `replies`
---
-ALTER TABLE `replies`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1161,19 +931,25 @@ ALTER TABLE `admin_profile`
 -- AUTO_INCREMENT for table `applicant_profile`
 --
 ALTER TABLE `applicant_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `cases`
 --
 ALTER TABLE `cases`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `chat_messages`
+--
+ALTER TABLE `chat_messages`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
@@ -1197,19 +973,19 @@ ALTER TABLE `employer_documents`
 -- AUTO_INCREMENT for table `employer_profile`
 --
 ALTER TABLE `employer_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `empyers`
 --
 ALTER TABLE `empyers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `interview`
 --
 ALTER TABLE `interview`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `job_postings`
@@ -1218,16 +994,10 @@ ALTER TABLE `job_postings`
   MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
 -- AUTO_INCREMENT for table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `modules_taken`
@@ -1257,13 +1027,7 @@ ALTER TABLE `quiz_name`
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `replies`
---
-ALTER TABLE `replies`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `survey_form`

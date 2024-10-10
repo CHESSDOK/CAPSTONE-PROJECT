@@ -48,7 +48,7 @@ if ($conn->query($sql) === TRUE) {
     }
 
     // Redirect to the applicant list
-    header("Location: ../../html/employer/applicant_list.php?job_id=".$job_id);
+    header("Location: applicant_list.php?job_id=".$job_id);
     exit(); // Ensure to stop further script execution
 } else {
     // Display an error message if the query fails
