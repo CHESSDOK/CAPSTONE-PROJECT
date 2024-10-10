@@ -12,14 +12,7 @@
   gap: 1rem; 
   margin-top: 10px; /* Add spacing above the button */
 }
-.full-name{
-  width: 20vw;
-  max-width: auto;
-}
-.btn-job{
-  width: 34vw;
-  max-width: auto;
-}
+
 .table-wrapper {
   display: flex;
   flex-direction: column;
@@ -29,6 +22,7 @@
 .table {
   border-radius: 20px;
   background-color: #fff;
+  padding: 15px;
   margin: 0; 
   font-size: 0.95rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -36,7 +30,8 @@
 }
 
 .table td, .table th {
-  background-color: transparent;/* Adjust padding for better spacing */
+  background-color: transparent;
+  padding: 10px; /* Adjust padding for better spacing */
   text-align: center;
 }
 
@@ -92,7 +87,8 @@
   margin-right: 15px;
 }
 
-.btn-group td{
-  margin-right: 5px; /* Adjust as needed */
-  padding: 5px 10px; /* Reduce padding for tighter buttons */
-}
+.disabled-link {
+  pointer-events: none; /* Prevents clicking */
+  color: gray; /* Makes it look disabled */
+  text-decoration: none;
+  }

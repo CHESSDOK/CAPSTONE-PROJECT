@@ -16,9 +16,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_course.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
@@ -86,8 +84,8 @@ $result = $conn->query($sql);
   </ol>
 </nav>
 
-<div class="table-container">
-    <button class='btn btn-primary openAddmmodBtn' id='openCourseBtn' data-addmodule-id="<?php echo $course_id;?>">Create accoount</button>
+<div class="table-container d-flex align-items-start">
+    <button class='btn btn-primary course-btn openAddmmodBtn' id='openCourseBtn' data-addmodule-id="<?php echo $course_id;?>">Add Module</button>
     <table class="table table-borderless table-hover">
         <thead>
             <th>Module Title</th>
@@ -122,15 +120,15 @@ $result = $conn->query($sql);
 <!-- addmodule -->
     <div id="addmodModal" class="modal modal-container">
             <div class="modal-content">
-                <span class="btn-close fourthcloseBtn"></span>
-                <h2>Add modules</h2>
+                <span class="btn-close closBtn fourthcloseBtn">&times;</span>
+                <h2>Create Module</h2>
                 <form action="addmodule.php" method="post">
                     <input type="hidden" id="course" name="course_id">
                     <!-- Text Input for Course -->
                     <label for="Module">Module Name:</label>
-                    <input class="form-control" type="text" id="module" name="module" required>
+                    <input class="form-control" type="text" id="module" name="module" placeholder="Enter Module Name" required>
                     <!-- Submit Button -->
-                    <input class="btn btn-primary" type="submit" value="ADD">
+                    <input class="btn btn-primary" type="submit" value="Add">
                 </form>
             </div>
         </div>
@@ -343,6 +341,11 @@ $result = $conn->query($sql);
             }
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="../../javascript/a_profile.js"></script> 
     <script src="../../javascript/script.js"></script> 
 

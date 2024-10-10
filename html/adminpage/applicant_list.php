@@ -75,7 +75,6 @@
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/admin_employer.css">
-    
 </head>
 <body>
 <!-- Navigation -->
@@ -140,7 +139,6 @@
   <li class="breadcrumb-item active" aria-current="page">Applicants</li>
   </ol>
 </nav>
-
 <div class="table-containers">
     <div class="row align-items-start">
         <?php
@@ -154,87 +152,147 @@
                             <th class='action-btn'>Actions</th>
                         </thead>";
                 
-                if (!empty($applicants)) {
-                    foreach ($applicants as $row) {
-                        $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
-                        $status = $row['status'];
-
-                        // Conditionally disable the interview button for "interview" or "accepted" status
-                        $interview_button_disabled = ($status == 'interview' || $status == 'accepted') ? 'disabled' : '';
-                        $accept_link_disabled = ($status == 'accepted') ? 'disabled-link' : '';
-                        
-                        echo "
-                        <tr>
-                            <td class='full-name'>" . htmlspecialchars($full_name) . "</td>
-                            <td>" . htmlspecialchars($row['job']) . "</td>
-                            <td>" . ucfirst($row['status']) . "</td>
-
-                            <td class='btn-job'>
-                                <a href='application_process.php?id=" . htmlspecialchars($row['user_id']) . "' 
-                                class='btn btn-success mx-2" . $accept_link_disabled . "'>Accept</a>
-                            
-                                <a href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) . "'
-                                class='btn btn-danger mx-2" . $accept_link_disabled . "'>Rejected</a>
-                            
-                                <button class='btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row['applicant_id']) . "
-                                data-job-id=" . htmlspecialchars($row['job_posting_id']) . " $interview_button_disabled>Interview</button>
-                           
-                                <button id='profileFormBtn' class='btn btn-primary openProfileBtn mx-2' data-applicant-id='" . htmlspecialchars($row['applicant_id']) . "'>View Profile</button>
-                            </td>
-                        </tr>";
+                        if (!empty($applicants)) {
+                            foreach ($applicants as $row) {
+                                $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
+                                $status = $row['status'];
+                    
+                                echo "
+                                <tr>
+                                    <td>" . htmlspecialchars($full_name) . "</td>
+                                    <td>" . htmlspecialchars($row['job']) . "</td>
+                                    <td>" . ucfirst($status) . "</td>
+                                    <td class='btn-job'>";
+                                    
+                                // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
+                                if ($status != 'accepted' && $status != 'interview') {
+                                    echo "
+                                   
+                                    <a class='btn btn-success mx-2' href='application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                                    
+                                    <a class='btn btn-danger mx-2' href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>
+                                    
+                                    <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
+                                    data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
+                                
+                                }elseif ($status === 'interview') {
+                                        echo " <a class='btn btn-success mx-2' href='application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                                                <a class='btn btn-danger mx-2' href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
+                                }
+                    
+                                echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary mx-2' data-applicant-id='". htmlspecialchars($row["applicant_id"]) . "'>View Profile</button>
+                                    </td>
+                                </tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='5'>No applicants found</td></tr>";
+                        }
+                    
+                        echo "</table>";
                     }
-                } else {
-                    echo "<tr><td colspan='5'>No applicants found</td></tr>";
-                }
-            
-                echo "</table>";
-            }
             
             // Display each category vertically with centered alignment
             // Display each category vertically with centered alignment
             echo "<div class='category-section'>";
-            display_table($pending, 'Applied Applicant');
+            display_table($pending, 'Applied applicant');
             echo "</div>";
 
             echo "<div class='category-section'>";
-            display_table($review, 'For Interview');
+            display_table($review, 'For interview');
             echo "</div>";
 
             echo "<div class='category-section'>";
             display_table($rejected, 'Accepted Applicant');
             echo "</div>";
-
+            
             $conn->close();
         ?>
+        </div>
+    </div>
+
+
+    <div id="formModal" class="modal modal-container">
+    <div class="modal-content p-4">
+        <span class="btn-close closBtn closeBtn">&times;</span>
+        <h2 class="mb-4">Interview</h2>
+        
+        <form action="interview.php" method="post">
+            <table class="table table-borderless">
+                <input type="hidden" id="applicantId" name="applicant_id">
+                <input type="hidden" id="jobid" name="jobid">
+                
+                <tr>
+                    <td>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date:</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">
+                            <label for="time" class="form-label">Time:</label>
+                            <input type="time" id="time" name="time" class="form-control" required>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        <div class="mb-3">
+                            <label for="interview" class="form-label">Interview Type:</label>
+                            <select name="interview" id="interview" class="form-select" onchange="toggleInterviewFields()">
+                                <option value="">Select Interview Type</option>
+                                <option value="online">Online</option>
+                                <option value="FacetoFace">Face to Face</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        <div id="linkField" class="mb-3">
+                            <label for="link" class="form-label">Link:</label>
+                            <input type="text" id="link" name="link" class="form-control" placeholder="Enter Your Virtual Link">
+                        </div>
+
+                        <div id="addressField" class="mb-3">
+                            <label for="address" class="form-label">Physical Address:</label>
+                            <input type="text" id="address" name="address" class="form-control" placeholder="Enter Your Office Address">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 </div>
 
 
+<script>
+    function toggleInterviewFields() {
+        var interviewType = document.getElementById('interview').value;
+        var linkField = document.getElementById('linkField');
+        var addressField = document.getElementById('addressField');
 
-    <div id="formModal" class="modal modal-container">
-        <div class="modal-content">
-            <span class="btn-close closBtn closeBtn">&times;</span>
-            <h2>Interview</h2>
-            <form action="interview.php" method="post">
-                <input type="hidden" id="applicantId" name="applicant_id">
-                <input type="hidden" id="jobid" name="jobid">
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date" required><br><br>
-                <label for="time">Time:</label>
-                <input type="time" id="time" name="time" required><br><br>
-                <label for="interview">Interview Type:</label>
-                <select name="interview" id="interview">
-                    <option value="online">Online</option>
-                    <option value="FacetoFace">Face to Face</option>
-                </select>
-                <label for="link">Link:</label>
-                <input type="text" id="link" name="link"><br><br>
-                <label for="address">Physical Address:</label>
-                <input type="text" id="address" name="address"><br><br>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </div>
+        if (interviewType === 'online') {
+            linkField.style.display = 'block';
+            addressField.style.display = 'none';
+        } else if (interviewType === 'FacetoFace') {
+            linkField.style.display = 'none';
+            addressField.style.display = 'block';
+        } else {
+            linkField.style.display = 'none';
+            addressField.style.display = 'none';
+        }
+    }
+
+    // Initialize the fields when the page loads
+    window.onload = function() {
+        toggleInterviewFields();
+    };
+</script>
 
 <!-- Modal for Viewing Applicant Profile -->
 <div id="profileModal" class="modal">
