@@ -125,7 +125,6 @@
                     <tr><td><a href="employer_list.php" class="active nav-link">Employer List</a></td></tr>
                     <tr><td><a href="course_list.php" class="nav-link">Course List</a></td></tr>
                     <tr><td><a href="ofw_case.php" class="nav-link">OFW Cases</a></td></tr>
-                    <tr><td><a href="user_master_list.php" class="nav-link">User List</a></td></tr>
                 </table>
             </div>
         </div>
@@ -159,9 +158,10 @@
                     
                                 echo "
                                 <tr>
-                                    <td>" . htmlspecialchars($full_name) . "</td>
-                                    <td>" . htmlspecialchars($row['job']) . "</td>
-                                    <td>" . ucfirst($status) . "</td>
+                                    <td style='width: 450px;'><?php echo htmlspecialchars($full_name); ?></td>
+
+                                    <td style='width: 100px;'>" . htmlspecialchars($row['job']) . "</td>
+                                    <td style='width: 50px;'>" . ucfirst($status) . "</td>
                                     <td class='btn-job'>";
                                     
                                 // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
