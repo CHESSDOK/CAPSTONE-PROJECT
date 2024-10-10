@@ -28,7 +28,7 @@ echo "
 
             echo "<tr>
                     <td>" . htmlspecialchars($row["document_name"]) . "</td>
-                    <td><a class='docu' href='" . htmlspecialchars($row["document_path"]) . "' target='_blank'>View Document</a></td>
+                    <td><a class='docu  read-link' href='view_docs.php?file_path=". htmlspecialchars($row["document_path"])."' target='_blank' >View Document</a></td>
                     <td><a class='docu' href='verify_documents.php?id=" . $row['id'] . " & user_id=". $user_id." '>Verify</a></td>
                     <td><a class='docu ".$active."' href='reject_documents.php?id=" . $row['id'] . " & user_id=". $user_id."'>Reject</a></td>
                     <td style='color: " . (htmlspecialchars($row['is_verified']) ? 'green' : 'red') . ";'>" . (htmlspecialchars($row['is_verified']) ? 'Yes' : 'No') . "</td>
