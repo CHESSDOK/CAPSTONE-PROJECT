@@ -47,7 +47,7 @@
 
 
     // Fetch employer profile
-    $sql = "SELECT * FROM empyers WHERE id = ?";
+    $sql = "SELECT * FROM admin_profile WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $adminId);
     $stmt->execute();
