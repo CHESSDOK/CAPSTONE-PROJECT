@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $total = $_POST['total'];
     $tag = $_POST['tag'];
     $id = $_POST['module_id'];
+    $course_id = $_POST['course_id'];
 
     // Update the data in the quiz_name table
     $sql = "UPDATE `quiz_name` 
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if (mysqli_query($conn, $sql)) {
         // Redirect to the add_question page with parameters
-        header("Location: add_question.php?module_id=$id&q_id=$qid&total=$total");
+        header("Location: add_question.php?module_id=$id&q_id=$qid&total=$total&course_id=$course_id");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
