@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 10, 2024 at 04:08 AM
+-- Generation Time: Oct 10, 2024 at 05:15 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -102,6 +102,16 @@ CREATE TABLE `applicant_profile` (
   `dept_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `applicant_profile`
+--
+
+INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `age`, `specialization`, `sex`, `civil_status`, `contact_no`, `photo`, `house_address`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `prefix`, `emergency_contact_num`, `income`, `country`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`) VALUES
+(26, 43, 'mercadomarklawrence55@gmail.com', 'Mark', 'Mercado', 'Aranda', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 44, 'ict1mercado.cdlb@gmail.com', 'Lawrence', 'Mercado', 'ICT', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 45, 'marklawrencemercado8@gmail.com', 'Batbat', 'Mercado', 'Orn', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 46, 'batbattmercado@gmail.com', 'Rhave', 'Bern', 'Merd', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -116,6 +126,13 @@ CREATE TABLE `applications` (
   `status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
   `job` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `applications`
+--
+
+INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
+(51, 46, 16, '2024-10-10', 'rejected', 'Warehouse man');
 
 -- --------------------------------------------------------
 
@@ -199,6 +216,15 @@ CREATE TABLE `employer_documents` (
   `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `employer_documents`
+--
+
+INSERT INTO `employer_documents` (`id`, `user_id`, `document_name`, `document_path`, `is_verified`, `comment`) VALUES
+(3, 9, 'Single', 'uploads/philsys id.png', 1, NULL),
+(4, 10, 'Single', 'uploads/ITEP414-SAM-Assignment-2-and-Task-2.pdf', 1, NULL),
+(5, 11, 'Single', 'uploads/ITEP414-SAM-Assignment-1-and-Task-1.pdf', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -217,6 +243,15 @@ CREATE TABLE `employer_profile` (
   `HR_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `employer_profile`
+--
+
+INSERT INTO `employer_profile` (`id`, `user_id`, `company_name`, `company_address`, `tel_num`, `president`, `HR`, `company_mail`, `HR_mail`, `photo`) VALUES
+(9, 9, 'Wehner inc', '47505 Rosenbaum Rapids', '75', 'Grady Doyle', 'Voluptatum sunt eligendi repellat nihil officiis deleniti quos.', 'Harber, Brown and Strosin', 'your.email+fakedata60367@gmail.com', '67075944b1138.png'),
+(10, 10, 'Lehner Group', '72695 Stoltenberg Parkway', '49', 'Breitenberg Schmitt', 'John Schmitt', 'Senger, Runolfsson and Gerlach', 'your.email+fakedata52491@gmail.com', '67075b413c6ab.png'),
+(11, 11, 'Herzog Inc', '25813 Ward Well', '62', 'Lemke O Connell', 'Carol Yundt', 'Hilpert, Lakin and Doyle', 'your.email+fakedata66606@gmail.com', '670760a7022ed.png');
 
 -- --------------------------------------------------------
 
@@ -239,6 +274,15 @@ CREATE TABLE `empyers` (
   `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `empyers`
+--
+
+INSERT INTO `empyers` (`id`, `username`, `password`, `email`, `Fname`, `Lname`, `Bdate`, `contact`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
+(9, 'Mark55', '$2y$10$Pne11S1JqPKgRbXvf88I2OA8wF9hEH8PMenlS26deUJ0GMdu70nlq', 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL, 1, '836619', '2024-10-10 12:32:12', NULL, NULL),
+(10, 'Ict1', '$2y$10$so3p8.RcQnOqPiCAva0X1uGvZ2X7X2wV3aziLsQ2eIT8siaXlZWQC', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 1, '606376', '2024-10-10 12:41:57', NULL, NULL),
+(11, 'Batbat', '$2y$10$QTbi7Iy1aVIVgfFapjB/weUo9TzbOwLaJkN2qP.eFXz4OuBLFBcFG', 'marklawrencemercado8@gmail.com', NULL, NULL, NULL, NULL, 1, '878316', '2024-10-10 12:49:18', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -286,7 +330,10 @@ INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job
 (11, NULL, 1, 'Carpenter', 'Wood crafting and stuff', '', 12, 'Has experience on woodsman ship', 'Bayog', '', '2024-10-08', 1),
 (13, NULL, 1, 'Security Guard', 'Mall Security Guard', '', 2, 'Security Guard License, can work on night shift', 'Olivares plaza, Los Banos', '', '2024-10-08', 1),
 (15, NULL, 1, 'Housewife', 'care giver', '', 12, 'Girl with big boob daw sabi ni jervin', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
-(16, NULL, 1, 'Warehouse man', 'Heavy work labor', '', 12, 'High graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1);
+(16, NULL, 1, 'Warehouse man', 'Heavy work labor', '', 12, 'High graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
+(17, 9, NULL, 'Principal Creative Specialist', 'Forward Interactions Officer', NULL, 14, 'College Graduate', '3012 Raynor Junction', '', '2024-10-10', 1),
+(18, 10, NULL, 'Corporate Markets Strategist', 'Customer Response Administrator', NULL, 26, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
+(19, 11, NULL, 'Human Communications Engineer', 'Legacy Optimization Agent', NULL, 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1);
 
 -- --------------------------------------------------------
 
@@ -626,6 +673,16 @@ CREATE TABLE `register` (
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `register`
+--
+
+INSERT INTO `register` (`id`, `email`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
+(43, 'mercadomarklawrence55@gmail.com', 'Mark55', '$2y$10$hOzr8CnHcqsbz8AUmYa62eSxITdZTZWZW26jnhFremy1KfApEbtY2', 1, '755668', '2024-10-10 12:19:31', NULL, NULL),
+(44, 'ict1mercado.cdlb@gmail.com', 'Ict1', '$2y$10$dw2KZgMQI0DhNNh5iMPyveUa1y4I2itlra5GB56qW2gdoCE4JxZ.i', 1, '351097', '2024-10-10 12:23:51', NULL, NULL),
+(45, 'marklawrencemercado8@gmail.com', 'Batbat', '$2y$10$.V.hAcf04TXC9RjQ4m8wQepu3c.B3SyapjnECl0tjOV8w89s4G32G', 1, '440801', '2024-10-10 12:26:17', NULL, NULL),
+(46, 'batbattmercado@gmail.com', 'Rhave', '$2y$10$HvsxRxY4xJu1vSqIVb8SGu0/iqW89pjBDcK0.SfsionuWD1QnN7YO', 1, '178237', '2024-10-10 12:29:16', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -931,13 +988,13 @@ ALTER TABLE `admin_profile`
 -- AUTO_INCREMENT for table `applicant_profile`
 --
 ALTER TABLE `applicant_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -967,19 +1024,19 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `employer_documents`
 --
 ALTER TABLE `employer_documents`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `employer_profile`
 --
 ALTER TABLE `employer_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `empyers`
 --
 ALTER TABLE `empyers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `interview`
@@ -991,7 +1048,7 @@ ALTER TABLE `interview`
 -- AUTO_INCREMENT for table `job_postings`
 --
 ALTER TABLE `job_postings`
-  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `modules`
@@ -1027,7 +1084,7 @@ ALTER TABLE `quiz_name`
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `survey_form`

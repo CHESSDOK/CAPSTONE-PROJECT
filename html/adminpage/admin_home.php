@@ -66,7 +66,6 @@ if ($result->num_rows > 0) {
         $counts[] = $row['case_count'];
     }
 } else {
-    echo "No cases found.";
     $titles = []; // Ensure titles is empty if no results
     $counts = []; // Ensure counts is empty if no results
 }
