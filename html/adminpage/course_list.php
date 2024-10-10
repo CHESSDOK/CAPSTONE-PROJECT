@@ -33,13 +33,17 @@ $result = $conn->query($sql);
         </header>
 
         <div class="profile-icons">
-            <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-                <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
-            </div>
-            
-            <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
+        <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
+            <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
-
+        
+        <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
+            <?php if (!empty($row['photo'])): ?>
+                <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+            <?php else: ?>
+                <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+            <?php endif; ?>
+        </div>
         </div>
 
         <!-- Burger icon -->

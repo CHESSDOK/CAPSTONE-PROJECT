@@ -17,7 +17,7 @@ burgerToggle.addEventListener('click', function() {
 
 $(document).ready(function(){
     // Initialize popover with multiple links in the content
-    $('.profile-icon').popover({
+    $('.profile-icon-admin').popover({
         trigger: 'click', 
         html: true, // Allow HTML content
         animation: true, // Enable animation

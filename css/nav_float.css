@@ -15,13 +15,13 @@ body {
     margin-top:-1vh;
 }
 
-.profile-icons,.profile-icon-employer, .profile-index {
+.profile-icons, .profile-icon-admin, .profile-icon-employer, .profile-index {
     display: flex;            /* Use flexbox for layout */
     align-items: left;     /* Center items vertically */
 	margin-right: 3vw;
 }
 
-.profile-icon, .profile-icon-employer, .profile-index, .notif-icon{
+.profile-icon, .profile-icon-admin, .profile-icon-employer, .profile-index, .notif-icon{
 	width: 35px;  /* Adjust the width as needed */
 	height: 35px; /* Adjust the height as needed */
 	border-radius:50%;
@@ -29,7 +29,7 @@ body {
 	position: relative;
 	margin-right: 15px;
 }
-.notif-icon img,.profile-icon img, .profile-icon-employer img {
+.notif-icon img, .profile-icon-admin img, .profile-icon img, .profile-icon-employer img {
 	width: 100%;
 	height: auto;
 }
