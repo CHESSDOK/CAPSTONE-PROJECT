@@ -40,7 +40,7 @@ $result = $conn->query($sql);
             <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
         
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
+        <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
     <?php if (!empty($row['photo'])): ?>
         <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
     <?php else: ?>
@@ -70,7 +70,6 @@ $result = $conn->query($sql);
                 <tr><td><a href="employer_list.php" class="active nav-link">Employer List</a></td></tr>
                 <tr><td><a href="course_list.php" class="nav-link">Course List</a></td></tr>
                 <tr><td><a href="ofw_case.php" class="nav-link">OFW Cases</a></td></tr>
-                <tr><td><a href="user_master_list.php" class="nav-link">User List</a></td></tr>
             </table>
         </div>
     </div>
@@ -83,7 +82,7 @@ $result = $conn->query($sql);
   </ol>
 </nav>
 
-<div class="table-containers">
+<div class="table-container">
     <div class="row align-items-start">
         <div class="col-12 col-md-auto mb-2">
             <a href="create_job.php" class="btn btn-primary">Admin Job Post</a>

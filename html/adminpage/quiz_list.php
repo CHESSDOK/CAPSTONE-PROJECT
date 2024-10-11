@@ -13,11 +13,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../javascript/a_profile.js"></script> 
-    <script src="../../javascript/script.js"></script> 
+    
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_course.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
@@ -36,17 +32,17 @@ $result = $conn->query($sql);
     </header>
 
     <div class="profile-icons">
-        <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-            <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
+            <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
+                <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
+            </div>
+            
+            <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
+            <?php if (!empty($row['photo'])): ?>
+                <img id="preview" src="php/applicant/images<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+            <?php else: ?>
+                <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+            <?php endif; ?>
         </div>
-        
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-    <?php if (!empty($row['photo'])): ?>
-        <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-    <?php else: ?>
-        <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-    <?php endif; ?>
-    </div>
 
     </div>
 
@@ -72,7 +68,6 @@ $result = $conn->query($sql);
                 <tr><td><a href="employer_list.php" class="nav-link">Employer List</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Course List</a></td></tr>
                 <tr><td><a href="ofw_case.php" class="nav-link">OFW Cases</a></td></tr>
-                <tr><td><a href="user_master_list.php" class="nav-link">user list</a></td></tr>
             </table>
         </div>
     </div>
@@ -104,9 +99,8 @@ $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>
                             <form action='quiz_update.php' method='post'>
-                            <input type='hidden' name='id' value='" . $row['id'] . "'>
-                            <input type='hidden' name='course_id' value='" . $course_id . "'>
-                            <input type='hidden' name='module_id' value='" . $row['module_id'] . "'>
+                            <td><input type='hidden' name='id' value='" . $row['id'] . "'>
+                            <td><input type='hidden' name='module_id' value='" . $row['module_id'] . "'>
                             <td><input class='form-control' type='text' name='name' value='" . $row['title'] . "'></td>
                             <td><input class='form-control' type='text' name='tag' value='" . $row['tag'] . "'></td>
                             <td><input class='form-control' type='text' name='total' value='" . $row['total'] . "'></td>
@@ -170,5 +164,11 @@ $result = $conn->query($sql);
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="../../javascript/a_profile.js"></script> 
+    <script src="../../javascript/script.js"></script> 
 </body>
 </html>

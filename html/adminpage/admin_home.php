@@ -110,7 +110,6 @@ $result = $conn->query($sql);
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/register.css">
     <link rel="stylesheet" href="../../css/nav.css">
     <link rel="stylesheet" href="../../css/admin_home.css">
     <link rel="stylesheet" href="../../css/modal-form.css">
@@ -126,7 +125,7 @@ $result = $conn->query($sql);
             <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
         
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
+        <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
             <?php if (!empty($row['photo'])): ?>
                 <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
             <?php else: ?>
@@ -224,84 +223,8 @@ $result = $conn->query($sql);
             <h3>OFW Chart</h3>
             <canvas id="casesBarChart" width="500" height="200"></canvas>
         </div>
-    <?php 
-    if ($admin_level === "super_admin") {
-        echo "<button class='btn btn-primary' id='openCourseBtn'>Create account</button>";
-    } else {
-        echo "";
-    }
-    ?>
 </div>
 </div>
-
-<div id="courseModal" class="modal modal-container">
-    <div class="modal-content">
-        <span class="btn-close closBtn closeBtn">&times;</span>
-        <table class="table table-borderless table-hover">
-            <tr>
-                <td>
-                    <p class="title">Admin Account</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="logol">
-                        <img src="../../img/logo_peso.png" alt="Logo">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="subtitle">Signup now and get access to our job portal.</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <form class="form" action="register_admin.php" method="POST" id="registrationForm">
-                        <div class="input-group">
-                            <input required type="email" class="input" name="email" id="emailInput" placeholder="Email">
-                        </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <input required type="text" class="input" name="username" placeholder="Username">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <input required type="password" class="input" name="password" minlength="8" maxlength="16" id="passwordInput" placeholder="Password">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <select class="form-select" id="admin_role" name="admin_role" required>
-                            <option value="super_admin">Super Admin</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="btn btn-primary sign" type="submit">Submit</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="signup">Already have an account? <a href="login_admin.html">Signin</a></p>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-
 
 <!-- Applicant Pie Chart -->
 <script>
@@ -407,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="../../javascript/script.js"></script>
 <script src="../../javascript/admin_modal.js"></script>
 </body>

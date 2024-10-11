@@ -67,3 +67,17 @@
 .tbl-question a {
   margin: 0; 
 }
+
+#chat {
+  display: none;
+  margin-top: 20px;
+}
+.message {
+  margin: 5px 0;
+}
+.user-message {
+  color: blue;
+}
+.admin-reply {
+  color: green;
+}

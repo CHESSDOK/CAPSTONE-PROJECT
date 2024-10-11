@@ -33,13 +33,17 @@ $result = $conn->query($sql);
         </header>
 
         <div class="profile-icons">
-            <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-                <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
-            </div>
-            
-            <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
+        <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
+            <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
-
+        
+        <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
+            <?php if (!empty($row['photo'])): ?>
+                <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+            <?php else: ?>
+                <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+            <?php endif; ?>
+        </div>
         </div>
 
         <!-- Burger icon -->
@@ -64,7 +68,6 @@ $result = $conn->query($sql);
                 <tr><td><a href="employer_list.php" class="nav-link">Employer List</a></td></tr>
                 <tr><td><a href="course_list.php" class="active nav-link">Course List</a></td></tr>
                 <tr><td><a href="ofw_case.php" class="nav-link">OFW Cases</a></td></tr>
-                <tr><td><a href="user_master_list.php" class="nav-link">User List</a></td></tr>
             </table>
         </div>
     </div>
@@ -93,8 +96,8 @@ $result = $conn->query($sql);
                 echo "<tr>
                         <form method='POST' action='update_course.php'>
                         <input type='hidden' name='course_id' value='".$row["id"]."'>
-                        <td><input type='text' name='course_name' value='".$row["course_name"]."'></td>
-                        <td><input type='text' name='course_desc' value='".$row["description"]."'></td>                        
+                        <td><input class='form-control' type='text' name='course_name' value='".$row["course_name"]."'></td>
+                        <td><input class='form-control' type='text' name='course_desc' value='".$row["description"]."'></td>                        
                         <td><input class='btn btn-success' type='submit' value='Update'></td>
                         <td><a class='btn btn-danger' href='delete_course.php?course_id=".$row["id"]."'>DELETE</a></td>
                         <td><a class='btn btn-primary' href='module_list.php?course_id=" . $row["id"] . "'>Edit Items</a></td>

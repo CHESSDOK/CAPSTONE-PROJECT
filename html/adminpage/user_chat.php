@@ -6,36 +6,10 @@
     <title>Chat logs</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_ofw.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
-        <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
-        }
-        #chat {
-            display: none;
-            margin-top: 20px;
-        }
-        .message {
-            margin: 5px 0;
-        }
-        .user-message {
-            color: blue;
-        }
-        .admin-reply {
-            color: green;
-        }
-    </style>
 </head>
 <body>
 
@@ -45,7 +19,49 @@
         <img src="../../img/logo_peso.png" alt="Logo">
         <a href="#"> PESO-lb.ph</a>
     </div>
-    <!-- Other navigation elements -->
+
+    <header>
+      <h1 class="ofw-h1">Admin Chat Page</h1>
+    </header>
+
+    <div class="profile-icons">
+        <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
+            <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
+        </div>
+        
+        <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
+    <?php if (!empty($row['photo'])): ?>
+        <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+    <?php else: ?>
+        <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+    <?php endif; ?>
+    </div>
+
+
+    </div>
+
+    <!-- Burger icon -->
+    <div class="burger" id="burgerToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <table class="menu">
+                <tr><td><a href="admin_home.php" class="nav-link">Home</a></td></tr>
+                <tr><td><a href="employer_list.php" class="nav-link">Employer List</a></td></tr>
+                <tr><td><a href="course_list.php" class="nav-link">Course List</a></td></tr>
+                <tr><td><a href="ofw_case.php" class="active nav-link">OFW Cases</a></td></tr>
+            </table>
+        </div>
+    </div>
 </nav>
 
 <nav class="bcrumb-container" aria-label="breadcrumb">
@@ -57,7 +73,7 @@
 </nav>
 
 <h1>Customer Messages</h1>
-<table>
+<table class="table table-borderless">
     <thead>
         <tr>
             <th>Customer Name</th>
@@ -74,7 +90,7 @@
         <h3 id="chatTitle"></h3>
         <div id="messageList"></div>
         <input type="text" id="replyMessage" placeholder="Type your reply here...">
-        <button onclick="sendReply()">Send Reply</button>
+        <button class="btn btn-primary" onclick="sendReply()">Send Reply</button>
     </div>
 </div>
 </div>
@@ -155,5 +171,10 @@
         }
     });
 </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../javascript/script.js"></script> 
 </body>
 </html>
