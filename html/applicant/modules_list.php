@@ -28,7 +28,20 @@ $modules_result = $stmt->get_result();
 // Variables to track module progress and certificate eligibility
 $all_modules_passed = true; // Assume all modules are passed initially
 $previous_module_passed = true; // First module can be accessed
+$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$res = $stmt->get_result();
 
+if (!$res) {
+    die("Invalid query: " . $conn->error); 
+}
+
+$row = $res->fetch_assoc();
+if (!$row) {
+    die("User not found.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +53,8 @@ $previous_module_passed = true; // First module can be accessed
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/Module.css">
 </head>
@@ -67,6 +81,7 @@ $previous_module_passed = true; // First module can be accessed
         <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
     <?php endif; ?>
     </div>
+
     </div>
 
     <!-- Burger icon -->
@@ -76,7 +91,23 @@ $previous_module_passed = true; // First module can be accessed
         <span></span>
     </div>
 </nav>
-
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <table border="0" class="menu">
+                <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
+                <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
+                <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
+                <tr><td><a href="ofw_home.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
+            </table>
+        </div>
+    </div>
+</nav>
 <nav class="bcrumb-container" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
@@ -169,6 +200,9 @@ $conn->close();
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="../../javascript/script.js"></script>
 </body>
 </html>

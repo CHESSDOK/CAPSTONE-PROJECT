@@ -266,7 +266,7 @@ $conn->close();
       </td>
       <td>
         <label for="spouseContact" class="info">Spouse's Contact No.</label>
-        <input type="text" id="spouseContact" name="spouseContact" class="form-control" value="<?php echo isset($row['spouse_contact']) ? htmlspecialchars($row['spouse_contact']) : ''; ?>">
+        <input type="number" id="spouseContact" name="spouseContact" class="form-control" value="<?php echo isset($row['spouse_contact']) ? htmlspecialchars($row['spouse_contact']) : ''; ?>">
       </td>
     </tr>
     <tr>
@@ -296,7 +296,7 @@ $conn->close();
       </td>
       <td>
         <label for="emergencyContactNum" class="info">Contact No.</label>
-        <input type="text" id="emergencyContactNum" name="emergencyContactNum" class="form-control" value="<?php echo isset($row['emergency_contact_num']) ? htmlspecialchars($row['emergency_contact_num']) : ''; ?>">
+        <input type="number" id="emergencyContactNum" name="emergencyContactNum" class="form-control" value="<?php echo isset($row['emergency_contact_num']) ? htmlspecialchars($row['emergency_contact_num']) : ''; ?>">
       </td>
     </tr>
     <tr>
@@ -308,7 +308,7 @@ $conn->close();
     <tr>
       <td colspan="2">
         <label for="nextOfKinContact" class="info">Next of Kin's Contact Number</label>
-        <input type="text" id="nextOfKinContact" name="nextOfKinContact" class="form-control" placeholder="Contact Number" value="<?php echo isset($row['next_of_kin_contact']) ? htmlspecialchars($row['next_of_kin_contact']) : ''; ?>">
+        <input type="number" id="nextOfKinContact" name="nextOfKinContact" class="form-control" placeholder="Contact Number" value="<?php echo isset($row['next_of_kin_contact']) ? htmlspecialchars($row['next_of_kin_contact']) : ''; ?>">
       </td>
     </tr>
   </table>

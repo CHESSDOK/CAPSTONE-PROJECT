@@ -19,17 +19,18 @@ $module_id = $_GET['modules_id'];
 $module_name = $_GET['module_name'];
 
 // Fetch the current user's details
-$sql_user = "SELECT * FROM register WHERE id = ?";
-$stmt = $conn->prepare($sql_user);
+$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
-$result_user = $stmt->get_result();
+$res = $stmt->get_result();
 
-if (!$result_user) {
+if (!$res) {
     die("Invalid query: " . $conn->error); 
 }
-$row_user = $result_user->fetch_assoc();
-if (!$row_user) {
+
+$row = $res->fetch_assoc();
+if (!$row) {
     die("User not found.");
 }
 

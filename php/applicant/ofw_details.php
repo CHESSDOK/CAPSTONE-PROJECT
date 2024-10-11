@@ -42,10 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fathersAddress = $_POST['fathersAddress'];
     $mothersName = $_POST['mothersName'];
     $mothersAddress = $_POST['mothersAddress'];
-    $emergencyContactName = $_POST['emergency-contact_name'];
-    $emergencyContact = $_POST['emergency_contact_num'];
-    $nextOfKinRelationship = $_POST['next_of_kin_relationship'];
-    $nextOfKinContact = $_POST['next_of_kin_contact'];
+    $emergencyContactName = $_POST['emergencyContactName'];
+    $emergencyContact = $_POST['emergencyContactNum'];
+    $nextOfKinRelationship = $_POST['nextOfKinRelationship'];
+    $nextOfKinContact = $_POST['nextOfKinContact'];
     $educationLevel = $_POST['education_level'];
     $occupation = $_POST['occupation'];
     $employername = $_POST['employer_name'];

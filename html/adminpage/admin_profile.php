@@ -1,4 +1,5 @@
 <?php
+include 'conn_db.php';
 function checkSession() {
     session_start(); // Start the session
 
@@ -14,6 +15,22 @@ function checkSession() {
 }
 
 $admin_level = checkSession();
+$adminId = $_SESSION['id'];
+
+$sql = "SELECT * FROM admin_profile WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $adminId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if (!$result) {
+   die("Invalid query: " . $conn->error); 
+}
+
+$row = $result->fetch_assoc();
+if (!$row) {
+   die("No admind found");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,30 +112,31 @@ $admin_level = checkSession();
     }
     ?>
 
-<button type="submit" class="btn btn-primary d-block">Save Changes</button>
+
 </div>
-    <form>
+    <form method="POST" action="profile_update.php"  enctype="multipart/form-data">
+    <button type="submit" class="btn btn-primary d-block">Save Changes</button>
         <table class="table table-borderless">
         <tr>
             <td colspan="2" class="text-center">
-                <img id="profilePicture" src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img rounded-circle mb-3">
-                <input type="file" class="form-control mt-2" id="photoInput" accept="image/*">
+                <img id="preview" src="<?php echo isset($row['profile_picture']) ? htmlspecialchars($row['profile_picture']) : 'https://via.placeholder.com/150'; ?>" alt="Profile Image" class="profile-img rounded-circle mb-3">
+                <input type="file" name="photoInput" value="<?php echo isset($row['profile_picture']) ? htmlspecialchars($row['profile_picture']) : ''; ?>" class="form-control mt-2" id="photoInput" accept="image/*">
             </td>    
         </tr>
         <tr>   
             <td>
                 <label for="name" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($row['full_name']) ? htmlspecialchars($row['full_name']) : ''; ?>" required>
             </td>
             <td>
                 <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo isset($row['email']) ? htmlspecialchars($row['email']) : ''; ?>" required>
             </td>
         </tr>
         <tr>    
             <td colspan="2">     
                 <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo isset($row['phone']) ? htmlspecialchars($row['phone']) : ''; ?>" required>
             </td>
         </tr>        
         </table>
