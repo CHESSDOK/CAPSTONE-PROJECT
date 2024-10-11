@@ -122,7 +122,7 @@ $conn->close();
 <div class="profile-container">
 <div class="form-content">
   <form action="../../php/applicant/approf.php" method="POST" enctype="multipart/form-data">
-    
+    <input type="hidden" name="id" value = "<?php echo $row['user_id'];?>">
     <!-- Personal Information Section -->
     <div class="container mt-4">
       <h4 class="mb-3">Personal Information</h4>
