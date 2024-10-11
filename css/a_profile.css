@@ -118,11 +118,14 @@
     white-space: nowrap; /* Prevent text from wrapping */
   }
 
-  table .check{
-    align-items: center;
-    width: 20px; /* Adjust the size as needed */
-    height: 20px;
-    transform: scale(1.5); /* Increase the size proportionally */
-    margin: 0 5px; /* Optional: Adjust spacing */
+  input[type="checkbox"] {
+    transform: scale(1.5); /* Adjust the scale as needed */
+    width: 15px; /* Optional: Set a custom width */
+    height: 15px; /* Optional: Set a custom height */
+    margin: 5px; /* Optional: Add some margin for spacing */
   }
-  
+
+  .profile-container {
+    width: 80%; /* Adjust this value as needed to make the table smaller */
+    margin: 5vh auto; /* Center the table */
+}
