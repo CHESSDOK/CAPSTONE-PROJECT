@@ -96,7 +96,7 @@ if (!$row) {
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_home.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>

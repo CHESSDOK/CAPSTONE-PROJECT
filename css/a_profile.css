@@ -43,23 +43,6 @@
     vertical-align: middle; /* Centers vertically */
   }
 
-  .h1ouse-info {
-    width: 100%;
-  }
-  
-  td .form-control.h1ouse-info {
-    width: 100%;
-  }
-  
-  .form-content input {
-    flex-grow: 1;
-    width: 100%;
-  }
-  
-  td {
-    padding: 10px;
-  }
-
   .center-checkbox {
     width: 5%;
     text-align: center; /* Centers horizontally */
@@ -70,45 +53,6 @@
     width: 20%;
   }
   
-
-  .scrollspy {
-    width: 250px;
-    position: sticky;
-    top: 10px;
-    border-radius: 15px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-link {
-    font-size: 1em;
-    font-weight: 400;
-    letter-spacing: 1.2px;
-    text-align: center;
-    padding: 15px;
-    margin: 5px;
-    text-decoration: none;
-    color: #000;
-    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: #007bff;
-    background-color: #fff;
-    transform: scale(1.05);
-  }
-  
-  .nav-link.active {
-    font-weight: bold;
-    color: #0b53a0;
-  }
-  
-  .ocu_input, .pwl_input{
-    margin-top: 15px;
-  }
-
   .lguages th, .lguages td {
     border: 1px solid #333;
     width: 150px; /* Set a fixed width for each cell */

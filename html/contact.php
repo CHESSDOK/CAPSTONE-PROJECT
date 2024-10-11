@@ -108,7 +108,7 @@ body::before{
               <tr><td><a href="../index(applicant).php" class="nav-link">Home</a></td></tr>
               <tr><td><a href="applicant/applicant.php" class="nav-link">Applicant</a></td></tr>
               <tr><td><a href="applicant/training_list.php" class="nav-link">Training</a></td></tr>
-              <tr><td><a href="applicant/ofw_home.php" class="nav-link">OFW</a></td></tr>
+              <tr><td><a href="applicant/ofw_form.php" class="nav-link">OFW</a></td></tr>
               <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
               <tr><td><a href="#" class="active nav-link">Contact Us</a></td></tr>
           </table>

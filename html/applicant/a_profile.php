@@ -57,13 +57,14 @@ $conn->close();
   <title>Form Submission</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="../../css/a_profile.css">
   <link rel="stylesheet" href="../../css/nav_float.css">
 
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#scrollspy-menu" data-bs-offset="175">
-
 <!-- Navigation -->
 <nav>
     <div class="logo">
@@ -87,9 +88,6 @@ $conn->close();
         <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
     <?php endif; ?>
     </div>
-
-    
-
     </div>
 
     <!-- Burger icon -->
@@ -111,7 +109,7 @@ $conn->close();
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_home.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
@@ -864,10 +862,10 @@ $conn->close();
 </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="../../javascript/a_profile.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-<script src="../../javascript/script.js"></script> 
+   <script src="../../javascript/script.js"></script>
 </body>
 </html>

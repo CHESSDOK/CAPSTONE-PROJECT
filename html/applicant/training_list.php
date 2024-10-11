@@ -105,7 +105,7 @@ if (!$row) {
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_home.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
@@ -119,31 +119,49 @@ if (!$row) {
     <li class="breadcrumb-item active" aria-current="page">Training</li>
   </ol>
 </nav>
-
+    
+<div class="card-container-outside">
     <div class="card-container">
     <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo '
-                    <div class="card custom-card">
-                        <svg class="bd-placeholder-img card-img-top custom-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" class="custom-rect"></rect>
-                            <text x="50%" y="50%" class="custom-text" dy=".3em">Image cap</text>
-                        </svg>
-                        <div class="card-body">
-                            <h5 class="card-title">' . htmlspecialchars($row['course_name'])  . '</h5>
-                            <p class="card-text">' . htmlspecialchars($row['description']) . '</p>
-                            <a href="modules_list.php?user_id=' . $userId . '& course_id=' . $row['id'] . '" class="btn btn-primary">Go somewhere</a>
+                <div class="card custom-card">
+                    <div class="card-img-top text-center py-4">
+                        <i class="bi bi-book" style="font-size: 4rem;"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">' . htmlspecialchars($row['course_name']) . '</h5>
+                        <p class="card-text">' . htmlspecialchars(substr($row['description'], 0, 100)) . '...</p>
+                        <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#descModal-' . $row['id'] . '">Read more</button>
+                        <a href="modules_list.php?user_id=' . $userId . '&course_id=' . $row['id'] . '" class="btn btn-primary mt-auto">Go to course</a>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="descModal-' . $row['id'] . '" tabindex="-1" aria-labelledby="descModalLabel-' . $row['id'] . '" aria-hidden="true">
+                    <div class="modal-dialog modal-container">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="descModalLabel-' . $row['id'] . '">' . htmlspecialchars($row['course_name']) . '</h5>
+                            </div>
+                            <div class="modal-body">
+                                ' . htmlspecialchars($row['description']) . '
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
-                ';
+                </div>
+            ';
             }
         } else {
-            echo '<div>No employers found</div>';
+            echo '<div>No courses found</div>';
         }
         $conn->close();
     ?>
+    </div>
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

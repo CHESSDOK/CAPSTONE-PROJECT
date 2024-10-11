@@ -53,8 +53,11 @@ if (!$row) {
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+
+    
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/Module.css">
 </head>
@@ -97,11 +100,11 @@ if (!$row) {
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <table border="0" class="menu">
+            <table class="menu">
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_home.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
@@ -146,41 +149,55 @@ if ($modules_result->num_rows > 0) {
             // Module is unlocked
             if ($passed) {
                 // Module has been passed
-                echo "<table border='1'>
-                        <tr>
-                            <td class='img_cell'><img class='icon' src='../../img/file_icon.png' alt='Logo'></td>
-                            <td class='num_cell'> <p> " . $module_row["id"] . " </td>
-                            <td class='title_cell'> <p> " . $module_row["module_name"] . " (Finished) </td>
-                            <td class='btn_cell'>
-                                <a class='btn' style='background-color: grey;' href='#' onclick='return false;'>Passed <i class='fas fa-check'></i></a>
-                            </td>
-                        </tr>
-                    </table>";
+                echo "
+                    <div class='container module-container'>
+                        <div class='row align-items-center'>
+                            <div class='col-md-8 d-flex align-items-center'>
+                                <img class='icon' src='../../img/file_icon.png' alt='Logo' style='margin-right: 10px;'>
+                                <p class='fs-3 mb-0'>" . $module_row["module_name"] . "</p>
+                            </div>
+                            <div class='col-md-4 text-md-end'>
+                                <a class='btn' style='color: green;' href='#' onclick='return false;'>Passed <i class='fas fa-check'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                ";
             } else {
                 // Module is not passed
-                echo "<table border='1'>
-                        <tr>
-                            <td class='img_cell'><img class='icon' src='../../img/file_icon.png' alt='Logo'></td>
-                            <td class='num_cell'> <p> " . $module_row["id"] . " </td>
-                            <td class='title_cell'> <p> " . $module_row["module_name"] . " </td>
-                            <td class='btn_cell'>
-                                <a class='btn' href='module_content.php?user_id=" . $userId . "&modules_id=" . $module_row["id"] . "&course_id=" . $module_id . "&module_name=" . $module_row["module_name"] . "'>View More <i class='fas fa-chevron-right'></i></a>
-                            </td>
-                        </tr>
-                    </table>";
+                echo "
+                    <div class='container module-container'>
+                        <div class='row align-items-center'>
+                            <div class='col-md-8 d-flex align-items-center'>
+                                <img class='icon' src='../../img/file_icon.png' alt='Logo' style='margin-right: 10px;'>
+                                <p class='fs-3 mb-0'>" . $module_row["module_name"] . "</p>
+                            </div>
+                            <div class='col-md-4 text-md-end'>
+                                <a class='btn' href='module_content.php?user_id=" . $userId . "&modules_id=" . $module_row["id"] . "&course_id=" . $module_id . "&module_name=" . $module_row["module_name"] . "'>
+                                    View More <i class='fas fa-chevron-right'></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ";
             }
         } else {
             // Module is locked
-            echo "<table border='1'>
-                    <tr>
-                        <td class='img_cell'><img class='icon' src='../../img/file_icon_disabled.png' alt='Logo'></td>
-                        <td class='num_cell'> <p> " . $module_row["id"] . " </td>
-                        <td class='title_cell'> <p> " . $module_row["module_name"] . " (Locked) </td>
-                        <td class='btn_cell'>
-                            <a class='btn' style='background-color: grey;' href='#' onclick='return false;'>Locked <i class='fas fa-lock'></i></a>
-                        </td>
-                    </tr>
-                </table>";
+            echo "
+            <div class='container module-container'>
+                <div class='row align-items-center'>
+                    <div class='col-md-8 d-flex align-items-center'>
+                        <img class='icon' src='../../img/file_icon.png' alt='Logo' style='margin-right: 10px;'>
+                        <p class='fs-3 mb-0'>" . $module_row["module_name"] . "</p>
+                    </div>
+                    <div class='col-md-4 text-md-end'>
+                        <a class='btn d-flex align-items-center justify-content-end' style='color: grey;' href='#' onclick='return false;'>
+                            <span>Locked</span>
+                            <i class='fas fa-lock' style='margin-left: 5px;'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        ";
         }
 
         // Update $previous_module_passed based on whether the current module quiz is passed
@@ -190,7 +207,24 @@ if ($modules_result->num_rows > 0) {
 
     // After the loop, if all modules are passed, show the print certificate button
     if ($all_modules_passed) {
-        echo "<a href='print_certificate.php?user_id=$userId&course_id=$module_id' target='_blank' class='btn btn-success'>Print Certificate</a>";
+        echo "
+            <div class='container module-container' style='border:2px solid green;'>
+                <div class='row align-items-center'>
+                    <div class='col-md-8 d-flex align-items-center'>
+                        <img class='icon' src='../../img/certificate.png' alt='Logo' style='margin-right: 10px;'>
+                        <p class='fs-3 mb-0'>Course Completed</p>
+                    </div>
+                    <div class='col-md-4 text-md-end'>
+                        <a style='color: green;' href='print_certificate.php?user_id=$userId&course_id=$module_id' target='_blank' class='btn '>
+                            <i class='bi bi-printer' style='margin-right: 5px;'></i>Print Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        ";
+
+        
+    
     }
 } else {
     echo "<tr><td colspan='4'>No modules found</td></tr>";
@@ -200,9 +234,9 @@ $conn->close();
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="../../javascript/script.js"></script>
+<script src="../../javascript/script.js"></script>
 </body>
 </html>
