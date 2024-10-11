@@ -84,7 +84,7 @@ $result = $conn->query($sql);
 </nav>
 
 <div class="table-container d-flex align-items-start">
-    <button class='btn btn-primary course-btn openAddmmodBtn' id='openCourseBtn' data-addmodule-id="<?php echo $course_id;?>">Add Module</button>
+    <button style='width: 150px;' class='btn btn-primary course-btn openAddmmodBtn' id='openCourseBtn' data-addmodule-id="<?php echo $course_id;?>">Add Module</button>
     <table class="table table-borderless table-hover">
         <thead>
             <th>Module Title</th>
@@ -100,11 +100,11 @@ $result = $conn->query($sql);
                         <td><input class='form-control' type='text' name='module_name' value='".$row["module_name"]."'></td>
                         <td><input class='btn btn-success mt-2' type='submit' value='Update'></td>
                         <td><a class='btn btn-danger mt-2' href='delete_modules.php?course_id=".$course_id."&module_id=".$row["id"]."'>DELETE</a></td>
-                        <td><a class='btn btn-primary openFileBtn mt-2' href='#' data-module-id=" . htmlspecialchars($row['id']) . "
+                        <td><a style='width: 130px;' class='btn btn-primary openFileBtn mt-2' href='#' data-module-id=" . htmlspecialchars($row['id']) . "
                             data-course-id=" . htmlspecialchars($course_id) . ">Upload Video</a></td>
-                        <td><a class='btn btn-primary openQuizBtn mt-2' href='#' data-secmodule-id=" . htmlspecialchars($row['id']) . "
+                        <td><a style='width: 110px;' class='btn btn-primary openQuizBtn mt-2' href='#' data-secmodule-id=" . htmlspecialchars($row['id']) . "
                             data-seccourse-id=" . htmlspecialchars($course_id) . ">Quiz Maker</a></td>
-                        <td><a class='btn btn-primary mt-2' href='quiz_list.php?modules_id=" . htmlspecialchars($row['id']) . "&course_id=" . $course_id . "'>Quiz List</a></td>
+                        <td><a style='width: 100px;' class='btn btn-primary mt-2' href='quiz_list.php?modules_id=" . htmlspecialchars($row['id']) . "&course_id=" . $course_id . "'>Quiz List</a></td>
                         <td><a class='btn btn-primary openContentBtn mt-2' href='#' data-thirdmodule-id=".htmlspecialchars($row['id']).">Contents</a></td>
                         </form>
                     </tr>";

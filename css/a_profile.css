@@ -64,7 +64,7 @@
 
   input[type="checkbox"] {
     transform: scale(1.5); /* Adjust the scale as needed */
-    width: 15px; /* Optional: Set a custom width */
+    width: 15px;  /* Optional: Set a custom width */
     height: 15px; /* Optional: Set a custom height */
     margin: 5px; /* Optional: Add some margin for spacing */
   }
