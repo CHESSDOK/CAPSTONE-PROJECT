@@ -15,17 +15,17 @@
   }
   $userId = checkSession();
 
-  $sql = "SELECT * FROM register WHERE id = ?";
+  $sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("i", $userId);
   $stmt->execute();
-  $result = $stmt->get_result();
-
-  if (!$result) {
+  $res = $stmt->get_result();
+  
+  if (!$res) {
       die("Invalid query: " . $conn->error); 
   }
-
-  $row = $result->fetch_assoc();
+  
+  $row = $res->fetch_assoc();
   if (!$row) {
       die("User not found.");
   }

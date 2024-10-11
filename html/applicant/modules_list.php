@@ -28,7 +28,20 @@ $modules_result = $stmt->get_result();
 // Variables to track module progress and certificate eligibility
 $all_modules_passed = true; // Assume all modules are passed initially
 $previous_module_passed = true; // First module can be accessed
+$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$res = $stmt->get_result();
 
+if (!$res) {
+    die("Invalid query: " . $conn->error); 
+}
+
+$row = $res->fetch_assoc();
+if (!$row) {
+    die("User not found.");
+}
 ?>
 
 <!DOCTYPE html>
