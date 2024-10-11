@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 10, 2024 at 05:15 AM
+-- Generation Time: Oct 11, 2024 at 09:51 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -32,23 +32,26 @@ CREATE TABLE `admin_profile` (
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_level` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `admin_level` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `full_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admin_profile`
 --
 
-INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level`) VALUES
-(1, 'Admin', '$2y$10$szZWza9fsLiGXs4evidE7.uc3zwFoQjs/hfwGvw2Vd6lddYLzBuTW', 'mercadomarklawrence55@gmail.com', 'super_admin'),
-(2, 'jervin123', '$2y$10$bs.kIy4YfXaiSviKhSgXLeis9MBQHvqUMP0PV0pzCGuKxQSNqvqCG', 'jervinguevarra123@gmail.com', NULL),
-(3, 'jerving123', '$2y$10$AvSxZd27fLrwIIFprAJC1eYvMEiZ9zZdW689Uvta6pXcVZQEIl4T6', 'jervinguevarra123@gmail.com', NULL),
-(4, 'Jima', '$2y$10$DeLy5nNImdzDJT8Q61F8/.2MVCNj9M4lKU2b1H5ONAnUXyocPD/4S', 'bernabegiemer@gmail.com', NULL),
-(5, 'Jima', '$2y$10$x4lMG.vRA1QvU/Hrjg8ire.u5EcgHXwP2UqdQz2R/w9PONLwBcBuK', 'bernabegiemer@gmail.com', NULL),
-(6, 'Azure', '$2y$10$lZyxZFyzc9pIxdNESm9pI.Aaxa80D.zxkls7LcqEl3RCgiRDhsbqu', 'ict1mercado.cdlb@gmail.com', NULL),
-(7, 'Mark', '$2y$10$ZODJ37OaJ8a8Eaj6A5v9vuIqCsIQ3HXZop.1V2HX8IvD6aeOwIMG2', 'ict1mercado.cdlb@gmail.com', NULL),
-(8, 'Azure123', '$2y$10$hrWjfunJ0GOVP4yVTSizSuRcNEZiLFuHwdSgUPMOINDzAalwgkEky', 'mercadomarklawrence55@gmail.com', NULL),
-(9, 'Azure123', '$2y$10$AzcQso28OxN7m/XpNJOEpOGRijxAY.LCvsN84QRRkSDAgt/smlA5O', 'ict1mercado.cdlb@gmail.com', NULL);
+INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level`, `full_name`, `phone`, `profile_picture`) VALUES
+(1, 'Admin', '$2y$10$szZWza9fsLiGXs4evidE7.uc3zwFoQjs/hfwGvw2Vd6lddYLzBuTW', 'mercadomarklawrence55@gmail.com', 'super_admin', 'Mark Azre', '09762848025', 'uploads/woman-portrait.png'),
+(2, 'jervin123', '$2y$10$bs.kIy4YfXaiSviKhSgXLeis9MBQHvqUMP0PV0pzCGuKxQSNqvqCG', 'jervinguevarra123@gmail.com', NULL, NULL, NULL, NULL),
+(3, 'jerving123', '$2y$10$AvSxZd27fLrwIIFprAJC1eYvMEiZ9zZdW689Uvta6pXcVZQEIl4T6', 'jervinguevarra123@gmail.com', NULL, NULL, NULL, NULL),
+(4, 'Jima', '$2y$10$DeLy5nNImdzDJT8Q61F8/.2MVCNj9M4lKU2b1H5ONAnUXyocPD/4S', 'bernabegiemer@gmail.com', NULL, NULL, NULL, NULL),
+(5, 'Jima', '$2y$10$x4lMG.vRA1QvU/Hrjg8ire.u5EcgHXwP2UqdQz2R/w9PONLwBcBuK', 'bernabegiemer@gmail.com', NULL, NULL, NULL, NULL),
+(6, 'Azure', '$2y$10$lZyxZFyzc9pIxdNESm9pI.Aaxa80D.zxkls7LcqEl3RCgiRDhsbqu', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL),
+(7, 'Mark', '$2y$10$ZODJ37OaJ8a8Eaj6A5v9vuIqCsIQ3HXZop.1V2HX8IvD6aeOwIMG2', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL),
+(8, 'Azure123', '$2y$10$hrWjfunJ0GOVP4yVTSizSuRcNEZiLFuHwdSgUPMOINDzAalwgkEky', 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL),
+(9, 'Azure123', '$2y$10$AzcQso28OxN7m/XpNJOEpOGRijxAY.LCvsN84QRRkSDAgt/smlA5O', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,10 +110,10 @@ CREATE TABLE `applicant_profile` (
 --
 
 INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `age`, `specialization`, `sex`, `civil_status`, `contact_no`, `photo`, `house_address`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `prefix`, `emergency_contact_num`, `income`, `country`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`) VALUES
-(26, 43, 'mercadomarklawrence55@gmail.com', 'Mark', 'Mercado', 'Aranda', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 44, 'ict1mercado.cdlb@gmail.com', 'Lawrence', 'Mercado', 'ICT', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 45, 'marklawrencemercado8@gmail.com', 'Batbat', 'Mercado', 'Orn', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 46, 'batbattmercado@gmail.com', 'Rhave', 'Bern', 'Merd', NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(26, 43, 'mercadomarklawrence55@gmail.com', 'Mark', 'Mercado', 'Aranda', NULL, NULL, NULL, NULL, NULL, NULL, '6707d99fa2a1b.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 44, 'raqitym@mailinator.com', 'Dillon', 'Henderson', 'Quon Mcdaniel', '1992-08-29', 87, NULL, 'male', 'Widowed', 5889, '6707dba238f33.png', 'Sunt et quo volupta', '0', '0', '0', '16', 'Documented', 'Jamal Carr', '62', 'Riley Atkinson', 'Et odit deserunt min', 'Reuben Shields', 'Eu et culpa aut labo', 'Lawrence Campos', 'Ea eos dolorem cons', '3', 'Elementary Graduate', 'Others', 'V', 69, 124, 'Odit non qui delenit', 'Sea-Based', 'Name Hire', 'Cotton Strickland Trading', 499, 'Mejia and Johns Trading', 'Halla Mckay', 'Dolorum asperiores i', '2009-08-10', '2010-11-11'),
+(28, 45, 'nawa@mailinator.com', 'Mari', 'Talley', 'Giselle Cervantes', '1986-05-26', 69, NULL, 'male', 'Single', 5731187, '67086b9d1de62.jpg', 'Ad omnis laborum qui', '0', '0', '0', '630', 'Undocumented', 'Lysandra Wilkerson', '2', 'Judah Levy', 'Ab veritatis cum nul', 'Morgan Oconnor', 'Officiis ea sunt aut', 'Imani Russell', 'Nostrud id repudiand', '600', 'Elementary Undergraduate', 'Others', 'IV', 60, 432, 'Adipisci reiciendis ', 'Land-Based', 'Referral', 'Jackson Battle Traders', 435, 'Hampton and Marks Associates', 'Shannon Irwin', 'Doloribus aut conseq', '2017-05-02', '1974-05-19'),
+(29, 46, 'voxajo@mailinator.com', 'Allegra', 'Bradshaw', 'Velma Gilmore', '1977-06-23', 16, NULL, 'male', 'Married', 4967, '6707de8f0147b.jpg', 'Sint sed proident q', '0', '0', '0', '99', 'Returning', 'Sophia Holcomb', '42', 'Keiko Buck', 'Quia sunt non esse a', 'Cheryl Mccarty', 'Quaerat fugiat enim ', 'William Castillo', 'Consequatur tenetur', '411', 'College Graduate', 'Information Technology', 'V', 95, 336, 'Et obcaecati soluta ', 'Sea-Based', 'Government Hire', 'Garrison Deleon Plc', 291, 'Mcdaniel and Jacobson Trading', 'Blair Stokes', 'Ratione sed sit aut ', '2003-03-31', '2000-05-04');
 
 -- --------------------------------------------------------
 
@@ -132,7 +135,9 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(51, 46, 16, '2024-10-10', 'rejected', 'Warehouse man');
+(51, 46, 16, '2024-10-10', 'accepted', 'Warehouse man'),
+(52, 46, 11, '2024-10-10', 'accepted', 'Carpenter'),
+(53, 45, 17, '2024-10-10', 'pending', 'Principal Creative Specialist');
 
 -- --------------------------------------------------------
 
@@ -149,6 +154,14 @@ CREATE TABLE `cases` (
   `status` enum('filed','in_progress','resolved') COLLATE utf8mb4_unicode_ci DEFAULT 'filed',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cases`
+--
+
+INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, `created_at`) VALUES
+(12, 45, 'Abusive employer', 'harassment, physical abuse', '../uploads/462463385_1483381795713486_9058732459192274728_n.png', 'filed', '2024-10-11 00:14:44'),
+(13, 44, 'Underpaid', 'Salary decrease and unpaid work', '../uploads/PESO.pdf', 'filed', '2024-10-11 00:18:25');
 
 -- --------------------------------------------------------
 
@@ -223,7 +236,8 @@ CREATE TABLE `employer_documents` (
 INSERT INTO `employer_documents` (`id`, `user_id`, `document_name`, `document_path`, `is_verified`, `comment`) VALUES
 (3, 9, 'Single', 'uploads/philsys id.png', 1, NULL),
 (4, 10, 'Single', 'uploads/ITEP414-SAM-Assignment-2-and-Task-2.pdf', 1, NULL),
-(5, 11, 'Single', 'uploads/ITEP414-SAM-Assignment-1-and-Task-1.pdf', 1, NULL);
+(5, 11, 'Single', 'uploads/ITEP414-SAM-Assignment-1-and-Task-1.pdf', 1, NULL),
+(6, 11, 'Single', 'uploads/CLAIM-MERCADO, MARK LAWRENCE ARANDA_2023-1.docx', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -250,7 +264,7 @@ CREATE TABLE `employer_profile` (
 
 INSERT INTO `employer_profile` (`id`, `user_id`, `company_name`, `company_address`, `tel_num`, `president`, `HR`, `company_mail`, `HR_mail`, `photo`) VALUES
 (9, 9, 'Wehner inc', '47505 Rosenbaum Rapids', '75', 'Grady Doyle', 'Voluptatum sunt eligendi repellat nihil officiis deleniti quos.', 'Harber, Brown and Strosin', 'your.email+fakedata60367@gmail.com', '67075944b1138.png'),
-(10, 10, 'Lehner Group', '72695 Stoltenberg Parkway', '49', 'Breitenberg Schmitt', 'John Schmitt', 'Senger, Runolfsson and Gerlach', 'your.email+fakedata52491@gmail.com', '67075b413c6ab.png'),
+(10, 10, 'Lehner Group', '72695 Stoltenberg Parkway', '49', 'Breitenberg Schmitt', 'John Schmitt', 'Senger, Runolfsson and Gerlach', 'your.email+fakedata52491@gmail.com', '6708ea2fc3a24.png'),
 (11, 11, 'Herzog Inc', '25813 Ward Well', '62', 'Lemke O Connell', 'Carol Yundt', 'Hilpert, Lakin and Doyle', 'your.email+fakedata66606@gmail.com', '670760a7022ed.png');
 
 -- --------------------------------------------------------
@@ -280,7 +294,7 @@ CREATE TABLE `empyers` (
 --
 
 INSERT INTO `empyers` (`id`, `username`, `password`, `email`, `Fname`, `Lname`, `Bdate`, `contact`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
-(9, 'Mark55', '$2y$10$Pne11S1JqPKgRbXvf88I2OA8wF9hEH8PMenlS26deUJ0GMdu70nlq', 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL, 1, '836619', '2024-10-10 12:32:12', NULL, NULL),
+(9, 'Mark55', '$2y$10$Pne11S1JqPKgRbXvf88I2OA8wF9hEH8PMenlS26deUJ0GMdu70nlq', 'mercadomarklawrence55@gmail.com', 'Brady Parker', 'Gloria Acevedo', '1976-09-19', 9136, 1, '836619', '2024-10-10 12:32:12', NULL, NULL),
 (10, 'Ict1', '$2y$10$so3p8.RcQnOqPiCAva0X1uGvZ2X7X2wV3aziLsQ2eIT8siaXlZWQC', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 1, '606376', '2024-10-10 12:41:57', NULL, NULL),
 (11, 'Batbat', '$2y$10$QTbi7Iy1aVIVgfFapjB/weUo9TzbOwLaJkN2qP.eFXz4OuBLFBcFG', 'marklawrencemercado8@gmail.com', NULL, NULL, NULL, NULL, 1, '878316', '2024-10-10 12:49:18', NULL, NULL);
 
@@ -330,7 +344,7 @@ INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job
 (11, NULL, 1, 'Carpenter', 'Wood crafting and stuff', '', 12, 'Has experience on woodsman ship', 'Bayog', '', '2024-10-08', 1),
 (13, NULL, 1, 'Security Guard', 'Mall Security Guard', '', 2, 'Security Guard License, can work on night shift', 'Olivares plaza, Los Banos', '', '2024-10-08', 1),
 (15, NULL, 1, 'Housewife', 'care giver', '', 12, 'Girl with big boob daw sabi ni jervin', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
-(16, NULL, 1, 'Warehouse man', 'Heavy work labor', '', 12, 'High graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
+(16, NULL, 1, 'Warehouse man', 'Heavy work labor', '', 11, 'High graduate', 'Sta. Cruz Laguna', '', '2024-10-08', 1),
 (17, 9, NULL, 'Principal Creative Specialist', 'Forward Interactions Officer', NULL, 14, 'College Graduate', '3012 Raynor Junction', '', '2024-10-10', 1),
 (18, 10, NULL, 'Corporate Markets Strategist', 'Customer Response Administrator', NULL, 26, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
 (19, 11, NULL, 'Human Communications Engineer', 'Legacy Optimization Agent', NULL, 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1);
@@ -399,6 +413,18 @@ CREATE TABLE `modules_taken` (
   `date_taken` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `modules_taken`
+--
+
+INSERT INTO `modules_taken` (`id`, `user_id`, `module_id`, `status`, `date_taken`) VALUES
+(14, 45, 9, 'passed', '2024-10-10'),
+(15, 45, 10, 'passed', '2024-10-10'),
+(16, 45, 11, 'passed', '2024-10-10'),
+(17, 43, 9, 'passed', '2024-10-11'),
+(18, 43, 10, 'passed', '2024-10-11'),
+(19, 43, 11, 'passed', '2024-10-11');
+
 -- --------------------------------------------------------
 
 --
@@ -433,7 +459,8 @@ INSERT INTO `module_content` (`id`, `description`, `video`, `file_path`, `module
 (14, 'jack', 'https://www.youtube.com/watch?v=QdJPIylB7TA', 'uploads/Application Form6.pdf', 16),
 (15, 'hahaha', 'https://www.youtube.com/watch?v=kSNOF7vNplM&t=278s', 'uploads/Application Form6.pdf', 18),
 (16, 'sdfweaf', 'https://www.youtube.com/watch?v=NfTvrL99dVkhttps://www.youtube.com/watch?v=NfTvrL99dVkhttps://www.youtube.com/watch?v=NfTvrL99dVk', 'uploads/Application-Form.pdf', 17),
-(17, 'jack', 'https://www.youtube.com/watch?v=NfTvrL99dVkhttps://www.youtube.com/watch?v=NfTvrL99dVkhttps://www.youtube.com/watch?v=NfTvrL99dVk', 'uploads/Application-Form.pdf', 17);
+(17, 'jack', 'https://www.youtube.com/watch?v=NfTvrL99dVkhttps://www.youtube.com/watch?v=NfTvrL99dVkhttps://www.youtube.com/watch?v=NfTvrL99dVk', 'uploads/Application-Form.pdf', 17),
+(18, 'Social median marketin strats', 'https://www.youtube.com/watch?v=J_RJY8TuSso', 'uploads/Application-Form.pdf', 11);
 
 -- --------------------------------------------------------
 
@@ -607,7 +634,12 @@ INSERT INTO `question` (`id`, `quiz_id`, `question`, `option_a`, `option_b`, `op
 (180, 38, 'Which factor is most important for improving a website\'s SEO ranking?', 'Increasing website color variety', 'High-quality, relevant content', 'Paying for ads', 'Using a large number of images', 'b', 1),
 (181, 38, 'What is a \"keyword\" in SEO?', 'A word or phrase that users search for in search engines', 'A type of website plugin', 'A tag used in HTML coding', 'A special offer code for marketing', 'a', 1),
 (182, 38, 'Which SEO technique involves acquiring backlinks from other websites?', 'On-page SEO', 'Keyword stuffing', 'Off-page SEO', 'Page speed optimization', 'c', 1),
-(183, 38, 'What is the purpose of meta descriptions in SEO?', 'To rank higher in paid search results', 'To provide alt text for images', 'To provide a brief summary of the page content in search results', 'To display large amounts of text on a website', 'c', 1);
+(183, 38, 'What is the purpose of meta descriptions in SEO?', 'To rank higher in paid search results', 'To provide alt text for images', 'To provide a brief summary of the page content in search results', 'To display large amounts of text on a website', 'c', 1),
+(184, 39, 'What is the primary goal of social media marketing?', 'To create print advertisements', 'To engage with the audience and build brand awareness', 'To sell products directly through social media', 'To increase email subscribers', 'b', 1),
+(185, 39, 'Which social media platform is most commonly used for visual content and influencer marketing?', 'LinkedIn', 'Instagram', 'Twitter', 'Pinterest', 'b', 1),
+(186, 39, 'What is the purpose of using hashtags in social media posts?', 'To increase the character count', 'To categorize content and increase visibility', 'To confuse the audience', 'To promote paid advertisements', 'b', 1),
+(187, 39, 'What is an important metric to measure the success of social media campaigns?', 'The number of followers only', 'Engagement rate, including likes, shares, and comments', 'The number of posts published', 'The number of ads run', 'b', 1),
+(188, 39, 'Which type of content tends to perform best on social media platforms?', 'Long, detailed articles', 'Short, visually appealing posts such as images and videos ', 'Only text-based updates', 'Complicated infographics', 'b', 1);
 
 -- --------------------------------------------------------
 
@@ -648,12 +680,13 @@ INSERT INTO `quiz_name` (`id`, `module_id`, `title`, `correct_ans`, `wrong_ans`,
 (25, 0, 'Meyokop', 2, 2, 1, 'sdaf', '2024-10-01 09:59:30'),
 (26, 4, 'Nezuko', 2, 2, 1, 'sadfasdfawhgfsdgdrt', '2024-10-01 13:44:11'),
 (27, 5, 'Nezuko', 1, 1, 1, 'sdfasdvczxc vzdfvvzsdf', '2024-10-01 13:46:51'),
-(28, 1, 'How To Take Measurements', 2, 2, 7, 'accurate measurement will make dress fit perfectly', '2024-10-07 16:11:28'),
+(28, 1, 'How To Take Measurements', 2, 2, 7, 'accurate measurement will make dress fit perfectly', '2024-10-10 19:16:40'),
 (29, 2, 'Learning Needle And Thread', 2, 2, 5, 'sewing', '2024-10-05 19:18:47'),
 (30, 3, 'Cutting Dress', 2, 2, 5, 'Cutting smoothly ', '2024-10-05 19:27:23'),
 (31, 16, 'Layouts For Dressmaking', 2, 2, 5, 'designing perfect fit', '2024-10-05 19:37:33'),
 (37, 9, 'Introduction', 2, 2, 5, 'getting started with digital maketing', '2024-10-06 15:23:44'),
-(38, 10, 'Search Engine Optimization (seo)', 2, 2, 5, ' (SEO)', '2024-10-06 15:30:14');
+(38, 10, 'Search Engine Optimization (seo)', 2, 2, 5, ' (SEO)', '2024-10-06 15:30:14'),
+(39, 11, 'Social Media Marketing', 2, 2, 5, '5 questions about Social Media Marketing', '2024-10-10 19:23:53');
 
 -- --------------------------------------------------------
 
@@ -815,7 +848,41 @@ INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `quiz_id`, `answer`)
 (593, 27, 180, 38, 'b'),
 (594, 27, 181, 38, 'b'),
 (595, 27, 182, 38, 'b'),
-(596, 27, 183, 38, 'c');
+(596, 27, 183, 38, 'c'),
+(597, 45, 172, 37, 'b'),
+(598, 45, 173, 37, 'b'),
+(599, 45, 174, 37, 'b'),
+(600, 45, 175, 37, 'b'),
+(601, 45, 176, 37, 'b'),
+(602, 45, 177, 38, 'b'),
+(603, 45, 178, 38, 'b'),
+(604, 45, 179, 38, 'b'),
+(605, 45, 180, 38, 'b'),
+(606, 45, 181, 38, 'a'),
+(607, 45, 182, 38, 'a'),
+(608, 45, 183, 38, 'c'),
+(609, 45, 184, 39, 'b'),
+(610, 45, 185, 39, 'b'),
+(611, 45, 186, 39, 'b'),
+(612, 45, 187, 39, 'b'),
+(613, 45, 188, 39, 'b'),
+(614, 43, 172, 37, 'b'),
+(615, 43, 173, 37, 'b'),
+(616, 43, 174, 37, 'b'),
+(617, 43, 175, 37, 'b'),
+(618, 43, 176, 37, 'b'),
+(619, 43, 177, 38, 'b'),
+(620, 43, 178, 38, 'b'),
+(621, 43, 179, 38, 'b'),
+(622, 43, 180, 38, 'b'),
+(623, 43, 181, 38, 'a'),
+(624, 43, 182, 38, 'a'),
+(625, 43, 183, 38, 'a'),
+(626, 43, 184, 39, 'b'),
+(627, 43, 185, 39, 'b'),
+(628, 43, 186, 39, 'b'),
+(629, 43, 187, 39, 'b'),
+(630, 43, 188, 39, 'b');
 
 -- --------------------------------------------------------
 
@@ -832,6 +899,18 @@ CREATE TABLE `user_score` (
   `wrong_answers` int DEFAULT NULL,
   `dates` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_score`
+--
+
+INSERT INTO `user_score` (`id`, `user_id`, `quiz_id`, `score`, `correct_answers`, `wrong_answers`, `dates`) VALUES
+(69, 45, 37, 5, 5, 0, '2024-10-09 16:00:00'),
+(70, 45, 38, 6, 6, 1, '2024-10-09 16:00:00'),
+(71, 45, 39, 5, 5, 0, '2024-10-09 16:00:00'),
+(72, 43, 37, 5, 5, 0, '2024-10-10 16:00:00'),
+(73, 43, 38, 5, 5, 2, '2024-10-10 16:00:00'),
+(74, 43, 39, 5, 5, 0, '2024-10-10 16:00:00');
 
 --
 -- Indexes for dumped tables
@@ -994,13 +1073,13 @@ ALTER TABLE `applicant_profile`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `cases`
 --
 ALTER TABLE `cases`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `chat_messages`
@@ -1024,7 +1103,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `employer_documents`
 --
 ALTER TABLE `employer_documents`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employer_profile`
@@ -1060,25 +1139,25 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT for table `modules_taken`
 --
 ALTER TABLE `modules_taken`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `module_content`
 --
 ALTER TABLE `module_content`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `quiz_name`
 --
 ALTER TABLE `quiz_name`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `register`
@@ -1102,13 +1181,13 @@ ALTER TABLE `survey_reponse`
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=597;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=631;
 
 --
 -- AUTO_INCREMENT for table `user_score`
 --
 ALTER TABLE `user_score`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
