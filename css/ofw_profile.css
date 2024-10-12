@@ -1,87 +1,15 @@
-
-.container-fluid {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 30px;
+.profile-container {
+  width: 80%; /* Adjust this value as needed to make the table smaller */
+  margin: 5vh auto; /* Center the table */
 }
 
-.form-content {
+.form-content { 
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   padding-left: 30px;
-  max-height: 80vh;
+  max-height: 100%;
   overflow-y: auto;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  margin-bottom: 30px;
-}
-
-.info {
-  display: block;
-  font-weight: 600;
-  font-size: 1.2em;
-  color: #6b6969;
-}
-
-.h1ouse-info {
-  width: 100%;
-}
-
-td .form-control.h1ouse-info {
-  width: 100%;
-}
-
-.form-content input {
-  flex-grow: 1;
-  width: 100%;
-}
-
-td {
-  padding: 10px;
-}
-
-.scrollspy {
-  width: 250px;
-  position: sticky;
-  top: 10px;
-  border-radius: 15px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.nav-float {
-  font-size: 1em;
-  font-weight: 400;
-  letter-spacing: 1.2px;
-  text-align: center;
-  padding: 20px;
-  margin: 5px;
-  text-decoration: none;
-  color: #000;
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-float:hover {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: #007bff;
-  background-color: #fff;
-  transform: scale(1.05);
-}
-
-.nav-float.active {
-  font-weight: bold;
-  color: #0b53a0;
-}
-
-.nxt a{
- padding: 50px;
 }

@@ -5,16 +5,6 @@
 
 }
 
-table{
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 15px;
-    width: 60%;
-    margin: 0 auto;
-    margin-bottom: 15px;
-    table-layout: auto;
-}
-
 table td, table th {
     padding: 0; /* Adjust padding inside cells */
     border: 0; /* Optional: Border around cells */
@@ -82,14 +72,17 @@ tr, td {
     cursor: pointer;
 }
 
+.table-container {
+    width: 80%; /* Adjust this value as needed to make the table smaller */
+    margin: 5vh auto; /* Center the table */
+}
 
 .container {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
     align-items: left;
     width: 80vw; /* Fixed width relative to viewport */
-    height: 60vh; /* Fixed height relative to viewport */
-    margin: auto; /* Center container horizontally */
+    margin:5vh auto; /* Center container horizontally */
     margin-left: 20vw;
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }

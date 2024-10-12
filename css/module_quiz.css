@@ -1,10 +1,13 @@
 .table-container {
     width: 50vw; /* Adjust this value as needed to make the table smaller */
     max-width: auto;
-    margin: auto;
-    background-color: transparent;
-
+    margin: 5vh auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+	box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .table {
   border-radius: 20px;
@@ -12,6 +15,24 @@
 }
 
 .table td, .table th {
+  
+  background-color: transparent;
     padding: 0.5rem; /* Adjust padding to make cells smaller */
     text-align: flex-start;
+}
+
+ /* Hover effect for results section */
+ .result-box {
+  transition: transform 0.3s, background-color 0.3s; /* Smooth hover effect */
+}
+
+.result-box:hover {
+  transform: scale(1.05); /* Slightly scale up the element on hover */
+  background-color: #f8f9fa; /* Change background color on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+  border-radius: 8px; /* Slight rounding for a smoother look */
+}
+
+.rslt {
+    text-transform: capitalize;
 }

@@ -16,6 +16,7 @@ function checkSession() {
 $userId = checkSession();
 $q_id = $_GET['q_id'];
 $module_id = $_GET['module_id'];
+$module_title = $_GET['q_title'];
 
 $questions_query = "SELECT * FROM question WHERE quiz_id='$q_id' ORDER BY RAND() LIMIT 20";
 $questions_result = mysqli_query($conn, $questions_query);
@@ -55,105 +56,63 @@ if (!$row) {
         <a href="#"> PESO-lb.ph</a>
     </div>
 
-    <header>
-        <h1 class="h1">Quiz</h1>
-    </header>
-
-    <div class="profile-icons">
-        <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-            <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
-        </div>
-        
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-    <?php if (!empty($row['photo'])): ?>
-        <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-    <?php else: ?>
-        <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-    <?php endif; ?>
-    </div>
-    </div>
-
-    <!-- Burger icon -->
-    <div class="burger" id="burgerToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</td>
-</tr>
-</table>
-
-    <!-- Offcanvas Menu -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <table class="menu">
-                <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
-                <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
-                <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_home.php" class="nav-link">OFW</a></td></tr>
-                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
-            </table>
-        </div>
+    <div class='text-center'>
+        <button class='btn btn-primary' onclick='window.close()'>
+            <i class='bi bi-x-lg'></i> Close
+        </button>
     </div>
 </nav>
-    
-<nav class="bcrumb-container" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
-    <li class="breadcrumb-item"><a href="training_list.php" >Training</a></li>
-    <li class="breadcrumb-item"><a href="modules_list.php?user_id=<?php echo htmlspecialchars($user_id); ?>&course_id=<?php echo htmlspecialchars($module_id); ?>" >Module</a></li>
-    <li class="breadcrumb-item"><a href="modules_list.php?user_id=<?php echo htmlspecialchars($user_id); ?>&course_id=<?php echo htmlspecialchars($module_id); ?>" >Material</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Quiz</li>
-  </ol>
-</nav>
 
-    <form class="form-box" action="../../php/applicant/submit_ans.php" method="POST">
+<form class="form-box p-4 border rounded" action="../../php/applicant/submit_ans.php" method="POST">
+    <div class="table-container">
         <input type="hidden" name="q_id" value="<?php echo htmlspecialchars($q_id); ?>">
         <input type="hidden" name="module_id" value="<?php echo htmlspecialchars($module_id); ?>">
+        
+        <!-- Display module name with Bootstrap styling -->
+        <p class="label h5 text-center mb-4"><?php echo htmlspecialchars($module_title); ?></p>
+        
         <?php
         $q_number = 1;
+       
         while ($question = mysqli_fetch_assoc($questions_result)) {
             echo "
-            <div class='table-container'>
-            <table class='table table-borderless table-hover'>
-              <thead>
-                <th>
-                  <input type='hidden' name='questions[]' value='{$question['id']}'>
-                  <p>{$q_number} : " . htmlspecialchars($question['question']) . "</p>
-                </th>
-              </thead>
-              <tr>
-                <td>
-                <label><input type='radio' name='answers[{$question['id']}]' value='a'> " . htmlspecialchars($question['option_a']) . "</label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <label><input type='radio' name='answers[{$question['id']}]' value='b'> " . htmlspecialchars($question['option_b']) . "</label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <label><input type='radio' name='answers[{$question['id']}]' value='c'> " . htmlspecialchars($question['option_c']) . "</label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <label><input type='radio' name='answers[{$question['id']}]' value='d'> " . htmlspecialchars($question['option_d']) . "</label>
-                </td>
-              </tr>
-            </table>";
+            <div class='mb-4'>
+                <input type='hidden' name='questions[]' value='{$question['id']}'>
+                <p class='fw-bold'>{$q_number}: " . htmlspecialchars($question['question']) . "</p>
+
+                <div class='form-check'>
+                    <label class='form-check-label'>
+                       A).<input type='radio' class='form-check-input' name='answers[{$question['id']}]' value='a'> " . htmlspecialchars($question['option_a']) . "
+                    </label>
+                </div>
+
+                <div class='form-check'>
+                    <label class='form-check-label'>
+                        B).<input type='radio' class='form-check-input' name='answers[{$question['id']}]' value='b'> " . htmlspecialchars($question['option_b']) . "
+                    </label>
+                </div>
+
+                <div class='form-check'>
+                    <label class='form-check-label'>
+                        C).<input type='radio' class='form-check-input' name='answers[{$question['id']}]' value='c'> " . htmlspecialchars($question['option_c']) . "
+                    </label>
+                </div>
+
+                <div class='form-check'>
+                    <label class='form-check-label'>
+                        D).<input type='radio' class='form-check-input' name='answers[{$question['id']}]' value='d'> " . htmlspecialchars($question['option_d']) . "
+                    </label>
+                </div>
+            </div>
+            ";
             $q_number++;
         }
         ?>
-        <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+        <button class="btn btn-primary btn-block mt-3" type="submit" name="submit">Submit</button>
     </div>
-    </form>
+</form>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -54,6 +54,7 @@ $result_quiz = $stmt_quiz->get_result();
 if ($row_quiz = $result_quiz->fetch_assoc()) {
     // Store quiz ID and name
     $quiz_id = $row_quiz['id'];
+    $quiz_title = $row_quiz['title'];
 } else {
     $quiz_id = null;
 }
@@ -120,12 +121,12 @@ $result = $conn->query($sql);
         </div>
         <div class="offcanvas-body">
             <table border="0" class="menu">
-                <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
-                <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
-                <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
-                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a style="text-align:left;" href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
+                <tr><td><a style="text-align:left;" href="applicant.php" class="nav-link">Applicant</a></td></tr>
+                <tr><td><a style="text-align:left;" href="#" class="active nav-link">Training</a></td></tr>
+                <tr><td><a style="text-align:left;" href="ofw_form.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a style="text-align:left;" href="../../html/about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a style="text-align:left;" href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
@@ -159,7 +160,7 @@ $result = $conn->query($sql);
                         echo '<a href="' . htmlspecialchars($row['file_path']) . '" target="_blank">
                               <img class="icon" src="../../img/file_icon.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
                               Open File</a>';
-                        echo '<a href="take_exam.php?module_id=' . htmlspecialchars($row["modules_id"]) . '&q_id=' . htmlspecialchars($quiz_id) . '" target="_blank">
+                        echo '<a href="take_exam.php?module_id=' . htmlspecialchars($row["modules_id"]) . '&q_id=' . htmlspecialchars($quiz_id) . '&q_title=' . htmlspecialchars($quiz_title) . '" target="_blank">
                               <img class="icon" src="../../img/quiz.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
                               Take Quiz</a>';
                 echo '</div>';

@@ -69,44 +69,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/employer.css">
-    <style>
-            .category-container {
-                display: flex;
-                flex-direction: column; /* Align categories and tables vertically */
-                gap: 20px; /* Space between categories */
-            }
-            .category-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center; /* Center align headers and tables */
-                width: 100%;
-            }
-            .category-section h3 {
-                margin-bottom: 10px; /* Space between header and table */
-            }
-            table {
-                width: 80%; /* Adjust table width */
-                border-collapse: collapse;
-            }
-            table, th, td {
-                border: 1px solid black; /* Add borders to the table */
-            }
-            th, td {
-                padding: 8px;
-                text-align: left;
-            }
-            .disabled-link {
-            pointer-events: none; /* Prevents clicking */
-            color: gray; /* Makes it look disabled */
-            text-decoration: none;
-            }
-    </style>
 
 </head>
 <body>
@@ -164,67 +135,70 @@
     </div>
 </nav>
 
-<nav class="bcrumb-container" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="../../html/employer/employer_home.php" >Home</a></li>
-    <li class="breadcrumb-item"><a href="../../html/employer/job_list.php" >Job List</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Applicants</li>
-  </ol>
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+    <div>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="../../html/employer/employer_home.php" >Home</a></li>
+        <li class="breadcrumb-item"><a href="../../html/employer/job_list.php" >Job List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Applicants</li>
+      </ol>
+    </div>
+    <a href="javascript:history.back()" class="return me-2">
+      <i class="fas fa-reply"></i> Back
+    </a>
 </nav>
 
     <header>
         <h1 class="h1"></h1>
     </header>
     
-    <div class='ep-container'>
-        <div class="category-container">
+    <div class="table-containers">
+    <div class="row align-items-start">
         <?php
             function display_table($applicants, $status_label) {
                 echo "<h3>$status_label</h3>";
-                echo "<table>
-                        <tr>
-                            <th>ID</th>
+                echo "<table class='table table-borderless'>
+                        <thead class='thead-light'>
                             <th>Full Name</th>
                             <th>Job</th>
                             <th>Status</th>
-                            <th>Actions</th>
+                            <th class='action-btn'>Actions</th>
+                        </thead>";
+                
+                if (!empty($applicants)) {
+                    foreach ($applicants as $row) {
+                        $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
+                        $status = $row['status'];
+
+                        echo "
+                        <tr>
+                            <td>" . htmlspecialchars($full_name) . "</td>
+                            <td>" . htmlspecialchars($row['job']) . "</td>
+                            <td>" . ucfirst($status) . "</td>
+                            <td class='btn-job'>";
+
+                        // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
+                        if ($status != 'accepted' && $status != 'interview') {
+                            echo "
+                            <a class='btn btn-success mx-2' href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                            <a class='btn btn-danger mx-2' href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>
+                            <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
+                            data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
+                        } elseif ($status === 'interview') {
+                            echo " <a class='btn btn-success mx-2' href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                                   <a class='btn btn-danger mx-2' href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
+                        }
+
+                        echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary mx-2' data-applicant-id='". htmlspecialchars($row["applicant_id"]) . "'>View Profile</button>
+                            </td>
                         </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5'>No applicants found</td></tr>";
+                }
                 
-    if (!empty($applicants)) {
-        foreach ($applicants as $row) {
-            $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
-            $status = $row['status'];
-
-            echo "
-            <tr>
-                <td>" . htmlspecialchars($row['applicant_id']) . "</td>
-                <td>" . htmlspecialchars($full_name) . "</td>
-                <td>" . htmlspecialchars($row['job']) . "</td>
-                <td>" . ucfirst($status) . "</td>
-                <td>";
-                
-            // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
-            if ($status != 'accepted' && $status != 'interview') {
-                echo "
-                <a href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
-                <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>
-                <button class='openFormBtn' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
-                data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
-            }elseif ($status === 'interview') {
-                    echo " <a href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
-                            <a href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
+                echo "</table>";
             }
-
-            echo "<button id='profileFormBtn' class='openProfileBtn' data-applicant-id='". htmlspecialchars($row["applicant_id"]) . "'>View Profile</button>
-                </td>
-            </tr>";
-        }
-    } else {
-        echo "<tr><td colspan='5'>No applicants found</td></tr>";
-    }
-
-    echo "</table>";
-}
 
             // Display each category vertically with centered alignment
             echo "<div class='category-section'>";
@@ -238,14 +212,11 @@
             echo "<div class='category-section'>";
             display_table($rejected, 'Accepted Applicant');
             echo "</div>";
-            
+
             $conn->close();
         ?>
-        </div>
     </div>
-
-
-
+</div>
 
     <div id="formModal" class="modal">
         <div class="modal-content">
