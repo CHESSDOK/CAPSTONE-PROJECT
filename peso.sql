@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 11, 2024 at 09:51 AM
+-- Generation Time: Oct 12, 2024 at 12:58 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -67,13 +67,17 @@ CREATE TABLE `applicant_profile` (
   `last_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `middle_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `dob` date DEFAULT NULL,
+  `pob` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `age` int DEFAULT NULL,
+  `height` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `specialization` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `sex` enum('male','female') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `civil_status` enum('Single','Married','Widowed') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `contact_no` int DEFAULT NULL,
+  `civil_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `contact_no` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `landline` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'user.png',
   `house_address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `sss_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `pagibig_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `philhealth_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -90,10 +94,14 @@ CREATE TABLE `applicant_profile` (
   `next_of_kin_contact` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `education_level` enum('Elementary Undergraduate','Elementary Graduate','High School Undergraduate','High School Graduate','College Undergraduate','College Graduate','Vocational') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `occupation` enum('Administrative Work','Medical Work','Factory/Manufacturing','Farmers (Agriculture)','Teaching','Information Technology','Engineering','Restaurant Jobs (F&B)','Seaman (Sea-Based)','Household Service Worker (Domestic Helper)','Construction Work','Entertainment','Tourism Sector','Hospitality Sector','Others') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pwd` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pwd2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `four_ps` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `emergency_contact_num` int DEFAULT NULL,
   `income` int DEFAULT NULL,
   `country` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `religion` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `employment_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `employment_form` enum('Recruitment Agency','Government Hire','Name Hire','Referral') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `employer_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -102,18 +110,24 @@ CREATE TABLE `applicant_profile` (
   `local_agency_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `local_agency_address` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `arrival_date` date DEFAULT NULL,
-  `dept_date` date DEFAULT NULL
+  `dept_date` date DEFAULT NULL,
+  `employment_status` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `actively_looking` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `willing_to_work` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `passport_expiry` date DEFAULT NULL,
+  `expected_salary` int DEFAULT NULL,
+  `resume` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `applicant_profile`
 --
 
-INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `age`, `specialization`, `sex`, `civil_status`, `contact_no`, `photo`, `house_address`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `prefix`, `emergency_contact_num`, `income`, `country`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`) VALUES
-(26, 43, 'mercadomarklawrence55@gmail.com', 'Mark', 'Mercado', 'Aranda', NULL, NULL, NULL, NULL, NULL, NULL, '6707d99fa2a1b.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 44, 'raqitym@mailinator.com', 'Dillon', 'Henderson', 'Quon Mcdaniel', '1992-08-29', 87, NULL, 'male', 'Widowed', 5889, '6707dba238f33.png', 'Sunt et quo volupta', '0', '0', '0', '16', 'Documented', 'Jamal Carr', '62', 'Riley Atkinson', 'Et odit deserunt min', 'Reuben Shields', 'Eu et culpa aut labo', 'Lawrence Campos', 'Ea eos dolorem cons', '3', 'Elementary Graduate', 'Others', 'V', 69, 124, 'Odit non qui delenit', 'Sea-Based', 'Name Hire', 'Cotton Strickland Trading', 499, 'Mejia and Johns Trading', 'Halla Mckay', 'Dolorum asperiores i', '2009-08-10', '2010-11-11'),
-(28, 45, 'nawa@mailinator.com', 'Mari', 'Talley', 'Giselle Cervantes', '1986-05-26', 69, NULL, 'male', 'Single', 5731187, '67086b9d1de62.jpg', 'Ad omnis laborum qui', '0', '0', '0', '630', 'Undocumented', 'Lysandra Wilkerson', '2', 'Judah Levy', 'Ab veritatis cum nul', 'Morgan Oconnor', 'Officiis ea sunt aut', 'Imani Russell', 'Nostrud id repudiand', '600', 'Elementary Undergraduate', 'Others', 'IV', 60, 432, 'Adipisci reiciendis ', 'Land-Based', 'Referral', 'Jackson Battle Traders', 435, 'Hampton and Marks Associates', 'Shannon Irwin', 'Doloribus aut conseq', '2017-05-02', '1974-05-19'),
-(29, 46, 'voxajo@mailinator.com', 'Allegra', 'Bradshaw', 'Velma Gilmore', '1977-06-23', 16, NULL, 'male', 'Married', 4967, '6707de8f0147b.jpg', 'Sint sed proident q', '0', '0', '0', '99', 'Returning', 'Sophia Holcomb', '42', 'Keiko Buck', 'Quia sunt non esse a', 'Cheryl Mccarty', 'Quaerat fugiat enim ', 'William Castillo', 'Consequatur tenetur', '411', 'College Graduate', 'Information Technology', 'V', 95, 336, 'Et obcaecati soluta ', 'Sea-Based', 'Government Hire', 'Garrison Deleon Plc', 291, 'Mcdaniel and Jacobson Trading', 'Blair Stokes', 'Ratione sed sit aut ', '2003-03-31', '2000-05-04');
+INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `specialization`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `pwd`, `pwd2`, `prefix`, `four_ps`, `emergency_contact_num`, `income`, `country`, `religion`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`, `employment_status`, `actively_looking`, `willing_to_work`, `passport_expiry`, `expected_salary`, `resume`) VALUES
+(26, 43, 'tepezaveza@mailinator.com', 'Maggy', 'Bonner', 'Allegra Stokes', '2018-07-15', 'Consequatur eveniet', 10, 'In sit dolores minus', NULL, 'female', 'Live-in', '+1 (886) 188-6705', '+1 (844) 133-8456', 'woman.png', 'Beatae ut numquam qu', 'Sed quos dolore pari', 'Minim tempor exercit', 'Obcaecati aut reicie', 'Esse sit ullam tota', 'Quis commodo tempor ', 'Repatriated', 'Kelly Saunders', '36', 'Brent Norris', 'Eaque velit ut quisq', 'Nissim Yang', 'Et molestias asperna', 'Holly Mcgowan', 'Minima incididunt au', '80', 'Elementary Graduate', 'Restaurant Jobs (F&B)', 'Others', '', 'V', 'No', 63, 768, 'Aliquam id placeat ', 'Repellendus Id accu', 'Sea-Based', 'Referral', 'Gould and Harper Trading', 365, 'Bryan and Hunt Associates', 'Sheila Sullivan', 'Consequatur consect', '1984-08-11', '2012-02-15', 'unemployed', 'No', 'Yes', '2010-06-11', 123456, 'favicon.ico'),
+(27, 44, 'raqitym@mailinator.com', 'Dillon', 'Henderson', 'Quon Mcdaniel', '1992-08-29', '', 87, NULL, NULL, 'male', 'Widowed', '5889', NULL, '6707dba238f33.png', 'Sunt et quo volupta', NULL, '0', '0', '0', '16', 'Documented', 'Jamal Carr', '62', 'Riley Atkinson', 'Et odit deserunt min', 'Reuben Shields', 'Eu et culpa aut labo', 'Lawrence Campos', 'Ea eos dolorem cons', '3', 'Elementary Graduate', 'Others', NULL, '', 'V', NULL, 69, 124, 'Odit non qui delenit', NULL, 'Sea-Based', 'Name Hire', 'Cotton Strickland Trading', 499, 'Mejia and Johns Trading', 'Halla Mckay', 'Dolorum asperiores i', '2009-08-10', '2010-11-11', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 45, 'nawa@mailinator.com', 'Mari', 'Talley', 'Giselle Cervantes', '1986-05-26', '', 69, NULL, NULL, 'male', 'Single', '5731187', NULL, '67086b9d1de62.jpg', 'Ad omnis laborum qui', NULL, '0', '0', '0', '630', 'Undocumented', 'Lysandra Wilkerson', '2', 'Judah Levy', 'Ab veritatis cum nul', 'Morgan Oconnor', 'Officiis ea sunt aut', 'Imani Russell', 'Nostrud id repudiand', '600', 'Elementary Undergraduate', 'Others', NULL, '', 'IV', NULL, 60, 432, 'Adipisci reiciendis ', NULL, 'Land-Based', 'Referral', 'Jackson Battle Traders', 435, 'Hampton and Marks Associates', 'Shannon Irwin', 'Doloribus aut conseq', '2017-05-02', '1974-05-19', NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 46, 'voxajo@mailinator.com', 'Allegra', 'Bradshaw', 'Velma Gilmore', '1977-06-23', '', 16, NULL, NULL, 'male', 'Married', '4967', NULL, '6707de8f0147b.jpg', 'Sint sed proident q', NULL, '0', '0', '0', '99', 'Returning', 'Sophia Holcomb', '42', 'Keiko Buck', 'Quia sunt non esse a', 'Cheryl Mccarty', 'Quaerat fugiat enim ', 'William Castillo', 'Consequatur tenetur', '411', 'College Graduate', 'Information Technology', NULL, '', 'V', NULL, 95, 336, 'Et obcaecati soluta ', NULL, 'Sea-Based', 'Government Hire', 'Garrison Deleon Plc', 291, 'Mcdaniel and Jacobson Trading', 'Blair Stokes', 'Ratione sed sit aut ', '2003-03-31', '2000-05-04', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,7 +151,8 @@ CREATE TABLE `applications` (
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
 (51, 46, 16, '2024-10-10', 'accepted', 'Warehouse man'),
 (52, 46, 11, '2024-10-10', 'accepted', 'Carpenter'),
-(53, 45, 17, '2024-10-10', 'pending', 'Principal Creative Specialist');
+(53, 45, 17, '2024-10-10', 'pending', 'Principal Creative Specialist'),
+(54, 43, 13, '2024-10-11', 'pending', 'Security Guard');
 
 -- --------------------------------------------------------
 
@@ -160,8 +175,8 @@ CREATE TABLE `cases` (
 --
 
 INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, `created_at`) VALUES
-(12, 45, 'Abusive employer', 'harassment, physical abuse', '../uploads/462463385_1483381795713486_9058732459192274728_n.png', 'filed', '2024-10-11 00:14:44'),
-(13, 44, 'Underpaid', 'Salary decrease and unpaid work', '../uploads/PESO.pdf', 'filed', '2024-10-11 00:18:25');
+(12, 45, 'Abusive employer', 'harassment, physical abuse', '../uploads/462463385_1483381795713486_9058732459192274728_n.png', 'resolved', '2024-10-11 00:14:44'),
+(13, 44, 'Underpaid', 'Salary decrease and unpaid work', '../uploads/PESO.pdf', 'in_progress', '2024-10-11 00:18:25');
 
 -- --------------------------------------------------------
 
@@ -173,9 +188,9 @@ CREATE TABLE `chat_messages` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `sender` varchar(100) NOT NULL,
-  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1073,7 +1088,7 @@ ALTER TABLE `applicant_profile`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `cases`
