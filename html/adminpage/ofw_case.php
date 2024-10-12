@@ -122,7 +122,10 @@ $result = $conn->query($sql);
                                         <td>".$row['contact_number']."</td>
                                         <td>".$row['local_agency_name']."</td>
                                         <td>".$row['title']."</td>
-                                        <td>".$row['status']."</td>";
+                                        <td>".$row['description']."</td>
+                                        <td>".$row['status']."</td>
+                                        <td><a class='btn btn-primary  read-link' href='view_case_file.php?file_path=". htmlspecialchars($row["file"])."' target='_blank' >View Document</a></td>";
+                                        
 
                                 // Check if status is not "resolved" or "in_progress"
                                 if($row['status'] !== 'resolved') {

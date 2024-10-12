@@ -79,8 +79,11 @@ while ($job = $result->fetch_assoc()) {
     echo '</td>
     <td>
         <span class="badge ' . ($job["vacant"] > 1 ? "bg-success" : "bg-danger") . '">
-            ' . ($job['vacant'] > 1 ? 'Vacant' : 'Not Vacant') . '
+            ' . ($job['vacant'] > 1 ? 'Vacant' : 'Not Vacant') . ' 
         </span>
+    </td>
+        <td>
+        <label> '.$job['vacant'].' </label>
     </td>
     <td>
         <a href="../../html/applicant/apply.php?job=' . urlencode($job["job_title"]) . '" class="btn btn-primary">
