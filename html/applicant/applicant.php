@@ -117,44 +117,49 @@ if (!$row) {
     </a>
 </nav>
     
-<div class="container">
-<!-- search bar-->
+<div class="table-containers">
+<div class="table-container">
+<form method="GET" action="" class="my-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <!-- Left side: Heading -->
+        <h2>Job Listings</h2>
 
-   
+        <!-- Right side: Search input and button -->
+        <div class="d-flex position-relative">
+            <!-- Search Input -->
+            <input type="text" id="search-input" name="search" class="form-control ps-5" placeholder="Search for a job..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
 
-<!--listing loop-->
-        
-
-
-    <table class="list">
-      <tr>
-        <td colspan="2">
-          <div class="label">
-              <h2>Job Listings</h2>
-          </div>            
-        </td>
-        <td>
-        <form method="GET" action="" class="my-4">
-          <div class="input-group mb-3 position-relative">
-            <input type="text" id="search-input" class="form-control" name="search" placeholder="Search for a job..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-            <button class="btn btn-primary" type="submit">Search</button>
+             <!-- Search Icon -->
+            <span class="position-absolute search-icon">
+                <i class="fa fa-search"></i> <!-- FontAwesome search icon -->
+            </span>
             
+            <!-- Search Button -->
+            <button type="submit" class="btn btn-primary">Search</button>
+
+            <!-- Clear Button -->
+            <button type="button" class="btn btn-secondary ms-2" id="clear-button" onclick="clearSearch()">Clear</button>
+        </div>
+    </div>
+</form>
+
+    <div class="row align-items-start">
+          <?php 
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+            include '../../php/applicant/job_list.php'; 
+          ?>
           </div>
-        </form>
-        </td>
-      </tr>
+    </div>
+</div>
 
-      <tr>
-      <div class="container-list">
-        <?php 
-          error_reporting(E_ALL);
-          ini_set('display_errors', 1);
-          include '../../php/applicant/job_list.php'; 
-        ?>
-      </div>
-
-      </tr>
-    </table>
+<script>
+    // JavaScript function to clear the search input and reset the page
+    function clearSearch() {
+        // Redirect to the same page without any search query (clear the search)
+        window.location.href = window.location.pathname;
+    }
+</script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
