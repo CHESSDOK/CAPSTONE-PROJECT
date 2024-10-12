@@ -1,10 +1,13 @@
 .table-container {
     width: 50vw; /* Adjust this value as needed to make the table smaller */
     max-width: auto;
-    margin: auto;
-    background-color: transparent;
-
+    margin: 5vh auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+	box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .table {
   border-radius: 20px;
@@ -12,6 +15,8 @@
 }
 
 .table td, .table th {
+  
+  background-color: transparent;
     padding: 0.5rem; /* Adjust padding to make cells smaller */
     text-align: flex-start;
 }

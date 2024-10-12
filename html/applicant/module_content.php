@@ -120,12 +120,12 @@ $result = $conn->query($sql);
         </div>
         <div class="offcanvas-body">
             <table border="0" class="menu">
-                <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
-                <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
-                <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
-                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a style="text-align:left;" href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
+                <tr><td><a style="text-align:left;" href="applicant.php" class="nav-link">Applicant</a></td></tr>
+                <tr><td><a style="text-align:left;" href="#" class="active nav-link">Training</a></td></tr>
+                <tr><td><a style="text-align:left;" href="ofw_form.php" class="nav-link">OFW</a></td></tr>
+                <tr><td><a style="text-align:left;" href="../../html/about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a style="text-align:left;" href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
