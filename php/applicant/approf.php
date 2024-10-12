@@ -1,54 +1,107 @@
 <?php
 include '../conn_db.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $userid = $conn->real_escape_string($_POST['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // Check if a file was uploaded
-    if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
-        $image_name = $_FILES['profile_image']['name'];
-        $image_tmp = $_FILES['profile_image']['tmp_name'];
-        $image_size = $_FILES['profile_image']['size'];
-        $image_ext = pathinfo($image_name, PATHINFO_EXTENSION);
-
-        // Allow only specific image formats
-        $allowed_extensions = array("jpg", "jpeg", "png", "gif");
-
-        if (in_array($image_ext, $allowed_extensions)) {
-            // Rename the image to prevent conflicts
-            $new_image_name = uniqid() . '.' . $image_ext;
-
-            // Upload directory
-            $upload_dir = 'images/';
-            
-            // Move the file to the uploads directory
-            if (move_uploaded_file($image_tmp, $upload_dir . $new_image_name)) {
-                // Check if the user exists
-                $check_user_sql = "SELECT * FROM applicant_profile WHERE user_id='$userid'";
-                $result = $conn->query($check_user_sql);
-
-                if ($result->num_rows > 0) {
-                    // Update the user's profile image
-                    $sql = "UPDATE applicant_profile SET photo='$new_image_name' WHERE user_id='$userid'";
-                    if ($conn->query($sql)) {
-                        header("Location: ../../html/applicant/a_profile.php");
-                    } else {
-                        echo "Error updating profile image: " . $conn->error;
-                    }
-                } else {
-                    echo "User not found.";
-                }
-            } else {
-                echo "Failed to upload the image.";
-            }
-        } else {
-            echo "Invalid image format. Only JPG, JPEG, PNG, and GIF are allowed.";
-        }
-    } else {
-        echo "No image uploaded.";
+    // Sanitize input data
+    $id = $_POST['id'];
+    $lastName = htmlspecialchars($_POST['lastName'] ?? '');
+    $firstName = htmlspecialchars($_POST['firstName'] ?? '');
+    $middleName = htmlspecialchars($_POST['middleName'] ?? '');
+    $suffix = htmlspecialchars($_POST['Prefix'] ?? '');
+    $dob = $_POST['dob'] ?? '';
+    $pob = htmlspecialchars($_POST['pob'] ?? '');
+    $religion = htmlspecialchars($_POST['religion'] ?? '');
+    $houseadd = htmlspecialchars($_POST['houseadd'] ?? '');
+    $civilStatus = htmlspecialchars($_POST['civilStatus'] ?? '');
+    $sex = htmlspecialchars($_POST['sex'] ?? '');
+    $height = htmlspecialchars($_POST['height'] ?? '');
+    $tin = htmlspecialchars($_POST['tin'] ?? '');
+    $sssNo = htmlspecialchars($_POST['sssNo'] ?? '');
+    $pagibigNo = htmlspecialchars($_POST['pagibigNo'] ?? '');
+    $philhealthNo = htmlspecialchars($_POST['philhealthNo'] ?? '');
+    $email = htmlspecialchars($_POST['email'] ?? '');
+    $contactNo = htmlspecialchars($_POST['contactNo'] ?? '');
+    $landline = htmlspecialchars($_POST['landline'] ?? '');
+    $pwd = htmlspecialchars($_POST['pwd'] ?? '');
+    $pwd2 = htmlspecialchars($_POST['pwd2'] ?? '');
+    $fourPs = htmlspecialchars($_POST['four-ps-beneficiary'] ?? '');
+    $employment_status = htmlspecialchars($_POST['employent_status'] ?? '');
+    $actively_looking = htmlspecialchars($_POST['actively-looking'] ?? '');
+    $willing_to_work = htmlspecialchars($_POST['willing-to-work'] ?? '');
+    $passport = htmlspecialchars($_POST['passport_no'] ?? '');
+    $passport_expiry = $_POST['passport_expiry'] ?? '';
+    $salary = htmlspecialchars($_POST['salary'] ?? '');
+    
+    // Ensure the uploads directory exists
+    $upload_dir = 'images/';
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir, 0777, true); // create directory if not exists
     }
+
+    // Handle the file uploads
+    $profile_image = '';
+    $resume = '';
+
+    if (!empty($_FILES['profile_image']['name'])) {
+        $profile_image = basename($_FILES['profile_image']['name']);
+        move_uploaded_file($_FILES['profile_image']['tmp_name'], $upload_dir . $profile_image);
+    }
+
+    if (!empty($_FILES['resume']['name'])) {
+        $resume = basename($_FILES['resume']['name']);
+        move_uploaded_file($_FILES['resume']['tmp_name'], $upload_dir . $resume);
+    }
+
+    // Update the database with the new information
+    $sql = "UPDATE applicant_profile SET 
+                last_name = ?, 
+                first_name = ?, 
+                middle_name = ?, 
+                prefix = ?, 
+                dob = ?, 
+                pob = ?, 
+                religion = ?, 
+                house_address = ?, 
+                civil_status = ?, 
+                sex = ?, 
+                height = ?, 
+                tin = ?, 
+                sss_no = ?, 
+                pagibig_no = ?, 
+                philhealth_no = ?, 
+                email = ?, 
+                contact_no = ?, 
+                landline = ?, 
+                pwd = ?, 
+                pwd2 = ?, 
+                four_ps = ?, 
+                employment_status = ?, 
+                actively_looking = ?, 
+                willing_to_work = ?, 
+                passport_no = ?, 
+                passport_expiry = ?, 
+                expected_salary = ?,
+                photo = IFNULL(?, photo),
+                resume = IFNULL(?, resume)
+            WHERE user_id = ?";
+
+    // Note that we have 28 parameters in total
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssssssssssssssssssssssssi",
+        $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
+        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $contactNo, $landline, $pwd, $pwd2, $fourPs, 
+        $employment_status, $actively_looking, $willing_to_work, $passport, $passport_expiry, 
+        $salary, $profile_image, $resume, $id
+    );
+
+    if ($stmt->execute()) {
+        echo "Record updated successfully!";
+    } else {
+        echo "Error updating record: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
 }
-
-$conn->close();
 ?>
-

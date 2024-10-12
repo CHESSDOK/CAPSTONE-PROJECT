@@ -6,7 +6,7 @@ include 'conn_db.php';  // Include database connection
 $admin = $_SESSION['username'];
 
 // Fetch all cases
-$sql = "SELECT c.*, ap.*
+$sql = "SELECT c.*, ap.*, c.id
         FROM cases c
         JOIN applicant_profile ap ON c.user_id = ap.user_id
        ";
@@ -107,23 +107,34 @@ $result = $conn->query($sql);
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                    if($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
-                            echo "<tr>
-                                <td>".$full_name."</td>
-                                <td>".$row['contact_number']."</td>
-                                <td>".$row['local_agency_name']."</td>
-                                <td>".$row['title']."</td>
-                                <td>".$row['status']."</td>
-                                <td> <a class='btn btn-success' href='#'>update</a> </td>
-                                 </tr>";
-                        } 
-                    } else {
-                        echo "<tr><td colspan='6'> no case file found</td></tr>";
-                    }
-                ?>
+                    <?php
+                        if($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $full_name = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'];
+                                echo "<tr>
+                                        <td>".$full_name."</td>
+                                        <td>".$row['contact_number']."</td>
+                                        <td>".$row['local_agency_name']."</td>
+                                        <td>".$row['title']."</td>
+                                        <td>".$row['status']."</td>";
+
+                                // Check if status is not "resolved" or "in_progress"
+                                if($row['status'] !== 'resolved') {
+                                    if($row['status'] !== 'in_progress') {
+                                        echo "<td> <a class='btn btn-success' href='update_status.php?case_id=".$row['id']."'>Update</a> </td>";
+                                    }
+                                    echo "<td> <a class='btn btn-success' href='resolve_status.php?case_id=".$row['id']."'>Resolved</a> </td>";
+                                } else {
+                                    // If the case is resolved, show no buttons
+                                    echo "<td colspan='2'>Case Resolved</td>";
+                                }
+                                
+                                echo "</tr>";
+                            } 
+                        } else {
+                            echo "<tr><td colspan='6'>No case file found</td></tr>";
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>
