@@ -95,12 +95,47 @@ if ($score_result->num_rows > 0) {
     while ($question_row = $question_result->fetch_assoc()) {
         $question_id = $question_row['question_id'];
         $correct_answer = $question_row['correct_answer'];
-
-        // Display the question and result
         $user_answer = $question_row['answer'];
+    
+        // Determine the content of the user's answer and correct answer
+        $correct_answer_content = '';
+        $user_answer_content = '';
+    
+        switch ($correct_answer) {
+            case 'a':
+                $correct_answer_content = 'a). ' .$question_row['option_a'];
+                break;
+            case 'b':
+                $correct_answer_content = 'b). ' .$question_row['option_b'];
+                break;
+            case 'c':
+                $correct_answer_content = 'c). ' .$question_row['option_c'];
+                break;
+            case 'd':
+                $correct_answer_content = 'd). ' .$question_row['option_d'];
+                break;
+        }
+    
+        switch ($user_answer) {
+            case 'a':
+                $user_answer_content = 'a). ' .$question_row['option_a'];
+                break;
+            case 'b':
+                $user_answer_content = 'b). ' .$question_row['option_b'];
+                break;
+            case 'c':
+                $user_answer_content = 'c). ' .$question_row['option_c'];
+                break;
+            case 'd':
+                $user_answer_content = 'd). ' .$question_row['option_d'];
+                break;
+        }
+    
+        // Determine if the user's answer is correct
         $result_class = ($user_answer == $correct_answer) ? 'text-success' : 'text-danger';
         $result = ($user_answer == $correct_answer) ? 'Correct' : 'Incorrect';
-
+    
+        // Display the question and results
         echo "
         <div class='question-result mt-4'>
             <div class='row'>
@@ -109,18 +144,18 @@ if ($score_result->num_rows > 0) {
                 </div>
             </div>
             <div class='row'>";
-
+    
         // Only display 'Your Answer' if the user's answer is incorrect
         if ($user_answer != $correct_answer) {
             echo "
                 <div class='col-md-6'>
-                    <p class='rslt'><strong>Your Answer:</strong> " . htmlspecialchars($user_answer ?? 'N/A') . "</p>
+                    <p class='rslt'><strong>Your Answer:</strong> " . htmlspecialchars($user_answer_content ?? 'N/A') . "</p>
                 </div>";
         }
-
+    
         echo "
                 <div class='col-md-6'>
-                    <p class='rslt'><strong>Correct Answer:</strong> " . htmlspecialchars($correct_answer ?? 'N/A') . "</p>
+                    <p class='rslt'><strong>Correct Answer:</strong> " . htmlspecialchars($correct_answer_content ?? 'N/A') . "</p>
                 </div>
             </div>
             <div class='row'>
@@ -131,15 +166,8 @@ if ($score_result->num_rows > 0) {
             <hr>
         </div>";
     }
-
-    echo "</div>";
-} else {
-    echo "<p class='text-center'>No score data found.</p>";
 }
 ?>
 </div>
-
-
-
 </body>
 </html>
