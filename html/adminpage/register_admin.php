@@ -23,9 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $email = $_POST['email'];
+    $admin = $_POST['admin_role'];
 
     // Insert admin details into database
-    $sql = "INSERT INTO admin_profile (username, password, email) VALUES ('$username', '$password', '$email')";
+    $sql = "INSERT INTO admin_profile (username, password, email, admin_level) VALUES ('$username', '$password', '$email', '$admin')";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script type='text/javascript'> 

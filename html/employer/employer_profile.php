@@ -176,12 +176,11 @@ if (!$row) {
    <td>
     <label for="document_name" class="form-label">Document type:</label>
         <select class="form-select" id="document_name" name="document_name" required>
-          <option value="Single">SEC Certificate</option>
-          <option value="Married">Business Permit</option>
-          <option value="Widowed">BIR Certificate of Registration (Form 2303)</option>
-          <option value="Separated">POEA license</option>
-          <option value="Live-in">Private  Employment Agency (PEA) License</option>
-          <option value="Live-in">D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certicate</option>
+          <option value="SEC Certificate">SEC Certificate</option>
+          <option value="BIR Certificate of Registration (Form 2303)">BIR Certificate of Registration (Form 2303)</option>
+          <option value="POEA license">POEA license</option>
+          <option value="Private  Employment Agency (PEA) License">Private  Employment Agency (PEA) License</option>
+          <option value="D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certicate">D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certicate</option>
         </select>
    </td>
    <td>

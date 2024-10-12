@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handle file upload
     $file = null;
     if (!empty($_FILES['file']['name'])) {
-        $targetDir = "../uploads/";
+        $targetDir = "uploads/";
         $fileName = basename($_FILES["file"]["name"]);
         $targetFilePath = $targetDir . $fileName;
         

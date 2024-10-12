@@ -4,18 +4,17 @@ function checkSession() {
     session_start(); // Start the session
 
     // Check if the session variable 'level' is set
-    if (!isset($_SESSION['level'])) {
+    if (!isset($_SESSION['id'])) {
         // Redirect to login page if session not found
         header("Location: login_admin.html");
         exit();
     } else {
         // If session exists, store the session data in a variable
-        return $_SESSION['level'];
+        return $_SESSION['id'];
     }
 }
-
-$admin_level = checkSession();
-$adminId = $_SESSION['id'];
+$adminId = checkSession(); 
+$admin_level = $_SESSION['level'];
 
 $sql = "SELECT * FROM admin_profile WHERE id = ?";
 $stmt = $conn->prepare($sql);
