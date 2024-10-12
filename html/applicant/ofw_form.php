@@ -316,11 +316,11 @@
 </div>
 
   <!-- case -->
-<div id="caseModal" class="modal" tabindex="-1" role="dialog">
+<div id="caseModal" class="modal modal-container" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content p-4">
             <div class="modal-header">
-                <span class="seccloseBtn">&times;</span>
+                <span class="btn-close closBtn closeBtn seccloseBtn">&times;</span>
                 <h5 class="modal-title">OFW File Case</h5>
             </div>
             <div class="modal-body">
