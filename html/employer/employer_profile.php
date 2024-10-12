@@ -152,7 +152,7 @@ if (!$row) {
    
    <td>
     <label for="tel_num" class="form-label">Company Telephone Number:</label>
-    <input type="text" class="form-control" name="tel_num" id="tel_num" value="<?php echo htmlspecialchars($row['tel_num'] ?? ''); ?>">
+    <input type="tel" class="form-control" name="tel_num" id="tel_num" value="<?php echo htmlspecialchars($row['tel_num'] ?? ''); ?>">
    </td>
    <td>
     <label for="company_mail" class="form-label">Company Email:</label>
