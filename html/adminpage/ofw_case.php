@@ -89,8 +89,8 @@ $result = $conn->query($sql);
 
 <div class="table-containers">
     <div class="button-container">
-        <a class="btn btn-primary" href="user_chat.php">View Inquiries</a>
-        <a class="btn btn-primary" href="create_survey.php">Create Survey</a>
+        <a style="width: 130px;"  class="btn btn-primary" href="user_chat.php">View Inquiries</a>
+        <a style="width: 130px;" class="btn btn-primary" href="create_survey.php">Create Survey</a>
     </div>
 
     <div class="table-wrapper">

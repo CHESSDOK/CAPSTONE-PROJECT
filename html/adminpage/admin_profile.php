@@ -103,25 +103,28 @@ if (!$row) {
 </nav>
 
 <div class="container table-containers">
+
+
+
+
+
 <div class="button-container">
 <?php 
     if ($admin_level === "super_admin") {
-        echo "<button class='btn btn-primary' id='openCourseBtn'>Create account</button>";
+        echo "<button style='width: 140px;'  class='btn btn-primary' id='openCourseBtn'>Create account</button>";
     } else {
         echo "";
     }
     ?>
-
-
-</div>
     <form method="POST" action="profile_update.php"  enctype="multipart/form-data">
-    <button type="submit" class="btn btn-primary d-block">Save Changes</button>
+    <button type="submit" style="width: 140px;" class="btn btn-primary d-block">Save Changes</button></div>
         <table class="table table-borderless">
         <tr>
-            <td colspan="2" class="text-center">
-                <img id="preview" src="<?php echo isset($row['profile_picture']) ? htmlspecialchars($row['profile_picture']) : 'https://via.placeholder.com/150'; ?>" alt="Profile Image" class="profile-img rounded-circle mb-3">
-                <input type="file" name="photoInput" value="<?php echo isset($row['profile_picture']) ? htmlspecialchars($row['profile_picture']) : ''; ?>" class="form-control mt-2" id="photoInput" accept="image/*">
-            </td>    
+        <td colspan="2" class="text-center">
+            <img id="preview" src="<?php echo isset($row['profile_picture']) ? htmlspecialchars($row['profile_picture']) : 'https://via.placeholder.com/150'; ?>" alt="Profile Image" class="profile-img rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: fill;">
+            <input type="file" name="photoInput" value="<?php echo isset($row['profile_picture']) ? htmlspecialchars($row['profile_picture']) : ''; ?>" class="form-control mt-2" id="photoInput" accept="image/*">
+        </td>
+
         </tr>
         <tr>   
             <td>
