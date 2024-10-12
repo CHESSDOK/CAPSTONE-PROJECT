@@ -1,147 +1,36 @@
-
-.header-container {
-  width: 100%;
-  text-align: center;
-  background-color: #fff;
-  padding: 20px 0;
-}
-
-.header-title {
-  margin: 0;
-  color:#E3C926;
-  font-size: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-.container {
-  width: 90%;
-  text-align: left;
-  margin: auto;
-  overflow: hidden;
-}
-.container-list
-{
-  width: 80%;
-  margin-left: 17vw;
-  margin-top: -17vh;
-  overflow: hidden;
-}
-.job-list {
-  margin: 0;
-}
-
-.job {
-  background: #fff;
-  margin-bottom: 10px;
-  padding: 25px;
-  border: 1.5px solid #ccc;
-  border-radius: 10px;
-  box-sizing: border-box; 
-  overflow: hidden; 
-  word-wrap: break-word;
-}
-
-.job h2 {
-  width: 50%; 
-  font-size: 2em;
-  margin: 0;
-  margin-top: -10vh;
-}
-
-.job p {
-  width: 50%; 
-  font-size: 1.2em;
-  margin: 0;
-  margin-top:1vh;
-  font-weight: 500;
-}
-
-.job .vacant {
-  width: 30%; 
-  margin: 0;
-  margin-left: 40vw;
-  font-size: 1.5em;
-  font-weight: 400;
-  color: #333;
-}
-
-.job .vacant-num {
-  width: 10%;
-  margin: 0;
-  margin-left: 43.5vw;
-  font-size: 1.5em;
-  font-weight: 400;
-  color: #333;
-}
-
-.section {
-  color: rgba(51,51,51, 0.8);
-  letter-spacing: 2px;
-  flex: 1;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1.5px solid #ccc;
-}
-
-.job .button-img {
-  margin-top: -11vh;
-  margin-right: 2vw;
-  padding: 8px;
+.table-containers {
   display: flex;
-  float: right;
-  justify-content: flex-end;
-  background: #007BFF;
-  border-radius: 60%;
-  transition: background-color 0.3s ease; 
-  position: relative;
-  z-index: 10;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 5vh auto;
+  width: 80%;
 }
 
-.button-img:hover {
-  background: #0056b3; 
-}
-
-img {
-  align-items: center;
-  width: 40px;
-  height: 40px;
-}
-
-input{
-  font-family:inherit;
-  font-size:16px;
-  width: 15%;
-  margin-bottom: 2vh;
-  border-radius: 10px;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  background-color: #EBEEF1;
-  outline: 0;
-  padding: 0.75rem 1rem;
-  color: rgba(51, 51, 51, 1);
-}
-
-.search{
-  width: 18%;
-}
-.clear-btn{
-  font-size: 2em;
-  font-weight: 400;
-  color: #333;
-  text-decoration: none;
-}
-
-.search-list{
-  margin-top: -1vh;
-}
-
-.label h2{
-  width: 50%; 
-  font-size: 1.5em;
-  margin: 0;
-  padding: 5px;
-}
-
-.list{
-  background: transparent;
+.table-container {
   width: 100%;
-  margin-top: 15%;
 }
+
+.docu {
+  text-decoration: none;
+  margin-right: 3rem;
+  transition: transform 0.3s, font-size 0.3s; /* Smooth transition for hover effect */
+}
+
+.docu:hover {
+  transform: scale(1.1); /* Slightly scale the text on hover */
+  font-size: 1.2rem; /* Optionally increase the font size */
+}
+
+.search-icon {
+  left: 15px; /* Adjust this value as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  color: #aaa; /* Icon color */
+  font-size: 16px;
+}
+
+#search-input {
+  padding-left: 40px; /* Add space to the left for the icon */
+}
+

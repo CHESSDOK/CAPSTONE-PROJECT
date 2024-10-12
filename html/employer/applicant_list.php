@@ -71,13 +71,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
-    <link rel="stylesheet" href="../../css/employer.css">
+    <link rel="stylesheet" href="../../css/admin_employer.css">
 
 </head>
 <body>
@@ -148,10 +145,6 @@
     </a>
 </nav>
 
-    <header>
-        <h1 class="h1"></h1>
-    </header>
-    
     <div class="table-containers">
     <div class="row align-items-start">
         <?php
@@ -172,18 +165,22 @@
 
                         echo "
                         <tr>
-                            <td>" . htmlspecialchars($full_name) . "</td>
-                            <td>" . htmlspecialchars($row['job']) . "</td>
-                            <td>" . ucfirst($status) . "</td>
+                            <td style='width: 350px;'>" . htmlspecialchars($full_name) . "</td>
+                            <td style='width: 150px;'>" . htmlspecialchars($row['job']) . "</td>
+                            <td style='width: 50px;'>" . ucfirst($status) . "</td>
                             <td class='btn-job'>";
 
                         // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
                         if ($status != 'accepted' && $status != 'interview') {
                             echo "
+
                             <a class='btn btn-success mx-2' href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                            
                             <a class='btn btn-danger mx-2' href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>
+                            
                             <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
                             data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
+                       
                         } elseif ($status === 'interview') {
                             echo " <a class='btn btn-success mx-2' href='../../php/employer/application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
                                    <a class='btn btn-danger mx-2' href='../../php/employer/rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
@@ -215,38 +212,95 @@
 
             $conn->close();
         ?>
-    </div>
-</div>
-
-    <div id="formModal" class="modal">
-        <div class="modal-content">
-            <span class="closeBtn">&times;</span>
-            <h2>Interview</h2>
-            <form action="../../php/employer/interview.php" method="post">
-                <input type="hidden" id="applicantId" name="applicant_id">
-                <input type="hidden" id="jobid" name="jobid">
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date" required><br><br>
-                <label for="time">Time:</label>
-                <input type="time" id="time" name="time" required><br><br>
-                <label for="interview">Interview Type:</label>
-                <select name="interview" id="interview">
-                    <option value="online">Online</option>
-                    <option value="FacetoFace">Face to Face</option>
-                </select>
-                <label for="link">Link:</label>
-                <input type="text" id="link" name="link"><br><br>
-                <label for="address">Physical Address:</label>
-                <input type="text" id="address" name="address"><br><br>
-                <button type="submit">Submit</button>
-            </form>
         </div>
     </div>
 
+<div id="formModal" class="modal modal-container">
+    <div class="modal-content p-4">
+        <span class="btn-close closBtn closeBtn">&times;</span>
+        <h2 class="mb-4">Interview</h2>
+        
+        <form action="interview.php" method="post">
+            <table class="table table-borderless">
+                <input type="hidden" id="applicantId" name="applicant_id">
+                <input type="hidden" id="jobid" name="jobid">
+                
+                <tr>
+                    <td>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date:</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-3">
+                            <label for="time" class="form-label">Time:</label>
+                            <input type="time" id="time" name="time" class="form-control" required>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        <div class="mb-3">
+                            <label for="interview" class="form-label">Interview Type:</label>
+                            <select name="interview" id="interview" class="form-select" onchange="toggleInterviewFields()">
+                                <option value="">Select Interview Type</option>
+                                <option value="online">Online</option>
+                                <option value="FacetoFace">Face to Face</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        <div id="linkField" class="mb-3">
+                            <label for="link" class="form-label">Link:</label>
+                            <input type="text" id="link" name="link" class="form-control" placeholder="Enter Your Virtual Link">
+                        </div>
+
+                        <div id="addressField" class="mb-3">
+                            <label for="address" class="form-label">Physical Address:</label>
+                            <input type="text" id="address" name="address" class="form-control" placeholder="Enter Your Office Address">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleInterviewFields() {
+        var interviewType = document.getElementById('interview').value;
+        var linkField = document.getElementById('linkField');
+        var addressField = document.getElementById('addressField');
+
+        if (interviewType === 'online') {
+            linkField.style.display = 'block';
+            addressField.style.display = 'none';
+        } else if (interviewType === 'FacetoFace') {
+            linkField.style.display = 'none';
+            addressField.style.display = 'block';
+        } else {
+            linkField.style.display = 'none';
+            addressField.style.display = 'none';
+        }
+    }
+
+    // Initialize the fields when the page loads
+    window.onload = function() {
+        toggleInterviewFields();
+    };
+</script>
+
 <!-- Modal for Viewing Applicant Profile -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="seccloseBtn">&times;</span>
+<div id="profileModal" class="modal modal-container">
+    <div class="modal-content p-4">
+        <span class="btn-close closBtn seccloseBtn">&times;</span>
         <h2>Applicant Profile</h2>
         <div id="applicantProfileContent">
             <!-- Profile details will be dynamically loaded here -->
@@ -299,6 +353,8 @@
     document.getElementById('date').setAttribute('min', currentDate);
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="../../javascript/script.js"></script>
 </body>
 </html>

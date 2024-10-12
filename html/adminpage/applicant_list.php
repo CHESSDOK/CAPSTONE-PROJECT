@@ -199,7 +199,6 @@
                     }
             
             // Display each category vertically with centered alignment
-            // Display each category vertically with centered alignment
             echo "<div class='category-section'>";
             display_table($pending, 'Applied applicant');
             echo "</div>";
@@ -302,9 +301,9 @@
 </script>
 
 <!-- Modal for Viewing Applicant Profile -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="seccloseBtn">&times;</span>
+<div id="profileModal" class="modal modal-container">
+    <div class="modal-content p-4">
+        <span class="btn-close closBtn seccloseBtn">&times;</span>
         <h2>Applicant Profile</h2>
         <div id="applicantProfileContent">
             <!-- Profile details will be dynamically loaded here -->
