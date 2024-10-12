@@ -13,11 +13,9 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../javascript/a_profile.js"></script> 
-    <script src="../../javascript/script.js"></script>
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_course.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
@@ -77,14 +75,19 @@ $result = $conn->query($sql);
     </div>
 </nav>
 
-<nav class="bcrumb-container" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
-    <li class="breadcrumb-item"><a href="course_list.php" >Courses</a></li>
-    <li class="breadcrumb-item"><a href="module_list.php?course_id=<?php echo $course_id; ?>">Module List</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Quiz List</li>
-  </ol>
-</nav>
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <div>
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
+            <li class="breadcrumb-item"><a href="course_list.php" >Courses</a></li>
+            <li class="breadcrumb-item"><a href="module_list.php?course_id=<?php echo $course_id; ?>">Module List</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Quiz List</li>
+          </ol>
+        </div>
+        <a href="javascript:history.back()" class="return me-2">
+          <i class="fas fa-reply"></i> Back
+        </a>
+      </nav>
 
 <div class="table-container">
     <table class="table table-borderless table-hover">
@@ -168,6 +171,9 @@ $result = $conn->query($sql);
         });
     </script>
 
- 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="../../javascript/a_profile.js"></script> 
+    <script src="../../javascript/script.js"></script>
 </body>
 </html>

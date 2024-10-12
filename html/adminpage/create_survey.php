@@ -34,6 +34,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -94,12 +96,17 @@
     </div>
 </nav>
 
-<nav class="bcrumb-container" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
-    <li class="breadcrumb-item"><a href="ofw_case.php" >OFW Cases</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Survey Creator</li>
-  </ol>
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+    <div>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
+        <li class="breadcrumb-item"><a href="ofw_case.php" >OFW Cases</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Survey Creator</li>
+      </ol>
+    </div>
+    <a href="javascript:history.back()" class="return me-2">
+      <i class="fas fa-reply"></i> Back
+    </a>
 </nav>
 
 <div class="table-containers grid gap-3">
@@ -111,12 +118,12 @@
         <tbody class="grid gap-3 row-gap-0">
             <tr>
             <td>
-                <input class="form-control" type="text" name="question" placeholder="Enter Survey Question" value="">
+                <input class="form-control" type="text" name="question" placeholder="Enter Survey Question" value="" required>
             </td>
             </tr>
             <tr>
             <td>
-                <input class="form-control" type="text" name="category" placeholder="Survey Category"  value="">
+                <input class="form-control" type="text" name="category" placeholder="Survey Category"  value="" required>
             </td>
             </tr>
             <tr>
@@ -136,7 +143,12 @@
             // Check if we are in a new category
             if ($current_category != $row['category']) {
                 // If it's a new category, print it as a header
-                echo "<thead><th class='text-start' colspan='4'><strong>Category: " . $row['category'] . "</strong></th></thead>";
+                echo "
+                <thead>
+                    <th class='text-start' colspan='2'><strong>Category: " . $row['category'] . "</strong></th>
+                    <th colspan='2'> Actions</th>  
+                </thead>
+                ";
                 // Update current category tracker
                 $current_category = $row['category'];
             }

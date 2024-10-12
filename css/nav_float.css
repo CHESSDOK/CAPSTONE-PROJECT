@@ -70,6 +70,15 @@ body {
 	display: none; /* Optional: hide the arrow if not needed */
 }
 
+.return{
+	text-decoration: none;
+	margin-left: auto;
+}
+
+.bcrumb-container {
+	width: 100%; /* Make sure the nav takes full width */
+  }
+
 td{
 	width: -120vw;
 	height: auto;

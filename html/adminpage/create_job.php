@@ -14,6 +14,8 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <link rel="stylesheet" href="../../css/modal-form.css"> 
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/admin_employer.css">
@@ -72,13 +74,18 @@ $result = $conn->query($sql);
         </div>
 </nav>
 
-<nav class="bcrumb-container" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
-  <li class="breadcrumb-item"><a href="employer_list.php" >Employer List</a></li>
-  <li class="breadcrumb-item active" aria-current="page">Post Job</li>
-  </ol>
-</nav>
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <div>
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="admin_home.php" >Home</a></li>
+            <li class="breadcrumb-item"><a href="employer_list.php" >Employer List</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Post Job</li>
+          </ol>
+        </div>
+        <a href="javascript:history.back()" class="return me-2">
+          <i class="fas fa-reply"></i> Back
+        </a>
+      </nav>
 
 <div class="table-containers">
     <div class="row align-items-start">

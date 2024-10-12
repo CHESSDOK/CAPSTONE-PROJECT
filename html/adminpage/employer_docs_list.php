@@ -16,7 +16,7 @@ echo "
         <thead>
             <th>Document Name</th>
             <th>Document File</th>
-            <th>Verification</th>
+            <th colspan='2'>Verification</th>
             <th>Status</th>
         </thead>
 
@@ -28,10 +28,10 @@ echo "
 
             echo "<tr>
                     <td>" . htmlspecialchars($row["document_name"]) . "</td>
-                    <td><a class='docu  read-link' href='view_docs.php?file_path=". htmlspecialchars($row["document_path"])."' target='_blank' >View Document</a></td>
-                    <td><a class='docu' href='verify_documents.php?id=" . $row['id'] . " & user_id=". $user_id." '>Verify</a></td>
-                    <td><a class='docu ".$active."' href='reject_documents.php?id=" . $row['id'] . " & user_id=". $user_id."'>Reject</a></td>
-                    <td style='color: " . (htmlspecialchars($row['is_verified']) ? 'green' : 'red') . ";'>" . (htmlspecialchars($row['is_verified']) ? 'Yes' : 'No') . "</td>
+                    <td><a class='btn btn-primary  read-link' href='view_docs.php?file_path=". htmlspecialchars($row["document_path"])."' target='_blank' >View Document</a></td>
+                    <td><a class='btn btn-success' href='verify_documents.php?id=" . $row['id'] . " & user_id=". $user_id." '>Verify</a></td>
+                    <td><a class='btn btn-danger ".$active."' href='reject_documents.php?id=" . $row['id'] . " & user_id=". $user_id."'>Reject</a></td>
+                    <td style='font-size:1.2em;color: " . (htmlspecialchars($row['is_verified']) ? 'green' : 'red') . ";'>" . (htmlspecialchars($row['is_verified']) ? 'Yes' : 'No') . "</td>
                 </tr>";
         }
     } else {

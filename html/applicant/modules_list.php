@@ -111,12 +111,18 @@ if (!$row) {
         </div>
     </div>
 </nav>
-<nav class="bcrumb-container" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
-    <li class="breadcrumb-item"><a href="training_list.php" >Training</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Module</li>
-  </ol>
+
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+    <div>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
+        <li class="breadcrumb-item"><a href="training_list.php" >Training</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Module</li>
+      </ol>
+    </div>
+    <a href="javascript:history.back()" class="return me-2">
+      <i class="fas fa-reply"></i> Back
+    </a>
 </nav>
 
 <?php

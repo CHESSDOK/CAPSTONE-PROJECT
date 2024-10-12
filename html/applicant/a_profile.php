@@ -55,8 +55,9 @@ $conn->close();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Submission</title>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <link rel="stylesheet" href="../../css/a_profile.css">
   <link rel="stylesheet" href="../../css/nav_float.css">
 
@@ -119,6 +120,17 @@ $conn->close();
     </div>
 </nav>
 
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+    <div>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+      </ol>
+    </div>
+    <a href="javascript:history.back()" class="return me-2">
+      <i class="fas fa-reply"></i> Back
+    </a>
+</nav>
 
 <!-- Form Content -->
 <div class="profile-container">
