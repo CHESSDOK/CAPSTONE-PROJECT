@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 12, 2024 at 11:05 AM
+-- Generation Time: Oct 13, 2024 at 07:46 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -142,11 +142,13 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(51, 46, 16, '2024-10-10', 'accepted', 'Warehouse man'),
-(52, 46, 11, '2024-10-10', 'accepted', 'Carpenter'),
-(53, 45, 17, '2024-10-10', 'pending', 'Principal Creative Specialist'),
-(54, 43, 13, '2024-10-11', 'pending', 'Security Guard'),
-(55, 43, 21, '2024-10-12', 'pending', 'Unde aspernatur quo ');
+(67, 45, 30, '2024-10-13', 'interview', 'International Tactics Supervisor'),
+(68, 45, 29, '2024-10-13', 'pending', 'District Directives Specialist'),
+(69, 45, 27, '2024-10-13', 'pending', 'Future Tactics Manager'),
+(70, 45, 26, '2024-10-13', 'pending', 'Corporate Metrics Liaison'),
+(71, 45, 25, '2024-10-13', 'pending', 'Internal Tactics Specialist'),
+(72, 45, 24, '2024-10-13', 'interview', 'Principal Accountability Strategist'),
+(73, 45, 23, '2024-10-13', 'interview', 'Customer Branding Associate');
 
 -- --------------------------------------------------------
 
@@ -170,7 +172,9 @@ CREATE TABLE `cases` (
 
 INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, `created_at`) VALUES
 (12, 45, 'Abusive employer', 'harassment, physical abuse', '../uploads/462463385_1483381795713486_9058732459192274728_n.png', 'resolved', '2024-10-11 00:14:44'),
-(13, 44, 'Underpaid', 'Salary decrease and unpaid work', '../uploads/PESO.pdf', 'in_progress', '2024-10-11 00:18:25');
+(13, 44, 'Underpaid', 'Salary decrease and unpaid work', 'uploads/PESO.pdf', 'in_progress', '2024-10-11 00:18:25'),
+(14, 43, 'LAw', 'fgsadfawee', 'uploads/PESO.pdf', 'filed', '2024-10-12 12:12:46'),
+(15, 43, 'LAwnew', 'fgsadfawee', 'uploads/e-Phil-ID.pdf', 'filed', '2024-10-12 13:19:48');
 
 -- --------------------------------------------------------
 
@@ -182,9 +186,9 @@ CREATE TABLE `chat_messages` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `sender` varchar(100) NOT NULL,
-  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `chat_messages`
@@ -333,6 +337,17 @@ CREATE TABLE `interview` (
   `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `interview`
+--
+
+INSERT INTO `interview` (`id`, `user_id`, `Job_id`, `sched_date`, `sched_time`, `interview`, `meeting`, `is_read`) VALUES
+(11, 45, 17, '2024-10-09', '13:38:00', 'FacetoFace', '', 1),
+(12, 45, 18, '2024-10-01', '13:30:00', 'FacetoFace', '', 1),
+(13, 45, 30, '2025-03-23', '02:29:00', 'FacetoFace', 'lalakay laguna', 0),
+(14, 45, 24, '2024-10-31', '13:30:00', 'FacetoFace', '', 0),
+(15, 45, 23, '2024-10-29', '18:28:00', 'online', 'asdwasscadwa', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -344,6 +359,7 @@ CREATE TABLE `job_postings` (
   `employer_id` int DEFAULT NULL,
   `admin_id` int DEFAULT NULL,
   `job_title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `specialization` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vacant` int NOT NULL,
@@ -358,15 +374,18 @@ CREATE TABLE `job_postings` (
 -- Dumping data for table `job_postings`
 --
 
-INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_description`, `specialization`, `vacant`, `requirment`, `work_location`, `remarks`, `date_posted`, `is_active`) VALUES
-(17, 9, NULL, 'Principal Creative Specialist', 'Forward Interactions Officer', NULL, 14, 'College Graduate', '3012 Raynor Junction', '', '2024-10-10', 1),
-(18, 10, NULL, 'Corporate Markets Strategist', 'Customer Response Administrator', NULL, 26, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
-(19, 11, NULL, 'Human Communications Engineer', 'Legacy Optimization Agent', NULL, 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1),
-(23, NULL, 1, 'Customer Branding Associate', 'Forward Factors Orchestrator', '', 66, 'Deserunt dignissimos repellat ex reprehenderit dolore velit explicabo.', '87400 Toy Well', 'Iusto recusandae suscipit expedita quas cumque.', '2024-10-12', 1),
-(24, NULL, 1, 'Principal Accountability Strategist', 'Forward Security Developer', '', 183, 'Ipsa expedita esse ipsam totam ullam pariatur corrupti doloribus.', '368 Aleen Rue', 'Dolorum laboriosam cupiditate eum.', '2024-10-12', 1),
-(25, NULL, 1, 'Internal Tactics Specialist', 'Global Branding Specialist', '', 263, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.', '31659 Justina Extension', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-12', 1),
-(26, NULL, 11, 'Corporate Metrics Liaison', 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
-(27, NULL, 11, 'Future Tactics Manager', 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1);
+INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_type`, `job_description`, `specialization`, `vacant`, `requirment`, `work_location`, `remarks`, `date_posted`, `is_active`) VALUES
+(17, 9, NULL, 'Principal Creative Specialist', '', 'Forward Interactions Officer', NULL, 11, 'College Graduate', '3012 Raynor Junction', '', '2024-10-10', 1),
+(18, 10, NULL, 'Corporate Markets Strategist', '', 'Customer Response Administrator', NULL, 25, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
+(19, 11, NULL, 'Human Communications Engineer', '', 'Legacy Optimization Agent', NULL, 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1),
+(23, NULL, 1, 'Customer Branding Associate', '', 'Forward Factors Orchestrator', '', 65, 'Deserunt dignissimos repellat ex reprehenderit dolore velit explicabo.', '87400 Toy Well', 'Iusto recusandae suscipit expedita quas cumque.', '2024-10-12', 1),
+(24, NULL, 1, 'Principal Accountability Strategist', '', 'Forward Security Developer', '', 182, 'Ipsa expedita esse ipsam totam ullam pariatur corrupti doloribus.', '368 Aleen Rue', 'Dolorum laboriosam cupiditate eum.', '2024-10-12', 1),
+(25, NULL, 1, 'Internal Tactics Specialist', '', 'Global Branding Specialist', '', 263, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.', '31659 Justina Extension', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-12', 1),
+(26, NULL, 11, 'Corporate Metrics Liaison', '', 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
+(27, NULL, 11, 'Future Tactics Manager', '', 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1),
+(28, 9, NULL, 'Human Mobility Assistant', 'Part time', 'Forward Factors Officer', NULL, 102, 'Itaque maxime harum.', 'Voluptatibus molestias culpa expedita vero exercitationem.', '', '2024-10-12', 1),
+(29, NULL, 1, 'District Directives Specialist', 'Fulltime', 'Dynamic Factors Supervisor', '', 598, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
+(30, NULL, 1, 'International Tactics Supervisor', 'Fulltime', 'Principal Implementation Analyst', '', 663, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1);
 
 -- --------------------------------------------------------
 
@@ -932,7 +951,8 @@ INSERT INTO `modules_taken` (`id`, `user_id`, `module_id`, `status`, `date_taken
 (16, 45, 11, 'passed', '2024-10-10'),
 (17, 43, 9, 'passed', '2024-10-11'),
 (18, 43, 10, 'passed', '2024-10-11'),
-(19, 43, 11, 'passed', '2024-10-11');
+(19, 43, 11, 'passed', '2024-10-11'),
+(20, 43, 1, 'fail', '2024-10-12');
 
 -- --------------------------------------------------------
 
@@ -1391,7 +1411,12 @@ INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `quiz_id`, `answer`)
 (627, 43, 185, 39, 'b'),
 (628, 43, 186, 39, 'b'),
 (629, 43, 187, 39, 'b'),
-(630, 43, 188, 39, 'b');
+(630, 43, 188, 39, 'b'),
+(651, 43, 147, 28, 'b'),
+(652, 43, 148, 28, 'b'),
+(653, 43, 149, 28, 'b'),
+(654, 43, 150, 28, 'b'),
+(655, 43, 151, 28, 'b');
 
 -- --------------------------------------------------------
 
@@ -1419,7 +1444,8 @@ INSERT INTO `user_score` (`id`, `user_id`, `quiz_id`, `score`, `correct_answers`
 (71, 45, 39, 5, 5, 0, '2024-10-09 16:00:00'),
 (72, 43, 37, 5, 5, 0, '2024-10-10 16:00:00'),
 (73, 43, 38, 5, 5, 2, '2024-10-10 16:00:00'),
-(74, 43, 39, 5, 5, 0, '2024-10-10 16:00:00');
+(74, 43, 39, 5, 5, 0, '2024-10-10 16:00:00'),
+(79, 43, 28, 2, 2, 3, '2024-10-11 16:00:00');
 
 --
 -- Indexes for dumped tables
@@ -1582,13 +1608,13 @@ ALTER TABLE `applicant_profile`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `cases`
 --
 ALTER TABLE `cases`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `chat_messages`
@@ -1630,13 +1656,13 @@ ALTER TABLE `empyers`
 -- AUTO_INCREMENT for table `interview`
 --
 ALTER TABLE `interview`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `job_postings`
 --
 ALTER TABLE `job_postings`
-  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `modules`
@@ -1648,7 +1674,7 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT for table `modules_taken`
 --
 ALTER TABLE `modules_taken`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `module_content`
@@ -1690,13 +1716,13 @@ ALTER TABLE `survey_reponse`
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=631;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=656;
 
 --
 -- AUTO_INCREMENT for table `user_score`
 --
 ALTER TABLE `user_score`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
