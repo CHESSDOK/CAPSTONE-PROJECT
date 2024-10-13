@@ -22,13 +22,20 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 // Fetch the job posting data // This should be set based on the job the user is applying for
-$sql = "SELECT * FROM job_postings WHERE job_title = ?";
+$sql = "SELECT jp.*, em.*
+        FROM job_postings jp
+        LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
+        WHERE job_title = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $jobTitle);
 $stmt->execute();
 $result = $stmt->get_result();
 $job = $result->fetch_assoc();
 $stmt->close();
+
+if (!$user || !$job) {
+    die("Invalid user or job data.");
+}
 
 if (!$user || !$job) {
     die("Invalid user or job data.");
@@ -150,7 +157,7 @@ if (!$user || !$job) {
                 </div>
 
                 <div class="col-md-2">
-                    <p><?php echo htmlspecialchars($job['requirment']); ?></p><!--job type-->
+                    <p><?php echo htmlspecialchars($job['job_type']); ?></p><!--job type-->
                 </div>
 
                 <!-- Apply button (right side) -->
