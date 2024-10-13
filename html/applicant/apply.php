@@ -123,21 +123,76 @@ if (!$user || !$job) {
         </a>
     </nav>
 
-    <div class="table-containers">
-        <h1>Apply for <?php echo htmlspecialchars($jobTitle); ?></h1>
-        <form action="../../php/applicant/submit_application.php" method="post">
-            <input type="hidden" name="job" value="<?php echo htmlspecialchars($jobTitle); ?>">
-            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
-            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job['j_id']); ?>">
-            <h4><?php echo htmlspecialchars($job['job_description']); ?> </h4><br>
-            <h4><?php echo htmlspecialchars($job['requirment']); ?> </h4> <br>
-            <h4><?php echo htmlspecialchars($job['work_location']); ?> </h4> <br>
-            <h4><?php echo htmlspecialchars($job['remarks']); ?> </h4> <br>
-            <h4><?php echo htmlspecialchars($job['job_type']); ?> </h4> <br>
-            <h4><?php echo htmlspecialchars($job['date_posted']); ?> </h4> <br>
-            <input type="submit" value="Submit Application">
-        </form>
+<div class="table-containers">
+<div class="table-container">
+    <form action="../../php/applicant/submit_application.php" method="post">
+        <div class="card mb-3 p-3 shadow-sm">
+            <div class="row align-items-center">
+
+                <!-- Job Logo / Placeholder (left side) -->
+                <div class="col-md-2 text-center">
+                    <?php if (!empty($job["photo"])) { ?>
+                        <img src="../../php/employer/uploads/<?php echo htmlspecialchars($job["photo"]); ?>" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
+                    <?php } else { ?>
+                        <img src="../../img/user-placeholder.png" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
+                    <?php } ?>
+                </div>
+
+                <!-- Job Title and Description (center part) -->
+                <div class="col-md-4">
+                    <label class="fw-bold"><?php echo htmlspecialchars($jobTitle); ?></label>
+                    <p><?php echo htmlspecialchars($jobTitle); ?></p><!--Company name-->
+                    <p><?php echo htmlspecialchars($job['work_location']); ?></p>
+                </div>
+
+                <div class="col-md-2">
+                    <p><?php echo htmlspecialchars($job['requirment']); ?></p><!--requirment dropdown-->
+                </div>
+
+                <div class="col-md-2">
+                    <p><?php echo htmlspecialchars($job['requirment']); ?></p><!--job type-->
+                </div>
+
+                <!-- Apply button (right side) -->
+                <div class="col-md-2 text-end">
+                    <input type="hidden" name="job" value="<?php echo htmlspecialchars($jobTitle); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
+                    <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job['j_id']); ?>">
+                    <h4><?php echo htmlspecialchars($job['date_posted']); ?></h4>
+                    <input type="submit" value="Submit Application" class="btn btn-primary">
+                </div>
+
+            </div>
+        </div>
+    <div class="table-container">
+        <div class="card mb-3 p-3 shadow-sm">
+            <div class="col align-items-center">
+                <div>
+                <h3>Job Description</h3>
+                <div class="line divider"> </div>
+                <label><?php echo htmlspecialchars($jobTitle); ?></label><br>
+                <label><?php echo htmlspecialchars($job['job_description']); ?></label><br>
+                
+                <h3>Qualifications / Requirements</h3>
+                <div class="line divider"> </div>
+                <p><?php echo htmlspecialchars($job['requirment']); ?></p>
+
+                <h3>Work Location</h3>
+                <div class="line divider"> </div>
+                <p><?php echo htmlspecialchars($job['work_location']); ?></p>
+
+                <h3>Remarks</h3>
+                <div class="line divider"> </div>
+                <label><?php echo htmlspecialchars($job['remarks']); ?></label>
+                <input type="submit" value="Submit Application" class="btn btn-primary">
+                </div>
+            </div>
+        </div>
     </div>
+        
+    </form>
+</div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
