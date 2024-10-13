@@ -1,14 +1,37 @@
 <?php
-session_start();
 include '../../php/conn_db.php';
-// Assuming you have a session variable that holds the user type
-if (!isset($_SESSION['username'])) {
-    header("Location: login_employer.html");
-    exit();
+function checkSession() {
+  session_start(); // Start the session
+
+  // Check if the session variable 'id' is set
+  if (!isset($_SESSION['id'])) {
+      // Redirect to login page if session not found
+      header("Location: html/login_employer.html");
+      exit();
+  } else {
+      // If session exists, store the session data in a variable
+      return $_SESSION['id'];
+  }
 }
 
-$sql = "SELECT * FROM applicant_profile WHERE specialization IS NOT NULL";
-$result = $conn->query($sql);
+$userId = checkSession(); 
+$sql = "SELECT * FROM employer_profile WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if (!$result) {
+    die("Invalid query: " . $conn->error);
+}
+
+$row = $result->fetch_assoc();
+if (!$row) {
+    die("User not found.");
+}
+
+$ap_sql = "SELECT * FROM applicant_profile WHERE specialization IS NOT NULL";
+$ap_result = $conn->query($ap_sql);
 ?>
 
 
@@ -49,11 +72,11 @@ body::before{
         </div>
         
         <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-    <?php if (!empty($row['photo'])): ?>
-        <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-    <?php else: ?>
-        <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-    <?php endif; ?>
+        <?php if (!empty($row['photo'])): ?>
+        <img id="preview" src="../../php/employer/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <?php else: ?>
+            <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+        <?php endif; ?>
     </div>
 
 
@@ -121,9 +144,9 @@ body::before{
           <label for="spe" class="form-label">Expert Requirement</label>
           <select id="spe" name="spe" class="form-select">
             <?php
-              if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  echo "<option value='".$row['specialization']."'>".$row['specialization']."</option>";
+              if ($ap_result->num_rows > 0) {
+                while($ap_row = $ap_result->fetch_assoc()) {
+                  echo "<option value='".$ap_row['specialization']."'>".$ap_row['specialization']."</option>";
                 }
               }
               $conn->close();   

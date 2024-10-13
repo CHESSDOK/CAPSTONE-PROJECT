@@ -9,10 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $spe = $_POST['spe'];
     $vacant = $_POST['vacant'];
     $act = $_POST['act'];
+    $job_type = $_POST['jobtype'];
 
     // Update the data in the quiz_name table
     $sql = "UPDATE `job_postings` 
-            SET job_title = '$j_title', job_description = '$desc', specialization = '$spe', vacant = '$vacant', is_active = '$act', date_posted = NOW()
+            SET job_title = '$j_title', job_type = '$job_type', job_description = '$desc', specialization = '$spe', vacant = '$vacant', is_active = '$act', date_posted = NOW()
             WHERE j_id = '$id'";
 
     if (mysqli_query($conn, $sql)) {

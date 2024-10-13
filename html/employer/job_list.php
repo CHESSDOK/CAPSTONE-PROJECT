@@ -14,6 +14,20 @@ function checkSession() {
     }
 }
 $employerid = checkSession();
+$new_sql = "SELECT * FROM employer_profile WHERE user_id = ?";
+$new_stmt = $conn->prepare($new_sql);
+$new_stmt->bind_param("i", $employerid);
+$new_stmt->execute();
+$new_result = $new_stmt->get_result();
+
+if (!$new_result) {
+    die("Invalid query: " . $conn->error);
+}
+
+$new_row = $new_result->fetch_assoc();
+if (!$new_row) {
+    die("User not found.");
+}
 
 $sql = "SELECT * FROM job_postings WHERE employer_id = $employerid ";
 $result = $conn->query($sql);
@@ -28,7 +42,7 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="../../css/nav_float.css">
   <link rel="stylesheet" href="../../css/employer.css">
 </head>
@@ -50,11 +64,11 @@ $result = $conn->query($sql);
         </div>
         
         <div class="profile-icon-employer" data-bs-toggle="popover" data-bs-placement="bottom">
-          <?php if (!empty($row['photo'])): ?>
-              <img id="preview" src="php/employer/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-          <?php else: ?>
-              <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-          <?php endif; ?>
+        <?php if (!empty($new_row['photo'])): ?>
+        <img id="preview" src="../../php/employer/uploads/<?php echo $new_row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <?php else: ?>
+            <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+        <?php endif; ?>
         </div>
 
     </div>
@@ -127,7 +141,7 @@ $result = $conn->query($sql);
                                 <!-- Specialization (Reduced to 2 columns) -->
                                 <div class='col-md-2'>
                                     <label for='spe' class='form-label'>Specialization</label>
-                                    <input type='text' class='form-control form-control-sm' id='spe' name='spe' value='" . htmlspecialchars($row['specialization']) . "' placeholder='Specialization'>
+                                    <input type='text' class='form-control form-control-sm' id='spe' name='spe' value='" . htmlspecialchars($row['specialization'] ? $row['specialization'] : '') . "' placeholder='Specialization'>
                                 </div>
 
                                 <!-- Job Type (Reduced to 2 columns) -->
@@ -174,8 +188,6 @@ $result = $conn->query($sql);
 
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
    <script src="../../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
 </body>
 </html>

@@ -19,7 +19,7 @@ $userId = checkSession(); // Call the function and store the returned user ID
 // Assuming $conn is your valid database connection
 include '../../php/conn_db.php'; // Include your database connection script
 
-$sql = "SELECT * FROM empyers WHERE id = ?";
+$sql = "SELECT * FROM employer_profile WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
@@ -67,11 +67,11 @@ if (!$row) {
         </div>
         
         <div class="profile-icon-employer" data-bs-toggle="popover" data-bs-placement="bottom">
-          <?php if (!empty($row['photo'])): ?>
-              <img id="preview" src="php/employer/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-          <?php else: ?>
-              <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-          <?php endif; ?>
+        <?php if (!empty($row['photo'])): ?>
+        <img id="preview" src="../../php/employer/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <?php else: ?>
+            <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+        <?php endif; ?>
         </div>
 
     </div>
