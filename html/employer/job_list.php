@@ -99,48 +99,80 @@ $result = $conn->query($sql);
     </a>
 </nav>
 
-<div class="jl-container">
-<table class="table table-borderless table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>Title</th>
-            <th>Job Description</th>
-            <th>Specialization</th>
-            <th>Vacant</th>
-            <th>Status</th>
-            <th colspan="2">Actions</th>
-        </tr>
-    </thead>
-    <tbody class="table-group-divider">
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                        <form action='../../php/employer/update_jobs.php' method='post'>
-                            <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
-                            <td><input type='text' class='form-control' name='jtitle' value='" . $row['job_title'] . "'></td>
-                            <td><input type='text' class='form-control' name='desc' value='" . $row['job_description'] . "'></td>
-                            <td><input type='text' class='form-control' name='spe' value='" . $row['specialization'] . "'></td>
-                            <td><input type='number' class='form-control value-display' name='vacant' value='" . $row['vacant'] . "'></td>
-                            <td><input type='number' class='form-control value-display' name='act' value='" . $row['is_active'] . "'></td>
-                            <td>
-                                <button type='submit' class='btn btn-primary'>Update</button>
-                            </td>
-                        </form>
-                        <td>
-                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-secondary'>Applicant List</a>
-                        </td>
-                    </tr>";
+<div class="container">
+    <div class="table-containers">
+        <div class="table-container">
+            <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "
+                        <div class='card p-3 mb-3 shadow-sm'>
+                    <form action='../../php/employer/update_jobs.php' method='post'>
+                            <div class='row align-items-center gx-2'>
+
+                                <input type='hidden' name='job_id' value='" . htmlspecialchars($row['j_id']) . "'>
+
+                                <!-- Title (Reduced to 2 columns) -->
+                                <div class='col-md-2'>
+                                    <label for='jtitle' class='form-label'>Title</label>
+                                    <input type='text' class='form-control form-control-sm' id='jtitle' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "' placeholder='Job Title'>
+                                </div>
+
+                                <!-- Job Description (Reduced to 2 columns) -->
+                                <div class='col-md-3'>
+                                    <label for='desc' class='form-label'>Job Description</label>
+                                    <input type='text' class='form-control form-control-sm' id='desc' name='desc' value='" . htmlspecialchars($row['job_description']) . "' placeholder='Job Description'>
+                                </div>
+
+                                <!-- Specialization (Reduced to 2 columns) -->
+                                <div class='col-md-2'>
+                                    <label for='spe' class='form-label'>Specialization</label>
+                                    <input type='text' class='form-control form-control-sm' id='spe' name='spe' value='" . htmlspecialchars($row['specialization']) . "' placeholder='Specialization'>
+                                </div>
+
+                                <!-- Job Type (Reduced to 2 columns) -->
+                                <div class='col-md-2'>
+                                    <label for='jobtype' class='form-label'>Job Type</label>
+                                    <select class='form-select form-select-sm' id='jobtype' name='jobtype' required>
+                                        <option value='Part time'" . ($row['job_type'] == 'Part time' ? ' selected' : '') . ">Part time</option>
+                                        <option value='Prelance'" . ($row['job_type'] == 'Prelance' ? ' selected' : '') . ">Prelance</option>
+                                        <option value='Fulltime'" . ($row['job_type'] == 'Fulltime' ? ' selected' : '') . ">Fulltime</option>
+                                    </select>
+                                </div>
+
+                                <!-- Vacant (Reduced to 1 column) -->
+                                <div class='col-md-1'>
+                                    <label for='vacant' class='form-label'>Vacant</label>
+                                    <input type='number' class='form-control form-control-sm' id='vacant' name='vacant' value='" . htmlspecialchars($row['vacant']) . "' placeholder='Vacant'>
+                                </div>
+
+                                <!-- Status (Reduced to 1 column) -->
+                                <div class='col-md-1'>
+                                    <label for='act' class='form-label'>Status</label>
+                                    <input type='number' class='form-control form-control-sm' id='act' name='act' value='" . htmlspecialchars($row['is_active']) . "' placeholder='Active'>
+                                </div>
+
+                                <!-- Actions (Reduced to 1 column) -->
+                                <div class='col-md-1 d-flex align-items-end'>
+                                    <div class='d-grid gap-2 d-md-flex'>
+                                        <button type='submit' class='btn btn-primary btn-sm'>Update</button>
+                                        <a href='applicant_list.php?job_id=" . htmlspecialchars($row['j_id']) . "' class='btn btn-secondary btn-sm'>Applicant List</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>";
+                }
+            } else {
+                echo "<div class='alert alert-warning'>No employers found</div>";
             }
-        } else {
-            echo "<tr><td colspan='7' class='text-center'>No employers found</td></tr>";
-        }
-        $conn->close();
-        ?>
-    </tbody>
-</table>
+            $conn->close();
+            ?>
+        </div>
+    </div>
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

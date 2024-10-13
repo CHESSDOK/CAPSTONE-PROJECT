@@ -148,7 +148,7 @@ if (!$user || !$job) {
                 <!-- Job Title and Description (center part) -->
                 <div class="col-md-4">
                     <label class="fw-bold"><?php echo htmlspecialchars($jobTitle); ?></label>
-                    <p><?php echo htmlspecialchars($jobTitle); ?></p><!--Company name-->
+                    <p><?php echo htmlspecialchars($job["company_name"]); ?></p>
                     <p><?php echo htmlspecialchars($job['work_location']); ?></p>
                 </div>
 
@@ -171,6 +171,7 @@ if (!$user || !$job) {
 
             </div>
         </div>
+
     <div class="table-container">
         <div class="card mb-3 p-3 shadow-sm">
             <div class="col align-items-center">
