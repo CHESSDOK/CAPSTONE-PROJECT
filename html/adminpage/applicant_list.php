@@ -166,7 +166,6 @@
                                 echo "
                                 <tr>
                                     <td style='width: 450px;'>".htmlspecialchars($full_name)."</td>
-
                                     <td style='width: 100px;'>" . htmlspecialchars($row['job']) . "</td>
                                     <td style='width: 50px;'>" . ucfirst($status) . "</td>
                                     <td class='btn-job'>";
@@ -264,7 +263,7 @@
 
                         <div id="addressField" class="mb-3">
                             <label for="address" class="form-label">Physical Address:</label>
-                            <input type="text" id="address" name="address" class="form-control" placeholder="Enter Your Office Address">
+                            <input type="text" id="address" name="link" class="form-control" placeholder="Enter Your Office Address">
                         </div>
                     </td>
                 </tr>

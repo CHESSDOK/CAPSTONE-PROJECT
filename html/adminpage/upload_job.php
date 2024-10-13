@@ -35,6 +35,17 @@ echo "                      </select>
                             <textarea name='job_description' id='job_description' class='form-control' required></textarea>
                     </td>
                 </tr>
+                <td colspan='3'>
+                    <div class='mb-3'>
+                    <label for='job_type' class='form-label'>Job type:</label>
+                    <select class='form-select' id='jobtype' name='jobtype' required>
+                        <option value='Part time'>Part time</option>
+                        <option value='Prelance'>Prelance</option>
+                        <option value='Fulltime'>Fulltime</option>
+                    </select>
+                    </div>
+                </td>
+                </tr>
                 <tr>
                     <td colspan='3'>
                             <label for='req' class='form-label'>Qualification/Requirements</label>

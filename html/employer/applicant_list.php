@@ -220,7 +220,7 @@
         <span class="btn-close closBtn closeBtn">&times;</span>
         <h2 class="mb-4">Interview</h2>
         
-        <form action="interview.php" method="post">
+        <form action="../../php/employer/interview.php" method="post">
             <table class="table table-borderless">
                 <input type="hidden" id="applicantId" name="applicant_id">
                 <input type="hidden" id="jobid" name="jobid">
@@ -262,7 +262,7 @@
 
                         <div id="addressField" class="mb-3">
                             <label for="address" class="form-label">Physical Address:</label>
-                            <input type="text" id="address" name="address" class="form-control" placeholder="Enter Your Office Address">
+                            <input type="text" id="address" name="link" class="form-control" placeholder="Enter Your Office Address">
                         </div>
                     </td>
                 </tr>

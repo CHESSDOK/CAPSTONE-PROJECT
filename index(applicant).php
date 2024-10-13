@@ -38,10 +38,12 @@ if (!$row) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page</title>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="css/modal-form.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/notif.css">
 </head>
@@ -54,19 +56,15 @@ if (!$row) {
 
     <div class="profile-icons">
         <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-            <a href="html/applicant/sched_list.php"><img id="#" src="img/notif.png" alt="Profile Picture" class="rounded-circle"></a>
+        <a class='openEmployersBtn' href='#'><img id="#" src="img/notif.png" alt="Profile Picture" class="rounded-circle"></a>
         </div>
-        
         <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-    <?php if (!empty($row['photo'])): ?>
-        <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-    <?php else: ?>
-        <img src="img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-    <?php endif; ?>
-    </div>
-
-
-
+        <?php if (!empty($row['photo'])): ?>
+            <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <?php else: ?>
+            <img src="img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+        <?php endif; ?>
+        </div>
     </div>
 
     <!-- Burger icon -->
@@ -138,11 +136,48 @@ if (!$row) {
     </tr>
     </table>
 
+  
+<div id="employerModal" class="modal modal-container">
+    <div class="modal-content">
+        <span class="btn-close closBtn">&times;</span>
+        <div id="employersModuleContent">
+            <!-- Module content will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
+
+    <script>  
+        const employerModal = document.getElementById('employerModal');
+        const closeModuleBtn = document.querySelector('.closBtn');
+        // Open profile modal and load data via AJAX
+        $(document).on('click', '.openEmployersBtn', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'html/applicant/sched_list.php',
+                method: 'GET',
+                success: function(response) {
+                    $('#employersModuleContent').html(response);
+                    employerModal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Close profile modal when 'x' is clicked
+        closeModuleBtn.addEventListener('click', function() {
+            employerModal.style.display = 'none';
+        });
+
+        // Close profile modal when clicking outside the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === employerModal) {
+                employerModal.style.display = 'none';
+            }
+        });
+    </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script src="javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
 </body>
 </html>

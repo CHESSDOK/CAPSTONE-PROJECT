@@ -133,6 +133,7 @@ if (!$user || !$job) {
             <h4><?php echo htmlspecialchars($job['requirment']); ?> </h4> <br>
             <h4><?php echo htmlspecialchars($job['work_location']); ?> </h4> <br>
             <h4><?php echo htmlspecialchars($job['remarks']); ?> </h4> <br>
+            <h4><?php echo htmlspecialchars($job['job_type']); ?> </h4> <br>
             <h4><?php echo htmlspecialchars($job['date_posted']); ?> </h4> <br>
             <input type="submit" value="Submit Application">
         </form>

@@ -20,9 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                VALUES (?, ?, ?, ?, ?, ?)";
         $stmtInterview = $conn->prepare($sqlInsertInterview);
         $stmtInterview->bind_param("iissss", $user_id, $job_id, $date, $time, $type, $meeting);
-        
-        header("Location: applicant_list.php?job_id=$job_id");    
 
+        if ($stmtInterview->execute()) {
+            // Step 3: Update the vacant count in job_postings table
+            $sqlVacant = "UPDATE job_postings SET vacant = vacant - 1 WHERE j_id = ?";
+            $stmtVacant = $conn->prepare($sqlVacant);
+            $stmtVacant->bind_param("i", $job_id);
+            $stmtVacant->execute();
+            $stmtVacant->close();
+
+        header("Location: applicant_list.php?job_id=$job_id");    
+        } else {
+            echo "Error inserting interview: " . $stmtInterview->error;
+        }
+        
         $stmtInterview->close();
     } else {
         echo "Error updating status: " . $stmtStatus->error;

@@ -133,10 +133,22 @@ body::before{
       </td>
     </tr>
     <tr>
-      <td colspan="3">
+    <td colspan="3">
         <div class="mb-3">
           <label for="job_description" class="form-label">Job Description:</label>
           <textarea name="job_description" id="job_description" class="form-control" required></textarea>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div class="mb-3">
+          <label for="job_type" class="form-label">Job type:</label>
+          <select class="form-select" id="jobtype" name="jobtype" required>
+            <option value="Part time">Part time</option>
+            <option value="Prelance">Prelance</option>
+            <option value="Fulltime">Fulltime</option>
+          </select>
         </div>
       </td>
     </tr>
