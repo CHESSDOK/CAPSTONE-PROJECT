@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 13, 2024 at 07:46 AM
+-- Generation Time: Oct 13, 2024 at 07:52 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -186,9 +186,9 @@ CREATE TABLE `chat_messages` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `sender` varchar(100) NOT NULL,
-  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `chat_messages`
@@ -1257,6 +1257,27 @@ CREATE TABLE `survey_form` (
   `category` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `survey_form`
+--
+
+INSERT INTO `survey_form` (`id`, `question`, `category`) VALUES
+(5, 'I am having difficulty communicating with citizens and other foreigners.', 'Communication'),
+(6, 'I greet and show interest when meeting.', 'Communication'),
+(7, 'I use body language and gestures as a way of better communication.', 'Communication'),
+(8, 'I use simple words to make others understand me.', 'Communication'),
+(9, 'I clarify when I did not totally understand the instructions or what is being said to me.', 'Communication'),
+(10, 'I am able to send money to my family.', 'Finances'),
+(11, 'I save money monthly from my salary.', 'Finances'),
+(12, 'I invest in properties, stocks, insurance, and other investments.', 'Finances'),
+(13, 'I am able to contribute to PhilHealth, SSS, and others.', 'Finances'),
+(14, 'I have part-time jobs and overtime works as another source of income.', 'Finances'),
+(15, 'I feel that my employer is concerned about my status as a foreign worker from the Philippines.', 'Life and Work Environment'),
+(16, 'I am having problems with my co-workers.', 'Life and Work Environment'),
+(17, 'I feel quitting my job and go back to the Philippines.', 'Life and Work Environment'),
+(18, 'I maintain a good relationship with my fellowmen.', 'Life and Work Environment'),
+(19, 'I still enjoy leisure time and recreation despite busy work and schedule.', 'Life and Work Environment');
+
 -- --------------------------------------------------------
 
 --
@@ -1704,7 +1725,7 @@ ALTER TABLE `register`
 -- AUTO_INCREMENT for table `survey_form`
 --
 ALTER TABLE `survey_form`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `survey_reponse`
