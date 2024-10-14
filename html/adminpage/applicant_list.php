@@ -18,10 +18,12 @@
     $jobid = $_GET['job_id'];
 
     // SQL JOIN to fetch applicant details and their applications
-    $sql = "SELECT ap.*, a.*
+    $sql = "SELECT ap.*, a.*, i.meeting AS interview_link
     FROM applicant_profile ap 
     JOIN applications a ON ap.user_id = a.applicant_id
+    LEFT JOIN interview i ON i.user_id = ap.user_id AND i.Job_id = a.job_posting_id
     WHERE a.job_posting_id = ? AND a.status != 'rejected'";
+    
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $jobid);
         $stmt->execute();
@@ -154,49 +156,51 @@
                         <thead class='thead-light'>
                             <th>Full Name</th>
                             <th>Job</th>
+                            <th>Interview Link</th> <!-- Add new header for interview link -->
                             <th>Status</th>
                             <th class='action-btn'>Actions</th>
                         </thead>";
                 
-                        if (!empty($applicants)) {
-                            foreach ($applicants as $row) {
-                                $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . '. ' . $row['last_name']);
-                                $status = $row['status'];
-
-                    
-                                echo "
-                                <tr>
-                                    <td style='width: 450px;'>".htmlspecialchars($full_name)."</td>
-                                    <td style='width: 100px;'>" . htmlspecialchars($row['job']) . "</td>
-                                    <td style='width: 50px;'>" . ucfirst($status) . "</td>
-                                    <td class='btn-job'>";
-                                    
-                                // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
-                                if ($status != 'accepted' && $status != 'interview') {
-                                    echo "
-                                   
-                                    <a class='btn btn-success mx-2' href='application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
-                                    
-                                    <a class='btn btn-danger mx-2' href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>
-                                    
-                                    <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=" . htmlspecialchars($row["applicant_id"]) ."
-                                    data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
-                                
-                                }elseif ($status === 'interview') {
-                                        echo " <a class='btn btn-success mx-2' href='application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
-                                                <a class='btn btn-danger mx-2' href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
-                                }
-                    
-                                echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary mx-2' data-applicant-id='". htmlspecialchars($row["applicant_id"]) . "'>View Profile</button>
-                                    </td>
-                                </tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='5'>No applicants found</td></tr>";
+                if (!empty($applicants)) {
+                    foreach ($applicants as $row) {
+                        $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . '. ' . $row['last_name']);
+                        $status = $row['status'];
+                        $job = htmlspecialchars($row['job']);
+                        $interview_link = htmlspecialchars($row['interview_link'] ? $row['interview_link'] : '' ); // Fetch interview link
+                        
+                        echo "
+                        <tr>
+                            <td style='width: 450px;'>".htmlspecialchars($full_name)."</td>
+                            <td style='width: 100px;'>$job</td>
+                            <td style='width: 150px;'>
+                                <a href='' target='_blank'>$interview_link</a> <!-- Display the interview link -->
+                            </td>
+                            <td style='width: 50px;'>".ucfirst($status)."</td>
+                            <td class='btn-job'>";
+                        
+                        // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
+                        if ($status != 'accepted' && $status != 'interview') {
+                            echo "
+                            <a class='btn btn-success mx-2' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                            <a class='btn btn-danger mx-2' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>
+                            <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=".htmlspecialchars($row["applicant_id"])."
+                            data-job-id=".htmlspecialchars($row["job_posting_id"]).">Interview</button>";
+                        } elseif ($status === 'interview') {
+                            echo "<a class='btn btn-success mx-2' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                                  <a class='btn btn-danger mx-2' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>";
                         }
-                    
-                        echo "</table>";
+            
+                        echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary mx-2' data-applicant-id='".htmlspecialchars($row["applicant_id"])."'>View Profile</button>
+                            </td>
+                        </tr>";
                     }
+                } else {
+                    echo "<tr><td colspan='5'>No applicants found</td></tr>";
+                }
+            
+                echo "</table>";
+            }
+            
             
             // Display each category vertically with centered alignment
             echo "<div class='category-section'>";

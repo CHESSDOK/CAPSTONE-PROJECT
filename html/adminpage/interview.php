@@ -6,10 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $type = $_POST['interview'];
-    $interviewType = $_POST['interviewType']; // Get the interview type (virtual or physical)
+    $interviewType = $_POST['interview']; // Get the interview type (virtual or physical)
 
     // Determine which field to use based on interviewType
-    if ($interviewType == 'virtual') {
+    if ($interviewType === 'online') {
         $meeting = $_POST['link'];  // Use the virtual link
     } else {
         $meeting = $_POST['address'];  // Use the physical address
