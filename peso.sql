@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 13, 2024 at 07:52 AM
+-- Generation Time: Oct 14, 2024 at 06:49 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -142,13 +142,14 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(67, 45, 30, '2024-10-13', 'interview', 'International Tactics Supervisor'),
-(68, 45, 29, '2024-10-13', 'pending', 'District Directives Specialist'),
-(69, 45, 27, '2024-10-13', 'pending', 'Future Tactics Manager'),
-(70, 45, 26, '2024-10-13', 'pending', 'Corporate Metrics Liaison'),
-(71, 45, 25, '2024-10-13', 'pending', 'Internal Tactics Specialist'),
-(72, 45, 24, '2024-10-13', 'interview', 'Principal Accountability Strategist'),
-(73, 45, 23, '2024-10-13', 'interview', 'Customer Branding Associate');
+(106, 45, 23, '2024-10-14', 'pending', 'Customer Branding Associate'),
+(107, 45, 24, '2024-10-14', 'pending', 'Principal Accountability Strategist'),
+(108, 45, 25, '2024-10-14', 'pending', 'Internal Tactics Specialist'),
+(109, 45, 25, '2024-10-14', 'pending', 'Internal Tactics Specialist'),
+(110, 45, 29, '2024-10-14', 'pending', 'District Directives Specialist'),
+(111, 45, 30, '2024-10-14', 'pending', 'International Tactics Supervisor'),
+(112, 45, 17, '2024-10-14', 'pending', 'Principal Creative Specialist'),
+(113, 45, 28, '2024-10-14', 'pending', 'Human Mobility Assistant');
 
 -- --------------------------------------------------------
 
@@ -337,17 +338,6 @@ CREATE TABLE `interview` (
   `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `interview`
---
-
-INSERT INTO `interview` (`id`, `user_id`, `Job_id`, `sched_date`, `sched_time`, `interview`, `meeting`, `is_read`) VALUES
-(11, 45, 17, '2024-10-09', '13:38:00', 'FacetoFace', '', 1),
-(12, 45, 18, '2024-10-01', '13:30:00', 'FacetoFace', '', 1),
-(13, 45, 30, '2025-03-23', '02:29:00', 'FacetoFace', 'lalakay laguna', 0),
-(14, 45, 24, '2024-10-31', '13:30:00', 'FacetoFace', '', 0),
-(15, 45, 23, '2024-10-29', '18:28:00', 'online', 'asdwasscadwa', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -360,6 +350,7 @@ CREATE TABLE `job_postings` (
   `admin_id` int DEFAULT NULL,
   `job_title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `job_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `salary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `specialization` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vacant` int NOT NULL,
@@ -374,18 +365,22 @@ CREATE TABLE `job_postings` (
 -- Dumping data for table `job_postings`
 --
 
-INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_type`, `job_description`, `specialization`, `vacant`, `requirment`, `work_location`, `remarks`, `date_posted`, `is_active`) VALUES
-(17, 9, NULL, 'Principal Creative Specialist', '', 'Forward Interactions Officer', NULL, 11, 'College Graduate', '3012 Raynor Junction', '', '2024-10-10', 1),
-(18, 10, NULL, 'Corporate Markets Strategist', '', 'Customer Response Administrator', NULL, 25, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
-(19, 11, NULL, 'Human Communications Engineer', '', 'Legacy Optimization Agent', NULL, 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1),
-(23, NULL, 1, 'Customer Branding Associate', '', 'Forward Factors Orchestrator', '', 65, 'Deserunt dignissimos repellat ex reprehenderit dolore velit explicabo.', '87400 Toy Well', 'Iusto recusandae suscipit expedita quas cumque.', '2024-10-12', 1),
-(24, NULL, 1, 'Principal Accountability Strategist', '', 'Forward Security Developer', '', 182, 'Ipsa expedita esse ipsam totam ullam pariatur corrupti doloribus.', '368 Aleen Rue', 'Dolorum laboriosam cupiditate eum.', '2024-10-12', 1),
-(25, NULL, 1, 'Internal Tactics Specialist', '', 'Global Branding Specialist', '', 263, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.', '31659 Justina Extension', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-12', 1),
-(26, NULL, 11, 'Corporate Metrics Liaison', '', 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
-(27, NULL, 11, 'Future Tactics Manager', '', 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1),
-(28, 9, NULL, 'Human Mobility Assistant', 'Part time', 'Forward Factors Officer', NULL, 102, 'Itaque maxime harum.', 'Voluptatibus molestias culpa expedita vero exercitationem.', '', '2024-10-12', 1),
-(29, NULL, 1, 'District Directives Specialist', 'Fulltime', 'Dynamic Factors Supervisor', '', 598, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
-(30, NULL, 1, 'International Tactics Supervisor', 'Fulltime', 'Principal Implementation Analyst', '', 663, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1);
+INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_type`, `salary`, `job_description`, `specialization`, `vacant`, `requirment`, `work_location`, `remarks`, `date_posted`, `is_active`) VALUES
+(17, 9, NULL, 'Principal Creative Specialist', 'Part time', '20000', 'sdavervcaefasdfcaweefc', '', 22, 'College Graduate', '3012 Raynor Junction', '', '2024-10-14', 1),
+(18, 10, NULL, 'Corporate Markets Strategist', '', NULL, 'Customer Response Administrator', '', 25, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
+(19, 11, NULL, 'Human Communications Engineer', '', NULL, 'Legacy Optimization Agent', '', 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1),
+(23, NULL, 1, 'Customer Branding Analyst', 'Part time', '20000', 'sdafawef', '', 86, 'Cumque totam suscipit explicabo cum blanditiis laborum quibusdam excepturi doloribus.', 'Asperiores repellendus quasi distinctio.', 'Quos dolore vero.', '2024-10-14', 1),
+(24, NULL, 1, 'Product Response Agent', 'Prelance', '20000', 'Lead Optimization Orchestrator', '', 186, 'Quod animi sint laboriosam.', 'Deleniti repudiandae assumenda.', 'Neque harum dicta consectetur illo nihil molestiae nostrum ex iusto.', '2024-10-12', 1),
+(25, NULL, 1, 'Internal Tactics Specialist', 'Part time', '20000', 'Internal Accounts Analyst', '', 263, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.', '31659 Justina Extension', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-14', 1),
+(26, NULL, 11, 'Corporate Metrics Liaison', '', NULL, 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
+(27, NULL, 11, 'Future Tactics Manager', '', NULL, 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1),
+(28, 9, NULL, 'Human Mobility Assistant', 'Part time', '233', 'Forward Factors Officer', '', 50, 'Itaque maxime harum.', 'Voluptatibus molestias culpa expedita vero exercitationem.', '', '2024-10-12', 1),
+(29, NULL, 1, 'District Directives Specialist', 'Fulltime', '20000', 'Dynamic Factors Supervisor', '', 50, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
+(30, NULL, 1, 'International Tactics Supervisor', 'Fulltime', '20000', 'Principal Implementation Analyst', '', 100, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1),
+(31, NULL, 11, 'Direct Paradigm Officer', 'Fulltime', NULL, 'Dynamic Infrastructure Designer', '', 235, 'Ea repellat nobis modi.', 'Voluptatem pariatur minima vel repellendus aut perferendis.', 'Veritatis quam aut quibusdam qui explicabo minus.', '2024-10-13', 1),
+(32, NULL, 11, 'Central Markets Designer', 'Fulltime', NULL, 'International Quality Representative', '', 132, 'Aliquam debitis sint voluptate nihil dolores reiciendis provident quam.', 'Quibusdam dolor voluptates quia magnam voluptate porro dignissimos aliquid culpa.', 'Animi odio accusamus reiciendis placeat sunt.', '2024-10-13', 1),
+(33, NULL, 11, 'District Brand Director', 'Fulltime', NULL, 'Direct Tactics Administrator', '', 92, 'Porro distinctio commodi dolorem harum quia.', 'Asperiores neque fugit repudiandae temporibus porro illo qui eligendi amet.', 'Modi magnam quasi quaerat omnis et error.', '2024-10-13', 1),
+(34, 9, NULL, 'Chief Data Consultant', 'Fulltime', '265', 'Internal Optimization Facilitator', NULL, 88, 'Dolore quam eveniet harum asperiores saepe praesentium.', 'Recusandae adipisci corrupti quis suscipit.', 'Vero optio soluta.', '2024-10-14', 1);
 
 -- --------------------------------------------------------
 
@@ -1629,7 +1624,7 @@ ALTER TABLE `applicant_profile`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -1677,13 +1672,13 @@ ALTER TABLE `empyers`
 -- AUTO_INCREMENT for table `interview`
 --
 ALTER TABLE `interview`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `job_postings`
 --
 ALTER TABLE `job_postings`
-  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `modules`
