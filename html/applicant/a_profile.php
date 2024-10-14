@@ -57,10 +57,21 @@ $conn->close();
   <title>Form Submission</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="../../css/a_profile.css">
   <link rel="stylesheet" href="../../css/nav_float.css">
-
+  <style>
+        #newOptionContainer {
+            display: none; /* Initially hide the input field */
+            margin-top: 10px;
+        }
+        #selectedOptionsContainer {
+            margin-top: 20px;
+        }
+        #selectedOptionsList li {
+            cursor: pointer;
+        }
+  </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#scrollspy-menu" data-bs-offset="175">
@@ -135,7 +146,7 @@ $conn->close();
 <!-- Form Content -->
 <div class="profile-container">
 <div class="form-content">
-  <form action="../../php/applicant/approf.php" method="POST" enctype="multipart/form-data">
+<form action="../../php/applicant/approf.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" value = "<?php echo $row['user_id'];?>">
     <!-- Personal Information Section -->
     <div class="container mt-4">
@@ -799,88 +810,141 @@ $conn->close();
 
       <!-- Other Skills Acquired Without Formal Training -->
       <h4>Other Skills Acquired Without Formal Training</h4>
+        <label for="dynamicSelect">Choose one or more options:</label>
+        <select id="dynamicSelect"  name="other_skills[]" multiple>
+          <option value="add">Add a new option...</option>
+          <option value="Auto Mechanic">Auto Mechanic</option>
+          <option value="Beautician">Beautician</option>
+          <option value="Carpentry Work">Carpentry Work</option>
+          <option value="Computer Literate">Computer Literate</option>
+          <option value="Domestic Chores">Domestic Chores</option>
+          <option value="Driver">Driver</option>
+          <option value="Electrician">Electrician</option>
+          <option value="Embroidery">Embroidery</option>
+          <option value="Gardening">Gardening</option>
+          <option value="Masonry">Masonry</option>
+          <option value="Painter/Artist">Painter/Artist</option>
+          <option value="Painting Jobs">Painting Jobs</option>
+          <option value="Photography">Photography</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Sewing">Sewing Dresses</option>
+          <option value="Stenography">Stenography</option>
+          <option value="Tailoring">Tailoring</option>
+        </select>
 
-      <div class="row">
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Auto Mechanic"> Auto Mechanic</label>
+        <div id="newOptionContainer">
+          <input type="text" id="newOption" placeholder="Enter new option">
+          <button id="addButton" type="button">Add Option</button> <!-- Ensure type="button" here -->
         </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Beautician"> Beautician</label>
+        <input type="hidden" name="selectedOptions" id="selectedOptionsHidden">
+        <div id="selectedOptionsContainer">
+          <h3>Selected Options:</h3>
+          <ul id="selectedOptionsList"></ul>
         </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Carpentry Work"> Carpentry Work</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Computer Literate"> Computer Literate</label>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Domestic Chores"> Domestic Chores</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Driver"> Driver</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Electrician"> Electrician</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Embroidery"> Embroidery</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Gardening"> Gardening</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Masonry"> Masonry</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Painter/Artist"> Painter/Artist</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Painting Jobs"> Painting Jobs</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Photography"> Photography</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Plumbing"> Plumbing</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Sewing Dresses"> Sewing Dresses</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Stenography"> Stenography</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Tailoring"> Tailoring</label>
-        </div>
-        <div class="col-md-3">
-          <label><input type="checkbox" name="skills[]" value="Others"> Others</label>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <label for="profile_image">resume:</label>
-          <input type="file" class="form-control" name="resume" placeholder="Status">
-        </div>
-      </div>
-      <!-- Submit Button -->
-      <input class="btn btn-primary " type="submit" value="submit">
-    </div>
+        <input class="btn btn-primary" type="submit" value="submit">
   </form>
 </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.getElementById('dynamicSelect');
+    const newOptionInput = document.getElementById('newOption');
+    const addButton = document.getElementById('addButton');
+    const newOptionContainer = document.getElementById('newOptionContainer');
+    const selectedOptionsList = document.getElementById('selectedOptionsList');
+    const form = document.getElementById('optionsForm');
+    const selectedOptionsHidden = document.getElementById('selectedOptionsHidden'); // The hidden input field
 
+    let selectedOptions = new Set(); // Use a Set to store unique selected options
+
+    // Function to update the displayed selected options
+    function updateSelectedOptions() {
+        selectedOptionsList.innerHTML = ''; // Clear the current list
+        
+        // Loop through selected options and display them
+        selectedOptions.forEach(optionValue => {
+            const listItem = document.createElement('li');
+            listItem.textContent = optionValue;
+            listItem.addEventListener('click', function() {
+                removeOption(optionValue); // Allow removing option on click
+            });
+            selectedOptionsList.appendChild(listItem);
+        });
+
+        // Update the hidden field with selected options
+        updateHiddenField();
+    }
+
+    // Remove option from the selected options
+    function removeOption(optionValue) {
+        selectedOptions.delete(optionValue); // Remove from set
+        updateSelectedOptions(); // Update display
+    }
+
+    // Toggle option in the selected options
+    function toggleOption(optionValue) {
+        if (selectedOptions.has(optionValue)) {
+            removeOption(optionValue); // If already selected, remove it
+        } else {
+            selectedOptions.add(optionValue); // If not selected, add it
+        }
+        updateSelectedOptions(); // Update display
+    }
+
+    // Show the input field when "Add a new option..." is selected
+    selectElement.addEventListener('change', function() {
+        const selectedValue = selectElement.value;
+
+        if (selectedValue === 'add') {
+            newOptionContainer.style.display = 'block';
+            newOptionInput.focus(); // Focus on the input field
+        } else {
+            newOptionContainer.style.display = 'none';
+            toggleOption(selectedValue); // Toggle the selection state of the option
+            selectElement.value = ''; // Reset the select value
+        }
+    });
+
+    // Add new option to the select when the button is clicked
+    addButton.addEventListener('click', function() {
+        const newOptionValue = newOptionInput.value.trim();
+        if (newOptionValue) {
+            // Create a new option element
+            const newOption = document.createElement('option');
+            newOption.value = newOptionValue;
+            newOption.textContent = newOptionValue;
+            
+            // Add the new option to the select element
+            selectElement.appendChild(newOption);
+
+            // Automatically add and select the newly added option
+            toggleOption(newOptionValue);
+            selectElement.value = ''; // Reset the select value
+
+            // Clear the input field and hide it again
+            newOptionInput.value = '';
+            newOptionContainer.style.display = 'none';
+
+            updateSelectedOptions(); // Update the displayed options
+        } else {
+            alert('Please enter a valid option.');
+        }
+    });
+
+    // Function to update the hidden input field with selected options
+    function updateHiddenField() {
+        selectedOptionsHidden.value = Array.from(selectedOptions).join(','); // Convert Set to comma-separated string
+    }
+
+    // Update the hidden input field before form submission
+    form.addEventListener('submit', function(event) {
+        updateHiddenField(); // Make sure the hidden field is updated before submission
+        console.log("Selected options: " + selectedOptionsHidden.value); // Debugging output
+    });
+});
+
+  </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="../../javascript/a_profile.js"></script> 
