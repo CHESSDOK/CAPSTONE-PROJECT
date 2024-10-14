@@ -17,7 +17,6 @@ $result = $conn->query($sql);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../javascript/admin_modal.js"></script>
     <script src="../../javascript/a_profile.js"></script> 
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_course.css">
@@ -124,7 +123,7 @@ $result = $conn->query($sql);
 
     <div id="courseModal" class="modal modal-container">
         <div class="modal-content">
-            <span class="btn-close closBtn closeBtn">&times;</span>
+            <span class="btn-close closeBtn"></span>
             <h2>Create a course</h2>
             <form action="create_course.php" method="post">
                 <!-- Text Input for Course -->
@@ -146,7 +145,6 @@ $result = $conn->query($sql);
     <div id="learnersModal" class="modal modal-container-upload">
         <div class="modal-content">
             <span class="btn-close thirdclosBtn"></span>
-            <h2>Update Job Post</h2>
             <div id="updatejobdetail">
                 <!-- Profile details will be dynamically loaded here -->
             </div>
@@ -188,6 +186,7 @@ $result = $conn->query($sql);
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="../../javascript/admin_modal.js"></script>
     <script src="../../javascript/script.js"></script> 
 
 </body>

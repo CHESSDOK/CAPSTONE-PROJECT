@@ -50,7 +50,7 @@ echo '
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="text-center mb-4">Applicants and Module Progress</h2>
+            <h2 class="text-center mb-4">Learners and Modules Progress</h2>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="table-dark">
