@@ -113,57 +113,65 @@ if (!$pic_row) {
         </a>
       </nav>
 
-<div class="table-containers">
-    <div class="row align-items-start">
-        <div class="col-12 col-md-auto mb-2">
+
+      
+<div class="table-container">
+        <div class="col-12 ">
             <button class="btn btn-primary openCourseBtn" id="openCourseBtn">Create Job</button>
         </div>
-        <div class="col-12 col-md">
-            <div class="table-responsive">
-                <table class="table table-borderless table-hover">
-                    <thead class="thead-light d-md-table-header-group">
-                            <th>Title</th>  
-                            <th>Vacant</th>
-                            <th>Status</th>
-                            <th colspan="3">Actions</th>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <?php
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                $spe = !empty($row['specialization']) ? $row['specialization'] : 'NONE';
-                                echo "<tr class='mb-3 flex-column flex-md-row align-items-md-center'>
-                                        <form action='update_jobs.php' method='post' class='d-flex flex-column flex-md-row w-100'>
-                                            <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
-                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
-                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='vacant' value='" . $row['vacant'] . "'></td>
-                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='act' value='" . $row['is_active'] . "'></td>
-                                            <td>
-                                                <button type='submit' class='btn btn-success custom-input-size mb-2 mb-md-0'>Update</button>
-                                            </td>
-                                        </form>
-                                        <td>
-                                            <a href='#' class='openUpdateBtn btn btn-primary custom-input-size mb-2 mb-md-0' id='openUpdateBtn' data-job-id='". htmlspecialchars($row["j_id"]) . "'>Job Details</a>
-                                        </td>
 
-                                        <td>
-                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0'>Applicants</a>
-                                        </td>
-                                        
-                                    </tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='6' class='text-center'>No Job found</td></tr>";
-                        }
-                        $conn->close();
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $spe = !empty($row['specialization']) ? $row['specialization'] : 'NONE';
+                
+                echo "
+                <div class='row justify-content-center mb-3'>
+                    <div class='col-md-8'>
+                        <div class='card p-3 shadow-sm'>
+                            <form action='update_jobs.php' method='post'>
+                                <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
+
+                                <div class='row align-items-center'>
+                                    <!-- Job Title (Disabled) -->
+                                    <div class='col-md-3'>
+                                        <label for='jtitle_" . $row['j_id'] . "'><strong>Title</strong></label>
+                                        <input type='text' id='jtitle_" . $row['j_id'] . "' class='form-control mb-2' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "' disabled>
+                                    </div>
+
+                                    <!-- Vacant Positions -->
+                                    <div class='col-md-2'>
+                                        <label for='vacant_" . $row['j_id'] . "'><strong>Vacant</strong></label>
+                                        <input type='number' id='vacant_" . $row['j_id'] . "' class='form-control mb-2' name='vacant' value='" . $row['vacant'] . "' disabled>
+                                    </div>
+
+                                    <!-- Job Status -->
+                                    <div class='col-md-2'>
+                                        <label for='act_" . $row['j_id'] . "'><strong>Status</strong></label>
+                                        <input type='number' id='act_" . $row['j_id'] . "' class='form-control mb-2' name='act' value='" . $row['is_active'] . "' disabled>
+                                    </div>
+
+                                    <!-- Actions -->
+                                    <div class='col-md-5'>
+                                        <label><strong>Actions</strong></label>
+                                        <div class='d-flex gap-3'>
+                                            <a href='#' class='btn btn-success openUpdateBtn' id='openUpdateBtn' data-job-id='" . htmlspecialchars($row['j_id']) . "'>Update</a>
+                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary'>Applicants</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>";
+            }
+        } else {
+            echo "<div class='text-center'>No Job found</div>";
+        }
+
+        $conn->close();
+        ?>
     </div>
-</div>
-
 
 <!-- create job -->
     <div id="jobModal" class="modal modal-container-upload">
@@ -178,7 +186,7 @@ if (!$pic_row) {
 <!-- update job -->
 <div id="jobupdateModal" class="modal modal-container-upload">
         <div class="modal-content">
-            <span class="btn-close thirdclosBtn"></span>
+            <span class="btn-close closBtn thirdclosBtn">&times;</span>
             <h2>Update Job Post</h2>
             <div id="updatejobdetail">
                 <!-- Profile details will be dynamically loaded here -->

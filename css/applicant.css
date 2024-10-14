@@ -51,3 +51,10 @@
   height: 2px;
   background: linear-gradient(to right, #333, #888); /* Linear gradient for the line */
 }
+
+.txt-area {
+  border: none;
+  width: 40vw;
+  resize: none; /* To prevent manual resizing */
+  overflow: hidden; /* Hide the scroll bar */
+}

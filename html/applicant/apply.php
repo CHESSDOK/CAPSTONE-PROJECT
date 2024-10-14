@@ -241,7 +241,8 @@ if (!$user || !$job) {
             <div class="mb-3">
                 <h4 style="color: #007bff; letter-spacing: 2px;">Qualifications / Requirements</h4>
                 <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
-                <p><?php echo htmlspecialchars($job['requirment']); ?></p>
+                <textarea class="txt-area" readonly><?php echo htmlspecialchars($job['requirment']); ?></textarea>
+
             </div>
 
             <!-- Work Location Section -->
@@ -270,6 +271,12 @@ if (!$user || !$job) {
     </form>
 </div>
 </div>
+
+<script>
+  const textarea = document.querySelector('.txt-area');
+  textarea.style.height = 'auto'; // Reset the height
+  textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to fit the content
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
