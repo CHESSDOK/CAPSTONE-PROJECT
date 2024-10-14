@@ -43,6 +43,7 @@ $result = $conn->query($sql);
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="../../css/modal-form.css"> 
   <link rel="stylesheet" href="../../css/nav_float.css">
   <link rel="stylesheet" href="../../css/employer.css">
 </head>
@@ -113,79 +114,99 @@ $result = $conn->query($sql);
     </a>
 </nav>
 
-<div class="container">
-    <div class="table-containers">
-        <div class="table-container">
+<div class="table-containers">
+    <div class="row align-items-start">
+        <div class="col-12 col-md">
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead class="thead-light d-md-table-header-group">
+                            <th>Title</th>  
+                            <th>Vacant</th>
+                            <th>Status</th>
+                            <th colspan="3">Actions</th>
+                    </thead>
+                    <tbody class="table-group-divider">
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "
-                        <div class='card p-3 mb-3 shadow-sm'>
+                        <tr class='mb-3 flex-column flex-md-row align-items-md-center'>
                     <form action='../../php/employer/update_jobs.php' method='post'>
-                            <div class='row align-items-center gx-2'>
+                                <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
+                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
+                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='vacant' value='" . $row['vacant'] . "'></td>
+                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='act' value='" . $row['is_active'] . "'></td>
+                                            <td>
+                                                <button type='submit' class='btn btn-success custom-input-size mb-2 mb-md-0'>Update</button>
+                                            </td>
+                                        </form>
+                                        <td>
+                                            <a href='#' class='openUpdateBtn btn btn-primary custom-input-size mb-2 mb-md-0' id='openUpdateBtn' data-job-id='". htmlspecialchars($row["j_id"]) . "'>Job Details</a>
+                                        </td>
 
-                                <input type='hidden' name='job_id' value='" . htmlspecialchars($row['j_id']) . "'>
-
-                                <!-- Title (Reduced to 2 columns) -->
-                                <div class='col-md-2'>
-                                    <label for='jtitle' class='form-label'>Title</label>
-                                    <input type='text' class='form-control form-control-sm' id='jtitle' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "' placeholder='Job Title'>
-                                </div>
-
-                                <!-- Job Description (Reduced to 2 columns) -->
-                                <div class='col-md-3'>
-                                    <label for='desc' class='form-label'>Job Description</label>
-                                    <input type='text' class='form-control form-control-sm' id='desc' name='desc' value='" . htmlspecialchars($row['job_description']) . "' placeholder='Job Description'>
-                                </div>
-
-                                <!-- Specialization (Reduced to 2 columns) -->
-                                <div class='col-md-2'>
-                                    <label for='spe' class='form-label'>Specialization</label>
-                                    <input type='text' class='form-control form-control-sm' id='spe' name='spe' value='" . htmlspecialchars($row['specialization'] ? $row['specialization'] : '') . "' placeholder='Specialization'>
-                                </div>
-
-                                <!-- Job Type (Reduced to 2 columns) -->
-                                <div class='col-md-2'>
-                                    <label for='jobtype' class='form-label'>Job Type</label>
-                                    <select class='form-select form-select-sm' id='jobtype' name='jobtype' required>
-                                        <option value='Part time'" . ($row['job_type'] == 'Part time' ? ' selected' : '') . ">Part time</option>
-                                        <option value='Prelance'" . ($row['job_type'] == 'Prelance' ? ' selected' : '') . ">Prelance</option>
-                                        <option value='Fulltime'" . ($row['job_type'] == 'Fulltime' ? ' selected' : '') . ">Fulltime</option>
-                                    </select>
-                                </div>
-
-                                <!-- Vacant (Reduced to 1 column) -->
-                                <div class='col-md-1'>
-                                    <label for='vacant' class='form-label'>Vacant</label>
-                                    <input type='number' class='form-control form-control-sm' id='vacant' name='vacant' value='" . htmlspecialchars($row['vacant']) . "' placeholder='Vacant'>
-                                </div>
-
-                                <!-- Status (Reduced to 1 column) -->
-                                <div class='col-md-1'>
-                                    <label for='act' class='form-label'>Status</label>
-                                    <input type='number' class='form-control form-control-sm' id='act' name='act' value='" . htmlspecialchars($row['is_active']) . "' placeholder='Active'>
-                                </div>
-
-                                <!-- Actions (Reduced to 1 column) -->
-                                <div class='col-md-1 d-flex align-items-end'>
-                                    <div class='d-grid gap-2 d-md-flex'>
-                                        <button type='submit' class='btn btn-primary btn-sm'>Update</button>
-                                        <a href='applicant_list.php?job_id=" . htmlspecialchars($row['j_id']) . "' class='btn btn-secondary btn-sm'>Applicant List</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>";
+                                        <td>
+                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0 openUpdateBtn' id='openUpdateBtn'>Applicants</a>
+                                        </td>
+                                        
+                                    </tr>";
                 }
             } else {
                 echo "<div class='alert alert-warning'>No employers found</div>";
             }
             $conn->close();
             ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- update job -->
+<div id="jobupdateModal" class="modal modal-container-upload">
+        <div class="modal-content">
+            <span class="btn-close thirdclosBtn"></span>
+            <h2>Update Job Post</h2>
+            <div id="updatejobdetail">
+                <!-- Profile details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+    <script>
+
+                //update job
+        const jobupdateModal = document.getElementById('jobupdateModal');
+        const thridcloseModuleBtn = document.querySelector('.thirdclosBtn');
+
+        // Open profile modal and load data via AJAX
+        $(document).on('click', '#openUpdateBtn', function(e) {
+            e.preventDefault();
+            const jobId = $(this).data('job-id');
+            
+            $.ajax({
+                url: 'job_details.php',
+                method: 'GET',
+                data: { job_id: jobId },
+                success: function(response) {
+                    $('#updatejobdetail').html(response);
+                    jobupdateModal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Close profile modal when 'x' is clicked
+        thridcloseModuleBtn.addEventListener('click', function() {
+            jobupdateModal.style.display = 'none';
+        });
+
+        // Close profile modal when clicking outside the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === jobupdateModal) {
+                jobupdateModal.style.display = 'none';
+            }
+        });
+
+    </script>
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
    <script src="../../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->

@@ -15,7 +15,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../css/modal-form.css"> 
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/admin_employer.css">
@@ -96,12 +96,10 @@ $result = $conn->query($sql);
             <div class="table-responsive">
                 <table class="table table-borderless table-hover">
                     <thead class="thead-light d-md-table-header-group">
-                            <th>Title</th>
-                            <th>Job Description</th>
-                            <th>Specialization</th>
+                            <th>Title</th>  
                             <th>Vacant</th>
                             <th>Status</th>
-                            <th colspan="2">Actions</th>
+                            <th colspan="3">Actions</th>
                     </thead>
                     <tbody class="table-group-divider">
                         <?php
@@ -112,18 +110,20 @@ $result = $conn->query($sql);
                                         <form action='update_jobs.php' method='post' class='d-flex flex-column flex-md-row w-100'>
                                             <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
                                             <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
-                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='desc' value='" . htmlspecialchars($row['job_description']) . "'></td>
-                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='spe' value='" . htmlspecialchars($spe) . "'></td>
                                             <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='vacant' value='" . $row['vacant'] . "'></td>
                                             <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='act' value='" . $row['is_active'] . "'></td>
-
                                             <td>
                                                 <button type='submit' class='btn btn-success custom-input-size mb-2 mb-md-0'>Update</button>
                                             </td>
                                         </form>
                                         <td>
-                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0'>Applicants</a>
+                                            <a href='#' class='openUpdateBtn btn btn-primary custom-input-size mb-2 mb-md-0' id='openUpdateBtn' data-job-id='". htmlspecialchars($row["j_id"]) . "'>Job Details</a>
                                         </td>
+
+                                        <td>
+                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0 openUpdateBtn' id='openUpdateBtn'>Applicants</a>
+                                        </td>
+                                        
                                     </tr>";
                             }
                         } else {
@@ -139,7 +139,7 @@ $result = $conn->query($sql);
 </div>
 
 
-
+<!-- create job -->
     <div id="jobModal" class="modal modal-container-upload">
         <div class="modal-content">
             <span class="btn-close closBtn seccloseBtn">&times;</span>
@@ -149,12 +149,22 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-
+<!-- update job -->
+<div id="jobupdateModal" class="modal modal-container-upload">
+        <div class="modal-content">
+            <span class="btn-close thirdclosBtn"></span>
+            <h2>Update Job Post</h2>
+            <div id="updatejobdetail">
+                <!-- Profile details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
+    <script src="../../javascript/script.js"></script>
+    <!-- You can link your JavaScript file here if needed -->
     <script>
+            //create job
             const jobModal = document.getElementById('jobModal');
             const seccloseModuleBtn = document.querySelector('.seccloseBtn');
         
@@ -185,5 +195,6 @@ $result = $conn->query($sql);
                 }
             });
     </script>
+    <script src="../../javascript/updatejobdetail.js"></script>
 </body>
 </html>

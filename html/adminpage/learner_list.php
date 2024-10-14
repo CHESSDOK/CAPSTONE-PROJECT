@@ -26,13 +26,13 @@ if ($result->num_rows > 0) {
         // Correctly display the module name to handle special characters
         $module_name = str_replace('&amp;', '&', $module_name);
         
-        // Determine the status of the module for display
+        // Determine the status of the module for display with document icon
         if ($row['status'] === 'passed') {
-            $status_display = "<span class='text-success'>&#10004; Passed</span>"; // Green check
+            $status_display = "<i class='fas fa-file-alt text-success'></i> Passed"; // Green document icon
         } elseif ($row['status'] === 'fail') {
-            $status_display = "<span class='text-danger'>&#10008; Failed</span>"; // Red cross
+            $status_display = "<i class='fas fa-file-alt text-danger'></i> Failed"; // Gray document icon
         } else {
-            $status_display = "<span class='text-warning'>Not Attempted</span>"; // Yellow or default
+            $status_display = "<i class='fas fa-file-alt text-warning'></i> Not Attempted"; // Yellow document icon
         }
 
         // Grouping data by applicant and course
@@ -41,36 +41,54 @@ if ($result->num_rows > 0) {
     }
 } 
 
-echo "<table class='table table-borderless table-hover'> <!-- Add Bootstrap table class -->
-<thead>
-    <tr>
-        <th>Full Name</th>
-        <th>Course Taken</th>
-        <th>Module Progress</th>
-    </tr>
-</thead>
-<tbody>";
+// Start echoing HTML as PHP output
+echo '
+<!-- Include Bootstrap CSS and Font Awesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-foreach ($applicants as $fullname => $data) {
-    // Display the applicant's name and course
-    echo "<tr>
-            <td>{$fullname}</td>
-            <td>{$data['course']}</td>
-            <td>";
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4">Applicants and Module Progress</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Course Taken</th>
+                            <th scope="col">Module Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+                        
+                        if (!empty($applicants)) {
+                            foreach ($applicants as $fullname => $data) {
+                                echo "<tr>
+                                    <td>$fullname</td>
+                                    <td>" . $data['course'] . "</td>
+                                    <td>";
+                                        foreach ($data['modules'] as $module) {
+                                            echo "<ul><li>" . htmlspecialchars($module['name']) . " (" . $module['status'] . ")</li></ul>";
+                                        }
+                                echo "</td>
+                                </tr>";
+                            }
+                        } else {
+                            echo '
+                            <tr>
+                                <td colspan="3" class="text-center">No modules found</td>
+                            </tr>';
+                        }
+echo '                
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-    // Loop through each module and display its status
-    foreach ($data['modules'] as $module) {
-        echo htmlspecialchars($module['name']) . " (" . $module['status'] . ")<br>";
-    }
-
-    echo "</td></tr>";
-}
-
-if (empty($applicants)) {
-    echo "<tr><td colspan='3'>No modules found</td></tr>";
-}
-
-echo "</tbody></table>";
-$stmt->close(); // Close the prepared statement
-$conn->close(); // Close the database connection
+<!-- Include Bootstrap JS and Font Awesome JS (optional for mobile and icon support) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>';
 ?>

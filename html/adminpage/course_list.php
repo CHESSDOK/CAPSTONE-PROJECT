@@ -16,7 +16,9 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../javascript/admin_modal.js"></script>
+    <script src="../../javascript/a_profile.js"></script> 
     <link rel="stylesheet" href="../../css/modal-form.css">
     <link rel="stylesheet" href="../../css/admin_course.css">
     <link rel="stylesheet" href="../../css/nav_float.css">
@@ -89,7 +91,7 @@ $result = $conn->query($sql);
 
 <div class="table-container d-flex align-items-start">
     <button class="btn btn-primary course-btn" id="openCourseBtn">Add Course</button>
-
+    <button class="openLearnerBtn btn btn-primary learner-btn" id="openLearnerBtn">Learners Progress</button>
     <table class="table table-borderless table-hover">
         <thead>
             <th>Course Description</th>
@@ -141,12 +143,51 @@ $result = $conn->query($sql);
             </form>
         </div>
     </div>
+    <div id="learnersModal" class="modal modal-container-upload">
+        <div class="modal-content">
+            <span class="btn-close thirdclosBtn"></span>
+            <h2>Update Job Post</h2>
+            <div id="updatejobdetail">
+                <!-- Profile details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //create job
+            const learnersModal = document.getElementById('learnersModal');
+            const thirdcloseModuleBtn = document.querySelector('.thirdclosBtn');
+        
+            // Open profile modal and load data via AJAX
+            $(document).on('click', '#openLearnerBtn', function(e) {
+                e.preventDefault();
+
+                
+                $.ajax({
+                    url: 'learner_list.php',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#updatejobdetail').html(response);
+                        learnersModal.style.display = 'flex';
+                    }
+                });
+            });
+        
+            // Close profile modal when 'x' is clicked
+            thirdcloseModuleBtn.addEventListener('click', function() {
+                learnersModal.style.display = 'none';
+            });
+        
+            // Close profile modal when clicking outside the modal content
+            window.addEventListener('click', function(event) {
+                if (event.target === learnersModal) {
+                    learnersModal.style.display = 'none';
+                }
+            });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../javascript/admin_modal.js"></script>
-    <script src="../../javascript/a_profile.js"></script> 
     <script src="../../javascript/script.js"></script> 
 
 </body>

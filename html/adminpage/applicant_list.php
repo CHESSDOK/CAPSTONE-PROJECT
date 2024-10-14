@@ -18,8 +18,8 @@
     $jobid = $_GET['job_id'];
 
     // SQL JOIN to fetch applicant details and their applications
-    $sql = "SELECT ap.*, a.* 
-    FROM applicant_profile ap
+    $sql = "SELECT ap.*, a.*
+    FROM applicant_profile ap 
     JOIN applications a ON ap.user_id = a.applicant_id
     WHERE a.job_posting_id = ? AND a.status != 'rejected'";
         $stmt = $conn->prepare($sql);
@@ -162,6 +162,7 @@
                             foreach ($applicants as $row) {
                                 $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . '. ' . $row['last_name']);
                                 $status = $row['status'];
+
                     
                                 echo "
                                 <tr>
@@ -182,7 +183,7 @@
                                     data-job-id=" . htmlspecialchars($row["job_posting_id"]) . ">Interview</button>";
                                 
                                 }elseif ($status === 'interview') {
-                                        echo " <a class='btn btn-success mx-2' href='   .php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
+                                        echo " <a class='btn btn-success mx-2' href='application_process.php?id= ". htmlspecialchars($row['user_id']). "'>Accept</a>
                                                 <a class='btn btn-danger mx-2' href='application_rejection.php?id=" . htmlspecialchars($row['user_id']) ."&job_id=" . htmlspecialchars($row['job_posting_id']) ."'>Reject</a>";
                                 }
                     
@@ -263,7 +264,7 @@
 
                         <div id="addressField" class="mb-3">
                             <label for="address" class="form-label">Physical Address:</label>
-                            <input type="text" id="address" name="link" class="form-control" placeholder="Enter Your Office Address">
+                            <input type="text" id="address" name="address" class="form-control" placeholder="Enter Your Office Address">
                         </div>
                     </td>
                 </tr>
