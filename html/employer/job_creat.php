@@ -158,6 +158,14 @@ body::before{
     <tr>
     <td colspan="3">
         <div class="mb-3">
+          <label for="salary" class="form-label">Salary:</label>
+          <input type="number" name="salary" id="salary" class="form-control" required></textarea>
+        </div>
+      </td>
+    </tr>
+    <tr>
+    <td colspan="3">
+        <div class="mb-3">
           <label for="job_description" class="form-label">Job Description:</label>
           <textarea name="job_description" id="job_description" class="form-control" required></textarea>
         </div>

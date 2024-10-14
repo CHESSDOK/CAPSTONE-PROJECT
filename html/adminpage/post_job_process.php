@@ -14,13 +14,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $requirment = mysqli_real_escape_string($conn, $_POST['req']);
     $location = mysqli_real_escape_string($conn, $_POST['loc']);
     $remarks = mysqli_real_escape_string($conn, $_POST['rem']);
+    $salary = mysqli_real_escape_string($conn, $_POST['salary']);
     $date_posted = date('Y-m-d'); // No need to escape as this is generated
     $jobtype =  $_POST['jobtype'];
-
+    
 
     // Construct the SQL query
-    $sql = "INSERT INTO job_postings (admin_id, job_title, job_type, job_description, specialization, requirment, work_location, remarks, date_posted, vacant) 
-            VALUES ('$admin_id', '$job_title', '$jobtype', '$job_description', '$spe', '$requirment', '$location', '$remarks', '$date_posted', '$vacant')";
+    $sql = "INSERT INTO job_postings (admin_id, job_title, salary, job_type, job_description, specialization, requirment, work_location, remarks, date_posted, vacant) 
+            VALUES ('$admin_id', '$job_title', '$salary', '$jobtype', '$job_description', '$spe', '$requirment', '$location', '$remarks', '$date_posted', '$vacant')";
 
     if (mysqli_query($conn, $sql)) {
         // Redirect to the create_job page with a success message

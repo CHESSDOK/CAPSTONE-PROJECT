@@ -1,5 +1,4 @@
 <?php
-
 include 'conn_db.php'; // Include your MySQLi connection
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_POST['applicant_id'];
@@ -7,7 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $type = $_POST['interview'];
-    $meeting = $_POST['link'];
+    $interviewType = $_POST['interviewType']; // Get the interview type (virtual or physical)
+
+    // Determine which field to use based on interviewType
+    if ($interviewType == 'virtual') {
+        $meeting = $_POST['link'];  // Use the virtual link
+    } else {
+        $meeting = $_POST['address'];  // Use the physical address
+    }
 
     // Step 1: Update the status in applications table
     $sqlUpdateStatus = "UPDATE applications SET status = 'interview' WHERE applicant_id = ? AND job_posting_id = ?";
@@ -29,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmtVacant->execute();
             $stmtVacant->close();
 
-        header("Location: applicant_list.php?job_id=$job_id");    
+            header("Location: applicant_list.php?job_id=$job_id");    
         } else {
             echo "Error inserting interview: " . $stmtInterview->error;
         }
