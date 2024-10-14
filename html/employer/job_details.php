@@ -67,10 +67,10 @@ if ($result->num_rows > 0) {
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
-                    <label for="req" class="form-label">Qualification/Requirements:</label>
-                    <textarea name="req" id="req" class="form-control"><?php echo htmlspecialchars($row['requirment']); ?></textarea>
-                </td>
+            <td colspan="3">
+                <label for="req" class="form-label">Qualification/Requirements:</label>
+                <textarea name="req" id="req" class="form-control"><?php echo htmlspecialchars($row['requirment']); ?></textarea>
+            </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -95,3 +95,38 @@ if ($result->num_rows > 0) {
     echo "No job found for this ID.";
 }
 ?>
+
+<script>
+    // Function to add an initial bullet point when the page loads
+    function addInitialBullet() {
+        const textarea = document.getElementById('req');
+        textarea.value = '• '; // Add a bullet point
+        textarea.setSelectionRange(2, 2); // Set the cursor position right after the bullet
+    }
+
+    // Call the function when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        addInitialBullet();
+    });
+
+    document.getElementById('req').addEventListener('keydown', function (event) {
+        // Check if the "Enter" key was pressed
+        if (event.key === 'Enter') {
+            const textarea = event.target;
+            const cursorPosition = textarea.selectionStart; // Get cursor position
+
+            // Split the content into lines by the newline character
+            const beforeText = textarea.value.slice(0, cursorPosition);
+            const afterText = textarea.value.slice(cursorPosition);
+
+            // Add a bullet point at the new line
+            textarea.value = `${beforeText}\n• ` + afterText;
+
+            // Prevent default behavior (such as a plain new line without a bullet)
+            event.preventDefault();
+
+            // Move the cursor right after the bullet point
+            textarea.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
+        }
+    });
+</script>

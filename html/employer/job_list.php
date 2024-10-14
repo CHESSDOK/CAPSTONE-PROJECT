@@ -115,57 +115,67 @@ $result = $conn->query($sql);
 </nav>
 
 <div class="table-containers">
-    <div class="row align-items-start">
-        <div class="col-12 col-md">
-            <div class="table-responsive">
-                <table class="table table-borderless table-hover">
-                    <thead class="thead-light d-md-table-header-group">
-                            <th>Title</th>  
-                            <th>Vacant</th>
-                            <th>Status</th>
-                            <th colspan="3">Actions</th>
-                    </thead>
-                    <tbody class="table-group-divider">
-            <?php
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "
-                        <tr class='mb-3 flex-column flex-md-row align-items-md-center'>
-                    <form action='../../php/employer/update_jobs.php' method='post'>
-                                <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
-                                            <td><input type='text' class='form-control custom-input-size mb-2 mb-md-0' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "'></td>
-                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='vacant' value='" . $row['vacant'] . "'></td>
-                                            <td><input type='number' class='form-control custom-input-size mb-2 mb-md-0' name='act' value='" . $row['is_active'] . "'></td>
-                                            <td>
-                                                <button type='submit' class='btn btn-success custom-input-size mb-2 mb-md-0'>Update</button>
-                                            </td>
-                                        </form>
-                                        <td>
-                                            <a href='#' class='openUpdateBtn btn btn-primary custom-input-size mb-2 mb-md-0' id='openUpdateBtn' data-job-id='". htmlspecialchars($row["j_id"]) . "'>Job Details</a>
-                                        </td>
+<div class="container mt-4">
 
-                                        <td>
-                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0 openUpdateBtn' id='openUpdateBtn'>Applicants</a>
-                                        </td>
-                                        
-                                    </tr>";
-                }
-            } else {
-                echo "<div class='alert alert-warning'>No employers found</div>";
-            }
-            $conn->close();
+    <?php
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
             ?>
-                    </tbody>
-                </table>
+            <!-- Card for each job -->
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-8"> <!-- Adjusted the column width to make the card smaller -->
+                    <div class="card p-3 shadow-sm">
+                        <form action='../../php/employer/update_jobs.php' method='post'>
+                            <input type='hidden' name='job_id' value='<?php echo $row['j_id']; ?>'>
+
+                            <div class="row align-items-center">
+                                <!-- Job Title (Disabled) -->
+                                <div class="col-md-3">
+                                    <label for='jtitle_<?php echo $row['j_id']; ?>'><strong>Title</strong></label>
+                                    <input type='text' id='jtitle_<?php echo $row['j_id']; ?>' class='form-control mb-2' name='jtitle' value='<?php echo htmlspecialchars($row['job_title']); ?>' disabled>
+                                </div>
+
+                                <!-- Vacant Positions -->
+                                <div class="col-md-2">
+                                    <label for='vacant_<?php echo $row['j_id']; ?>'><strong>Vacant</strong></label>
+                                    <input type='number' id='vacant_<?php echo $row['j_id']; ?>' class='form-control mb-2' name='vacant' value='<?php echo $row['vacant']; ?>' disabled>
+                                </div>
+
+                                <!-- Job Status -->
+                                <div class="col-md-2">
+                                    <label for='act_<?php echo $row['j_id']; ?>'><strong>Status</strong></label>
+                                    <input type='number' id='act_<?php echo $row['j_id']; ?>' class='form-control mb-2' name='act' value='<?php echo $row['is_active']; ?>' disabled>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="col-md-5">
+                                    <label><strong>Actions</strong></label>
+                                    <div class="d-flex gap-3">
+                                        <a href='#' class='btn btn-success openUpdateBtn' id='openUpdateBtn' data-job-id='<?php echo $row["j_id"]; ?>'>Update</a>
+                                        <a href='applicant_list.php?job_id=<?php echo $row['j_id']; ?>' class='btn btn-primary openUpdateBtn' id='openUpdateBtn'>Applicants</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+            <?php
+        }
+    } else {
+        echo "<div class='alert alert-warning'>No employers found</div>";
+    }
+
+    $conn->close();
+    ?>
 </div>
+</div>
+
 
 <!-- update job -->
 <div id="jobupdateModal" class="modal modal-container-upload">
         <div class="modal-content">
-            <span class="btn-close thirdclosBtn"></span>
+            <span class="closBtn closeBtn btn-close thirdclosBtn">&times;</span>
             <h2>Update Job Post</h2>
             <div id="updatejobdetail">
                 <!-- Profile details will be dynamically loaded here -->
@@ -207,6 +217,7 @@ $result = $conn->query($sql);
         });
 
     </script>
+
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
    <script src="../../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
