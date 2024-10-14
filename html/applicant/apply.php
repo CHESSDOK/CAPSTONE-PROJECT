@@ -176,7 +176,7 @@ if (!$user || !$job) {
                                 <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
                                     <!-- CHANGE TO SALARY -->
                                     <i class="fas fa-graduation-cap" style="color: #007bff;"></i>
-                                    <?php echo htmlspecialchars($job['requirment']); ?>
+                                    <?php echo htmlspecialchars($job['education']); ?>
                                 </p>
                             </div>
 
@@ -194,7 +194,7 @@ if (!$user || !$job) {
                     <div class="col-md-2">
                         <!-- Date posted -->
                         <div class="mb-0">
-                            <p class="date-posted" style="color: #007bff;">
+                            <p class="date-posted" style="color: #007bff;">₱
                                 <?php echo htmlspecialchars($job['salary']); ?>
                             </p>
                         </div>
