@@ -67,7 +67,7 @@ if (!$user || !$job) {
     </div>
 
     <header>
-        <h1 class="h1">Applicant Dashboard</h1>
+        <h1 class="h1">Company Details</h1>
     </header>
 
     <div class="profile-icons">
@@ -135,28 +135,34 @@ if (!$user || !$job) {
         <form action="../../php/applicant/submit_application.php" method="post">
             <div class="card mb-3 p-3 shadow-sm">
                 <div class="row align-items-center">
-
+                    
                     <!-- Job Logo / Placeholder (left side) -->
                     <div class="col-md-2 text-center">
-                        <?php if (!empty($job["photo"])) { ?>
+                        <?php if (!empty($job["photo"])): ?>
                             <img src="../../php/employer/uploads/<?php echo htmlspecialchars($job["photo"]); ?>" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
-                        <?php } else { ?>
+                        <?php else: ?>
                             <img src="../../img/user-placeholder.png" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
-                        <?php } ?>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Job Title, Company Name, and Work Location (center part) -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="d-flex flex-column">
-                            <!-- Job Title -->
-                            <label class="fw-bold mb-0"><?php echo htmlspecialchars($jobTitle); ?></label>
+                            <!-- Job Title with Icon -->
+                            <label class="fw-bold mb-0" style="font-size: 1.30rem; color: #007bff;">
+                                <i class="fas fa-briefcase" style="color: #007bff;"></i>
+                                <?php echo htmlspecialchars($jobTitle); ?>
+                            </label>
 
-                            <!-- Company Name -->
-                            <p class="mb-0"><?php echo htmlspecialchars($job["company_name"]); ?></p>
+                            <!-- Company Name with Icon -->
+                            <p class="mb-0" style="font-size: 1rem; color: #007bff;">
+                                <i class="fas fa-building" style="color: #007bff;"></i>
+                                <?php echo htmlspecialchars($job["company_name"]); ?>
+                            </p>
 
                             <!-- Work Location with Icon -->
-                            <p class="mb-0">
-                                <i class="fas fa-map-marker-alt" style="color: #888;"></i>
+                            <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                                <i class="fas fa-map-marker-alt" style="color: #007bff;"></i>
                                 <?php echo htmlspecialchars($job['work_location']); ?>
                             </p>
                         </div>
@@ -164,85 +170,102 @@ if (!$user || !$job) {
 
                     <!-- Requirements and Job Type (Row layout, aligned with Work Location) -->
                     <div class="col-md-4">
-                        <div class="d-flex flex-row align-items-center">
+                        <div class="d-flex flex-row mt-5">
                             <!-- Requirement -->
-                            <div class="me-3">
-                                <p class="mb-0">
-                                    <i class="fas fa-graduation-cap" style="color: #888;"></i>
+                            <div class="me-5">
+                                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                                    <!-- CHANGE TO SALARY -->
+                                    <i class="fas fa-graduation-cap" style="color: #007bff;"></i>
                                     <?php echo htmlspecialchars($job['requirment']); ?>
                                 </p>
                             </div>
 
                             <!-- Job Type -->
                             <div>
-                                <p class="mb-0">
-                                    <i class="fas fa-laptop-code" style="color: #888;"></i>
+                                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                                    <i class="fas fa-laptop-code" style="color: #007bff;"></i>
                                     <?php echo htmlspecialchars($job['job_type']); ?>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Date posted and Apply button -->
-                    <div class="col-md-2 text-end position-relative">
-                        <!-- Date posted at the top right -->
-                        <p class="date-posted" style="position: absolute; top: 0; right: 0; font-size: 12px; color: #888;">
-                            <?php echo htmlspecialchars($job['date_posted']); ?>
-                        </p>
+                    <!-- Date posted and Apply button (right side) -->
+                    <div class="col-md-2">
+                        <!-- Date posted -->
+                        <div class="mb-0">
+                            <p class="date-posted" style="color: #007bff;">
+                                <?php echo htmlspecialchars($job['date_posted']); ?>
+                            </p>
+                        </div>
 
                         <!-- Apply button -->
                         <input type="hidden" name="job" value="<?php echo htmlspecialchars($jobTitle); ?>">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
                         <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job['j_id']); ?>">
-                        <input type="submit" value="Apply Now" class="btn btn-primary mt-3">
+                        <input type="submit" value="Apply Now" class="btn btn-primary">
                     </div>
 
                 </div>
             </div>
 
+            <div class="table-container">
+    <div class="card mb-3 p-3 shadow-sm">
+        <div class="col align-items-center">
+            
+            <!-- Job Description Section -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                <h4 style="color: #007bff; letter-spacing: 2px;">Job Description</h4>
+                    <p class="date-posted" style="font-size: 12px; color: #888;">
+                        Posted on <?php echo date('d F Y', strtotime($job['date_posted'])); ?>
+                    </p>
+                </div>
 
+                <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
 
-    <div class="table-container">
-        <div class="card mb-3 p-3 shadow-sm">
-            <div class="col align-items-center">
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3>Job Description</h3>
-                        <p class="date-posted" style="font-size: 12px; color: #888;">
-                            Posted on <?php echo htmlspecialchars($job['date_posted']); ?>
-                        </p>
+                <div class="row mt-2 mb-5" style="color: #666;">
+                    <!-- Job Title -->
+                    <div class="col-md-12 mt-2 mb-3">
+                        <label class="fw-bold"><?php echo htmlspecialchars($jobTitle); ?></label>
                     </div>
 
-                    <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
-
-                    <label class="fw-bold"><?php echo htmlspecialchars($jobTitle); ?></label>
-                    <label><?php echo htmlspecialchars($job['job_description']); ?></label>
+                    <!-- Job Description -->
+                    <div class="col-md-12">
+                        <label><?php echo htmlspecialchars($job['job_description']); ?></label>
+                    </div>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <h3>Qualifications / Requirements</h3>
-                    <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
-                    <p><?php echo htmlspecialchars($job['requirment']); ?></p>
-                </div>
+            <!-- Qualifications / Requirements Section -->
+            <div class="mb-3">
+                <h4 style="color: #007bff; letter-spacing: 2px;">Qualifications / Requirements</h4>
+                <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
+                <p><?php echo htmlspecialchars($job['requirment']); ?></p>
+            </div>
 
-                <div class="mb-3">
-                    <h3>Work Location</h3>
-                    <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
-                    <p><?php echo htmlspecialchars($job['work_location']); ?></p>
-                </div>
+            <!-- Work Location Section -->
+            <div class="mb-3">
+                <h4 style="color: #007bff; letter-spacing: 2px;">Work Location</h4>
+                <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
+                <p><?php echo htmlspecialchars($job['work_location']); ?></p>
+            </div>
 
-                <div class="mb-3">
-                    <h3>Remarks</h3>
-                    <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
-                    <label><?php echo htmlspecialchars($job['remarks']); ?></label>
-                </div>
+            <!-- Remarks Section -->
+            <div class="mb-3">
+                <h4 style="color: #007bff; letter-spacing: 2px;">Remarks</h4>
+                <div class="border-bottom my-2" style="border: 2px solid rgba(136, 136, 136, 0.4);"></div>
+                <label><?php echo htmlspecialchars($job['remarks']); ?></label>
+            </div>
 
-                <div class="mt-4">
-                    <input type="submit" value="Submit Application" class="btn btn-primary">
-                </div>
+            <!-- Submit Button -->
+            <div class="mt-4">
+                <input type="submit" value="Submit Application" class="btn btn-primary">
             </div>
         </div>
     </div>
+</div>
+
         
     </form>
 </div>
