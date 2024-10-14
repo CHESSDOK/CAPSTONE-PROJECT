@@ -1,11 +1,38 @@
 <?php
 include 'conn_db.php';
-session_start();
-$admin = $_SESSION['username'];
+function checkSession() {
+    session_start(); // Start the session
+
+    // Check if the session variable 'level' is set
+    if (!isset($_SESSION['id'])) {
+        // Redirect to login page if session not found
+        header("Location: login_admin.html");
+        exit();
+    } else {
+        // If session exists, store the session data in a variable
+        return $_SESSION['id'];
+    }
+}
+
+$admin = checkSession();
 // Fetch all employers
 $sql = "SELECT * FROM courses";
 $result = $conn->query($sql);
 
+$pic_sql = "SELECT * FROM admin_profile WHERE id = ?";
+$pic_stmt = $conn->prepare($pic_sql);
+$pic_stmt->bind_param("i", $admin);
+$pic_stmt->execute();
+$pic_result = $pic_stmt->get_result();
+
+if (!$pic_result) {
+    die("Invalid query: " . $conn->error); 
+}
+
+$pic_row = $pic_result->fetch_assoc();
+if (!$pic_row) {
+    die("User not found.");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,13 +68,13 @@ $result = $conn->query($sql);
         </div>
         
         <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
-            <?php if (!empty($row['photo'])): ?>
-                <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+            <?php if (!empty($pic_row['profile_picture'])): ?>
+                <img id="preview" src="<?php echo $pic_row['profile_picture']; ?>" alt="Profile Image" class="circular--square">
             <?php else: ?>
                 <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
             <?php endif; ?>
         </div>
-        </div>
+    </div>
 
         <!-- Burger icon -->
         <div class="burger" id="burgerToggle">

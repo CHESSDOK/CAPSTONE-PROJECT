@@ -15,7 +15,23 @@ function checkSession() {
 
 $admin_id = checkSession();
 $admin_level = $_SESSION['level'];
+
 include 'conn_db.php';
+
+$pic_sql = "SELECT * FROM admin_profile WHERE id = ?";
+$pic_stmt = $conn->prepare($pic_sql);
+$pic_stmt->bind_param("i", $admin_id);
+$pic_stmt->execute();
+$pic_result = $pic_stmt->get_result();
+
+if (!$pic_result) {
+    die("Invalid query: " . $conn->error); 
+}
+
+$pic_row = $pic_result->fetch_assoc();
+if (!$pic_row) {
+    die("User not found.");
+}
 
 // Query to get total users and accepted users
 $sql = "SELECT 
@@ -126,8 +142,8 @@ $result = $conn->query($sql);
         </div>
         
         <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
-            <?php if (!empty($row['photo'])): ?>
-                <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+            <?php if (!empty($pic_row['profile_picture'])): ?>
+                <img id="preview" src="<?php echo $pic_row['profile_picture']; ?>" alt="Profile Image" class="circular--square">
             <?php else: ?>
                 <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
             <?php endif; ?>
