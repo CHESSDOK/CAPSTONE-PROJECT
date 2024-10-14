@@ -159,7 +159,21 @@ body::before{
     <td colspan="3">
         <div class="mb-3">
           <label for="salary" class="form-label">Salary:</label>
-          <input type="number" name="salary" id="salary" class="form-control" required></textarea>
+          <input type="text" name="salary" id="salary" class="form-control" required></textarea>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div class="mb-3">
+        <label for="education_background" class="form-label">Education Background</label>
+          <select class="form-select" id="education_background" name="education_background" required>
+            <option value="" disabled selected>Select Educational Attainment</option>
+            <option value="High School Graduate">High School Graduate</option>
+            <option value="Undergraduate">Undergraduate (College Level)</option>
+            <option value="College Graduate">College Graduate</option>
+            <option value="Vocational Course Certificate">Vocational Course Graduate</option>
+          </select>
         </div>
       </td>
     </tr>

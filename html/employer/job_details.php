@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
             <td colspan="3">
                 <div class="mb-3">
                 <label for="salary" class="form-label">Salary:</label>
-                <input type="number" name="salary" id="salary" class="form-control" value="<?php echo htmlspecialchars($row['salary']); ?>" required></textarea>
+                <input type="text" name="salary" id="salary" class="form-control" value="<?php echo htmlspecialchars($row['salary']); ?>" required></textarea>
                 </div>
             </td>
             </tr>
