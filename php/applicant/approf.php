@@ -1,8 +1,8 @@
 <?php
-include '../conn_db.php';
+include '../../php/conn_db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     // Sanitize input data
     $id = $_POST['id'];
     $lastName = htmlspecialchars($_POST['lastName'] ?? '');
@@ -32,11 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passport = htmlspecialchars($_POST['passport_no'] ?? '');
     $passport_expiry = $_POST['passport_expiry'] ?? '';
     $salary = htmlspecialchars($_POST['salary'] ?? '');
-    
+
+    // Handling selectedOptions input (assuming it's a comma-separated string)
+    $selectedOptions = $_POST['selectedOptions'] ?? ''; 
+    $optionsArray = explode(',', $selectedOptions); // Convert it to an array
+    $optionsString = implode(',', $optionsArray); // Convert it back to a string for saving into the database
+
+    // Debugging output
+    echo 'Selected Options: ' . $optionsString . '<br>';
+
     // Ensure the uploads directory exists
     $upload_dir = 'images/';
     if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, true); // create directory if not exists
+        mkdir($upload_dir, 0777, true); // Create directory if not exists
     }
 
     // Handle the file uploads
@@ -76,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 pwd = ?, 
                 pwd2 = ?, 
                 four_ps = ?, 
+                selected_options = ?, 
                 employment_status = ?, 
                 actively_looking = ?, 
                 willing_to_work = ?, 
@@ -88,9 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Note that we have 28 parameters in total
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssssssssssssssssssi",
+    $stmt->bind_param("ssssssssssssssssssssssssssssssi",
         $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
-        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $contactNo, $landline, $pwd, $pwd2, $fourPs, 
+        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $contactNo, $landline, $pwd, $pwd2, $fourPs, $optionsString, 
         $employment_status, $actively_looking, $willing_to_work, $passport, $passport_expiry, 
         $salary, $profile_image, $resume, $id
     );

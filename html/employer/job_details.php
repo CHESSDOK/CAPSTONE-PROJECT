@@ -55,11 +55,11 @@ if ($result->num_rows > 0) {
                 <div class="mb-3">
                 <label for="education_background" class="form-label">Education Background</label>
                   <select class="form-select" id="education_background" name="education_background" required>
-                    <option value="" disabled selected>Select Educational Attainment</option>
-                    <option value="High School Graduate">High School Graduate</option>
-                    <option value="Undergraduate">Undergraduate (College Level)</option>
-                    <option value="College Graduate">College Graduate</option>
-                    <option value="Vocational Course Certificate">Vocational Course Graduate</option>
+                    <option value=""<?php echo ($row['education'] == '' ? 'selected' : ''); ?>>Select Educational Attainment</option>
+                    <option value="High School Graduate"<?php echo ($row['education'] == 'High School Graduate' ? 'selected' : ''); ?>>High School Graduate</option>
+                    <option value="Undergraduate"<?php echo ($row['education'] == 'Undergraduate' ? 'selected' : ''); ?>>Undergraduate (College Level)</option>
+                    <option value="College Graduate"<?php echo ($row['education'] == 'College Graduate' ? 'selected' : ''); ?>>College Graduate</option>
+                    <option value="Vocational Course Certificate"<?php echo ($row['education'] == 'Vocational Course Certificate' ? 'selected' : ''); ?>>Vocational Course Graduate</option>
                   </select>
                 </div>
               </td>
