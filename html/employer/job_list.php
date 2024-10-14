@@ -152,7 +152,7 @@ $result = $conn->query($sql);
                                     <label><strong>Actions</strong></label>
                                     <div class="d-flex gap-3">
                                         <a href='#' class='btn btn-success openUpdateBtn' id='openUpdateBtn' data-job-id='<?php echo $row["j_id"]; ?>'>Update</a>
-                                        <a href='applicant_list.php?job_id=<?php echo $row['j_id']; ?>' class='btn btn-primary openUpdateBtn' id='openUpdateBtn'>Applicants</a>
+                                        <a href='applicant_list.php?job_id=<?php echo $row['j_id']; ?>' class='btn btn-primary'>Applicants</a>
                                     </div>
                                 </div>
                             </div>
