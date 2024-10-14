@@ -121,7 +121,7 @@ $result = $conn->query($sql);
                                         </td>
 
                                         <td>
-                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0 openUpdateBtn' id='openUpdateBtn'>Applicants</a>
+                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary custom-input-size mb-2 mb-md-0'>Applicants</a>
                                         </td>
                                         
                                     </tr>";
