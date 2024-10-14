@@ -65,23 +65,31 @@ while ($job = $result->fetch_assoc()) {
     if (!empty($job["photo"])) {
         echo '<img src="../../php/employer/uploads/' . htmlspecialchars($job["photo"]) . '" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">';
     } else {
-        echo '<img src="../../img/user-placeholder.png" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">';
+        echo '<img src="../../img/logo_peso.png" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">';
     }
     echo '</div>';
 
     // Job Title and Company Details (center part)
     echo '<div class="col-md-6">';
-    echo '<h5 class="fw-bold">' . htmlspecialchars($job["job_title"]) . '</h5>';
+    echo '<div class="d-flex align-items-center">
+        <i class="fas fa-briefcase" style="color: #007bff; margin-right: 8px;"></i>
+        <h4 class="fw-bold mb-0" style="color: #007bff;">' . htmlspecialchars($job["job_title"]) . '</h4>
+      </div>';
 
     // Company Details or Posted by Admin
     if (!empty($job["company_name"])) {
         // Job posted by employer
-        echo '<p>
-            <strong>' . htmlspecialchars($job["company_name"]) . '</strong><br>
+        echo '<p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+            <i class="fas fa-building" style="color: #007bff;"></i>
+            ' . htmlspecialchars($job["company_name"]) . '<br>
+            <i class="fas fa-map-marker-alt" style="color: #007bff;"></i>
             ' . htmlspecialchars($job["company_address"]) . '<br>
-            <a href="mailto:' . htmlspecialchars($job["company_mail"]) . '">' . htmlspecialchars($job["company_mail"]) . '</a><br>
+            <i class="fas fa-envelope" style="color: #007bff;"></i>
+            ' . htmlspecialchars($job["company_mail"]) . '<br>
+            <i class="fas fa-phone" style="color: #007bff;"></i>
             ' . htmlspecialchars($job["tel_num"]) . '
         </p>';
+    
     } else {
         // Job posted by admin
         echo '<p>Posted by Admin: <strong>' . htmlspecialchars($job["admin_username"]) . '</strong></p>';

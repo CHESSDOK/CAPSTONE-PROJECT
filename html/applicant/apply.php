@@ -195,7 +195,7 @@ if (!$user || !$job) {
                         <!-- Date posted -->
                         <div class="mb-0">
                             <p class="date-posted" style="color: #007bff;">
-                                <?php echo htmlspecialchars($job['date_posted']); ?>
+                                <?php echo htmlspecialchars($job['salary']); ?>
                             </p>
                         </div>
 
