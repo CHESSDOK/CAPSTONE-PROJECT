@@ -14,7 +14,6 @@ if ($row['count'] > 0) {
     $job_title = $_POST['job_title'];
     $job_description = $_POST['job_description'];
     $vacant = $_POST['vacant'];
-    $spe = $_POST['spe'];
     $date_posted = date('Y-m-d');
     $requirment = $_POST['req'];
     $location = $_POST['loc'];
