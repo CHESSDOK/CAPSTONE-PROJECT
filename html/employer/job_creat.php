@@ -105,8 +105,8 @@ body::before{
                 <tr><td><a href="../../html/employer/employer_home.php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Post Job</a></td></tr>
                 <tr><td><a href="../../html/employer/job_list.php" class="nav-link">Job List</a></td></tr>
-                <tr><td><a href="../../html/about.html" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.html" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="../../html/employer/about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="../../html/employer/contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
