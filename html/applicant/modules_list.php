@@ -55,6 +55,7 @@ if (!$row) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     
@@ -105,8 +106,8 @@ if (!$row) {
                 <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Training</a></td></tr>
                 <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
-                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
@@ -243,6 +244,45 @@ $conn->close();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="../../javascript/script.js"></script>
+<script>
+    // Get elements
+const burgerToggle = document.getElementById('burgerToggle');
+const offcanvasMenu = new bootstrap.Offcanvas(document.getElementById('offcanvasMenu'));
+
+// Toggle burger class and offcanvas menu
+burgerToggle.addEventListener('click', function() {
+    // Toggle burger active class for animation
+    burgerToggle.classList.toggle('active');
+
+    // Open or close the offcanvas menu
+    if (offcanvasMenu._isShown) {
+        offcanvasMenu.hide();
+    } else {
+        offcanvasMenu.show();
+    }
+});
+
+$(document).ready(function(){
+    // Initialize popover with multiple links in the content
+    $('.profile-icon').popover({
+        trigger: 'click', 
+        html: true, // Allow HTML content
+        animation: true, // Enable animation
+        content: function() {
+            return `
+                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="logout.php">Logout</a>
+            `;
+        }
+    });
+// Close popover when clicking outside
+$(document).on('click', function (e) {
+    const target = $(e.target);
+    if (!target.closest('.profile-icon').length) {
+        $('.profile-icon').popover('hide');
+    }
+});
+});
+</script>
 </body>
 </html>

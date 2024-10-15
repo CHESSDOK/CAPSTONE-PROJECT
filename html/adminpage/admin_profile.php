@@ -54,15 +54,14 @@ if (!$row) {
     <header>
         <h1 class="h1">Admin Profile</h1>
     </header>
-
     <div class="profile-icons">
         <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
             <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
         
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-            <?php if (!empty($row['photo'])): ?>
-                <img id="preview" src="php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
+            <?php if (!empty($pic_row['profile_picture'])): ?>
+                <img id="preview" src="<?php echo $pic_row['profile_picture']; ?>" alt="Profile Image" class="circular--square">
             <?php else: ?>
                 <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
             <?php endif; ?>
