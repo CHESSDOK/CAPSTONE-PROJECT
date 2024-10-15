@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 14, 2024 at 06:49 AM
+-- Generation Time: Oct 15, 2024 at 07:45 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -91,6 +91,7 @@ CREATE TABLE `applicant_profile` (
   `pwd2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `four_ps` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `selected_options` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `emergency_contact_num` int DEFAULT NULL,
   `income` int DEFAULT NULL,
   `country` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -116,11 +117,11 @@ CREATE TABLE `applicant_profile` (
 -- Dumping data for table `applicant_profile`
 --
 
-INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `specialization`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `pwd`, `pwd2`, `prefix`, `four_ps`, `emergency_contact_num`, `income`, `country`, `religion`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`, `employment_status`, `actively_looking`, `willing_to_work`, `passport_expiry`, `expected_salary`, `resume`) VALUES
-(26, 43, 'tepezaveza@mailinator.com', 'Maggy', 'Bonner', 'Allegra Stokes', '2018-07-15', 'Consequatur eveniet', 10, 'In sit dolores minus', NULL, 'female', 'Live-in', '+1 (886) 188-6705', '+1 (844) 133-8456', 'woman.png', 'Beatae ut numquam qu', 'Sed quos dolore pari', 'Minim tempor exercit', 'Obcaecati aut reicie', 'Esse sit ullam tota', 'Quis commodo tempor ', 'Repatriated', 'Kelly Saunders', '36', 'Brent Norris', 'Eaque velit ut quisq', 'Nissim Yang', 'Et molestias asperna', 'Holly Mcgowan', 'Minima incididunt au', '80', 'Elementary Graduate', 'Restaurant Jobs (F&B)', 'Others', '', 'V', 'No', 63, 768, 'Aliquam id placeat ', 'Repellendus Id accu', 'Sea-Based', 'Referral', 'Gould and Harper Trading', 365, 'Bryan and Hunt Associates', 'Sheila Sullivan', 'Consequatur consect', '1984-08-11', '2012-02-15', 'unemployed', 'No', 'Yes', '2010-06-11', 123456, 'favicon.ico'),
-(27, 44, 'raqitym@mailinator.com', 'Dillon', 'Henderson', 'Quon Mcdaniel', '1992-08-29', '', 87, NULL, NULL, 'male', 'Widowed', '5889', NULL, '6707dba238f33.png', 'Sunt et quo volupta', NULL, '0', '0', '0', '16', 'Documented', 'Jamal Carr', '62', 'Riley Atkinson', 'Et odit deserunt min', 'Reuben Shields', 'Eu et culpa aut labo', 'Lawrence Campos', 'Ea eos dolorem cons', '3', 'Elementary Graduate', 'Others', NULL, '', 'V', NULL, 69, 124, 'Odit non qui delenit', NULL, 'Sea-Based', 'Name Hire', 'Cotton Strickland Trading', 499, 'Mejia and Johns Trading', 'Halla Mckay', 'Dolorum asperiores i', '2009-08-10', '2010-11-11', NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 45, 'nawa@mailinator.com', 'Mari', 'Talley', 'Giselle Cervantes', '1986-05-26', '', 69, NULL, NULL, 'male', 'Single', '5731187', NULL, '67086b9d1de62.jpg', 'Ad omnis laborum qui', NULL, '0', '0', '0', '630', 'Undocumented', 'Lysandra Wilkerson', '2', 'Judah Levy', 'Ab veritatis cum nul', 'Morgan Oconnor', 'Officiis ea sunt aut', 'Imani Russell', 'Nostrud id repudiand', '600', 'Elementary Undergraduate', 'Others', NULL, '', 'IV', NULL, 60, 432, 'Adipisci reiciendis ', NULL, 'Land-Based', 'Referral', 'Jackson Battle Traders', 435, 'Hampton and Marks Associates', 'Shannon Irwin', 'Doloribus aut conseq', '2017-05-02', '1974-05-19', NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 46, 'voxajo@mailinator.com', 'Allegra', 'Bradshaw', 'Velma Gilmore', '1977-06-23', '', 16, NULL, NULL, 'male', 'Married', '4967', NULL, '6707de8f0147b.jpg', 'Sint sed proident q', NULL, '0', '0', '0', '99', 'Returning', 'Sophia Holcomb', '42', 'Keiko Buck', 'Quia sunt non esse a', 'Cheryl Mccarty', 'Quaerat fugiat enim ', 'William Castillo', 'Consequatur tenetur', '411', 'College Graduate', 'Information Technology', NULL, '', 'V', NULL, 95, 336, 'Et obcaecati soluta ', NULL, 'Sea-Based', 'Government Hire', 'Garrison Deleon Plc', 291, 'Mcdaniel and Jacobson Trading', 'Blair Stokes', 'Ratione sed sit aut ', '2003-03-31', '2000-05-04', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `specialization`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `next_of_kin_relationship`, `next_of_kin_contact`, `education_level`, `occupation`, `pwd`, `pwd2`, `prefix`, `four_ps`, `selected_options`, `emergency_contact_num`, `income`, `country`, `religion`, `employment_type`, `employment_form`, `employer_name`, `contact_number`, `employer_address`, `local_agency_name`, `local_agency_address`, `arrival_date`, `dept_date`, `employment_status`, `actively_looking`, `willing_to_work`, `passport_expiry`, `expected_salary`, `resume`) VALUES
+(26, 43, 'your.email+fakedata25428@gmail.com', 'June', 'Johns', 'Jazmyne Ruecker', '2024-02-18', '95451 Zoila Neck', 10, '123123', NULL, 'female', 'Married', '065-023-2181', '252-680-3243', 'woman.png', '45555 Sauer Court', 'Nostrum debitis dolore ut sequi iusto accusamus ducimus ipsa.', '84', '646', '123124', '320', 'Repatriated', 'Kelly Saunders', '36', 'Brent Norris', 'Eaque velit ut quisq', 'Nissim Yang', 'Et molestias asperna', 'Holly Mcgowan', 'Minima incididunt au', '80', 'Elementary Graduate', 'Restaurant Jobs (F&B)', 'Speech', '', 'Jr.', 'No', '', 63, 768, 'Aliquam id placeat ', 'Nobis voluptatum repudiandae eos sunt voluptatibus laudantium quam deserunt.', 'Sea-Based', 'Referral', 'Gould and Harper Trading', 365, 'Bryan and Hunt Associates', 'Sheila Sullivan', 'Consequatur consect', '1984-08-11', '2012-02-15', 'employed', 'No', 'No', '2025-07-16', 123124, ''),
+(27, 44, 'raqitym@mailinator.com', 'Dillon', 'Henderson', 'Quon Mcdaniel', '1992-08-29', '', 87, NULL, NULL, 'male', 'Widowed', '5889', NULL, '6707dba238f33.png', 'Sunt et quo volupta', NULL, '0', '0', '0', '16', 'Documented', 'Jamal Carr', '62', 'Riley Atkinson', 'Et odit deserunt min', 'Reuben Shields', 'Eu et culpa aut labo', 'Lawrence Campos', 'Ea eos dolorem cons', '3', 'Elementary Graduate', 'Others', NULL, '', 'V', NULL, NULL, 69, 124, 'Odit non qui delenit', NULL, 'Sea-Based', 'Name Hire', 'Cotton Strickland Trading', 499, 'Mejia and Johns Trading', 'Halla Mckay', 'Dolorum asperiores i', '2009-08-10', '2010-11-11', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 45, 'your.email+fakedata40179@gmail.com', 'Carmine', 'Halvorson', 'Maxwell Kshlerin', '2024-08-18', '9017 Ressie Crescent', 69, '35', NULL, 'female', 'Widowed', '461-316-4958', '369-441-3564', '456338803_483159741228069_3311839368960614240_n.jpg', '78105 Darby Plaza', 'Blanditiis nam explicabo voluptatum sed ipsam cumque.', '556', '580', '342423', '9', 'Undocumented', 'Lysandra Wilkerson', '2', 'Judah Levy', 'Ab veritatis cum nul', 'Morgan Oconnor', 'Officiis ea sunt aut', 'Imani Russell', 'Nostrud id repudiand', '600', 'Elementary Undergraduate', 'Others', 'Hearing', '', 'V', 'Yes', 'Tailoring,Sewing,Painter/Artist,Masonry,new1,new2', 60, 432, 'Adipisci reiciendis ', 'Fuga reprehenderit architecto occaecati vel accusantium pariatur.', 'Land-Based', 'Referral', 'Jackson Battle Traders', 435, 'Hampton and Marks Associates', 'Shannon Irwin', 'Doloribus aut conseq', '2017-05-02', '1974-05-19', 'employed', 'Yes', 'No', '2025-01-18', 12432, ''),
+(29, 46, 'your.email+fakedata92204@gmail.com', 'Coty', 'Ebert', 'Rahsaan Greenholt', '2024-01-05', '300 Dietrich Valleys', 16, '123', NULL, 'female', 'Single', '829-082-9515', '5056', '457146626_1974469039642222_919670330705078606_n.jpg', '7419 Keaton Forks', 'Praesentium est accusamus ratione sunt.', '529', '44', '123', '492', 'Returning', 'Sophia Holcomb', '42', 'Keiko Buck', 'Quia sunt non esse a', 'Cheryl Mccarty', 'Quaerat fugiat enim ', 'William Castillo', 'Consequatur tenetur', '411', 'College Graduate', 'Information Technology', 'Hearing', '', 'Jr.', 'No', 'Beautician,Auto Mechanic,Carpentry Work', 95, 336, 'Et obcaecati soluta ', 'Nisi perferendis illum voluptatem incidunt illo velit nam consequatur.', 'Sea-Based', 'Government Hire', 'Garrison Deleon Plc', 291, 'Mcdaniel and Jacobson Trading', 'Blair Stokes', 'Ratione sed sit aut ', '2003-03-31', '2000-05-04', 'employed', 'No', 'No', '2025-07-17', 2233321, '');
 
 -- --------------------------------------------------------
 
@@ -142,14 +143,21 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(106, 45, 23, '2024-10-14', 'pending', 'Customer Branding Associate'),
-(107, 45, 24, '2024-10-14', 'pending', 'Principal Accountability Strategist'),
-(108, 45, 25, '2024-10-14', 'pending', 'Internal Tactics Specialist'),
-(109, 45, 25, '2024-10-14', 'pending', 'Internal Tactics Specialist'),
-(110, 45, 29, '2024-10-14', 'pending', 'District Directives Specialist'),
-(111, 45, 30, '2024-10-14', 'pending', 'International Tactics Supervisor'),
-(112, 45, 17, '2024-10-14', 'pending', 'Principal Creative Specialist'),
-(113, 45, 28, '2024-10-14', 'pending', 'Human Mobility Assistant');
+(106, 45, 23, '2024-10-14', 'accepted', 'Customer Branding Associate'),
+(107, 45, 24, '2024-10-14', 'accepted', 'Principal Accountability Strategist'),
+(108, 45, 25, '2024-10-14', 'accepted', 'Internal Tactics Specialist'),
+(109, 45, 25, '2024-10-14', 'accepted', 'Internal Tactics Specialist'),
+(110, 45, 29, '2024-10-14', 'accepted', 'District Directives Specialist'),
+(111, 45, 30, '2024-10-14', 'accepted', 'International Tactics Supervisor'),
+(112, 45, 17, '2024-10-14', 'accepted', 'Principal Creative Specialist'),
+(113, 45, 28, '2024-10-14', 'accepted', 'Human Mobility Assistant'),
+(114, 43, 23, '2024-10-14', 'interview', 'Customer Branding Analyst'),
+(115, 43, 24, '2024-10-14', 'interview', 'Product Response Agent'),
+(116, 43, 25, '2024-10-14', 'interview', 'Internal Tactics Specialist'),
+(117, 43, 29, '2024-10-14', 'interview', 'District Directives Specialist'),
+(118, 43, 30, '2024-10-14', 'pending', 'International Tactics Supervisor'),
+(119, 46, 17, '2024-10-15', 'accepted', 'Principal Creative Specialist'),
+(120, 46, 35, '2024-10-15', 'accepted', 'Principal Tactics Facilitator');
 
 -- --------------------------------------------------------
 
@@ -338,6 +346,16 @@ CREATE TABLE `interview` (
   `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `interview`
+--
+
+INSERT INTO `interview` (`id`, `user_id`, `Job_id`, `sched_date`, `sched_time`, `interview`, `meeting`, `is_read`) VALUES
+(22, 43, 23, '2024-10-24', '15:00:00', 'online', '', 0),
+(23, 43, 24, '2024-10-25', '19:19:00', 'FacetoFace', 'Voluptatem Doloremq', 0),
+(24, 43, 29, '2024-10-31', '19:30:00', 'online', '', 0),
+(25, 43, 25, '2024-11-10', '09:30:00', 'online', 'https://www.youtube.com/watch?v=WvoAL44J42g', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -352,10 +370,11 @@ CREATE TABLE `job_postings` (
   `job_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `salary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `specialization` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `selected_options` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vacant` int NOT NULL,
   `requirment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `work_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `education` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remarks` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_posted` date NOT NULL,
   `is_active` tinyint(1) DEFAULT '1'
@@ -365,22 +384,79 @@ CREATE TABLE `job_postings` (
 -- Dumping data for table `job_postings`
 --
 
-INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_type`, `salary`, `job_description`, `specialization`, `vacant`, `requirment`, `work_location`, `remarks`, `date_posted`, `is_active`) VALUES
-(17, 9, NULL, 'Principal Creative Specialist', 'Part time', '20000', 'sdavervcaefasdfcaweefc', '', 22, 'College Graduate', '3012 Raynor Junction', '', '2024-10-14', 1),
-(18, 10, NULL, 'Corporate Markets Strategist', '', NULL, 'Customer Response Administrator', '', 25, 'Market graduate, ', '8747 Shanie Islands', '', '2024-10-10', 1),
-(19, 11, NULL, 'Human Communications Engineer', '', NULL, 'Legacy Optimization Agent', '', 439, '2ys work experience ', '417 Kub Locks', '', '2024-10-10', 1),
-(23, NULL, 1, 'Customer Branding Analyst', 'Part time', '20000', 'sdafawef', '', 86, 'Cumque totam suscipit explicabo cum blanditiis laborum quibusdam excepturi doloribus.', 'Asperiores repellendus quasi distinctio.', 'Quos dolore vero.', '2024-10-14', 1),
-(24, NULL, 1, 'Product Response Agent', 'Prelance', '20000', 'Lead Optimization Orchestrator', '', 186, 'Quod animi sint laboriosam.', 'Deleniti repudiandae assumenda.', 'Neque harum dicta consectetur illo nihil molestiae nostrum ex iusto.', '2024-10-12', 1),
-(25, NULL, 1, 'Internal Tactics Specialist', 'Part time', '20000', 'Internal Accounts Analyst', '', 263, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.', '31659 Justina Extension', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-14', 1),
-(26, NULL, 11, 'Corporate Metrics Liaison', '', NULL, 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
-(27, NULL, 11, 'Future Tactics Manager', '', NULL, 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1),
-(28, 9, NULL, 'Human Mobility Assistant', 'Part time', '233', 'Forward Factors Officer', '', 50, 'Itaque maxime harum.', 'Voluptatibus molestias culpa expedita vero exercitationem.', '', '2024-10-12', 1),
-(29, NULL, 1, 'District Directives Specialist', 'Fulltime', '20000', 'Dynamic Factors Supervisor', '', 50, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
-(30, NULL, 1, 'International Tactics Supervisor', 'Fulltime', '20000', 'Principal Implementation Analyst', '', 100, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1),
-(31, NULL, 11, 'Direct Paradigm Officer', 'Fulltime', NULL, 'Dynamic Infrastructure Designer', '', 235, 'Ea repellat nobis modi.', 'Voluptatem pariatur minima vel repellendus aut perferendis.', 'Veritatis quam aut quibusdam qui explicabo minus.', '2024-10-13', 1),
-(32, NULL, 11, 'Central Markets Designer', 'Fulltime', NULL, 'International Quality Representative', '', 132, 'Aliquam debitis sint voluptate nihil dolores reiciendis provident quam.', 'Quibusdam dolor voluptates quia magnam voluptate porro dignissimos aliquid culpa.', 'Animi odio accusamus reiciendis placeat sunt.', '2024-10-13', 1),
-(33, NULL, 11, 'District Brand Director', 'Fulltime', NULL, 'Direct Tactics Administrator', '', 92, 'Porro distinctio commodi dolorem harum quia.', 'Asperiores neque fugit repudiandae temporibus porro illo qui eligendi amet.', 'Modi magnam quasi quaerat omnis et error.', '2024-10-13', 1),
-(34, 9, NULL, 'Chief Data Consultant', 'Fulltime', '265', 'Internal Optimization Facilitator', NULL, 88, 'Dolore quam eveniet harum asperiores saepe praesentium.', 'Recusandae adipisci corrupti quis suscipit.', 'Vero optio soluta.', '2024-10-14', 1);
+INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `job_type`, `salary`, `job_description`, `selected_options`, `vacant`, `requirment`, `work_location`, `education`, `remarks`, `date_posted`, `is_active`) VALUES
+(17, 9, NULL, 'Principal Creative Specialist', 'Part time', '20000', 'sdavervcaefasdfcaweefc', 'Beautician,Carpentry Work,Gardening,Stenography', 224, '• werwewe\r\n• fsdgser\r\n• asdfasfawe', '3012 Raynor Junction', 'Undergraduate', '', '2024-10-14', 1),
+(18, 10, NULL, 'Corporate Markets Strategist', '', NULL, 'Customer Response Administrator', '', 25, 'Market graduate, ', '8747 Shanie Islands', NULL, '', '2024-10-10', 1),
+(19, 11, NULL, 'Human Communications Engineer', '', NULL, 'Legacy Optimization Agent', '', 439, '2ys work experience ', '417 Kub Locks', NULL, '', '2024-10-10', 1),
+(23, NULL, 1, 'Customer Branding Analyst', 'Part time', '20000', 'dgr5gd5rggdr5g', 'new, custome branding,Auto Mechanic,Beautician', 840, 'Cumque totam suscipit explicabo cum blanditiis laborum quibusdam excepturi doloribus.', 'Asperiores repellendus quasi distinctio.', 'Undergraduate', 'Quos dolore vero.', '2024-10-14', 1),
+(24, NULL, 1, 'Product Response Agent', 'Prelance', '20000', 'Lead Optimization Orchestrator', 'Beautician,Painter/Artist,Tailoring,Electrician', 185, 'Quod animi sint laboriosam.', 'Deleniti repudiandae assumenda.', 'College Graduate', 'Neque harum dicta consectetur illo nihil molestiae nostrum ex iusto.', '2024-10-12', 1),
+(25, NULL, 1, 'Internal Tactics Specialist', 'Prelance', '20000', 'Internal Accounts Analyst', '', 262, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.\r\n• asdawdasdaw\r\n• asdawdawfhg\r\n• fgjfghrt\r\n• cvbcvbcfb', '31659 Justina Extension', 'Undergraduate', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-14', 1),
+(26, NULL, 11, 'Corporate Metrics Liaison', '', NULL, 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', NULL, 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
+(27, NULL, 11, 'Future Tactics Manager', '', NULL, 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', NULL, 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1),
+(28, 9, NULL, 'Human Mobility Assistant', 'Part time', '233', 'inulit ko ito', '', 544, 'ito yung ayaw\r\n• ito din\r\n• tapos ito\r\n• pede din to\r\n• last na to', 'Voluptatibus molestias culpa expedita vero exercitationem.', 'Undergraduate', 'pati ito', '2024-10-12', 1),
+(29, NULL, 1, 'District Directives Specialist', 'Fulltime', '20000', 'Dynamic Factors Supervisor', '', 49, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', NULL, 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
+(30, NULL, 1, 'International Tactics Supervisor', 'Fulltime', '20000', 'Principal Implementation Analyst', '', 100, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', NULL, 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1),
+(31, NULL, 11, 'Direct Paradigm Officer', 'Fulltime', NULL, 'Dynamic Infrastructure Designer', '', 235, 'Ea repellat nobis modi.', 'Voluptatem pariatur minima vel repellendus aut perferendis.', NULL, 'Veritatis quam aut quibusdam qui explicabo minus.', '2024-10-13', 1),
+(32, NULL, 11, 'Central Markets Designer', 'Fulltime', NULL, 'International Quality Representative', '', 132, 'Aliquam debitis sint voluptate nihil dolores reiciendis provident quam.', 'Quibusdam dolor voluptates quia magnam voluptate porro dignissimos aliquid culpa.', NULL, 'Animi odio accusamus reiciendis placeat sunt.', '2024-10-13', 1),
+(33, NULL, 11, 'District Brand Director', 'Fulltime', NULL, 'Direct Tactics Administrator', '', 92, 'Porro distinctio commodi dolorem harum quia.', 'Asperiores neque fugit repudiandae temporibus porro illo qui eligendi amet.', NULL, 'Modi magnam quasi quaerat omnis et error.', '2024-10-13', 1),
+(34, 9, NULL, 'Chief Data Consultant', 'Fulltime', '265', 'Internal Optimization Facilitator', 'new1', 444, 'ito rin ayaw\r\n• ito ayaw\r\n• ito ayaw', 'Recusandae adipisci corrupti quis suscipit.', 'College Graduate', 'Vero optio soluta.', '2024-10-14', 1),
+(35, 9, NULL, 'Principal Tactics Facilitator', 'Fulltime', 'Aut ipsum reiciendis quas suscipit a quidem.', 'Chief Infrastructure Associate', 'new1,,Auto Mechanic,computer programming,Beautician', 158, 'Fugiat magnam pariatur possimus adipisci eveniet unde accusamus sit ut.', 'Dolores enim delectus soluta.', NULL, 'Tempore libero aperiam sunt cum vel ea.', '2024-10-14', 1),
+(36, NULL, 1, 'Investor Brand Executive', 'Part time', 'Quidem nulla delectus illum tempore dolorum dolore expedita.', 'Legacy Infrastructure Engineer', 'Auto Mechanic,Beautician,Tailoring', 62, 'Porro suscipit ad velit rem perspiciatis natus recusandae.', 'Provident iure adipisci placeat porro consequuntur tempora repellendus.', NULL, 'Neque nemo enim sequi praesentium.', '2024-10-15', 1),
+(37, NULL, 1, 'Forward Intranet Agent', 'Prelance', 'Ea sunt doloremque aliquid.', 'Human Usability Strategist', 'Beautician,Carpentry Work,Auto Mechanic,newadmin2', 75, 'Ut minus molestiae velit facere quam nostrum eum modi.', 'Architecto dicta facilis inventore excepturi cupiditate quos.', NULL, 'Dignissimos unde accusantium ratione nam ipsam nesciunt.', '2024-10-15', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `language_proficiency`
+--
+
+CREATE TABLE `language_proficiency` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `language_p` varchar(255) NOT NULL,
+  `read_l` tinyint(1) DEFAULT '0',
+  `write_l` tinyint(1) DEFAULT '0',
+  `speak_l` tinyint(1) DEFAULT '0',
+  `understand_l` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `language_proficiency`
+--
+
+INSERT INTO `language_proficiency` (`id`, `user_id`, `language_p`, `read_l`, `write_l`, `speak_l`, `understand_l`) VALUES
+(1, 43, 'Fritsch', 1, 1, 0, 1),
+(2, 46, 'Reichel-Schulist', 0, 0, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `license`
+--
+
+CREATE TABLE `license` (
+  `id` int UNSIGNED NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `eligibility` varchar(255) NOT NULL,
+  `rating` varchar(255) NOT NULL,
+  `doe` date NOT NULL,
+  `prc_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `license`
+--
+
+INSERT INTO `license` (`id`, `user_id`, `eligibility`, `rating`, `doe`, `prc_path`) VALUES
+(1, 43, 'Fontana', 'Autem mollitia reprehenderit laboriosam et.', '2025-08-20', 'license_files/PESO.pdf'),
+(2, 43, 'Seattle', 'Eius assumenda illum nulla dolores.', '2025-02-15', 'license_files/LSPU-LB CCS - Participant Certificates.pdf'),
+(3, 43, 'Kent', 'Perferendis ab culpa itaque dolorum culpa asperiores qui.', '2024-01-19', 'license_files/448352885_1360871518105904_1484743443655538453_n.jpg'),
+(4, 43, 'Meridian', 'Quos atque ea quo accusamus fuga explicabo molestias unde.', '2023-12-28', 'license_files/gradient-dark-blue-futuristic-digital-grid-background.jpg'),
+(5, 43, 'Lexington-Fayette', 'Laboriosam consequatur necessitatibus excepturi ullam animi odit expedita.', '2025-08-07', 'license_files/favicon.ico'),
+(6, 43, 'Colton', 'Atque autem animi occaecati dicta repellendus maiores delectus accusantium.', '2024-10-07', 'license_files/woman-portrait.png'),
+(7, 43, 'Colton', 'Atque autem animi occaecati dicta repellendus maiores delectus accusantium.', '2024-10-07', 'license_files/woman-portrait.png'),
+(8, 43, 'Colton', 'Atque autem animi occaecati dicta repellendus maiores delectus accusantium.', '2024-10-07', 'license_files/woman-portrait.png'),
+(9, 46, 'Auburn', 'Dolor sit repudiandae magnam excepturi.', '2025-06-09', 'license_files/ITEP414-SAM-Assignment-1-and-Task-1.docx');
 
 -- --------------------------------------------------------
 
@@ -1204,8 +1280,8 @@ INSERT INTO `quiz_name` (`id`, `module_id`, `title`, `correct_ans`, `wrong_ans`,
 (25, 0, 'Meyokop', 2, 2, 1, 'sdaf', '2024-10-01 09:59:30'),
 (26, 4, 'Nezuko', 2, 2, 1, 'sadfasdfawhgfsdgdrt', '2024-10-01 13:44:11'),
 (27, 5, 'Nezuko', 1, 1, 1, 'sdfasdvczxc vzdfvvzsdf', '2024-10-01 13:46:51'),
-(28, 1, 'How To Take Measurements', 2, 2, 7, 'accurate measurement will make dress fit perfectly', '2024-10-10 19:16:40'),
-(29, 2, 'Learning Needle And Thread', 2, 2, 5, 'sewing', '2024-10-05 19:18:47'),
+(28, 1, 'How To Take Measurements', 2, 2, 7, 'accurate measurement will make dress fit perfectly', '2024-10-14 16:04:20'),
+(29, 2, 'Learning Needle And Thread', 2, 2, 5, 'sewing', '2024-10-14 15:58:40'),
 (30, 3, 'Cutting Dress', 2, 2, 5, 'Cutting smoothly ', '2024-10-05 19:27:23'),
 (31, 16, 'Layouts For Dressmaking', 2, 2, 5, 'designing perfect fit', '2024-10-05 19:37:33'),
 (37, 9, 'Introduction', 2, 2, 5, 'getting started with digital maketing', '2024-10-06 15:23:44'),
@@ -1285,6 +1361,34 @@ CREATE TABLE `survey_reponse` (
   `survey_id` int DEFAULT NULL,
   `reponse` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `training`
+--
+
+CREATE TABLE `training` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `training` varchar(255) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `institution` varchar(255) NOT NULL,
+  `certificate_path` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `training`
+--
+
+INSERT INTO `training` (`id`, `user_id`, `training`, `start_date`, `end_date`, `institution`, `certificate_path`) VALUES
+(1, 43, 'Minus sequi in minima aspernatur iure incidunt consequuntur.', '2024-07-31', '2024-05-13', 'Mollitia soluta quasi laborum voluptatum placeat ducimus iusto corporis.', '0'),
+(2, 43, 'Adipisci minima adipisci aspernatur tenetur.', '2024-09-06', '2025-07-22', 'Quidem asperiores sequi sunt impedit ullam quia nulla aut veniam.', '0'),
+(3, 43, 'Illum cumque eius asperiores veritatis vel.', '2024-06-10', '2024-12-09', 'Autem tenetur odio repellendus dolorem.', 'training_files/woman.png'),
+(4, 43, 'Illum cumque eius asperiores veritatis vel.', '2024-06-10', '2024-12-09', 'Autem tenetur odio repellendus dolorem.', 'training_files/woman.png'),
+(5, 43, 'Illum cumque eius asperiores veritatis vel.', '2024-06-10', '2024-12-09', 'Autem tenetur odio repellendus dolorem.', 'training_files/woman.png'),
+(6, 46, 'Cupiditate modi minima quia.', '2023-11-09', '2025-08-15', 'Totam ea corporis aliquid maxime reprehenderit tenetur.', 'training_files/phpn1.txt');
 
 -- --------------------------------------------------------
 
@@ -1463,6 +1567,31 @@ INSERT INTO `user_score` (`id`, `user_id`, `quiz_id`, `score`, `correct_answers`
 (74, 43, 39, 5, 5, 0, '2024-10-10 16:00:00'),
 (79, 43, 28, 2, 2, 3, '2024-10-11 16:00:00');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `work_exp`
+--
+
+CREATE TABLE `work_exp` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `started_date` date NOT NULL,
+  `termination_date` date NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `work_exp`
+--
+
+INSERT INTO `work_exp` (`id`, `user_id`, `company_name`, `address`, `position`, `started_date`, `termination_date`, `status`) VALUES
+(1, 43, 'Pfeffer - Langosh', '1002 Murazik Centers', 'Mollitia vel praesentium molestiae voluptatum similique id explicabo voluptate totam.', '2024-06-10', '2024-12-09', 'Alaska'),
+(2, 46, 'Frami - Hayes', '996 Dane Summit', 'Voluptatem mollitia animi rem incidunt libero nisi totam.', '2023-11-09', '2025-08-15', 'Iowa');
+
 --
 -- Indexes for dumped tables
 --
@@ -1545,6 +1674,18 @@ ALTER TABLE `job_postings`
   ADD KEY `employer_job_id` (`employer_id`);
 
 --
+-- Indexes for table `language_proficiency`
+--
+ALTER TABLE `language_proficiency`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `license`
+--
+ALTER TABLE `license`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `modules`
 --
 ALTER TABLE `modules`
@@ -1593,6 +1734,12 @@ ALTER TABLE `survey_reponse`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `training`
+--
+ALTER TABLE `training`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_answers`
 --
 ALTER TABLE `user_answers`
@@ -1602,6 +1749,12 @@ ALTER TABLE `user_answers`
 -- Indexes for table `user_score`
 --
 ALTER TABLE `user_score`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `work_exp`
+--
+ALTER TABLE `work_exp`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1624,7 +1777,7 @@ ALTER TABLE `applicant_profile`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -1672,13 +1825,25 @@ ALTER TABLE `empyers`
 -- AUTO_INCREMENT for table `interview`
 --
 ALTER TABLE `interview`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `job_postings`
 --
 ALTER TABLE `job_postings`
-  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `j_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `language_proficiency`
+--
+ALTER TABLE `language_proficiency`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `license`
+--
+ALTER TABLE `license`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `modules`
@@ -1729,6 +1894,12 @@ ALTER TABLE `survey_reponse`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `training`
+--
+ALTER TABLE `training`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
@@ -1739,6 +1910,12 @@ ALTER TABLE `user_answers`
 --
 ALTER TABLE `user_score`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- AUTO_INCREMENT for table `work_exp`
+--
+ALTER TABLE `work_exp`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

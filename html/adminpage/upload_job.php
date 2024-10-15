@@ -7,6 +7,10 @@ echo "
         <form action='post_job_process.php' method='post'>
                 <tr>
                     <td>
+                        <label for='company' class='form-label'>Copmany hiring:</label>
+                        <input type='text' class='form-control' name='company' id='company' required>
+                    </td>
+                    <td>
                         <label for='job_title' class='form-label'>Job Title:</label>
                         <input type='text' class='form-control' name='job_title' id='job_title' required>
                     </td>
@@ -15,17 +19,37 @@ echo "
                         <input type='number' class='form-control' name='vacant' id='vacant' required>
                     </td>
                     <td>
-                        <label for='spe' class='form-label'>Expert Requirement</label>
-                        <select id='spe' name='spe' class='form-select'>
-                            <option value=''>Select a specialization</option>";
-                            if ($result->num_rows > 0) {
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<option value='".$row['specialization']."'>".$row['specialization']."</option>";
-                                }
-                            } else {
-                                echo "<option value=''>No specialization found</option>";
-                            }
-echo "                  </select>
+                <label for='dynamicSelect'>Choose one or more options:</label>
+                    <select id='dynamicSelect'  name='other_skills[]' multiple>
+                    <option value='add'>Add a new option...</option>
+                    <option value='Auto Mechanic'>Auto Mechanic</option>
+                    <option value='Beautician'>Beautician</option>
+                    <option value='Carpentry Work'>Carpentry Work</option>
+                    <option value='Computer Literate'>Computer Literate</option>
+                    <option value='Domestic Chores'>Domestic Chores</option>
+                    <option value='Driver'>Driver</option>
+                    <option value='Electrician'>Electrician</option>
+                    <option value='Embroidery'>Embroidery</option>
+                    <option value='Gardening'>Gardening</option>
+                    <option value='Masonry'>Masonry</option>
+                    <option value='Painter/Artist'>Painter/Artist</option>
+                    <option value='Painting Jobs'>Painting Jobs</option>
+                    <option value='Photography'>Photography</option>
+                    <option value='Plumbing'>Plumbing</option>
+                    <option value='Sewing'>Sewing Dresses</option>
+                    <option value='Stenography'>Stenography</option>
+                    <option value='Tailoring'>Tailoring</option>
+                    </select>
+
+                    <div id='newOptionContainer'>
+                    <input type='text' id='newOption' placeholder='Enter new option'>
+                    <button id='addButton' type='button'>Add Option</button> <!-- Ensure type='button' here -->
+                    </div>
+                    <input type='hidden' name='selectedOptions' id='selectedOptionsHidden'>
+                    <div id='selectedOptionsContainer'>
+                    <h3>Selected Options:</h3>
+                    <ul id='selectedOptionsList'></ul>
+                    </div>
                     </td>
                 </tr>
                 <tr>

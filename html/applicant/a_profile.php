@@ -71,6 +71,9 @@ $conn->close();
         #selectedOptionsList li {
             cursor: pointer;
         }
+        .row {
+            margin-bottom: 10px;
+        }
   </style>
 </head>
 
@@ -461,352 +464,219 @@ $conn->close();
         </div>
       </div>
 
-      <!-- Language Proficiency -->
-      <h4>Language/Dialect Proficiency</h4>
-      <div class="container">
-        <div class="row mb-3">
-          <div class="col-md-2">
+        <!-- Technical/Vocational and Other Training -->
+    <h4>Technical/Vocational and Other Training</h4>
+
+<div class="row">
+    <div class="col-md-2 text-center">
+        <label>Training/Vocational Course</label>
+    </div>
+    <div class="col-md-4 text-center">
+        <label>Duration</label>
+    </div>
+    <div class="col-md-2 text-center">
+        <label>Training Institution</label>
+    </div>
+    <div class="col-md-2 text-center">
+        <label>Certificates (upload file)</label>
+    </div>
+    <div class="col-md-1 text-center">
+        <label>Action</label>
+    </div>
+</div>
+
+<!-- Input Container for Technical Training -->
+<div id="training-container">
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="training[]" placeholder="Training/Vocational">
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="d-flex justify-content-center">
+                <input type="date" class="form-control" name="start_date[]" placeholder="Start Date" style="width: 120px;">
+                <span class="mx-2 align-self-center">to</span>
+                <input type="date" class="form-control" name="end_date[]" placeholder="End Date" style="width: 120px;">
+            </div>
+        </div>
+        <div class="col-md-2 text-center">
+            <input type="text" class="form-control" name="institution[]" placeholder="Institution">
+        </div>
+        <div class="col-md-2 text-center">
+            <input type="file" class="form-control" name="certificate[]">
+        </div>
+        <div class="col-md-1 text-center">
+            <button type="button" class="btn btn-danger" onclick="removeTrainingGroup(this)">Remove</button>
+        </div>
+    </div>
+</div>
+
+<!-- Button to Add Another Training Set -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" onclick="addTrainingGroup()">Add Another Training Set</button>
+    </div>
+</div>
+
+<!-- Language/Dialect Proficiency -->
+<h4>Language/Dialect Proficiency</h4>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-2">
             <span class="info">Language</span>
             <label>(check if applicable)</label>
-          </div>
-          <div class="col-md-2 text-center">
+        </div>
+        <div class="col-md-2 text-center">
             <span class="info">Read</span>
-          </div>
-          <div class="col-md-2 text-center">
+        </div>
+        <div class="col-md-2 text-center">
             <span class="info">Write</span>
-          </div>
-          <div class="col-md-2 text-center">
+        </div>
+        <div class="col-md-2 text-center">
             <span class="info">Speak</span>
-          </div>
-          <div class="col-md-2 text-center">
+        </div>
+        <div class="col-md-2 text-center">
             <span class="info">Understand</span>
-          </div>
         </div>
+        <div class="col-md-1 text-center">
+            <label>Action</label>
+        </div>
+    </div>
 
-        <!-- English Row -->
+    <!-- Input Container for Language Proficiency -->
+    <div id="language-container">
         <div class="row mb-3">
-          <div class="col-md-2">
-            <label class="info">English</label>
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxReadEnglish" value="" aria-label="Read">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxWriteEnglish" value="" aria-label="Write">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxSpeakEnglish" value="" aria-label="Speak">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxUnderstandEnglish" value="" aria-label="Understand">
-          </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="language[]" placeholder="Language">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="read[]" value="1" aria-label="Read">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="write[]" value="1" aria-label="Write">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="speak[]" value="1" aria-label="Speak">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="understand[]" value="1" aria-label="Understand">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="btn btn-danger" onclick="removeLanguageGroup(this)">Remove</button>
+            </div>
         </div>
+    </div>
 
-        <!-- Filipino Row -->
-        <div class="row mb-3">
-          <div class="col-md-2">
-            <label class="info">Filipino</label>
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxReadFilipino" value="" aria-label="Read">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxWriteFilipino" value="" aria-label="Write">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxSpeakFilipino" value="" aria-label="Speak">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxUnderstandFilipino" value="" aria-label="Understand">
-          </div>
+    <!-- Button to Add Another Language Set --> 
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-primary" onclick="addLanguageGroup()">Add Another Language Set</button>
         </div>
-
-        <!-- Others Row -->
-        <div class="row mb-3">
-          <div class="col-md-2">
-            <input type="text" id="language_others" class="form-control" placeholder="Others">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxReadOthers" value="" aria-label="Read">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxWriteOthers" value="" aria-label="Write">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxSpeakOthers" value="" aria-label="Speak">
-          </div>
-          <div class="col-md-2 text-center">
-            <input type="checkbox" id="checkboxUnderstandOthers" value="" aria-label="Understand">
-          </div>
-        </div>
-      </div>
-
-      <!-- Technical/Vocational and Other Training -->
-      <h4>Technical/Vocational and Other Training</h4>
-
-      <!-- Label Row -->
-      <div class="row">
-        <div class="col-md-2 text-center">
-          <label>Training/Vocational Course</label>
-        </div>
-        <div class="col-md-4 text-center">
-          <label>Duration</label>
-        </div>
-        <div class="col-md-2 text-center">
-          <label>Training Institution</label>
-        </div>
-        <div class="col-md-2 text-center">
-          <label>Certificates (upload file)</label>
-        </div>
-      </div>
-
-      <!-- Input Row 1 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" placeholder="1 Training/Vocational">
-        </div>
-        <div class="col-md-4 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="text" class="form-control" placeholder="Institution">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="file" class="form-control" name="certificate">
-        </div>
-      </div>
-
-      <!-- Input Row 2 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" placeholder="2 Training/Vocational">
-        </div>
-        <div class="col-md-4 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="text" class="form-control" placeholder="Institution">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="file" class="form-control" name="certificate">
-        </div>
-      </div>
-
-      <!-- Input Row 3 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" placeholder="3 Training/Vocational">
-        </div>
-        <div class="col-md-4 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="text" class="form-control" placeholder="Institution">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="file" class="form-control" name="certificate">
-        </div>
-      </div>
+    </div>
+</div>
 
       <!-- Eligibility/Professional License -->
       <h4>Eligibility/Professional License</h4>
 
       <!-- Label Row -->
       <div class="row">
-        <div class="col-md-3 text-center">
-          <label>Eligibility (Civil Service)</label>
+            <div class="col-md-3 text-center">
+              <label>Eligibility (Civil Service)</label>
+            </div>
+            <div class="col-md-2 text-center">
+              <label>Rating</label>
+            </div>
+            <div class="col-md-3 text-center">
+              <label>Date of Examination</label>
+            </div>
+            <div class="col-md-3 text-center">
+              <label>Professional License (PRC) (upload file)</label>
+            </div>
+            <div class="col-md-1 text-center">
+              <label>Action</label>
+            </div>
         </div>
-        <div class="col-md-2 text-center">
-          <label>Rating</label>
-        </div>
-        <div class="col-md-3 text-center">
-          <label>Date of Examination</label>
-        </div>
-        <div class="col-md-4 text-center">
-          <label>Professional License (PRC) (upload file)</label>
-        </div>
-      </div>
 
-      <!-- Input Row 1 -->
-      <div class="row mb-3">
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="eligibility" placeholder="Eligibility">
+        <!-- Input Container for Dynamic Rows -->
+        <div id="input-container">
+            <!-- Input Row 1 (Default) -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="eligibility[]" placeholder="Eligibility">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name="rating[]" placeholder="Rating">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control" name="exam_date[]">
+                </div>
+                <div class="col-md-3">
+                    <input type="file" class="form-control" name="license[]">
+                </div>
+                <div class="col-md-1 text-center">
+                    <!-- Empty action column for the first row -->
+                </div>
+            </div>
         </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="rating" placeholder="Rating">
-        </div>
-        <div class="col-md-3">
-          <input type="date" class="form-control" name="exam_date">
-        </div>
-        <div class="col-md-4">
-          <input type="file" class="form-control" name="license">
-        </div>
-      </div>
 
-      <!-- Input Row 2 -->
-      <div class="row mb-3">
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="eligibility" placeholder="Eligibility">
+        <!-- Button to Add Another Set -->
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary" onclick="addInputGroup()">Add Another Set</button>
+            </div>
         </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="rating" placeholder="Rating">
-        </div>
-        <div class="col-md-3">
-          <input type="date" class="form-control" name="exam_date">
-        </div>
-        <div class="col-md-4">
-          <input type="file" class="form-control" name="license">
-        </div>
-      </div>
 
       <!-- Work Experience (Limit to 10-year period) -->
       <h4>Work Experience (Limit to 10-year period)</h4>
 
-      <!-- Label Row -->
       <div class="row">
-        <div class="col-md-2 text-center">
-          <label>Company Name</label>
+            <div class="col-md-2 text-center">
+                <label>Company Name</label>
+            </div>
+            <div class="col-md-3 text-center">
+                <label>Address (City/Municipality)</label>
+            </div>
+            <div class="col-md-2 text-center">
+                <label>Position</label>
+            </div>
+            <div class="col-md-3 text-center">
+                <label>Inclusive Dates</label>
+            </div>
+            <div class="col-md-2 text-center">
+                <label>Status</label>
+            </div>
         </div>
-        <div class="col-md-3 text-center">
-          <label>Address (City/Municipality)</label>
-        </div>
-        <div class="col-md-2 text-center">
-          <label>Position</label>
-        </div>
-        <div class="col-md-3 text-center">
-          <label>Inclusive Dates</label>
-        </div>
-        <div class="col-md-2 text-center">
-          <label>Status</label>
-        </div>
-      </div>
 
-      <!-- Input Row 1 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="company" placeholder="Company Name">
+        <!-- Input Container for Work Experience -->
+        <div id="work-experience-container">
+            <div class="row mb-3">
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name="company[]" placeholder="Company Name">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="address[]" placeholder="Address">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name="position[]" placeholder="Position">
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="d-flex justify-content-center">
+                        <input type="date" class="form-control" name="start_date[]">
+                        <span class="mx-2 align-self-center">to</span>
+                        <input type="date" class="form-control" name="end_date[]">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name="status[]" placeholder="Status">
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="address" placeholder="Address">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="position" placeholder="Position">
-        </div>
-        <div class="col-md-3 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" name="start_date" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" name="end_date" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="status" placeholder="Status">
-        </div>
-      </div>
 
-      <!-- Input Row 2 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="company" placeholder="Company Name">
+        <!-- Button to Add Another Work Experience Set -->
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary" onclick="addWorkExperienceGroup()">Add Another Work Experience Set</button>
+            </div>
         </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="address" placeholder="Address">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="position" placeholder="Position">
-        </div>
-        <div class="col-md-3 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" name="start_date" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" name="end_date" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="status" placeholder="Status">
-        </div>
-      </div>
-
-      <!-- Input Row 3 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="company" placeholder="Company Name">
-        </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="address" placeholder="Address">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="position" placeholder="Position">
-        </div>
-        <div class="col-md-3 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" name="start_date" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" name="end_date" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="status" placeholder="Status">
-        </div>
-      </div>
-
-      <!-- Input Row 4 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="company" placeholder="Company Name">
-        </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="address" placeholder="Address">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="position" placeholder="Position">
-        </div>
-        <div class="col-md-3 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" name="start_date" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" name="end_date" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="status" placeholder="Status">
-        </div>
-      </div>
-
-      <!-- Input Row 5 -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="company" placeholder="Company Name">
-        </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control" name="address" placeholder="Address">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="position" placeholder="Position">
-        </div>
-        <div class="col-md-3 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" name="start_date" placeholder="Start Date" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" name="end_date" placeholder="End Date" style="width: 120px;">
-          </div>
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="status" placeholder="Status">
-        </div>
-      </div>
 
       <!-- Other Skills Acquired Without Formal Training -->
       <h4>Other Skills Acquired Without Formal Training</h4>
@@ -943,8 +813,165 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Selected options: " + selectedOptionsHidden.value); // Debugging output
     });
 });
-
   </script>
+<script>
+    function addInputGroup() {
+        // Get the input container for Eligibility
+        const container = document.getElementById('input-container');
+
+        // Create a new row for eligibility input group
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'mb-3');
+
+        // Add the new input fields for eligibility
+        newRow.innerHTML = `
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="eligibility[]" placeholder="Eligibility">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="rating[]" placeholder="Rating">
+            </div>
+            <div class="col-md-3">
+                <input type="date" class="form-control" name="exam_date[]">
+            </div>
+            <div class="col-md-3">
+                <input type="file" class="form-control" name="license[]">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="btn btn-danger" onclick="removeInputGroup(this)">Remove</button>
+            </div>
+        `;
+
+        // Append the new row to the container
+        container.appendChild(newRow);
+    }
+
+    function addWorkExperienceGroup() {
+        // Get the input container for Work Experience
+        const container = document.getElementById('work-experience-container');
+
+        // Create a new row for work experience input group
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'mb-3');
+
+        // Add the new input fields for work experience
+        newRow.innerHTML = `
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="company[]" placeholder="Company Name">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="address[]" placeholder="Address">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="position[]" placeholder="Position">
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="d-flex justify-content-center">
+                    <input type="date" class="form-control" name="start_date[]">
+                    <span class="mx-2 align-self-center">to</span>
+                    <input type="date" class="form-control" name="end_date[]">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="status[]" placeholder="Status">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="btn btn-danger" onclick="removeWorkExperienceGroup(this)">Remove</button>
+            </div>
+        `;
+
+        // Append the new row to the container
+        container.appendChild(newRow);
+    }
+
+    function removeInputGroup(button) {
+        // Remove the row that contains the clicked button
+        button.parentElement.parentElement.remove();
+    }
+
+    function removeWorkExperienceGroup(button) {
+        // Remove the row that contains the clicked button
+        button.parentElement.parentElement.remove();
+    }
+    function addTrainingGroup() {
+        // Get the input container for Technical/Vocational Training
+        const container = document.getElementById('training-container');
+
+        // Create a new row for training input group
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'mb-3');
+
+        // Add the new input fields for training
+        newRow.innerHTML = `
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="training[]" placeholder="Training/Vocational">
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="d-flex justify-content-center">
+                    <input type="date" class="form-control" name="start_date[]" placeholder="Start Date" style="width: 120px;">
+                    <span class="mx-2 align-self-center">to</span>
+                    <input type="date" class="form-control" name="end_date[]" placeholder="End Date" style="width: 120px;">
+                </div>
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="text" class="form-control" name="institution[]" placeholder="Institution">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="file" class="form-control" name="certificate[]">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="btn btn-danger" onclick="removeTrainingGroup(this)">Remove</button>
+            </div>
+        `;
+
+        // Append the new row to the container
+        container.appendChild(newRow);
+    }
+
+    function removeTrainingGroup(button) {
+        // Remove the row that contains the clicked button
+        button.parentElement.parentElement.remove();
+    }
+
+    function addLanguageGroup() {
+        // Get the input container for Language Proficiency
+        const container = document.getElementById('language-container');
+
+        // Create a new row for language proficiency input group
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'mb-3');
+
+        // Add the new input fields for language proficiency
+        newRow.innerHTML = `
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="language[]" placeholder="Language">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="read[]" value="1" aria-label="Read">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="write[]" value="1" aria-label="Write">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="speak[]" value="1" aria-label="Speak">
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="checkbox" name="understand[]" value="1" aria-label="Understand">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="btn btn-danger" onclick="removeLanguageGroup(this)">Remove</button>
+            </div>
+        `;
+
+        // Append the new row to the container
+        container.appendChild(newRow);
+    }
+
+    function removeLanguageGroup(button) {
+        // Remove the row that contains the clicked button
+        button.parentElement.parentElement.remove();
+    }
+</script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="../../javascript/a_profile.js"></script> 

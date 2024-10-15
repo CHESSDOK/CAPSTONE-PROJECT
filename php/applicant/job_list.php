@@ -11,7 +11,7 @@ if (!isset($_SESSION['id'])) {
 $userId = $_SESSION['id']; // Get the logged-in user's ID
 
 // Fetch user's specialization
-$sqlUser = "SELECT specialization FROM applicant_profile WHERE user_id = ?";
+$sqlUser = "SELECT selected_options FROM applicant_profile WHERE user_id = ?";
 $stmtUser = $conn->prepare($sqlUser);
 $stmtUser->bind_param("i", $userId);
 $stmtUser->execute();
@@ -31,16 +31,27 @@ $sql = "SELECT jp.*, a.status, em.company_name, em.photo, em.company_address, em
         AND (jp.job_title LIKE ? OR em.company_name LIKE ? OR em.company_address LIKE ? OR ad.username LIKE ?)";
 
 // Modify SQL if the user has a specialization
-if (!empty($user['specialization'])) {
-    $sql .= " AND specialization = ?";
+if (!empty($user['selected_options'])) {
+    // Split selected_options into individual items and check if any match using FIND_IN_SET
+    $specializations = explode(',', $user['selected_options']);
+    $conditions = array_map(function($item) {
+        return "FIND_IN_SET(?, jp.selected_options)";
+    }, $specializations);
+
+    $sql .= " AND (" . implode(' OR ', $conditions) . ")";
 }
 
 // Prepare the SQL query
 $stmt = $conn->prepare($sql);
 
 // Bind parameters based on specialization availability
-if (!empty($user['specialization'])) {
-    $stmt->bind_param("isssss", $userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $user['specialization']);
+if (!empty($user['selected_options'])) {
+    // Create a dynamic type string with 's' for each specialization and other parameters
+    $bindTypes = "issss" . str_repeat("s", count($specializations)); // 'i' for userId and 's' for search terms
+    $params = array_merge([$userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm], $specializations);
+    
+    // Use call_user_func_array to bind parameters dynamically
+    $stmt->bind_param($bindTypes, ...$params);
 } else {
     $stmt->bind_param("issss", $userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
 }
@@ -48,6 +59,8 @@ if (!empty($user['specialization'])) {
 // Execute the query and get the result set
 $stmt->execute();
 $result = $stmt->get_result();
+
+
 
 if (!$result) {
     die("Invalid query: " . $conn->error);

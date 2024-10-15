@@ -41,21 +41,30 @@ $ap_result = $conn->query($ap_sql);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page</title>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
   <link rel="stylesheet" href="../../css/nav_float.css">
   <link rel="stylesheet" href="../../css/employer.css">
-</head>
-<style>
+  <style>
+        #newOptionContainer {
+            display: none; /* Initially hide the input field */
+            margin-top: 10px;
+        }
+        #selectedOptionsContainer {
+            margin-top: 20px;
+        }
+        #selectedOptionsList li {
+            cursor: pointer;
+        }
+
 body::before{
     background-image:none;
     background-color:#EBEEF1;
     }
 </style>
+</head>
 <body>
 <nav>
     <div class="logo">
@@ -125,7 +134,7 @@ body::before{
 </nav>
 
 <div class="jc-container">
-<form action="../../php/employer/post_job_process.php" method="post">
+<form action="../../php/employer/post_job_process.php" method="post" enctype="multipart/form-data">
   <table>
     <tr>
       <td>
@@ -142,17 +151,37 @@ body::before{
       </td>
       <td>
         <div class="mb-3">
-          <label for="spe" class="form-label">Expert Requirement</label>
-          <select id="spe" name="spe" class="form-select">
-            <?php
-              if ($ap_result->num_rows > 0) {
-                while($ap_row = $ap_result->fetch_assoc()) {
-                  echo "<option value='".$ap_row['specialization']."'>".$ap_row['specialization']."</option>";
-                }
-              }
-              $conn->close();   
-            ?>
-          </select>
+        <label for="dynamicSelect">Choose one or more options:</label>
+        <select id="dynamicSelect"  name="other_skills[]" multiple>
+          <option value="add">Add a new option...</option>
+          <option value="Auto Mechanic">Auto Mechanic</option>
+          <option value="Beautician">Beautician</option>
+          <option value="Carpentry Work">Carpentry Work</option>
+          <option value="Computer Literate">Computer Literate</option>
+          <option value="Domestic Chores">Domestic Chores</option>
+          <option value="Driver">Driver</option>
+          <option value="Electrician">Electrician</option>
+          <option value="Embroidery">Embroidery</option>
+          <option value="Gardening">Gardening</option>
+          <option value="Masonry">Masonry</option>
+          <option value="Painter/Artist">Painter/Artist</option>
+          <option value="Painting Jobs">Painting Jobs</option>
+          <option value="Photography">Photography</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Sewing">Sewing Dresses</option>
+          <option value="Stenography">Stenography</option>
+          <option value="Tailoring">Tailoring</option>
+        </select>
+
+        <div id="newOptionContainer">
+          <input type="text" id="newOption" placeholder="Enter new option">
+          <button id="addButton" type="button">Add Option</button> <!-- Ensure type="button" here -->
+        </div>
+        <input type="hidden" name="selectedOptions" id="selectedOptionsHidden">
+        <div id="selectedOptionsContainer">
+          <h3>Selected Options:</h3>
+          <ul id="selectedOptionsList"></ul>
+        </div>
         </div>
       </td>
     </tr>
@@ -267,7 +296,7 @@ body::before{
   
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
+    <script src="../../javascript/selectmutiple.js"></script>
    <script src="../../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
 </body>
 </html>
