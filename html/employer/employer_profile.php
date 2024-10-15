@@ -127,201 +127,250 @@ if (!$row) {
     </a>
 </nav>
 
-<!-- Company Info Form -->
-<div class="ep-container">
-    <form action="../../php/employer/employer_prof_process.php" method="post" enctype="multipart/form-data">
-        <h1 class="h1">Company Info</h1>
-        <table>
-            <tr>
-                <td colspan="2">
-                    <label for="profile_image" class="form-label">Select Profile Image:</label>
-                    <input type="file" class="form-control" name="profile_image" id="profile_image" accept="image/*" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="company_name" class="form-label">Company Name:</label>
-                    <input type="text" class="form-control" name="company_name" id="company_name" value="<?php echo htmlspecialchars($row['company_name'] ?? ''); ?>">
-                </td>
-                <td>
-                    <label for="president" class="form-label">Company President:</label>
-                    <input type="text" class="form-control" name="president" id="president" value="<?php echo htmlspecialchars($row['president'] ?? ''); ?>">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <label for="company_add" class="form-label">Company Address:</label>
-                    <input type="text" class="form-control" name="company_add" id="company_add" value="<?php echo htmlspecialchars($row['company_address'] ?? ''); ?>">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="HR" class="form-label">HR Manager:</label>
-                    <input type="text" class="form-control" name="HR" id="HR" value="<?php echo htmlspecialchars($row['HR'] ?? ''); ?>">
-                </td>
-                <td>
-                    <label for="HR_mail" class="form-label">HR Official Email:</label>
-                    <input type="text" class="form-control" name="HR_mail" id="HR_mail" value="<?php echo htmlspecialchars($row['HR_mail'] ?? ''); ?>">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="tel_num" class="form-label">Company Telephone Number:</label>
-                    <input type="tel" class="form-control" name="tel_num" id="tel_num" value="<?php echo htmlspecialchars($row['tel_num'] ?? ''); ?>">
-                </td>
-                <td>
-                    <label for="company_mail" class="form-label">Company Email:</label>
-                    <input type="text" class="form-control" name="company_mail" id="company_mail" value="<?php echo htmlspecialchars($row['company_mail'] ?? ''); ?>">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input class="btn btn-primary" type="submit" value="Update">
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
+<!-- Main Container with Buttons on Left and Forms Stacked -->
+ <div class="table-containers">
+ <div class="d-flex mt-2">    
+    <!-- Buttons Container (Left Side) -->
+    <div class="d-flex flex-column me-3">
+        <button id='openDocuBtn' class="btn btn-primary mb-2">Upload Documents</button>
+        <button id='openFormBtn' class="btn btn-primary">File list</button>
+    </div>
 
-<!-- Company Documents Form -->
-<div class="ep-container">
-    <form action="../../php/employer/documents_process.php" method="post" enctype="multipart/form-data">
-        <h1 class="h1">Company Documents</h1>
-        <table>
-            <tr>
-                <td>
-                    <label for="document_name" class="form-label">Document type:</label>
-                    <select class="form-select" id="document_name" name="document_name" required>
-                        <option value="SEC Certificate">SEC Certificate</option>
-                        <option value="BIR Certificate of Registration (Form 2303)">BIR Certificate of Registration (Form 2303)</option>
-                        <option value="POEA license">POEA license</option>
-                        <option value="Private Employment Agency (PEA) License">Private Employment Agency (PEA) License</option>
-                        <option value="D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certificate">D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certificate</option>
-                    </select>
-                </td>
-                <td>
-                    <label for="document" class="form-label">Upload Document:</label>
-                    <input type="file" class="form-control" name="document" id="document">
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input class="btn btn-primary" type="submit" value="Upload">
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
+    <!-- Forms Container -->
+    <div class="d-flex flex-column">
+        <!-- Profile Update Form -->
+        <div class="card mb-4" style="max-width: 600px; width: 100%;">
+            <div class="card-header">
+                <h5 class="card-title">Profile Update</h5>
+            </div>
+            <div class="card-body">
+                <form action='../../php/employer/profile_update.php' method='post'>
+                    <input type='hidden' name='id' value='<?php echo htmlspecialchars($userId); ?>'>
 
-<!-- Profile Update Form in a Bootstrap Card -->
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Profile Update</h5>
+                    <!-- Row for First and Last Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for='fName' class='form-label'>First Name</label>
+                            <input type='text' class='form-control' name='fname' id='fName' value='<?php echo htmlspecialchars($row['Fname'] ?? ''); ?>'>
+                        </div>
+                        <div class="col-md-6">
+                            <label for='lName' class='form-label'>Last Name</label>
+                            <input type='text' class='form-control' name='lname' id='lName' value='<?php echo htmlspecialchars($row['Lname'] ?? ''); ?>'>
+                        </div>
+                    </div>
+
+                    <!-- Row for Email, Birthdate, and Contact with Same Height Inputs -->
+                    <div class="row d-flex align-items-stretch">
+                        <div class="col-md-4">
+                            <label for='email' class='form-label'>Email address</label>
+                            <input type='email' class='form-control h-50' name='email' id='email' value='<?php echo htmlspecialchars($row['email'] ?? ''); ?>'>
+                        </div>
+                        <div class="col-md-4">
+                            <label for='bdate' class='form-label'>Birthdate</label>
+                            <input type='date' class='form-control h-50' name='bdate' id='bdate' value='<?php echo htmlspecialchars($row['Bdate'] ?? ''); ?>'>
+                        </div>
+                        <div class="col-md-4">
+                            <label for='contact' class='form-label'>Contact Number</label>
+                            <input type='tel' class='form-control h-50' name='contact' id='contact' value='<?php echo htmlspecialchars($row['contact'] ?? ''); ?>'>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row">
+                        <div class="col-md-12 text-end">
+                            <button type='submit' class='btn btn-primary'>Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action='../../php/employer/profile_update.php' method='post'>
-                <input type='hidden' name='id' value='<?php echo htmlspecialchars($userId); ?>'>
-                <div class='mb-3'>
-                    <label for='email' class='form-label'>Email address</label>
-                    <input type='email' class='form-control' name='email' id='email' value='<?php echo htmlspecialchars($row['email'] ?? ''); ?>'>
-                </div>
-                <div class='mb-3'>
-                    <label for='fName' class='form-label'>First Name</label>
-                    <input type='text' class='form-control' name='fname' id='fName' value='<?php echo htmlspecialchars($row['Fname'] ?? ''); ?>'>
-                </div>
-                <div class='mb-3'>
-                    <label for='lName' class='form-label'>Last Name</label>
-                    <input type='text' class='form-control' name='lname' id='lName' value='<?php echo htmlspecialchars($row['Lname'] ?? ''); ?>'>
-                </div>
-                <div class='mb-3'>
-                    <label for='bdate' class='form-label'>Birthdate</label>
-                    <input type='date' class='form-control' name='bdate' id='bdate' value='<?php echo htmlspecialchars($row['Bdate'] ?? ''); ?>'>
-                </div>
-                <div class='mb-3'>
-                    <label for='contact' class='form-label'>Contact Number</label>
-                    <input type='tel' class='form-control' name='contact' id='contact' value='<?php echo htmlspecialchars($row['contact'] ?? ''); ?>'>
-                </div>
-                <button type='submit' class='btn btn-primary'>Submit</button>
-            </form>
+
+        <!-- Company Info Form -->
+        <div class="card" style="max-width: 600px; width: 100%;">
+            <div class="card-header">
+                <h5 class="card-title">Company Info</h5>
+            </div>
+            <div class="card-body">
+                <form action="../../php/employer/employer_prof_process.php" method="post" enctype="multipart/form-data">
+
+                    <!-- Row for Profile Image -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="profile_image" class="form-label">Select Profile Image</label>
+                            <input type="file" class="form-control" name="profile_image" id="profile_image" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <!-- Row for Company Name and President -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="company_name" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" name="company_name" id="company_name" value="<?php echo htmlspecialchars($row['company_name'] ?? ''); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="president" class="form-label">Company President</label>
+                            <input type="text" class="form-control" name="president" id="president" value="<?php echo htmlspecialchars($row['president'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <!-- Row for Company Address -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="company_add" class="form-label">Company Address</label>
+                            <input type="text" class="form-control" name="company_add" id="company_add" value="<?php echo htmlspecialchars($row['company_address'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <!-- Row for HR Manager and HR Email -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="HR" class="form-label">HR Manager</label>
+                            <input type="text" class="form-control" name="HR" id="HR" value="<?php echo htmlspecialchars($row['HR'] ?? ''); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="HR_mail" class="form-label">HR Official Email</label>
+                            <input type="email" class="form-control" name="HR_mail" id="HR_mail" value="<?php echo htmlspecialchars($row['HR_mail'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <!-- Row for Telephone Number and Company Email -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="tel_num" class="form-label">Company Telephone Number</label>
+                            <input type="tel" class="form-control" name="tel_num" id="tel_num" value="<?php echo htmlspecialchars($row['tel_num'] ?? ''); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="company_mail" class="form-label">Company Email</label>
+                            <input type="email" class="form-control" name="company_mail" id="company_mail" value="<?php echo htmlspecialchars($row['company_mail'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row">
+                        <div class="col-md-12 text-end">
+                            <input class="btn btn-primary" type="submit" value="Update">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 
-<!-- Modal File List -->
-<button id='openFormBtn' class="btn btn-primary">File list</button>
-<button id='openProfileBtn' class="btn btn-primary openProfileBtn">Employer profile</button>
+<!-- Modal for File List (Similar to Document Modal Design) -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="fileListModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="max-width: 600px; width: 100%;">
+            <div class="modal-header">
+                <h2 class="modal-title" id="fileListModalLabel">File List</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Comment</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        include '../../php/conn_db.php'; // Include the database connection
 
-<div id="formModal" class="modal">
-    <div class="modal-content">
-        <span class="closeBtn">&times;</span>
-        <h2>File List</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Comment</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                include '../../php/conn_db.php'; // Include the database connection
+                        // Fetch documents for the selected employer/user
+                        $docu_sql = "SELECT * FROM employer_documents WHERE user_id = $userId";
+                        $docu_result = $conn->query($docu_sql);
 
-                // Fetch documents for the selected employer/user
-                $docu_sql = "SELECT * FROM employer_documents WHERE user_id = $userId";
-                $docu_result = $conn->query($docu_sql);
+                        if ($docu_result->num_rows > 0) {
+                            while ($row = $docu_result->fetch_assoc()) {
+                                echo '<tr>
+                                        <td>' . htmlspecialchars($row['document_name']) . '</td>
+                                        <td>';
 
-                if ($docu_result->num_rows > 0) {
-                    while ($row = $docu_result->fetch_assoc()) {
-                        echo '<tr>
-                                <td>' . htmlspecialchars($row['document_name']) . '</td>
-                                <td>';
+                                // Display the document status with color indication
+                                if ($row['is_verified'] == 'verified') {
+                                    echo '<span class="badge bg-success">Verified</span>';
+                                } elseif ($row['is_verified'] == 'rejected') {
+                                    echo '<span class="badge bg-danger">Rejected</span>';
+                                } elseif (is_null($row['is_verified'])) {
+                                    echo '<span class="badge bg-warning text-dark">Pending</span>';
+                                } else {
+                                    echo '<span class="badge bg-danger">Rejected</span>';
+                                }
 
-                        // Display the document status
-                        if ($row['is_verified'] == 'verified') {
-                            echo 'Verified';
-                        } elseif ($row['is_verified'] == 'rejected') {
-                            echo 'Rejected';
-                        } elseif (is_null($row['is_verified'])) {
-                            echo 'Pending';
+                                echo '</td>
+                                      <td>' . htmlspecialchars($row['comment'] ?  $row['comment'] : '') . '</td>
+                                      <td>';
+
+                                // If the document is rejected, allow re-uploading
+                                if ($row['is_verified'] == 'rejected') {
+                                    echo '<form action="../../php/employer/reupload_document.php" method="post" enctype="multipart/form-data">
+                                              <input type="hidden" name="doc_id" value="' . htmlspecialchars($row['id']) . '">
+                                              <input type="file" name="document" required>
+                                              <input type="hidden" name="status" value="updated">
+                                              <button type="submit" class="btn btn-primary">Reupload</button>
+                                          </form>';
+                                } else {
+                                    echo 'No action available';
+                                }
+
+                                echo '</td>
+                                      </tr>';
+                            }
                         } else {
-                            echo 'Rejected';
+                            echo "<tr><td colspan='4'>No documents found</td></tr>";
                         }
 
-                        echo '</td>
-                              <td>' . htmlspecialchars($row['comment'] ?  $row['comment'] : '') . '</td>
-
-                              <td>';
-
-                        // If the document is verified, allow re-uploading and update status
-                        if ($row['is_verified'] == 'rejected') {
-                            echo '<form action="../../php/employer/reupload_document.php" method="post" enctype="multipart/form-data">
-                                      <input type="hidden" name="doc_id" value="' . htmlspecialchars($row['id']) . '">
-                                      <input type="file" name="document" required>
-                                      <input type="hidden" name="status" value="updated">
-                                      <button type="submit" class="btn btn-primary">Reupload</button>
-                                  </form>';
-                        } else {
-                            echo 'No action available';
-                        }
-
-                        echo '</td>
-                              </tr>';
-                    }
-                } else {
-                    echo "<tr><td colspan='4'>No documents found</td></tr>";
-                }
-
-                $conn->close();
-                ?>
-            </tbody>
-        </table>
+                        $conn->close();
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<!-- Modal for Document Upload -->
+<div class="modal fade" id="DocuModal" tabindex="-1" aria-labelledby="companyDocumentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="max-width: 600px; width: 100%;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="companyDocumentsModalLabel">Company Documents</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/employer/documents_process.php" method="post" enctype="multipart/form-data">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="document_name" class="form-label">Document Type</label>
+                            <select class="form-select" id="document_name" name="document_name" required>
+                                <option value="SEC Certificate">SEC Certificate</option>
+                                <option value="BIR Certificate of Registration (Form 2303)">BIR Certificate of Registration (Form 2303)</option>
+                                <option value="POEA license">POEA license</option>
+                                <option value="Private  Employment Agency (PEA) License">Private  Employment Agency (PEA) License</option>
+                                <option value="D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certicate">D.O. 174 Series of 2017 (Contractor/ Sub - Contractor) Certicate</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="document" class="form-label">Upload Document</label>
+                            <input type="file" class="form-control" name="document" id="document" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-end">
+                            <input class="btn btn-primary" type="submit" value="Upload">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -335,58 +384,31 @@ if (!$row) {
     </div>
 </div>
 
+
+
 <script>
-const modal = document.getElementById('formModal');
-const openBtn = document.getElementById('openFormBtn');
-const closeBtn = document.querySelector('.closeBtn');
-
-// Open modal
-openBtn.addEventListener('click', function() {
-    modal.style.display = 'flex';
-});
-
-// Close modal
-closeBtn.addEventListener('click', function() {
-    modal.style.display = 'none';
-});
-
-// Close modal when clicked outside
-window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// Profile Modal Logic
-const profileModal = document.getElementById('profileModal');
-const closepBtn = document.querySelector('.seccloseBtn');
-
-// Open profile modal via AJAX
-$(document).on('click', '.openProfileBtn', function(e) {
-    e.preventDefault();
-    $.ajax({
-        url: 'profile.php',
-        method: 'GET',
-        success: function(response) {
-            $('#applicantProfileContent').html(response);
-            profileModal.style.display = 'flex';
-        }
+    // Initialize Bootstrap Modals
+    document.getElementById('openDocuBtn').addEventListener('click', function () {
+        var docuModal = new bootstrap.Modal(document.getElementById('DocuModal'));
+        docuModal.show();
     });
-});
 
-// Close profile modal
-closepBtn.addEventListener('click', function() {
-    profileModal.style.display = 'none';
-});
-
-// Close profile modal when clicked outside
-window.addEventListener('click', function(event) {
-    if (event.target === profileModal) {
-        profileModal.style.display = 'none';
-    }
-});
+    document.getElementById('openFormBtn').addEventListener('click', function () {
+        var formModal = new bootstrap.Modal(document.getElementById('formModal'));
+        formModal.show();
+    });
 </script>
+<style>
+  /* Ensure modal stays on top of everything */
+  .modal {
+      z-index: 1055; /* Increase this value if needed to stay on top of other elements */
+  }
 
+  /* Optional: Disable background scroll when modal is open */
+  body.modal-open {
+      overflow: hidden;
+  }
+</style>
 <script src="../../javascript/script.js"></script>
 </body>
 </html>
