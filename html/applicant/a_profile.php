@@ -296,7 +296,7 @@ $conn->close();
         <div class="col-md-3 mb-3">
           <div id="disability-input" class="additional-input">
             <label for="disability-other" class="info">Please specify:</label>
-            <input type="text" id="disability-other" name="pwd2" class="form-control" value="<?php echo isset($row['disability_other']) ? htmlspecialchars($row['disability_other']) : ''; ?>">
+            <input type="text" id="disability-other" name="pwd2" class="form-control" value="<?php echo isset($row['pwd2']) ? htmlspecialchars($row['pwd2']) : ''; ?>">
           </div>
         </div>
         <div class="col-md-3 mb-3">
