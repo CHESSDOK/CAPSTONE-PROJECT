@@ -1,0 +1,39 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the 'options' array is set and is not empty
+    if (isset($_POST['options']) && !empty($_POST['options'])) {
+        // Get the selected options as an array
+        $selectedOptions = $_POST['options'];
+
+        // Convert the array into a comma-separated string
+        $optionsString = implode(',', $selectedOptions);
+
+        // Database connection (update with your own details)
+        $servername = "localhost";
+        $username = "your_username";
+        $password = "your_password";
+        $dbname = "your_database";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Insert the comma-separated string into the database
+        $sql = "INSERT INTO your_table_name (selected_options_column) VALUES ('$optionsString')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record inserted successfully!";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        $conn->close();
+    } else {
+        echo "No options selected.";
+    }
+}
+?>

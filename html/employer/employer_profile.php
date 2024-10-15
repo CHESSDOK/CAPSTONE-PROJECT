@@ -214,43 +214,75 @@ if (!$row) {
 <button id='openProfileBtn' class="btn btn-primary openProfileBtn" >Employer profile</button>
 <!-- modal form -->
 <div id="formModal" class="modal">
-                <div class="modal-content">
-                <span class="closeBtn">&times;</span>
-                <h2>file list</h2>
-                <table>
+    <div class="modal-content">
+        <span class="closeBtn">&times;</span>
+        <h2>File List</h2>
+        <table>
+            <thead>
                 <tr>
-                  <th scope="col">type</th>
-                  <th scope="col">status</th>
-                  <th scope="col">comment</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">Action</th>
                 </tr>
+            </thead>
+            <tbody>
                 <?php
-                  $docu_sql = "SELECT * FROM employer_documents WHERE user_id = $userId";
-                  $docu_result = $conn->query($docu_sql);
-                  if ($docu_result->num_rows > 0) {
-                      while ($row = $docu_result->fetch_assoc()) {
-                          echo '        
-                                  <tr>
-                                  <td>' . $row['document_name'] . '</td>
-                                  <td>';
-                          if ($row['is_verified'] == 1) {
-                              echo 'Verified';
-                          } else {
-                              echo 'Not Verified ';
-                          }                          
-                          echo '</td>
-                                <td> '.$row['comment'].' </td>
-                                </tr>
-                                </table>
-                                ';
-                      }
-                  } else {
-                      echo "<tr><td colspan='4'>No employers found</td></tr>";
-                  }
-                  $conn->close();
-                  ?>
-                </form>
-                </div>
-            </div>
+                include '../../php/conn_db.php'; // Include the database connection
+
+                // Fetch documents for the selected employer/user
+                $docu_sql = "SELECT * FROM employer_documents WHERE user_id = $userId";
+                $docu_result = $conn->query($docu_sql);
+
+                if ($docu_result->num_rows > 0) {
+                    while ($row = $docu_result->fetch_assoc()) {
+                        echo '<tr>
+                                <td>' . htmlspecialchars($row['document_name']) . '</td>
+                                <td>';
+
+                        // Display the document status
+                        if ($row['is_verified'] == 'verified') {
+                            echo 'Verified';
+                        } elseif ($row['is_verified'] == 'rejected') {
+                            echo 'Rejected';
+                        } elseif (is_null($row['is_verified'])) {
+                            echo 'Pending';
+                        } else {
+                            echo 'Rejected';
+                        }
+
+                        echo '</td>
+                              <td>' . htmlspecialchars($row['comment'] ?  $row['comment'] : '') . '</td>
+
+                              <td>';
+
+                        // If the document is verified, allow re-uploading and update status
+                        if ($row['is_verified'] == 'rejected') {
+                            echo '<form action="../../php/employer/reupload_document.php" method="post" enctype="multipart/form-data">
+                                      <input type="hidden" name="doc_id" value="' . htmlspecialchars($row['id']) . '">
+                                      <input type="file" name="document" required>
+                                      <input type="hidden" name="status" value="updated">
+                                      <button type="submit" class="btn btn-primary">Reupload</button>
+                                  </form>';
+                        } else {
+                            echo 'No action available';
+                        }
+
+                        echo '</td>
+                              </tr>';
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>No documents found</td></tr>";
+                }
+
+                $conn->close();
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 
 
 <!--Profile modal form -->

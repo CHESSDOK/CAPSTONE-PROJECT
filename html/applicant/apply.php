@@ -52,7 +52,7 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 // Fetch the job posting data // This should be set based on the job the user is applying for
-$sql = "SELECT jp.*, em.*
+$sql = "SELECT jp.*, em.*, jp.company_name AS admincompany
         FROM job_postings jp
         LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
         WHERE job_title = ?";
@@ -186,7 +186,7 @@ if (!$user || !$job) {
                             <!-- Company Name with Icon -->
                             <p class="mb-0" style="font-size: 1rem; color: #007bff;">
                                 <i class="fas fa-building" style="color: #007bff;"></i>
-                                <?php echo htmlspecialchars($job["company_name"]); ?>
+                                <?php echo isset($job['company_name']) ? htmlspecialchars($job['company_name']) : $job['admincompany']; ?>
                             </p>
 
                             <!-- Work Location with Icon -->

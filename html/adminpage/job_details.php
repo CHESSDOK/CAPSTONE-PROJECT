@@ -27,6 +27,12 @@ if ($result->num_rows > 0) {
         <tr>
             <td>
                 <div>
+                    <label for="company" class="form-label">Copmany hiring:</label>
+                    <input type="text" class="form-control" name="company" id="company" value="<?php echo isset($row['company_name']) ? htmlspecialchars($row['company_name']) : ''; ?>" required>
+                </div>
+            </td>
+            <td>
+                <div>
                     <label for="job_title" class="form-label">Job Title:</label>
                     <input type="text" class="form-control" name="job_title" id="job_title" value="<?php echo htmlspecialchars($row['job_title']); ?>" required>
                 </div>

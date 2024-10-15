@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $rem =   $_POST['rem'];
     $salary =   $_POST['salary'];
     $vacant = $_POST['vacant'];
+    $company =  $_POST['company'];
     $education_background =  $_POST['education_background'];
     $selectedOptions = $_POST['selectedOptions'] ?? ''; 
     $optionsArray = explode(',', $selectedOptions); // Convert it to an array
@@ -20,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Update the job_postings table
     $sql = "UPDATE job_postings 
-            SET job_title = ?, 
+            SET job_title = ?,
+                company_name = ?,
                 vacant = ?,  
                 salary = ?,
                 job_description = ?,
@@ -40,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Bind the parameters
-    $stmt->bind_param("sissssssssi", 
-    $j_title, $vacant, $salary,
+    $stmt->bind_param("ssissssssssi", 
+    $j_title, $company, $vacant, $salary,
     $desc, $optionsString, $education_background, $job_type, $req, 
     $loc, $rem, $job_id
     );

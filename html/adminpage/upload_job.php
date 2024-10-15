@@ -7,6 +7,10 @@ echo "
         <form action='post_job_process.php' method='post'>
                 <tr>
                     <td>
+                        <label for='company' class='form-label'>Copmany hiring:</label>
+                        <input type='text' class='form-control' name='company' id='company' required>
+                    </td>
+                    <td>
                         <label for='job_title' class='form-label'>Job Title:</label>
                         <input type='text' class='form-control' name='job_title' id='job_title' required>
                     </td>
