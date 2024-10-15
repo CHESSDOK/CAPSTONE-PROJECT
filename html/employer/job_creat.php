@@ -30,8 +30,6 @@ if (!$row) {
     die("User not found.");
 }
 
-$ap_sql = "SELECT * FROM applicant_profile WHERE specialization IS NOT NULL";
-$ap_result = $conn->query($ap_sql);
 ?>
 
 

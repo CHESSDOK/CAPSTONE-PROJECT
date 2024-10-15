@@ -1,7 +1,5 @@
 <?php
 include '../../php/conn_db.php';
-$sql = "SELECT DISTINCT specialization FROM applicant_profile WHERE specialization IS NOT NULL";
-$result = $conn->query($sql);
 
 echo "
         <form action='post_job_process.php' method='post'>
