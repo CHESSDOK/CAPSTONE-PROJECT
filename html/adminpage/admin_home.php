@@ -108,12 +108,12 @@ $active_jobs_sql = "SELECT COUNT(*) AS active_job_postings FROM job_postings WHE
 $result = $conn->query($active_jobs_sql);
 $active_job_postings = $result->fetch_assoc()['active_job_postings'];
 
-$sql = "SELECT ap.user_id, ap.first_name, ap.last_name, ap.specialization, ap.middle_name, 
+$sql = "SELECT ap.user_id, ap.first_name, ap.last_name, ap.middle_name, 
         MAX(a.job_posting_id) AS job_id, MAX(a.status) AS status, MAX(a.job) AS job
         FROM applicant_profile ap
         JOIN applications a ON ap.user_id = a.applicant_id
         WHERE a.status = 'accepted'
-        GROUP BY ap.user_id, ap.first_name, ap.last_name, ap.middle_name, ap.specialization, a.status";
+        GROUP BY ap.user_id, ap.first_name, ap.last_name, ap.middle_name, a.status";
 $result = $conn->query($sql);
 ?>
 
