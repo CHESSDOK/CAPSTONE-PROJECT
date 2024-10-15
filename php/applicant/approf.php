@@ -2,7 +2,6 @@
 include '../../php/conn_db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     // Sanitize input data
     $id = $_POST['id'];
     $lastName = htmlspecialchars($_POST['lastName'] ?? '');
@@ -33,35 +32,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passport_expiry = $_POST['passport_expiry'] ?? '';
     $salary = htmlspecialchars($_POST['salary'] ?? '');
 
-    // Handling selectedOptions input (assuming it's a comma-separated string)
+    // Handling selectedOptions input
     $selectedOptions = $_POST['selectedOptions'] ?? ''; 
-    $optionsArray = explode(',', $selectedOptions); // Convert it to an array
-    $optionsString = implode(',', $optionsArray); // Convert it back to a string for saving into the database
-
-    // Debugging output
-    echo 'Selected Options: ' . $optionsString . '<br>';
+    $optionsArray = explode(',', $selectedOptions); 
+    $optionsString = implode(',', $optionsArray); 
 
     // Ensure the uploads directory exists
     $upload_dir = 'images/';
     if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, true); // Create directory if not exists
+        mkdir($upload_dir, 0777, true); 
     }
 
-    // Handle the file uploads
+    // Handle file uploads
     $profile_image = '';
     $resume = '';
-
     if (!empty($_FILES['profile_image']['name'])) {
         $profile_image = basename($_FILES['profile_image']['name']);
         move_uploaded_file($_FILES['profile_image']['tmp_name'], $upload_dir . $profile_image);
     }
-
     if (!empty($_FILES['resume']['name'])) {
         $resume = basename($_FILES['resume']['name']);
         move_uploaded_file($_FILES['resume']['tmp_name'], $upload_dir . $resume);
     }
 
-    // Update the database with the new information
+    // Update applicant_profile
     $sql = "UPDATE applicant_profile SET 
                 last_name = ?, 
                 first_name = ?, 
@@ -95,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 resume = IFNULL(?, resume)
             WHERE user_id = ?";
 
-    // Note that we have 28 parameters in total
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssssssssssssssssssssssssssssi",
         $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
@@ -104,13 +97,145 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $salary, $profile_image, $resume, $id
     );
 
-    if ($stmt->execute()) {
-        echo "Record updated successfully!";
-    } else {
-        echo "Error updating record: " . $stmt->error;
+    if (!$stmt->execute()) {
+        echo "Error updating profile: " . $stmt->error;
+    }
+    $stmt->close();
+
+    // Function to insert data into a specified table
+    function insertData($conn, $table, $fields, $values, $userId) {
+        // Prepare the SQL statement
+        $placeholders = implode(',', array_fill(0, count($fields), '?'));
+        $sql = "INSERT INTO $table (" . implode(',', $fields) . ") VALUES ($placeholders)";
+        $stmt = $conn->prepare($sql);
+        
+        // Bind parameters dynamically
+        $stmt->bind_param(str_repeat('s', count($values)), ...$values);
+
+        if (!$stmt->execute()) {
+            echo "Error inserting record into $table: " . $stmt->error . "<br>";
+        }
+        $stmt->close();
     }
 
-    $stmt->close();
+    // Insert into license table
+    if (!empty($_POST['eligibility'])) {
+        $eligibilities = $_POST['eligibility'] ?? [];
+        $ratings = $_POST['rating'] ?? [];
+        $exam_dates = $_POST['exam_date'] ?? [];
+        $prc_files = $_FILES['license'] ?? [];
+
+        $license_dir = 'license_files/';
+        if (!is_dir($license_dir)) {
+            mkdir($license_dir, 0777, true);
+        }
+
+        foreach ($eligibilities as $key => $eligibility) {
+            if (!empty($eligibility)) {
+                $rating = $ratings[$key] ?? '';
+                $exam_date = $exam_dates[$key] ?? '';
+                $prc_path = '';
+
+                // Handle the PRC file upload
+                if (!empty($prc_files['name'][$key])) {
+                    $prc_file_name = basename($prc_files['name'][$key]);
+                    $prc_file_path = $license_dir . $prc_file_name;
+                    move_uploaded_file($prc_files['tmp_name'][$key], $prc_file_path);
+                    $prc_path = $prc_file_path;
+                }
+
+                // Insert into license table
+                insertData($conn, 'license', ['user_id', 'eligibility', 'rating', 'doe', 'prc_path'], [$id, $eligibility, $rating, $exam_date, $prc_path], $id);
+            }
+        }
+    }
+
+    // Insert Technical/Vocational Training
+    if (!empty($_POST['training'])) {
+        $trainings = $_POST['training'] ?? [];
+        $start_dates = $_POST['start_date'] ?? [];
+        $end_dates = $_POST['end_date'] ?? [];
+        $institutions = $_POST['institution'] ?? [];
+        $certificates = $_FILES['certificate'] ?? [];
+
+        $training_dir = 'training_files/';
+        if (!is_dir($training_dir)) {
+            mkdir($training_dir, 0777, true);
+        }
+
+        foreach ($trainings as $key => $training) {
+            if (!empty($training)) {
+                $start_date = $start_dates[$key] ?? '';
+                $end_date = $end_dates[$key] ?? '';
+                $institution = $institutions[$key] ?? '';
+                $certificate_path = '';
+
+                // Handle the certificate file upload
+                if (!empty($certificates['name'][$key])) {
+                    $certificate_file_name = basename($certificates['name'][$key]);
+                    $certificate_file_path = $training_dir . $certificate_file_name;
+                    move_uploaded_file($certificates['tmp_name'][$key], $certificate_file_path);
+                    $certificate_path = $certificate_file_path;
+                }
+
+                // Insert into training table
+                insertData($conn, 'training', ['user_id', 'training', 'start_date', 'end_date', 'institution', 'certificate_path'], [$id, $training, $start_date, $end_date, $institution, $certificate_path], $id);
+            }
+        }
+    }
+
+    // Insert Language Proficiency
+    if (!empty($_POST['language'])) {
+        $languages = $_POST['language'] ?? [];
+        $reads = $_POST['read'] ?? [];
+        $writes = $_POST['write'] ?? [];
+        $speaks = $_POST['speak'] ?? [];
+        $understands = $_POST['understand'] ?? [];
+    
+        foreach ($languages as $key => $language) {
+            if (!empty($language)) {
+                $read = isset($reads[$key]) ? 1 : 0;
+                $write = isset($writes[$key]) ? 1 : 0;
+                $speak = isset($speaks[$key]) ? 1 : 0;
+                $understand = isset($understands[$key]) ? 1 : 0;
+    
+                // Insert into language_proficiency table with the correct column name
+                $language_sql = "INSERT INTO language_proficiency (user_id, language_p, read_l, write_l, speak_l, understand_l) VALUES (?, ?, ?, ?, ?, ?)";
+                $language_stmt = $conn->prepare($language_sql);
+                $language_stmt->bind_param("isiiii", $id, $language, $read, $write, $speak, $understand);
+    
+                if (!$language_stmt->execute()) {
+                    echo "Error inserting language proficiency record for $language: " . $language_stmt->error . "<br>";
+                }
+                $language_stmt->close();
+            }
+        }
+    }
+
+    // Insert Work Experience
+    if (!empty($_POST['company'])) {
+        $companies = $_POST['company'] ?? [];
+        $addresses = $_POST['address'] ?? [];
+        $positions = $_POST['position'] ?? [];
+        $start_dates = $_POST['start_date'] ?? [];
+        $end_dates = $_POST['end_date'] ?? [];
+        $statuses = $_POST['status'] ?? [];
+
+        foreach ($companies as $key => $company) {
+            if (!empty($company)) {
+                $address = $addresses[$key] ?? '';
+                $position = $positions[$key] ?? '';
+                $start_date = $start_dates[$key] ?? '';
+                $end_date = $end_dates[$key] ?? '';
+                $status = $statuses[$key] ?? '';
+
+                // Insert into work_exp table
+                insertData($conn, 'work_exp', ['user_id', 'company_name', 'address', 'position', 'started_date', 'termination_date', 'status'], [$id, $company, $address, $position, $start_date, $end_date, $status], $id);
+            }
+        }
+    }
+
     $conn->close();
+    header("Location: ../../html/applicant/a_profile.php");
 }
 ?>

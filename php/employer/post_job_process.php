@@ -21,11 +21,13 @@ if ($row['count'] > 0) {
     $remarks = $_POST['rem'];
     $jobtype = $_POST['jobtype'];
     $salary =  $_POST['salary'];
-
+    $selectedOptions = $_POST['selectedOptions'] ?? ''; 
+    $optionsArray = explode(',', $selectedOptions); // Convert it to an array
+    $optionsString = implode(',', $optionsArray);
 
     // Corrected SQL syntax: added the missing closing parenthesis
-    $stmt = $conn->prepare("INSERT INTO job_postings (employer_id, job_title,job_type, salary, job_description, specialization, requirment, work_location, remarks, date_posted, vacant) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("issssssssss", $user_id, $job_title, $jobtype, $salary, $job_description, $spe, $requirment, $location, $remarks, $date_posted, $vacant);
+    $stmt = $conn->prepare("INSERT INTO job_postings (employer_id, job_title,job_type, salary, job_description, selected_options, requirment, work_location, remarks, date_posted, vacant) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssssss", $user_id, $job_title, $jobtype, $salary, $job_description, $optionsString, $requirment, $location, $remarks, $date_posted, $vacant);
 
     if ($stmt->execute()) {
         // Get the ID of the newly inserted job
