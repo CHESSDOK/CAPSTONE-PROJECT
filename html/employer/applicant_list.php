@@ -180,13 +180,13 @@
             // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
             if ($status != 'accepted' && $status != 'interview') {
                 echo "
-                <a class='btn btn-success mx-2' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
-                <a class='btn btn-danger mx-2' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>
+                <a class='btn btn-success mx-2' href='../../php/employer/application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                <a class='btn btn-danger mx-2' href='../../php/employer/application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>
                 <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=".htmlspecialchars($row["applicant_id"])."
                 data-job-id=".htmlspecialchars($row["job_posting_id"]).">Interview</button>";
             } elseif ($status === 'interview') {
-                echo "<a class='btn btn-success mx-2' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
-                      <a class='btn btn-danger mx-2' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>";
+                echo "<a class='btn btn-success mx-2' href='../../php/employer/application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                      <a class='btn btn-danger mx-2' href='../../php/employer/application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>";
             }
 
             echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary mx-2' data-applicant-id='".htmlspecialchars($row["applicant_id"])."'>View Profile</button>
