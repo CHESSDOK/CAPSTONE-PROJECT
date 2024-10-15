@@ -55,6 +55,18 @@
 .txt-area {
   border: none;
   width: 40vw;
-  resize: none; /* To prevent manual resizing */
-  overflow: hidden; /* Hide the scroll bar */
+  resize: none; 
+  overflow: hidden; 
+}
+
+.txt-area:focus, .txt-area:active {
+  border: none;
+  width: 40vw;
+  resize: none; 
+  overflow: hidden; 
+}
+
+.txt-area:focus, .txt-area:active {
+  background-color: #f0f0f0; /* Example background color */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Example shadow effect */
 }

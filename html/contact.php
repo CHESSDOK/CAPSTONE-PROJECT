@@ -1,53 +1,3 @@
-<?php
-include '../php/conn_db.php';
-
-function checkSession() {
-   session_start(); // Start the session
-
-   // Check if the session variable 'id' is set
-   if (!isset($_SESSION['id'])) {
-       // Redirect to login page if session not found
-       header("Location: ../login.html");
-       exit();
-   } else {
-       // If session exists, store the session data in a variable
-       return $_SESSION['id'];
-   }
-}
-$userId = checkSession();
-
-//Fetch data from applicant_profile table
-$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if (!$result) {
-   die("Invalid query: " . $conn->error); 
-}
-
-$row = $result->fetch_assoc();
-if (!$row) {
-   die("User not found in applicant_profile.");
-}
-
-// Fetch data from register table using new approach
-$sql_new = "SELECT * FROM register WHERE id = ?";
-$stmt_new = $conn->prepare($sql_new);
-$stmt_new->bind_param("i", $userId);
-$stmt_new->execute();
-$result_new = $stmt_new->get_result();
-
-if ($result_new->num_rows > 0) {
-    $row_new = $result_new->fetch_assoc(); // Fetch the data into a separate variable
-} else {
-    $row_new = array(); // If no data found, initialize as an empty array
-}
-
-// Close the connection
-$conn->close();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,9 +5,13 @@ $conn->close();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conctact Us Page</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
   <link rel="stylesheet" href="../css/contact.css">
   <link rel="stylesheet" href="../css/nav_float.css">   
 </head>
@@ -68,53 +22,61 @@ body::before{
     }
 </style>
 <body>
-<!-- Navigation -->
-<nav>
-  <div class="logo">
-      <img src="../img/logo_peso.png" alt="Logo">
-      <a href="#"> PESO-lb.ph</a>
-  </div>
-  <header>
-      <h1 class="h1">Contact Us</h1>
-  </header>
-
-  <div class="profile-icons">
-    <div class="notif-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-        <img src="../img/notif.png" alt="Profile Picture" class="rounded-circle">
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+        <img src="../img/logo_peso.png" alt="Logo">
+        <a href="#"> PESO-lb.ph</a>
     </div>
-        
-    <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-      <?php if (!empty($row['photo'])): ?>
-          <img id="preview" src="../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-      <?php else: ?>
-          <img src="../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-      <?php endif; ?>
+
+    <header>
+        <h1 class="h1">About Us</h1>
+    </header>
+
+    <div class="profile-icons">
+        <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
+            <img id="#" src="../img/notif.png" alt="Notification Icon" class="rounded-circle">
+        </div>
+
+        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
+            <img id="preview" src="../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+        </div>
     </div>
-  </div>
 
-  <div class="burger" id="burgerToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-  </div>
+    <!-- Burger icon -->
+    <div class="burger" id="burgerToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-      <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-          <table class="menu">
-              <tr><td><a href="../index(applicant).php" class="nav-link">Home</a></td></tr>
-              <tr><td><a href="applicant/applicant.php" class="nav-link">Applicant</a></td></tr>
-              <tr><td><a href="applicant/training_list.php" class="nav-link">Training</a></td></tr>
-              <tr><td><a href="applicant/ofw_form.php" class="nav-link">OFW</a></td></tr>
-              <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
-              <tr><td><a href="#" class="active nav-link">Contact Us</a></td></tr>
-          </table>
-      </div>
-  </div>
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <table class="menu">
+                <tr><td><a href="../index.html" class="nav-link">Home</a></td></tr>
+                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="contact.php" class="active nav-link">Contact Us</a></td></tr>
+            </table>
+        </div>
+    </div>
 </nav>
+
+<nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <div>
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="../index.html" >Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a>Contact US</a></li>
+          </ol>
+        </div>
+        <a href="javascript:history.back()" class="return me-2">
+          <i class="fas fa-reply"></i> Back
+        </a>
+    </nav>
 
 
     <!-- Body -->
@@ -161,13 +123,54 @@ body::before{
           <label for="message">Your message (optional)</label>
           <textarea id="message" name="message" rows="4"></textarea>
           
-          <button type="submit">Submit</button>
+          <button class="btn btn-primary" type="submit">Submit</button>
       </form>
   </div>
   </section>
     
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- You can link your JavaScript file here if needed -->
+
+  <script>
+    // Get elements
+const burgerToggle = document.getElementById('burgerToggle');
+const offcanvasMenu = new bootstrap.Offcanvas(document.getElementById('offcanvasMenu'));
+
+// Toggle burger class and offcanvas menu
+burgerToggle.addEventListener('click', function() {
+    // Toggle burger active class for animation
+    burgerToggle.classList.toggle('active');
+
+    // Open or close the offcanvas menu
+    if (offcanvasMenu._isShown) {
+        offcanvasMenu.hide();
+    } else {
+        offcanvasMenu.show();
+    }
+});
+
+$(document).ready(function(){
+    // Initialize popover with multiple links in the content
+    $('.profile-icon').popover({
+        trigger: 'click', 
+        html: true, // Allow HTML content
+        animation: true, // Enable animation
+        content: function() {
+            return `
+                <a class="link" >Profile</a><br>
+                <a class="link" href="login.html">Login</a>
+            `;
+        }
+    });
+// Close popover when clicking outside
+$(document).on('click', function (e) {
+    const target = $(e.target);
+    if (!target.closest('.profile-icon').length) {
+        $('.profile-icon').popover('hide');
+    }
+});
+});
+</script>
 </body>
 </html>
