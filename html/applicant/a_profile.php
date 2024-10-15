@@ -124,8 +124,8 @@ $conn->close();
                 <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
                 <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
-                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
