@@ -83,7 +83,6 @@ $result = $conn->query($sql);
             <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
         <?php endif; ?>
         </div>
-
     </div>
 
     <!-- Burger icon -->
@@ -127,61 +126,61 @@ $result = $conn->query($sql);
 </nav>
 
 <div class="table-containers">
-<div class="container mt-4">
+    <div class="container mt-4">
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <!-- Card for each job -->
+                <div class="row justify-content-center mb-3">
+                    <div class="col-md-10"> <!-- Increased the column width to make the card bigger -->
+                        <div class="card p-4 shadow-sm">
+                            <form action='../../php/employer/update_jobs.php' method='post'>
+                                <input type='hidden' name='job_id' value='<?php echo $row['j_id']; ?>'>
 
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            ?>
-            <!-- Card for each job -->
-            <div class="row justify-content-center mb-3">
-                <div class="col-md-8"> <!-- Adjusted the column width to make the card smaller -->
-                    <div class="card p-3 shadow-sm">
-                        <form action='../../php/employer/update_jobs.php' method='post'>
-                            <input type='hidden' name='job_id' value='<?php echo $row['j_id']; ?>'>
+                                <div class="row align-items-center">
+                                    <!-- Job Title (Disabled) -->
+                                    <div class="col-md-4"> <!-- Increased column width for title -->
+                                        <label for='jtitle_<?php echo $row['j_id']; ?>'><strong>Title</strong></label>
+                                        <h5 class='card-title text-truncate' style='max-width: 300px;'><?php echo htmlspecialchars($row['job_title']); ?></h5> <!-- Display as card title -->
+                                    </div>
 
-                            <div class="row align-items-center">
-                                <!-- Job Title (Disabled) -->
-                                <div class="col-md-3">
-                                    <label for='jtitle_<?php echo $row['j_id']; ?>'><strong>Title</strong></label>
-                                    <input type='text' id='jtitle_<?php echo $row['j_id']; ?>' class='form-control mb-2' name='jtitle' value='<?php echo htmlspecialchars($row['job_title']); ?>' disabled>
-                                </div>
+                                    <!-- Vacant Positions -->
+                                    <div class="col-md-2">
+                                        <label for='vacant_<?php echo $row['j_id']; ?>'><strong>Vacant</strong></label>
+                                        <p class='card-text'><?php echo $row['vacant']; ?></p> <!-- Display as card text -->
+                                    </div>
 
-                                <!-- Vacant Positions -->
-                                <div class="col-md-2">
-                                    <label for='vacant_<?php echo $row['j_id']; ?>'><strong>Vacant</strong></label>
-                                    <input type='number' id='vacant_<?php echo $row['j_id']; ?>' class='form-control mb-2' name='vacant' value='<?php echo $row['vacant']; ?>' disabled>
-                                </div>
+                                    <!-- Job Status -->
+                                    <div class="col-md-2">
+                                        <label for='act_<?php echo $row['j_id']; ?>'><strong>Status</strong></label>
+                                        <p class='card-text'><?php echo $row['is_active'] == 1 ? 'Active' : 'Inactive'; ?></p> <!-- Display status in readable format -->
+                                    </div>
 
-                                <!-- Job Status -->
-                                <div class="col-md-2">
-                                    <label for='act_<?php echo $row['j_id']; ?>'><strong>Status</strong></label>
-                                    <input type='number' id='act_<?php echo $row['j_id']; ?>' class='form-control mb-2' name='act' value='<?php echo $row['is_active']; ?>' disabled>
-                                </div>
-
-                                <!-- Actions -->
-                                <div class="col-md-5">
-                                    <label><strong>Actions</strong></label>
-                                    <div class="d-flex gap-3">
-                                        <a href='#' class='btn btn-success openUpdateBtn' id='openUpdateBtn' data-job-id='<?php echo $row["j_id"]; ?>'>Update</a>
-                                        <a href='applicant_list.php?job_id=<?php echo $row['j_id']; ?>' class='btn btn-primary'>Applicants</a>
+                                    <!-- Actions -->
+                                    <div class="col-md-4 text-center"> <!-- Center the Actions label -->
+                                        <label class="text-center d-block"><strong>Actions</strong></label> <!-- Centered label -->
+                                        <div class="d-flex justify-content-center gap-2"> <!-- Align buttons horizontally with gap -->
+                                            <a href='#' class='btn btn-success btn-sm' id='openUpdateBtn' data-job-id='<?php echo $row["j_id"]; ?>'>Update</a>
+                                            <a href='applicant_list.php?job_id=<?php echo $row['j_id']; ?>' class='btn btn-primary btn-sm'>Applicants</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
+            }
+        } else {
+            echo "<div class='alert alert-warning'>No employers found</div>";
         }
-    } else {
-        echo "<div class='alert alert-warning'>No employers found</div>";
-    }
 
-    $conn->close();
-    ?>
+        $conn->close();
+        ?>
+    </div>
 </div>
-</div>
+
 
 
 <!-- update job -->

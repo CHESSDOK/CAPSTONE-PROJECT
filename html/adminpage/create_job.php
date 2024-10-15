@@ -126,64 +126,70 @@ if (!$pic_row) {
       </nav>
 
 
-      
-<div class="table-container">
-        <div class="col-12 ">
-            <button class="btn btn-primary openCourseBtn" id="openCourseBtn">Create Job</button>
-        </div>
+      <div class="table-containers">
+    <div class="d-flex align-items-start gap-2">
+        <!-- Create Job Button -->
+        <button class="btn btn-primary openCourseBtn" id="openCourseBtn">Create Job</button>
+        
+        <!-- Job Listings -->
+        <div class="job-listings">
+            <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $spe = !empty($row['specialization']) ? $row['specialization'] : 'NONE';
+                    ?>
+                    <div class="row mb-3">
+                        <div class="col-md-12"> <!-- Increased column width to make the card bigger -->
+                            <div class="card custom-card p-4 shadow-sm"> <!-- Added custom-card class -->
+                                <form action='update_jobs.php' method='post'>
+                                    <input type='hidden' name='job_id' value='<?php echo $row['j_id']; ?>'>
 
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $spe = !empty($row['specialization']) ? $row['specialization'] : 'NONE';
-                
-                echo "
-                <div class='row justify-content-center mb-3'>
-                    <div class='col-md-8'>
-                        <div class='card p-3 shadow-sm'>
-                            <form action='update_jobs.php' method='post'>
-                                <input type='hidden' name='job_id' value='" . $row['j_id'] . "'>
+                                    <div class="row align-items-center">
+                                        <!-- Job Title (Disabled) -->
+                                        <div class="col-md-4">
+                                            <label for='jtitle_<?php echo $row['j_id']; ?>'><strong>Title</strong></label>
+                                            <h5 class='card-title text-truncate' style='max-width: 300px;'><?php echo htmlspecialchars($row['job_title']); ?></h5>
+                                        </div>
 
-                                <div class='row align-items-center'>
-                                    <!-- Job Title (Disabled) -->
-                                    <div class='col-md-3'>
-                                        <label for='jtitle_" . $row['j_id'] . "'><strong>Title</strong></label>
-                                        <input type='text' id='jtitle_" . $row['j_id'] . "' class='form-control mb-2' name='jtitle' value='" . htmlspecialchars($row['job_title']) . "' disabled>
-                                    </div>
+                                        <!-- Vacant Positions -->
+                                        <div class="col-md-2">
+                                            <label for='vacant_<?php echo $row['j_id']; ?>'><strong>Vacant</strong></label>
+                                            <p class='card-text'><?php echo $row['vacant']; ?></p>
+                                        </div>
 
-                                    <!-- Vacant Positions -->
-                                    <div class='col-md-2'>
-                                        <label for='vacant_" . $row['j_id'] . "'><strong>Vacant</strong></label>
-                                        <input type='number' id='vacant_" . $row['j_id'] . "' class='form-control mb-2' name='vacant' value='" . $row['vacant'] . "' disabled>
-                                    </div>
+                                        <!-- Job Status -->
+                                        <div class="col-md-2">
+                                            <label for='act_<?php echo $row['j_id']; ?>'><strong>Status</strong></label>
+                                            <p class='card-text'><?php echo $row['is_active'] == 1 ? 'Active' : 'Inactive'; ?></p>
+                                        </div>
 
-                                    <!-- Job Status -->
-                                    <div class='col-md-2'>
-                                        <label for='act_" . $row['j_id'] . "'><strong>Status</strong></label>
-                                        <input type='number' id='act_" . $row['j_id'] . "' class='form-control mb-2' name='act' value='" . $row['is_active'] . "' disabled>
-                                    </div>
-
-                                    <!-- Actions -->
-                                    <div class='col-md-5'>
-                                        <label><strong>Actions</strong></label>
-                                        <div class='d-flex gap-3'>
-                                            <a href='#' class='btn btn-success openUpdateBtn' id='openUpdateBtn' data-job-id='" . htmlspecialchars($row['j_id']) . "'>Update</a>
-                                            <a href='applicant_list.php?job_id=" . $row['j_id'] . "' class='btn btn-primary'>Applicants</a>
+                                        <!-- Actions -->
+                                        <div class="col-md-4 text-center">
+                                            <label class="text-center d-block"><strong>Actions</strong></label>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href='#' class='btn btn-success btn-sm' id='openUpdateBtn' data-job-id='<?php echo htmlspecialchars($row['j_id']); ?>'>Update</a>
+                                                <a href='applicant_list.php?job_id=<?php echo $row['j_id']; ?>' class='btn btn-primary btn-sm'>Applicants</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>";
+                    <?php
+                }
+            } else {
+                echo "<div class='text-center'>No Job found</div>";
             }
-        } else {
-            echo "<div class='text-center'>No Job found</div>";
-        }
 
-        $conn->close();
-        ?>
+            $conn->close();
+            ?>
+        </div>
     </div>
+</div>
+
+
+
 
 <!-- create job -->
     <div id="jobModal" class="modal modal-container-upload">

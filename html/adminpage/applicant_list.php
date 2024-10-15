@@ -166,75 +166,87 @@
 <div class="table-containers">
     <div class="row align-items-start">
         <?php
-            function display_table($applicants, $status_label) {
-                echo "<h3>$status_label</h3>";
-                echo "<table class='table table-borderless'>
-                        <thead class='thead-light'>
-                            <th>Full Name</th>
-                            <th>Job</th>
-                            <th>Interview Link</th> <!-- Add new header for interview link -->
-                            <th>Status</th>
-                            <th class='action-btn'>Actions</th>
-                        </thead>";
+        function display_table($applicants, $status_label) {
+            echo "<h3>$status_label</h3>";
+
+            if (!empty($applicants)) {
+                foreach ($applicants as $row) {
+                    $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . '. ' . $row['last_name']);
+                    $status = $row['status'];
+                    $job = htmlspecialchars($row['job']);
+                    $interview_link = htmlspecialchars($row['interview_link'] ? $row['interview_link'] : ''); // Fetch interview link
+
+                    echo "
+                    <div class='col-12'>  <!-- Use col-12 to make the card full width -->
+                        <div class='card mb-2'>
+                            <div class='card-body'>
+                                <div class='row align-items-center'>  <!-- Main row for all fields -->
+                                    <div class='col-md-4'>  <!-- Stack name and job title in one column -->
+                                        <h5 class='card-title mb-1 text-truncate' style='max-width: 300px;'>$full_name</h5>
+                                        <h6 class='card-subtitle mb-2 text-muted text-truncate' style='max-width: 300px;'>$job</h6>
+                                    </div>
+                                    <div class='col-md-2'>  <!-- Interview link section -->
+                                            <a href='$interview_link' target='_blank' style='text-decoration:none; max-width: 100px;'>$interview_link</a>
+                                    </div>
+                                    <div class='col-md-2'>  <!-- Status section -->
+                                        <p class='card-text mb-0'><strong>Status:</strong> ".ucfirst($status)."</p>
+                                    </div>
+                                    <div class='col-md-4 text-end'>  <!-- Action buttons aligned to the right -->
+                                        <div class='btn-group' role='group' aria-label='Action Buttons'>";
                 
-                if (!empty($applicants)) {
-                    foreach ($applicants as $row) {
-                        $full_name = htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . '. ' . $row['last_name']);
-                        $status = $row['status'];
-                        $job = htmlspecialchars($row['job']);
-                        $interview_link = htmlspecialchars($row['interview_link'] ? $row['interview_link'] : '' ); // Fetch interview link
-                        
-                        echo "
-                        <tr>
-                            <td style='width: 450px;'>".htmlspecialchars($full_name)."</td>
-                            <td style='width: 100px;'>$job</td>
-                            <td style='width: 150px;'>
-                                <a href='' target='_blank'>$interview_link</a> <!-- Display the interview link -->
-                            </td>
-                            <td style='width: 50px;'>".ucfirst($status)."</td>
-                            <td class='btn-job'>";
-                        
-                        // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
-                        if ($status != 'accepted' && $status != 'interview') {
-                            echo "
-                            <a class='btn btn-success mx-2' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
-                            <a class='btn btn-danger mx-2' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>
-                            <button class='openFormBtn btn btn-primary mx-2' id='openFormBtn' data-applicant-id=".htmlspecialchars($row["applicant_id"])."
-                            data-job-id=".htmlspecialchars($row["job_posting_id"]).">Interview</button>";
-                        } elseif ($status === 'interview') {
-                            echo "<a class='btn btn-success mx-2' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
-                                  <a class='btn btn-danger mx-2' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>";
-                        }
-            
-                        echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary mx-2' data-applicant-id='".htmlspecialchars($row["applicant_id"])."'>View Profile</button>
-                            </td>
-                        </tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='5'>No applicants found</td></tr>";
+                                        // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
+                                        if ($status != 'accepted' && $status != 'interview') {
+                                            echo "
+                                            <a class='btn btn-success btn-sm me-1' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                                            <a class='btn btn-danger btn-sm me-1' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>
+                                            <button class='openFormBtn btn btn-primary btn-sm me-1' 
+                                                data-applicant-id='".htmlspecialchars($row["applicant_id"])."' 
+                                                data-job-id='".htmlspecialchars($row["job_posting_id"])."'>Interview</button>";
+                                        } elseif ($status === 'interview') {
+                                            echo "
+                                            <a class='btn btn-success btn-sm me-1' href='application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                                            <a class='btn btn-danger btn-sm me-1' href='application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>";
+                                        }
+                
+                                        echo "<button id='profileFormBtn' class='openProfileBtn btn btn-primary btn-sm' 
+                                            data-applicant-id='".htmlspecialchars($row["applicant_id"])."'>View Profile</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
                 }
-            
-                echo "</table>";
+            } else {
+                echo "
+                    <div class='col-12'>  <!-- Use col-12 to make the card full width -->
+                        <div class='card mb-2'>
+                            <div class='card-body text-center'>  <!-- Center text within the card body -->
+                                <p class='mb-0'>No applicants found</p>
+                            </div>
+                        </div>
+                    </div>";
             }
-            
-            
-            // Display each category vertically with centered alignment
-            echo "<div class='category-section'>";
-            display_table($pending, 'Applied applicant');
-            echo "</div>";
+        }
 
-            echo "<div class='category-section'>";
-            display_table($review, 'For interview');
-            echo "</div>";
+        // Display each category vertically with centered alignment
+        echo "<div class='category-section'>";
+        display_table($pending, 'Applied Applicant');
+        echo "</div>";
 
-            echo "<div class='category-section'>";
-            display_table($rejected, 'Accepted Applicant');
-            echo "</div>";
-            
-            $conn->close();
+        echo "<div class='category-section'>";
+        display_table($review, 'For Interview');
+        echo "</div>";
+
+        echo "<div class='category-section'>";
+        display_table($rejected, 'Accepted Applicant');
+        echo "</div>";
+
+        $conn->close();
         ?>
-        </div>
     </div>
+</div>
+
 
 
     <div id="formModal" class="modal modal-container">

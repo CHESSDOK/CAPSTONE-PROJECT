@@ -14,20 +14,42 @@ if ($result->num_rows > 0) {
     $full_name = $row['first_name'].  " " .$row['middle_initial']. ". " .$row['last_name'];
 
     echo "
-        <table class='table table-borderless'>
-                        <thead class='thead-light'>
-                            <th>Full Name</th>
-                            <th>email</th>
-                            <th>contact number</th>
-                            <th>age</th>
-                            <th class='action-btn'>Actions</th>
-                        </thead>
-                        <tr>
-                                    <td style='width: 450px;'>".htmlspecialchars($full_name)."</td>
-                                    <td style='width: 100px;'>" . htmlspecialchars($row['email']) . "</td>
-                                    <td style='width: 50px;'>" . htmlspecialchars($row['contact_no']) . "</td>
-                                    <td style='width: 50px;'>" . htmlspecialchars($row['age']) . "</td>
-                        </tr>";
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-6'>
+            <label class='form-label'>Full Name:</label>
+            <p class='form-text' style='font-size: 1.5rem;'>".htmlspecialchars($full_name)."</p>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-md-6'>
+            <label class='form-label'>Email:</label>
+            <p class='form-text' style='font-size: 1.5rem;'>".htmlspecialchars($row['email'])."</p>
+        </div>
+    </div>
+    
+    <div class='row'>
+        <div class='col-md-4'>
+            <label class='form-label'>Contact Number:</label>
+            <p class='form-text' style='font-size: 1.5rem;'>".htmlspecialchars($row['contact_no'])."</p>
+        </div>
+        <div class='col-md-4'>
+            <label class='form-label'>Age:</label>
+            <p class='form-text' style='font-size: 1.5rem;'>".htmlspecialchars($row['age'])."</p>
+        </div>
+    </div>
+    
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='d-flex justify-content-end'>
+                <button class='btn btn-primary btn-sm me-2' data-id='".htmlspecialchars($row['id'])."'>View Resume</button>
+            </div>
+        </div>
+    </div>
+</div>";
+
+    
+
 } else {
     echo "No profile found.";
 }
