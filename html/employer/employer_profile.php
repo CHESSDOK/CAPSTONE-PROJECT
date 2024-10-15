@@ -1,5 +1,6 @@
 <?php
 // Session Management and Database Connection
+include '../../php/conn_db.php';
 function checkSession() {
     session_start(); 
     if (!isset($_SESSION['id'])) {
@@ -10,24 +11,24 @@ function checkSession() {
     }
 }
 
-$userId = checkSession();
-include '../../php/conn_db.php'; // Database connection
+$employerid = checkSession();
+$new_sql = "SELECT * FROM employer_profile WHERE user_id = ?";
+$new_stmt = $conn->prepare($new_sql);
+$new_stmt->bind_param("i", $employerid);
+$new_stmt->execute();
+$new_result = $new_stmt->get_result();
 
-// Fetch Employer Profile Data
-$sql = "SELECT * FROM employer_profile WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if (!$result) {
+if (!$new_result) {
     die("Invalid query: " . $conn->error);
 }
 
-$row = $result->fetch_assoc();
-if (!$row) {
+$new_row = $new_result->fetch_assoc();
+if (!$new_row) {
     die("User not found.");
 }
+
+$sql = "SELECT * FROM job_postings WHERE employer_id = $employerid ";
+$result = $conn->query($sql);
 ?>
 
 <?php 
@@ -83,12 +84,12 @@ if (!$row) {
             <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
         
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-            <?php if (!empty($row['photo'])): ?>
-                <img id="preview" src="../../php/employer/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
-            <?php else: ?>
-                <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-            <?php endif; ?>
+        <div class="profile-icon-employer" data-bs-toggle="popover" data-bs-placement="bottom">
+        <?php if (!empty($new_row['photo'])): ?>
+        <img id="preview" src="../../php/employer/uploads/<?php echo $new_row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <?php else: ?>
+            <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+        <?php endif; ?>
         </div>
     </div>
 

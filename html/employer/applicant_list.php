@@ -102,7 +102,6 @@
               <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
           <?php endif; ?>
         </div>
-
     </div>
 
     <!-- Burger icon -->
