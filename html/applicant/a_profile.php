@@ -146,576 +146,655 @@ $conn->close();
     </a>
 </nav>
 
-<!-- Form Content -->
-<div class="profile-container">
-<div class="form-content">
-<form action="../../php/applicant/approf.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" value = "<?php echo $row['user_id'];?>">
-    <!-- Personal Information Section -->
-    <div class="container mt-4">
-      <h4 class="mb-3">Personal Information</h4>
-      
-      <!-- Profile Image -->
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="profile_image">Select Profile Image:</label>
-          <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*" required onchange="previewImage(event)">
-        </div>
-        <div class="col-md-6 mb-3 text-center">
-          <img id="profile_image_preview" src="" alt="Profile Image" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
-        </div>
+<!-- Profile Container -->
+<div class="profile-container container mt-4">
+
+  <!-- Combined Personal Information Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Personal Information</h4>
+  </div>
+  <div class="card-body">
+
+    <!-- Profile Image -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="profile_image">Select Profile Image:</label>
+        <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*" required onchange="previewImage(event)">
       </div>
-
-      <!-- Name Information -->
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <label for="lastName" class="info">Surname</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" required value="<?php echo isset($row['last_name']) ? htmlspecialchars($row['last_name']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="firstName" class="info">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" required value="<?php echo isset($row['first_name']) ? htmlspecialchars($row['first_name']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="middleName" class="info">Middle Name</label>
-          <input type="text" id="middleName" name="middleName" class="form-control" value="<?php echo isset($row['middle_name']) ? htmlspecialchars($row['middle_name']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="Prefix" class="info">Suffix</label>
-          <select class="form-select" id="Prefix" name="Prefix">
-            <option value="">Optional</option>
-            <?php
-              $prefixes = ['none', 'Sr.', 'Jr.', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
-              foreach ($prefixes as $prefix) {
-                echo "<option value='$prefix'" . (isset($row['prefix']) && $row['prefix'] == $prefix ? ' selected' : '') . ">$prefix</option>";
-              }
-            ?>
-          </select>
-        </div>
+      <div class="col-md-6 mb-3 text-center">
+        <img id="profile_image_preview" src="" alt="Profile Image" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
       </div>
-
-      <!-- Birth Details and Religion -->
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <label for="dob" class="info">Date of Birth</label>
-          <input type="date" id="dob" name="dob" class="form-control" required value="<?php echo isset($row['dob']) ? htmlspecialchars($row['dob']) : ''; ?>">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="pob" class="info">Place of Birth</label>
-          <input type="text" id="pob" name="pob" class="form-control" value="<?php echo isset($row['pob']) ? htmlspecialchars($row['pob']) : ''; ?>">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="religion" class="info">Religion</label>
-          <input type="text" id="religion" name="religion" class="form-control" value="<?php echo isset($row['religion']) ? htmlspecialchars($row['religion']) : ''; ?>">
-        </div>
-      </div>
-
-      <!-- Address Information -->
-      <div class="row">
-        <div class="col mb-3">
-          <label for="houseadd" class="info">Present Address</label>
-          <input type="text" id="houseadd" name="houseadd" class="form-control" required placeholder="House no. / Street / Barangay / City / Province" value="<?php echo isset($row['house_address']) ? htmlspecialchars($row['house_address']) : ''; ?>">
-        </div>
-      </div>
-
-      <!-- Civil Status, Sex, Height -->
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <label for="civilStatus" class="info">Civil Status</label>
-          <select class="form-select" id="civilStatus" name="civilStatus" required>
-            <option value="Single" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Single') ? 'selected' : ''; ?>>Single</option>
-            <option value="Married" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Married') ? 'selected' : ''; ?>>Married</option>
-            <option value="Widowed" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Widowed') ? 'selected' : ''; ?>>Widowed</option>
-            <option value="Separated" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Separated') ? 'selected' : ''; ?>>Separated</option>
-            <option value="Live-in" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Live-in') ? 'selected' : ''; ?>>Live-in</option>
-          </select>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="sex" class="info">Sex</label>
-          <select class="form-select" id="sex" name="sex" required>
-            <option value="Male" <?php echo (isset($row['sex']) && $row['sex'] == 'Male') ? 'selected' : ''; ?>>Male</option>
-            <option value="Female" <?php echo (isset($row['sex']) && $row['sex'] == 'Female') ? 'selected' : ''; ?>>Female</option>
-          </select>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="height" class="info">Height</label>
-          <input type="text" id="height" name="height" class="form-control" value="<?php echo isset($row['height']) ? htmlspecialchars($row['height']) : ''; ?>">
-        </div>
-      </div>
-
-      <!-- Identification Numbers -->
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <label for="tin" class="info">TIN</label>
-          <input type="text" id="tin" name="tin" class="form-control" value="<?php echo isset($row['tin']) ? htmlspecialchars($row['tin']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="sssNo" class="info">GSIS/SSS No.</label>
-          <input type="text" id="sssNo" name="sssNo" class="form-control" value="<?php echo isset($row['sss_no']) ? htmlspecialchars($row['sss_no']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="pagibigNo" class="info">Pag-IBIG No.</label>
-          <input type="text" id="pagibigNo" name="pagibigNo" class="form-control" value="<?php echo isset($row['pagibig_no']) ? htmlspecialchars($row['pagibig_no']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="philhealthNo" class="info">PhilHealth No.</label>
-          <input type="text" id="philhealthNo" name="philhealthNo" class="form-control" value="<?php echo isset($row['philhealth_no']) ? htmlspecialchars($row['philhealth_no']) : ''; ?>">
-        </div>
-      </div>
-
-      <!-- Contact Information -->
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <label for="email" class="info">Email</label>
-          <input type="email" id="email" name="email" class="form-control" required value="<?php echo isset($row['email']) ? htmlspecialchars($row['email']) : ''; ?>">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="contactNo" class="info">Contact No.</label>
-          <input type="tel" id="contactNo" name="contactNo" class="form-control" required value="<?php echo isset($row['contact_no']) ? htmlspecialchars($row['contact_no']) : ''; ?>">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="landline" class="info">Landline No.</label>
-          <input type="tel" id="landline" name="landline" class="form-control" value="<?php echo isset($row['landline']) ? htmlspecialchars($row['landline']) : ''; ?>">
-        </div>
-      </div>
-
-      <!-- Disability and 4Ps -->
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <label for="pwd" class="info">Disability</label>
-          <select class="form-select" id="pwd" name="pwd" required>
-            <option value="">Select</option>
-            <option value="None" <?php echo (isset($row['pwd']) && $row['pwd'] == 'None') ? 'selected' : ''; ?>>None</option>
-            <option value="Visual" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Visual') ? 'selected' : ''; ?>>Visual</option>
-            <option value="Hearing" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Hearing') ? 'selected' : ''; ?>>Hearing</option>
-            <option value="Speech" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Speech') ? 'selected' : ''; ?>>Speech</option>
-            <option value="Physical" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Physical') ? 'selected' : ''; ?>>Physical</option>
-            <option value="Others" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Others') ? 'selected' : ''; ?>>Others</option>
-          </select>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div id="disability-input" class="additional-input">
-            <label for="disability-other" class="info">Please specify:</label>
-            <input type="text" id="disability-other" name="pwd2" class="form-control" value="<?php echo isset($row['pwd2']) ? htmlspecialchars($row['pwd2']) : ''; ?>">
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="four-ps-beneficiary" class="info">Are you a 4Ps beneficiary?</label>
-          <select class="form-select" id="four-ps-beneficiary" name="four-ps-beneficiary" required>
-            <option value="">Select</option>
-            <option value="Yes" <?php echo (isset($row['four-ps-beneficiary']) && $row['four-ps-beneficiary'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-            <option value="No" <?php echo (isset($row['four-ps-beneficiary']) && $row['four-ps-beneficiary'] == 'No') ? 'selected' : ''; ?>>No</option>
-          </select>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div id="household-id-input" class="additional-input">
-            <label for="household-id" class="info">If yes, Household ID No.</label>
-            <input type="text" id="household-id" class="form-control" placeholder="Household ID">
-          </div>
-        </div>
-      </div>
-
-      <!-- Employment Information -->
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <label for="employment-status" class="info">Employment Status:</label>
-          <select class="form-select" id="employment-status" name="employent_status" required>
-            <option value="">Select</option>
-            <option value="employed" <?php echo (isset($row['employment_status']) && $row['employment_status'] == 'employed') ? 'selected' : ''; ?>>Employed</option>
-            <option value="unemployed" <?php echo (isset($row['employment_status']) && $row['employment_status'] == 'unemployed') ? 'selected' : ''; ?>>Unemployed</option>
-          </select>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div id="sub-dropdown" class="sub-dropdown">
-            <label for="employment-type" class="info">Employment Type:</label>
-            <select class="form-select" id="employment-type" required>
-              <option value="">Select</option>
-              <option value="wage">Wage Employed</option>
-              <option value="self">Self Employed</option>
-              <option value="fresh_grad" class="unemployed-option">New Entrant/Fresh Graduate</option>
-              <option value="f_contract" class="unemployed-option">Finished Contract</option>
-              <option value="resigned" class="unemployed-option">Resigned</option>
-              <option value="retired" class="unemployed-option">Retired</option>
-              <option value="local" class="unemployed-option">Terminated/Laidoff(local)</option>
-              <option value="abroad" class="unemployed-option">Terminated/Laidoff(abroad)</option>
-              <option value="others" class="unemployed-option">Others, specify</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div id="additional-input" class="info">
-            <label for="other-reason">Please specify country, others:</label>
-            <input type="text" id="other-reason" class="form-control" placeholder="Enter details here">
-          </div>
-        </div>
-      </div>
-
-      <!-- Job Search Status -->
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <label for="actively-looking" class="info">Are you actively looking for work?</label>
-          <select class="form-select" id="actively-looking" name="actively-looking" required>
-            <option value="">Select</option>
-            <option value="Yes" <?php echo (isset($row['actively-looking']) && $row['actively-looking'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-            <option value="No" <?php echo (isset($row['actively-looking']) && $row['actively-looking'] == 'No') ? 'selected' : ''; ?>>No</option>
-          </select>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div id="actively-looking-input" class="additional-input">
-            <label for="actively-looking-details" class="info">Please specify:</label>
-            <input type="text" id="actively-looking-details" class="form-control" placeholder="How long have you been looking for work?">
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="willing-to-work" class="info">Willing to work immediately?</label>
-          <select class="form-select" id="willing-to-work" name="willing-to-work" required>
-            <option value="">Select</option>
-            <option value="Yes" <?php echo (isset($row['willing-to-work']) && $row['willing-to-work'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-            <option value="No" <?php echo (isset($row['willing-to-work']) && $row['willing-to-work'] == 'No') ? 'selected' : ''; ?>>No</option>
-          </select>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div id="willing-to-work-input" class="additional-input">
-            <label for="willing-to-work-details" class="info">Please specify:</label>
-            <input type="text" id="willing-to-work-details" class="form-control" placeholder="If no, when?">
-          </div>
-        </div>
-      </div>
-
-      <!-- Job Preference Section -->
-      <h4>Job Preference</h4>
-
-      <!-- Preferred Occupation -->
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <label for="occupation" class="info">Preferred Occupation</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <input type="text" id="occupation_1" name="#" class="form-control ocu_input" placeholder="1 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <input type="text" id="occupation_2" name="#" class="form-control ocu_input" placeholder="2 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <input type="text" id="occupation_3" name="#" class="form-control ocu_input" placeholder="3 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-          <input type="text" id="occupation_4" name="#" class="form-control ocu_input" placeholder="4 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-        </div>
-      </div>
-
-      <!-- Preferred Work Location and Salary -->
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="pwl" class="info">Preferred Work Location</label>
-          <select class="form-select" id="pwl" name="pwl" required>
-            <option value="">Select</option>
-            <option value="local" <?php echo (isset($row['pwl']) && $row['pwl'] == 'local') ? 'selected' : ''; ?>>Local, specify cities/municipalities</option>
-            <option value="overseas" <?php echo (isset($row['pwl']) && $row['pwl'] == 'overseas') ? 'selected' : ''; ?>>Overseas, specify countries</option>
-          </select>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="salary" class="info">Expected Salary</label>
-          <input type="text" id="salary" name="salary" class="form-control" placeholder="Input Range" required>
-        </div>
-      </div>
-
-      <!-- Local Work Location Details -->
-      <div id="local-input" class="location-input">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <input type="text" name="local" class="form-control pwl_input" placeholder="1 - City/Municipality" value="<?php echo isset($row['local-city1']) ? htmlspecialchars($row['local-city1']) : ''; ?>">
-          </div>
-          <div class="col-md-4 mb-3">
-            <input type="text" name="local" class="form-control pwl_input" placeholder="2 - City/Municipality" value="<?php echo isset($row['local-city2']) ? htmlspecialchars($row['local-city2']) : ''; ?>">
-          </div>
-          <div class="col-md-4 mb-3">
-            <input type="text" name="local" class="form-control pwl_input" placeholder="3 - City/Municipality" value="<?php echo isset($row['local-city3']) ? htmlspecialchars($row['local-city3']) : ''; ?>">
-          </div>
-        </div>
-      </div>
-
-      <!-- Overseas Work Location Details -->
-      <div id="overseas-input" class="location-input">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <input type="text" name="overseas-country1" class="form-control overseas-option pwl_input" placeholder="1 - Country" value="<?php echo isset($row['overseas-country1']) ? htmlspecialchars($row['overseas-country1']) : ''; ?>">
-          </div>
-          <div class="col-md-4 mb-3">
-            <input type="text" name="overseas-country2" class="form-control overseas-option pwl_input" placeholder="2 - Country" value="<?php echo isset($row['overseas-country2']) ? htmlspecialchars($row['overseas-country2']) : ''; ?>">
-          </div>
-          <div class="col-md-4 mb-3">
-            <input type="text" name="overseas-country3" class="form-control overseas-option pwl_input" placeholder="3 - Country" value="<?php echo isset($row['overseas-country3']) ? htmlspecialchars($row['overseas-country3']) : ''; ?>">
-          </div>
-        </div>
-      </div>
-
-      <!-- Passport Information -->
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="passport" class="info">Passport No.</label>
-          <input type="text" id="passport" name="passport_no" class="form-control" placeholder="Input Passport Number" required>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="passport_expiry" class="info">Expiry Date</label>
-          <input type="date" id="passport_expiry" name="passport_expiry" class="form-control" required>
-        </div>
-      </div>
-
-        <!-- Technical/Vocational and Other Training -->
-    <h4>Technical/Vocational and Other Training</h4>
-
-<div class="row">
-    <div class="col-md-2 text-center">
-        <label>Training/Vocational Course</label>
     </div>
-    <div class="col-md-4 text-center">
-        <label>Duration</label>
+
+    <!-- Name Information -->
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="lastName" class="info">Surname</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" required value="<?php echo isset($row['last_name']) ? htmlspecialchars($row['last_name']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="firstName" class="info">First Name</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" required value="<?php echo isset($row['first_name']) ? htmlspecialchars($row['first_name']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="middleName" class="info">Middle Name</label>
+        <input type="text" id="middleName" name="middleName" class="form-control" value="<?php echo isset($row['middle_name']) ? htmlspecialchars($row['middle_name']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="Prefix" class="info">Suffix</label>
+        <select class="form-select" id="Prefix" name="Prefix">
+          <option value="">Optional</option>
+          <?php
+            $prefixes = ['none', 'Sr.', 'Jr.', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+            foreach ($prefixes as $prefix) {
+              echo "<option value='$prefix'" . (isset($row['prefix']) && $row['prefix'] == $prefix ? ' selected' : '') . ">$prefix</option>";
+            }
+          ?>
+        </select>
+      </div>
     </div>
-    <div class="col-md-2 text-center">
-        <label>Training Institution</label>
+
+    <!-- Birth Details and Religion -->
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="dob" class="info">Date of Birth</label>
+        <input type="date" id="dob" name="dob" class="form-control" required value="<?php echo isset($row['dob']) ? htmlspecialchars($row['dob']) : ''; ?>">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="pob" class="info">Place of Birth</label>
+        <input type="text" id="pob" name="pob" class="form-control" value="<?php echo isset($row['pob']) ? htmlspecialchars($row['pob']) : ''; ?>">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="religion" class="info">Religion</label>
+        <input type="text" id="religion" name="religion" class="form-control" value="<?php echo isset($row['religion']) ? htmlspecialchars($row['religion']) : ''; ?>">
+      </div>
     </div>
-    <div class="col-md-2 text-center">
-        <label>Certificates (upload file)</label>
+
+    <!-- Address Information -->
+    <div class="row">
+      <div class="col mb-3">
+        <label for="houseadd" class="info">Present Address</label>
+        <input type="text" id="houseadd" name="houseadd" class="form-control" required placeholder="House no. / Street / Barangay / City / Province" value="<?php echo isset($row['house_address']) ? htmlspecialchars($row['house_address']) : ''; ?>">
+      </div>
     </div>
-    <div class="col-md-1 text-center">
-        <label>Action</label>
+
+    <!-- Civil Status, Sex, and Height -->
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="civilStatus" class="info">Civil Status</label>
+        <select class="form-select" id="civilStatus" name="civilStatus" required>
+          <option value="Single" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Single') ? 'selected' : ''; ?>>Single</option>
+          <option value="Married" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Married') ? 'selected' : ''; ?>>Married</option>
+          <option value="Widowed" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Widowed') ? 'selected' : ''; ?>>Widowed</option>
+          <option value="Separated" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Separated') ? 'selected' : ''; ?>>Separated</option>
+          <option value="Live-in" <?php echo (isset($row['civil_status']) && $row['civil_status'] == 'Live-in') ? 'selected' : ''; ?>>Live-in</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="sex" class="info">Sex</label>
+        <select class="form-select" id="sex" name="sex" required>
+          <option value="Male" <?php echo (isset($row['sex']) && $row['sex'] == 'Male') ? 'selected' : ''; ?>>Male</option>
+          <option value="Female" <?php echo (isset($row['sex']) && $row['sex'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="height" class="info">Height</label>
+        <input type="text" id="height" name="height" class="form-control" value="<?php echo isset($row['height']) ? htmlspecialchars($row['height']) : ''; ?>">
+      </div>
     </div>
+
+    <!-- Identification Numbers -->
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="tin" class="info">TIN</label>
+        <input type="text" id="tin" name="tin" class="form-control" value="<?php echo isset($row['tin']) ? htmlspecialchars($row['tin']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="sssNo" class="info">GSIS/SSS No.</label>
+        <input type="text" id="sssNo" name="sssNo" class="form-control" value="<?php echo isset($row['sss_no']) ? htmlspecialchars($row['sss_no']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="pagibigNo" class="info">Pag-IBIG No.</label>
+        <input type="text" id="pagibigNo" name="pagibigNo" class="form-control" value="<?php echo isset($row['pagibig_no']) ? htmlspecialchars($row['pagibig_no']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="philhealthNo" class="info">PhilHealth No.</label>
+        <input type="text" id="philhealthNo" name="philhealthNo" class="form-control" value="<?php echo isset($row['philhealth_no']) ? htmlspecialchars($row['philhealth_no']) : ''; ?>">
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="email" class="info">Email</label>
+        <input type="email" id="email" name="email" class="form-control" required value="<?php echo isset($row['email']) ? htmlspecialchars($row['email']) : ''; ?>">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="contactNo" class="info">Contact No.</label>
+        <input type="tel" id="contactNo" name="contactNo" class="form-control" required value="<?php echo isset($row['contact_no']) ? htmlspecialchars($row['contact_no']) : ''; ?>">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="landline" class="info">Landline No.</label>
+        <input type="tel" id="landline" name="landline" class="form-control" value="<?php echo isset($row['landline']) ? htmlspecialchars($row['landline']) : ''; ?>">
+      </div>
+    </div>
+
+    <!-- Disability and 4Ps -->
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="pwd" class="info">Disability</label>
+        <select class="form-select" id="pwd" name="pwd" required>
+          <option value="">Select</option>
+          <option value="None" <?php echo (isset($row['pwd']) && $row['pwd'] == 'None') ? 'selected' : ''; ?>>None</option>
+          <option value="Visual" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Visual') ? 'selected' : ''; ?>>Visual</option>
+          <option value="Hearing" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Hearing') ? 'selected' : ''; ?>>Hearing</option>
+          <option value="Speech" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Speech') ? 'selected' : ''; ?>>Speech</option>
+          <option value="Physical" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Physical') ? 'selected' : ''; ?>>Physical</option>
+          <option value="Others" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Others') ? 'selected' : ''; ?>>Others</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div id="disability-input" class="additional-input">
+          <label for="disability-other" class="info">Please specify:</label>
+          <input type="text" id="disability-other" name="pwd2" class="form-control" value="<?php echo isset($row['pwd2']) ? htmlspecialchars($row['pwd2']) : ''; ?>">
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="four-ps-beneficiary" class="info">Are you a 4Ps beneficiary?</label>
+        <select class="form-select" id="four-ps-beneficiary" name="four-ps-beneficiary" required>
+          <option value="">Select</option>
+          <option value="Yes" <?php echo (isset($row['four-ps-beneficiary']) && $row['four-ps-beneficiary'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
+          <option value="No" <?php echo (isset($row['four-ps-beneficiary']) && $row['four-ps-beneficiary'] == 'No') ? 'selected' : ''; ?>>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div id="household-id-input" class="additional-input">
+          <label for="household-id" class="info">If yes, Household ID No.</label>
+          <input type="text" id="household-id" class="form-control" placeholder="Household ID">
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- Input Container for Technical Training -->
-<div id="training-container">
-    <div class="row mb-3">
+
+  <!-- Combined Employment Information, Job Search Status, Job Preference, and Passport Information Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Employment Information</h4>
+  </div>
+  <div class="card-body">
+
+    <!-- Employment Information -->
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="employment-status" class="info">Employment Status:</label>
+        <select class="form-select" id="employment-status" name="employent_status" required>
+          <option value="">Select</option>
+          <option value="employed" <?php echo (isset($row['employment_status']) && $row['employment_status'] == 'employed') ? 'selected' : ''; ?>>Employed</option>
+          <option value="unemployed" <?php echo (isset($row['employment_status']) && $row['employment_status'] == 'unemployed') ? 'selected' : ''; ?>>Unemployed</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div id="sub-dropdown" class="sub-dropdown">
+          <label for="employment-type" class="info">Employment Type:</label>
+          <select class="form-select" id="employment-type" required>
+            <option value="">Select</option>
+            <option value="wage">Wage Employed</option>
+            <option value="self">Self Employed</option>
+            <option value="fresh_grad" class="unemployed-option">New Entrant/Fresh Graduate</option>
+            <option value="f_contract" class="unemployed-option">Finished Contract</option>
+            <option value="resigned" class="unemployed-option">Resigned</option>
+            <option value="retired" class="unemployed-option">Retired</option>
+            <option value="local" class="unemployed-option">Terminated/Laidoff(local)</option>
+            <option value="abroad" class="unemployed-option">Terminated/Laidoff(abroad)</option>
+            <option value="others" class="unemployed-option">Others, specify</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div id="additional-input" class="info">
+          <label for="other-reason">Please specify country, others:</label>
+          <input type="text" id="other-reason" class="form-control" placeholder="Enter details here">
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Search Status -->
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="actively-looking" class="info">Are you actively looking for work?</label>
+        <select class="form-select" id="actively-looking" name="actively-looking" required>
+          <option value="">Select</option>
+          <option value="Yes" <?php echo (isset($row['actively-looking']) && $row['actively-looking'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
+          <option value="No" <?php echo (isset($row['actively-looking']) && $row['actively-looking'] == 'No') ? 'selected' : ''; ?>>No</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div id="actively-looking-input" class="additional-input">
+          <label for="actively-looking-details" class="info">Please specify:</label>
+          <input type="text" id="actively-looking-details" class="form-control" placeholder="How long have you been looking for work?">
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="willing-to-work" class="info">Willing to work immediately?</label>
+        <select class="form-select" id="willing-to-work" name="willing-to-work" required>
+          <option value="">Select</option>
+          <option value="Yes" <?php echo (isset($row['willing-to-work']) && $row['willing-to-work'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
+          <option value="No" <?php echo (isset($row['willing-to-work']) && $row['willing-to-work'] == 'No') ? 'selected' : ''; ?>>No</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div id="willing-to-work-input" class="additional-input">
+          <label for="willing-to-work-details" class="info">Please specify:</label>
+          <input type="text" id="willing-to-work-details" class="form-control" placeholder="If no, when?">
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Preference -->
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="occupation" class="info">Preferred Occupation</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <input type="text" id="occupation_1" name="#" class="form-control ocu_input" placeholder="1 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" id="occupation_2" name="#" class="form-control ocu_input" placeholder="2 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" id="occupation_3" name="#" class="form-control ocu_input" placeholder="3 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" id="occupation_4" name="#" class="form-control ocu_input" placeholder="4 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
+      </div>
+    </div>
+
+    <!-- Preferred Work Location and Salary -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="pwl" class="info">Preferred Work Location</label>
+        <select class="form-select" id="pwl" name="pwl" required>
+          <option value="">Select</option>
+          <option value="local" <?php echo (isset($row['pwl']) && $row['pwl'] == 'local') ? 'selected' : ''; ?>>Local, specify cities/municipalities</option>
+          <option value="overseas" <?php echo (isset($row['pwl']) && $row['pwl'] == 'overseas') ? 'selected' : ''; ?>>Overseas, specify countries</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="salary" class="info">Expected Salary</label>
+        <input type="text" id="salary" name="salary" class="form-control" placeholder="Input Range" required>
+      </div>
+    </div>
+
+    <!-- Local Work Location Details -->
+    <div id="local-input" class="location-input">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <input type="text" name="local" class="form-control pwl_input" placeholder="1 - City/Municipality" value="<?php echo isset($row['local-city1']) ? htmlspecialchars($row['local-city1']) : ''; ?>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <input type="text" name="local" class="form-control pwl_input" placeholder="2 - City/Municipality" value="<?php echo isset($row['local-city2']) ? htmlspecialchars($row['local-city2']) : ''; ?>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <input type="text" name="local" class="form-control pwl_input" placeholder="3 - City/Municipality" value="<?php echo isset($row['local-city3']) ? htmlspecialchars($row['local-city3']) : ''; ?>">
+        </div>
+      </div>
+    </div>
+
+    <!-- Overseas Work Location Details -->
+    <div id="overseas-input" class="location-input">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <input type="text" name="overseas-country1" class="form-control overseas-option pwl_input" placeholder="1 - Country" value="<?php echo isset($row['overseas-country1']) ? htmlspecialchars($row['overseas-country1']) : ''; ?>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <input type="text" name="overseas-country2" class="form-control overseas-option pwl_input" placeholder="2 - Country" value="<?php echo isset($row['overseas-country2']) ? htmlspecialchars($row['overseas-country2']) : ''; ?>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <input type="text" name="overseas-country3" class="form-control overseas-option pwl_input" placeholder="3 - Country" value="<?php echo isset($row['overseas-country3']) ? htmlspecialchars($row['overseas-country3']) : ''; ?>">
+        </div>
+      </div>
+    </div>
+
+    <!-- Passport Information -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="passport" class="info">Passport No.</label>
+        <input type="text" id="passport" name="passport_no" class="form-control" placeholder="Input Passport Number" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="passport_expiry" class="info">Expiry Date</label>
+        <input type="date" id="passport_expiry" name="passport_expiry" class="form-control" required>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Technical/Vocational and Other Training Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Technical/Vocational and Other Training</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2 text-center">
+        <label>Training/Vocational Course</label>
+      </div>
+      <div class="col-md-4 text-center">
+        <label>Duration</label>
+      </div>
+      <div class="col-md-2 text-center">
+        <label>Training Institution</label>
+      </div>
+      <div class="col-md-2 text-center">
+        <label>Certificates (upload file)</label>
+      </div>
+      <div class="col-md-1 text-center">
+        <label>Action</label>
+      </div>
+    </div>
+
+    <div id="training-container">
+      <div class="row mb-3">
         <div class="col-md-2">
-            <input type="text" class="form-control" name="training[]" placeholder="Training/Vocational">
+          <input type="text" class="form-control" name="training[]" placeholder="Training/Vocational">
         </div>
         <div class="col-md-4 text-center">
-            <div class="d-flex justify-content-center">
-                <input type="date" class="form-control" name="start_date[]" placeholder="Start Date" style="width: 120px;">
-                <span class="mx-2 align-self-center">to</span>
-                <input type="date" class="form-control" name="end_date[]" placeholder="End Date" style="width: 120px;">
-            </div>
+          <div class="d-flex justify-content-center">
+            <input type="date" class="form-control" name="start_date[]" style="width: 120px;">
+            <span class="mx-2 align-self-center">to</span>
+            <input type="date" class="form-control" name="end_date[]" style="width: 120px;">
+          </div>
         </div>
         <div class="col-md-2 text-center">
-            <input type="text" class="form-control" name="institution[]" placeholder="Institution">
+          <input type="text" class="form-control" name="institution[]" placeholder="Institution">
         </div>
         <div class="col-md-2 text-center">
-            <input type="file" class="form-control" name="certificate[]">
+          <input type="file" class="form-control" name="certificate[]">
         </div>
         <div class="col-md-1 text-center">
-            <button type="button" class="btn btn-danger" onclick="removeTrainingGroup(this)">Remove</button>
+          <button type="button" class="btn btn-danger" onclick="removeTrainingGroup(this)">Remove</button>
         </div>
-    </div>
-</div>
-
-<!-- Button to Add Another Training Set -->
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-primary" onclick="addTrainingGroup()">Add Another Training Set</button>
-    </div>
-</div>
-
-<!-- Language/Dialect Proficiency -->
-<h4>Language/Dialect Proficiency</h4>
-<div class="container">
-    <div class="row mb-3">
-        <div class="col-md-2">
-            <span class="info">Language</span>
-            <label>(check if applicable)</label>
-        </div>
-        <div class="col-md-2 text-center">
-            <span class="info">Read</span>
-        </div>
-        <div class="col-md-2 text-center">
-            <span class="info">Write</span>
-        </div>
-        <div class="col-md-2 text-center">
-            <span class="info">Speak</span>
-        </div>
-        <div class="col-md-2 text-center">
-            <span class="info">Understand</span>
-        </div>
-        <div class="col-md-1 text-center">
-            <label>Action</label>
-        </div>
+      </div>
     </div>
 
-    <!-- Input Container for Language Proficiency -->
-    <div id="language-container">
-        <div class="row mb-3">
-            <div class="col-md-2">
-                <input type="text" class="form-control" name="language[]" placeholder="Language">
-            </div>
-            <div class="col-md-2 text-center">
-                <input type="checkbox" name="read[]" value="1" aria-label="Read">
-            </div>
-            <div class="col-md-2 text-center">
-                <input type="checkbox" name="write[]" value="1" aria-label="Write">
-            </div>
-            <div class="col-md-2 text-center">
-                <input type="checkbox" name="speak[]" value="1" aria-label="Speak">
-            </div>
-            <div class="col-md-2 text-center">
-                <input type="checkbox" name="understand[]" value="1" aria-label="Understand">
-            </div>
-            <div class="col-md-1 text-center">
-                <button type="button" class="btn btn-danger" onclick="removeLanguageGroup(this)">Remove</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Button to Add Another Language Set --> 
     <div class="row">
-        <div class="col-md-12 text-right">
-            <button type="button" class="btn btn-primary" onclick="addLanguageGroup()">Add Another Language Set</button>
-        </div>
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" onclick="addTrainingGroup()">Add Another Training Set</button>
+      </div>
     </div>
+  </div>
 </div>
 
-      <!-- Eligibility/Professional License -->
-      <h4>Eligibility/Professional License</h4>
+<!-- Language/Dialect Proficiency Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Language/Dialect Proficiency</h4>
+  </div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <span class="info">Language</span>
+        <label>(check if applicable)</label>
+      </div>
+      <div class="col-md-2 text-center">
+        <span class="info">Read</span>
+      </div>
+      <div class="col-md-2 text-center">
+        <span class="info">Write</span>
+      </div>
+      <div class="col-md-2 text-center">
+        <span class="info">Speak</span>
+      </div>
+      <div class="col-md-2 text-center">
+        <span class="info">Understand</span>
+      </div>
+      <div class="col-md-1 text-center">
+        <label class="info">Action</label>
+      </div>
+    </div>
 
-      <!-- Label Row -->
-      <div class="row">
-            <div class="col-md-3 text-center">
-              <label>Eligibility (Civil Service)</label>
-            </div>
-            <div class="col-md-2 text-center">
-              <label>Rating</label>
-            </div>
-            <div class="col-md-3 text-center">
-              <label>Date of Examination</label>
-            </div>
-            <div class="col-md-3 text-center">
-              <label>Professional License (PRC) (upload file)</label>
-            </div>
-            <div class="col-md-1 text-center">
-              <label>Action</label>
-            </div>
+    <!-- English Row -->
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <input type="text" class="form-control" name="language[]" value="English" readonly disable>
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="read[]" value="1" aria-label="Read English">
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="write[]" value="1" aria-label="Write English">
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="speak[]" value="1" aria-label="Speak English">
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="understand[]" value="1" aria-label="Understand English">
+      </div>
+      <div class="col-md-1 text-center">
+        <!-- No action for default rows -->
+      </div>
+    </div>
+
+    <!-- Filipino Row -->
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <input type="text" class="form-control" name="language[]" value="Filipino" readonly disable>
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="read[]" value="1" aria-label="Read Filipino">
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="write[]" value="1" aria-label="Write Filipino">
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="speak[]" value="1" aria-label="Speak Filipino">
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="checkbox" name="understand[]" value="1" aria-label="Understand Filipino">
+      </div>
+      <div class="col-md-1 text-center">
+        <!-- No action for default rows -->
+      </div>
+    </div>
+
+    <!-- Dynamic Language Container -->
+    <div id="language-container">
+      <div class="row mb-3">
+        <div class="col-md-2">
+          <input type="text" class="form-control" name="language[]" placeholder="Enter Language">
         </div>
-
-        <!-- Input Container for Dynamic Rows -->
-        <div id="input-container">
-            <!-- Input Row 1 (Default) -->
-            <div class="row mb-3">
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="eligibility[]" placeholder="Eligibility">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" name="rating[]" placeholder="Rating">
-                </div>
-                <div class="col-md-3">
-                    <input type="date" class="form-control" name="exam_date[]">
-                </div>
-                <div class="col-md-3">
-                    <input type="file" class="form-control" name="license[]">
-                </div>
-                <div class="col-md-1 text-center">
-                    <!-- Empty action column for the first row -->
-                </div>
-            </div>
+        <div class="col-md-2 text-center">
+          <input type="checkbox" name="read[]" value="1" aria-label="Read">
         </div>
-
-        <!-- Button to Add Another Set -->
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-primary" onclick="addInputGroup()">Add Another Set</button>
-            </div>
+        <div class="col-md-2 text-center">
+          <input type="checkbox" name="write[]" value="1" aria-label="Write">
         </div>
-
-      <!-- Work Experience (Limit to 10-year period) -->
-      <h4>Work Experience (Limit to 10-year period)</h4>
-
-      <div class="row">
-            <div class="col-md-2 text-center">
-                <label>Company Name</label>
-            </div>
-            <div class="col-md-3 text-center">
-                <label>Address (City/Municipality)</label>
-            </div>
-            <div class="col-md-2 text-center">
-                <label>Position</label>
-            </div>
-            <div class="col-md-3 text-center">
-                <label>Inclusive Dates</label>
-            </div>
-            <div class="col-md-2 text-center">
-                <label>Status</label>
-            </div>
+        <div class="col-md-2 text-center">
+          <input type="checkbox" name="speak[]" value="1" aria-label="Speak">
         </div>
-
-        <!-- Input Container for Work Experience -->
-        <div id="work-experience-container">
-            <div class="row mb-3">
-                <div class="col-md-2">
-                    <input type="text" class="form-control" name="company[]" placeholder="Company Name">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="address[]" placeholder="Address">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" name="position[]" placeholder="Position">
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="d-flex justify-content-center">
-                        <input type="date" class="form-control" name="start_date[]">
-                        <span class="mx-2 align-self-center">to</span>
-                        <input type="date" class="form-control" name="end_date[]">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" name="status[]" placeholder="Status">
-                </div>
-            </div>
+        <div class="col-md-2 text-center">
+          <input type="checkbox" name="understand[]" value="1" aria-label="Understand">
         </div>
-
-        <!-- Button to Add Another Work Experience Set -->
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-primary" onclick="addWorkExperienceGroup()">Add Another Work Experience Set</button>
-            </div>
+        <div class="col-md-1 text-center">
+          <button type="button" class="btn btn-danger" onclick="removeLanguageGroup(this)">Remove</button>
         </div>
+      </div>
+    </div>
 
-      <!-- Other Skills Acquired Without Formal Training -->
-      <h4>Other Skills Acquired Without Formal Training</h4>
-        <label for="dynamicSelect">Choose one or more options:</label>
-        <select id="dynamicSelect"  name="other_skills[]" multiple>
-          <option value="add">Add a new option...</option>
-          <option value="Auto Mechanic">Auto Mechanic</option>
-          <option value="Beautician">Beautician</option>
-          <option value="Carpentry Work">Carpentry Work</option>
-          <option value="Computer Literate">Computer Literate</option>
-          <option value="Domestic Chores">Domestic Chores</option>
-          <option value="Driver">Driver</option>
-          <option value="Electrician">Electrician</option>
-          <option value="Embroidery">Embroidery</option>
-          <option value="Gardening">Gardening</option>
-          <option value="Masonry">Masonry</option>
-          <option value="Painter/Artist">Painter/Artist</option>
-          <option value="Painting Jobs">Painting Jobs</option>
-          <option value="Photography">Photography</option>
-          <option value="Plumbing">Plumbing</option>
-          <option value="Sewing">Sewing Dresses</option>
-          <option value="Stenography">Stenography</option>
-          <option value="Tailoring">Tailoring</option>
-        </select>
-
-        <div id="newOptionContainer">
-          <input type="text" id="newOption" placeholder="Enter new option">
-          <button id="addButton" type="button">Add Option</button> <!-- Ensure type="button" here -->
-        </div>
-        <input type="hidden" name="selectedOptions" id="selectedOptionsHidden">
-        <div id="selectedOptionsContainer">
-          <h3>Selected Options:</h3>
-          <ul id="selectedOptionsList"></ul>
-        </div>
-
-        <input class="btn btn-primary" type="submit" value="submit">
-  </form>
+    <!-- Add Another Language Set Button -->
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" onclick="addLanguageGroup()">Add Another Language Set</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<!-- Eligibility/Professional License Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Eligibility/Professional License</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3 text-center">
+        <label>Eligibility (Civil Service)</label>
+      </div>
+      <div class="col-md-2 text-center">
+        <label>Rating</label>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Date of Examination</label>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Professional License (PRC) (upload file)</label>
+      </div>
+      <div class="col-md-1 text-center">
+        <label>Action</label>
+      </div>
+    </div>
+
+    <div id="input-container">
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <input type="text" class="form-control" name="eligibility[]" placeholder="Eligibility">
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" name="rating[]" placeholder="Rating">
+        </div>
+        <div class="col-md-3">
+          <input type="date" class="form-control" name="exam_date[]">
+        </div>
+        <div class="col-md-3">
+          <input type="file" class="form-control" name="license[]">
+        </div>
+        <div class="col-md-1 text-center">
+          <!-- Empty action column for the first row -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" onclick="addInputGroup()">Add Another Set</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- Work Experience Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Work Experience (Limit to 10-year period)</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2 text-center">
+        <label>Company Name</label>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Address (City/Municipality)</label>
+      </div>
+      <div class="col-md-2 text-center">
+        <label>Position</label>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Inclusive Dates</label>
+      </div>
+      <div class="col-md-2 text-center">
+        <label>Status</label>
+      </div>
+    </div>
+
+    <div id="work-experience-container">
+      <div class="row mb-3">
+        <div class="col-md-2">
+          <input type="text" class="form-control" name="company[]" placeholder="Company Name">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" name="address[]" placeholder="Address">
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" name="position[]" placeholder="Position">
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="d-flex justify-content-center">
+            <input type="date" class="form-control" name="start_date[]">
+            <span class="mx-2 align-self-center">to</span>
+            <input type="date" class="form-control" name="end_date[]">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" name="status[]" placeholder="Status">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" onclick="addWorkExperienceGroup()">Add Another Work Experience Set</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Other Skills Acquired Without Formal Training Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Other Skills Acquired Without Formal Training</h4>
+  </div>
+  <div class="card-body">
+    <label for="dynamicSelect">Choose one or more options:</label>
+    <select id="dynamicSelect" name="other_skills[]" multiple class="form-select">
+      <option value="add">Add a new option...</option>
+      <option value="Auto Mechanic">Auto Mechanic</option>
+      <option value="Beautician">Beautician</option>
+      <option value="Carpentry Work">Carpentry Work</option>
+      <option value="Computer Literate">Computer Literate</option>
+      <option value="Domestic Chores">Domestic Chores</option>
+      <option value="Driver">Driver</option>
+      <option value="Electrician">Electrician</option>
+      <option value="Embroidery">Embroidery</option>
+      <option value="Gardening">Gardening</option>
+      <option value="Masonry">Masonry</option>
+      <option value="Painter/Artist">Painter/Artist</option>
+      <option value="Painting Jobs">Painting Jobs</option>
+      <option value="Photography">Photography</option>
+      <option value="Plumbing">Plumbing</option>
+      <option value="Sewing">Sewing Dresses</option>
+      <option value="Stenography">Stenography</option>
+      <option value="Tailoring">Tailoring</option>
+    </select>
+
+    <div id="newOptionContainer" class="mt-3">
+      <input type="text" id="newOption" placeholder="Enter new option" class="form-control mb-2">
+      <button id="addButton" type="button" class="btn btn-primary">Add Option</button>
+    </div>
+
+    <input type="hidden" name="selectedOptions" id="selectedOptionsHidden">
+    <div id="selectedOptionsContainer" class="mt-3">
+      <h5>Selected Options:</h5>
+      <ul id="selectedOptionsList"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- Submit Button -->
+<div class="row">
+  <div class="col-md-12 text-right">
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('dynamicSelect');
