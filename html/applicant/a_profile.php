@@ -387,6 +387,152 @@ $stmt_work_exp->close();
   </div>
 </div>
 
+<!-- Educational Background Card -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h4>Educational Background</h4>
+    </div>
+    <div class="card-body">
+        <!-- Elementary Section -->
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <h5>Elementary</h5>
+            </div>
+            <div class="col-md-5">
+                <label for="elemSchoolName" class="form-label">School Name</label>
+                <input type="text" class="form-control" id="elemSchoolName" placeholder="Enter school name">
+            </div>
+            <div class="col-md-2">
+                <label for="elemYearGrad" class="form-label">Year Graduated</label>
+                <input type="number" class="form-control" id="elemYearGrad" placeholder="Enter year graduated">
+            </div>
+            <div class="col-md-3">
+                <label for="elemAwards" class="form-label">Awards Received</label>
+                <input type="text" class="form-control" id="elemAwards" placeholder="Enter awards (if any)">
+            </div>
+        </div>
+
+        <!-- Secondary Section -->
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <h5>Secondary</h5>
+            </div>
+            <div class="col-md-5">
+                <label for="secSchoolName" class="form-label">School Name</label>
+                <input type="text" class="form-control" id="secSchoolName" placeholder="Enter school name">
+            </div>
+            <div class="col-md-2">
+                <label for="secYearGrad" class="form-label">Year Graduated</label>
+                <input type="number" class="form-control" id="secYearGrad" placeholder="Enter year graduated">
+            </div>
+            <div class="col-md-3">
+                <label for="secAwards" class="form-label">Awards Received</label>
+                <input type="text" class="form-control" id="secAwards" placeholder="Enter awards (if any)">
+            </div>
+        </div>
+
+        <!-- Tertiary Section -->
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <h5>Tertiary</h5>
+            </div>
+            <div class="col-md-3">
+                <label for="terSchoolName" class="form-label">School Name</label>
+                <input type="text" class="form-control" id="terSchoolName" placeholder="Enter school name">
+            </div>
+            <div class="col-md-2">
+                <label for="terCourse" class="form-label">Course</label>
+                <input type="text" class="form-control" id="terCourse" placeholder="Enter course">
+            </div>
+            <div class="col-md-2">
+                <label for="terYearGrad" class="form-label">Year Graduated</label>
+                <input type="number" class="form-control" id="terYearGrad" placeholder="Enter year graduated">
+            </div>
+            <div class="col-md-2">
+                <label for="terAwards" class="form-label">Awards Received</label>
+                <input type="text" class="form-control" id="terAwards" placeholder="Enter awards (if any)">
+            </div>
+        </div>
+
+        <!-- Undergraduate Option -->
+<div class="row mb-3">
+    <div class="col-md-2">
+        <!-- Empty space for alignment -->
+    </div>
+    <div class="col-md-10">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="terUndergradCheck">
+            <label class="form-check-label" for="terUndergradCheck">
+                If Undergraduate
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Fields on the same row -->
+<div class="row mb-3" id="terUndergradFields" style="display: none;">
+    <div class="col-md-2">
+        <!-- Empty space for alignment -->
+    </div>
+    <div class="col-md-5">
+        <label for="terLevel" class="form-label">Level</label>
+        <input type="text" class="form-control" id="terLevel" placeholder="Enter level (e.g., 2nd year)">
+    </div>
+    <div class="col-md-5">
+        <label for="terLastYear" class="form-label">Year Last Attended</label>
+        <input type="number" class="form-control" id="terLastYear" placeholder="Enter year last attended">
+    </div>
+</div>
+
+        <!-- Graduate Studies Section -->
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <h5>Graduate Studies</h5>
+            </div>
+            <div class="col-md-3">
+                <label for="gradSchoolName" class="form-label">School Name</label>
+                <input type="text" class="form-control" id="gradSchoolName" placeholder="Enter school name">
+            </div>
+            <div class="col-md-2">
+                <label for="gradCourse" class="form-label">Course</label>
+                <input type="text" class="form-control" id="gradCourse" placeholder="Enter course">
+            </div>
+            <div class="col-md-2">
+                <label for="gradYearGrad" class="form-label">Year Graduated</label>
+                <input type="number" class="form-control" id="gradYearGrad" placeholder="Enter year graduated">
+            </div>
+            <div class="col-md-2">
+                <label for="gradAwards" class="form-label">Awards Received</label>
+                <input type="text" class="form-control" id="gradAwards" placeholder="Enter awards (if any)">
+            </div>
+        </div>
+
+        <!-- Undergraduate Option for Graduate Studies -->
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <!-- Empty space for alignment -->
+            </div>
+            <div class="col-md-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gradUndergradCheck">
+                    <label class="form-check-label" for="gradUndergradCheck">
+                        If Undergraduate
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3" id="gradUndergradFields" style="display: none;">
+            <div class="col-md-5">
+                <label for="gradLevel" class="form-label">Level</label>
+                <input type="text" class="form-control" id="gradLevel" placeholder="Enter level (e.g., 2nd year)">
+            </div>
+            <div class="col-md-5">
+                <label for="gradLastYear" class="form-label">Year Last Attended</label>
+                <input type="number" class="form-control" id="gradLastYear" placeholder="Enter year last attended">
+            </div>
+        </div>
+    </div>
+</div>
 
   <!-- Combined Employment Information, Job Search Status, Job Preference, and Passport Information Card -->
 <div class="card mb-4">
@@ -1197,6 +1343,22 @@ document.addEventListener('DOMContentLoaded', function() {
         button.parentElement.parentElement.remove();
     }
 </script>
+
+<!-- JavaScript to toggle fields -->
+<script>
+    // Toggle undergraduate fields for tertiary section
+    document.getElementById('terUndergradCheck').addEventListener('change', function () {
+        var undergradFields = document.getElementById('terUndergradFields');
+        undergradFields.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Toggle undergraduate fields for graduate section
+    document.getElementById('gradUndergradCheck').addEventListener('change', function () {
+        var gradUndergradFields = document.getElementById('gradUndergradFields');
+        gradUndergradFields.style.display = this.checked ? 'block' : 'none';
+    });
+</script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="../../javascript/a_profile.js"></script> 

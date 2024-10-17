@@ -73,9 +73,6 @@ if (!$row) {
         <span></span>
         <span></span>
     </div>
-</td>
-</tr>
-</table>
 
     <!-- Offcanvas Menu -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
