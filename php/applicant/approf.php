@@ -25,34 +25,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pwd = htmlspecialchars($_POST['pwd'] ?? '');
     $pwd2 = htmlspecialchars($_POST['pwd2'] ?? '');
     $fourPs = htmlspecialchars($_POST['four-ps-beneficiary'] ?? '');
+    $household_id  = htmlspecialchars($_POST['household_id'] ?? '');
     $employment_status = htmlspecialchars($_POST['employent_status'] ?? '');
+    $es_status =  htmlspecialchars($_POST['es_status'] ?? '');
+    $es_others  = htmlspecialchars($_POST['es_others'] ?? '');
     $actively_looking = htmlspecialchars($_POST['actively-looking'] ?? '');
-    $willing_to_work = htmlspecialchars($_POST['willing-to-work'] ?? '');
+    $al_details  = htmlspecialchars($_POST['al_details'] ?? '');
+    $willing_to_work = htmlspecialchars($_POST['willing_to_work'] ?? '');
+    $ww_details  = htmlspecialchars($_POST['ww_detail'] ?? '');
     $passport = htmlspecialchars($_POST['passport_no'] ?? '');
     $passport_expiry = $_POST['passport_expiry'] ?? '';
     $salary = htmlspecialchars($_POST['salary'] ?? '');
+    $jobs = isset($_POST['job']) ? $_POST['job'] : [];
+    $pwl  = isset($_POST['pwl']) ? $_POST['pwl'] : [];
+    $local =  isset($_POST['local']) ? $_POST['local'] : [];
+    $overseas = isset($_POST['overseas']) ? $_POST['overseas'] : [];
+    $profile_image = $_POST['existing_image'] ?? ''; // Retain the existing image
+    $resume = $_POST['existing_resume'] ?? '';       // Retain the existing resume
+
+
+    $local = array_filter($local);
+    $local_string = implode(',', $local);
+
+    $overseas  = array_filter($overseas);
+    $overseas_string  = implode(',', $overseas);
+
+    $jobs = array_filter($jobs);
+    $job_string = implode(',', $jobs);
 
     // Handling selectedOptions input
-    $selectedOptions = $_POST['selectedOptions'] ?? ''; 
+    $selectedOptions = $_POST['selectedOptions'] ?? '';
     $optionsArray = explode(',', $selectedOptions); 
     $optionsString = implode(',', $optionsArray); 
 
-    // Ensure the uploads directory exists
+    // Create directories for uploads if they don't exist
     $upload_dir = 'images/';
+    $upload_dir_resume = 'resume/';
     if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, true); 
+        mkdir($upload_dir, 0777, true);
+    }
+    
+    // Check and create the resume upload directory if it doesn't exist
+    if (!is_dir($upload_dir_resume)) {
+        mkdir($upload_dir_resume, 0777, true);
     }
 
     // Handle file uploads
-    $profile_image = '';
-    $resume = '';
+    $profile_image = $_POST['existing_image'] ?? ''; // Retain the existing image
+    $resume = $_POST['existing_resume'] ?? '';       // Retain the existing resume
+
     if (!empty($_FILES['profile_image']['name'])) {
         $profile_image = basename($_FILES['profile_image']['name']);
         move_uploaded_file($_FILES['profile_image']['tmp_name'], $upload_dir . $profile_image);
     }
     if (!empty($_FILES['resume']['name'])) {
         $resume = basename($_FILES['resume']['name']);
-        move_uploaded_file($_FILES['resume']['tmp_name'], $upload_dir . $resume);
+        move_uploaded_file($_FILES['resume']['tmp_name'], $upload_dir_resume . $resume);
     }
 
     // Update applicant_profile
@@ -72,28 +100,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 sss_no = ?, 
                 pagibig_no = ?, 
                 philhealth_no = ?, 
-                email = ?, 
+                email = ?,
+                preferred_occupation = ?, 
+                pwl  = ?, 
+                overseas_loc = ?, 
+                local_loc = ?, 
                 contact_no = ?, 
                 landline = ?, 
                 pwd = ?, 
                 pwd2 = ?, 
                 four_ps = ?, 
+                hhid =  ?, 
                 selected_options = ?, 
                 employment_status = ?, 
+                es_status  = ?, 
+                es_others  = ?, 
                 actively_looking = ?, 
+                al_details  = ?, 
                 willing_to_work = ?, 
+                ww_details = ?, 
                 passport_no = ?, 
                 passport_expiry = ?, 
-                expected_salary = ?,
-                photo = IFNULL(?, photo),
+                expected_salary = ?, 
+                photo = IFNULL(?, photo), 
                 resume = IFNULL(?, resume)
             WHERE user_id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssssssssssssssssssssssi",
+    $stmt->bind_param("sssssssssssssssssssssssssssssssssssssssi",
         $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
-        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $contactNo, $landline, $pwd, $pwd2, $fourPs, $optionsString, 
-        $employment_status, $actively_looking, $willing_to_work, $passport, $passport_expiry, 
+        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $job_string, $pwl, $overseas_string, $local_string, $contactNo, $landline, $pwd, $pwd2, $fourPs, $household_id, $optionsString, 
+        $employment_status, $es_status, $es_others, $actively_looking, $al_details, $willing_to_work, $ww_details, $passport, $passport_expiry, 
         $salary, $profile_image, $resume, $id
     );
 
@@ -150,39 +187,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insert Technical/Vocational Training
-    if (!empty($_POST['training'])) {
-        $trainings = $_POST['training'] ?? [];
-        $start_dates = $_POST['start_date'] ?? [];
-        $end_dates = $_POST['end_date'] ?? [];
-        $institutions = $_POST['institution'] ?? [];
-        $certificates = $_FILES['certificate'] ?? [];
 
-        $training_dir = 'training_files/';
-        if (!is_dir($training_dir)) {
-            mkdir($training_dir, 0777, true);
-        }
+// Insert or Update Technical/Vocational Training
+        if (!empty($_POST['training'])) {
+            $trainings = $_POST['training'] ?? [];
+            $start_dates = $_POST['start_date'] ?? [];
+            $end_dates = $_POST['end_date'] ?? [];
+            $institutions = $_POST['institution'] ?? [];
+            $certificates = $_FILES['certificate'] ?? [];
 
-        foreach ($trainings as $key => $training) {
-            if (!empty($training)) {
-                $start_date = $start_dates[$key] ?? '';
-                $end_date = $end_dates[$key] ?? '';
-                $institution = $institutions[$key] ?? '';
-                $certificate_path = '';
+            $training_dir = 'training_files/';
+            if (!is_dir($training_dir)) {
+                mkdir($training_dir, 0777, true);
+            }
 
-                // Handle the certificate file upload
-                if (!empty($certificates['name'][$key])) {
-                    $certificate_file_name = basename($certificates['name'][$key]);
-                    $certificate_file_path = $training_dir . $certificate_file_name;
-                    move_uploaded_file($certificates['tmp_name'][$key], $certificate_file_path);
-                    $certificate_path = $certificate_file_path;
+            foreach ($trainings as $key => $training) {
+                if (!empty($training)) {
+                    $start_date = $start_dates[$key] ?? '';
+                    $end_date = $end_dates[$key] ?? '';
+                    $institution = $institutions[$key] ?? '';
+                    $certificate_path = '';
+
+                    // Handle the certificate file upload only if a new file is provided
+                    if (!empty($certificates['name'][$key])) {
+                        $certificate_file_name = basename($certificates['name'][$key]);
+                        $certificate_file_path = $training_dir . $certificate_file_name;
+                        move_uploaded_file($certificates['tmp_name'][$key], $certificate_file_path);
+                        $certificate_path = $certificate_file_path;  // New file uploaded
+                    }
+
+                    // Check if the training record exists for this user
+                    $check_sql = "SELECT id, certificate_path FROM training WHERE user_id = ? AND training = ?";
+                    $check_stmt = $conn->prepare($check_sql);
+                    $check_stmt->bind_param("is", $id, $training);
+                    $check_stmt->execute();
+                    $check_result = $check_stmt->get_result();
+
+                    if ($check_result->num_rows > 0) {
+                        // Update the existing record
+                        $row = $check_result->fetch_assoc();
+                        $training_id = $row['id'];
+                        $existing_certificate_path = $row['certificate_path'];  // Get the existing certificate
+
+                        // If no new certificate is uploaded, retain the old one
+                        if (empty($certificate_path)) {
+                            $certificate_path = $existing_certificate_path;
+                        }
+
+                        $update_sql = "UPDATE training SET start_date = ?, end_date = ?, institution = ?, certificate_path = ? WHERE id = ?";
+                        $update_stmt = $conn->prepare($update_sql);
+                        $update_stmt->bind_param("ssssi", $start_date, $end_date, $institution, $certificate_path, $training_id);
+
+                        if (!$update_stmt->execute()) {
+                            echo "Error updating training record: " . $update_stmt->error;
+                        }
+                        $update_stmt->close();
+                    } else {
+                        // Insert new record
+                        $insert_sql = "INSERT INTO training (user_id, training, start_date, end_date, institution, certificate_path) VALUES (?, ?, ?, ?, ?, ?)";
+                        $insert_stmt = $conn->prepare($insert_sql);
+                        $insert_stmt->bind_param("isssss", $id, $training, $start_date, $end_date, $institution, $certificate_path);
+
+                        if (!$insert_stmt->execute()) {
+                            echo "Error inserting training record: " . $insert_stmt->error;
+                        }
+                        $insert_stmt->close();
+                    }
+                    $check_stmt->close();
                 }
-
-                // Insert into training table
-                insertData($conn, 'training', ['user_id', 'training', 'start_date', 'end_date', 'institution', 'certificate_path'], [$id, $training, $start_date, $end_date, $institution, $certificate_path], $id);
             }
         }
-    }
+
 
     // Insert Language Proficiency
     if (!empty($_POST['language'])) {

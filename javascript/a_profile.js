@@ -43,20 +43,28 @@ const employmentStatus = document.getElementById('employment-status');
                 additionalInput.style.display = 'none'; // Hide additional input
             }
         });
-// Disability input handling
-const disabilitySelect = document.getElementById('pwd');
-        const disabilityInput = document.getElementById('disability-input');
+      // Disability input handling
+      document.addEventListener('DOMContentLoaded', function () {
+          const disabilitySelect = document.getElementById('pwd');
+          const disabilityInput = document.getElementById('disability-input');
 
-        disabilitySelect.addEventListener('change', function() {
-            const disabilityValue = this.value;
+          // Function to toggle the disability input based on the selected value
+          function toggleDisabilityInput() {
+              const disabilityValue = disabilitySelect.value;
+              if (disabilityValue === 'Others') {
+                  disabilityInput.style.display = 'block'; // Show additional input if "Others" is selected
+              } else {
+                  disabilityInput.style.display = 'none'; // Hide additional input otherwise
+              }
+          }
 
-            if (disabilityValue === 'Others') {
-                disabilityInput.style.display = 'block'; // Show disability input
-            } else {
-                disabilityInput.style.display = 'none'; // Hide disability input
-            }
-        });
-                 // Handling 'Are you actively looking for work?'
+          // Check on page load if "Others" is the selected value
+          toggleDisabilityInput();  // This ensures the input shows if "Others" is already selected when the page loads.
+
+          // Listen for changes on the select field to dynamically toggle the input visibility
+          disabilitySelect.addEventListener('change', toggleDisabilityInput);
+      });
+    // Handling 'Are you actively looking for work?'
          const activelyLookingSelect = document.getElementById('actively-looking');
          const activelyLookingInput = document.getElementById('actively-looking-input');
 

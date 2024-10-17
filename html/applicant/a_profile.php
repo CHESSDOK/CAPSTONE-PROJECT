@@ -26,8 +26,16 @@ $result = $stmt->get_result();
 if (!$result) {
    die("Invalid query: " . $conn->error); 
 }
-
 $row = $result->fetch_assoc();
+$preferred = isset($row['preferred_occupation']) ? explode(',', $row['preferred_occupation']) : '';
+$loc1 = isset($row['overseas_loc']) ? explode(',',$row['overseas_loc']) : ''; 
+$loc2 = isset($row['local_loc']) ? explode(',',$row['local_loc']) : ''; 
+$otherSkills = isset($row['selected_options']) ? explode(',', $row['selected_options']) : [];
+$uploadedImage = isset($row['photo']) ? $row['photo'] : '';  // Use the value from the database
+$imagePath = '../../php/applicant/images/' . $uploadedImage;  // Assuming this is the directory where the images are stored
+$uploadedResume = isset($row['resume']) ? $row['resume'] : '';  // Use the value from the database
+$resumePath = '../../php/applicant/resume/' . $uploadedResume;  // Assuming this is the directory where the images are stored
+
 if (!$row) {
    die("User not found in applicant_profile.");
 }
@@ -45,8 +53,52 @@ if ($result_new->num_rows > 0) {
     $row_new = array(); // If no data found, initialize as an empty array
 }
 
+//training
+$sql_training = "SELECT * FROM training WHERE user_id = ?";
+$stmt_training = $conn->prepare($sql_training);
+$stmt_training->bind_param("i", $userId);
+$stmt_training->execute();
+$result_training = $stmt_training->get_result();
 // Close the connection
-$conn->close();
+
+//language
+$sql_language = "SELECT * FROM language_proficiency WHERE user_id = ?";
+$stmt_language = $conn->prepare($sql_language);
+$stmt_language->bind_param("i", $userId);
+$stmt_language->execute();
+$result_language = $stmt_language->get_result();
+
+// Create an array to hold language proficiency data
+$languageData = [];
+while ($row_language = $result_language->fetch_assoc()) {
+    $languageData[$row_language['language_p']] = $row_language;
+}
+
+// Close the statement
+$stmt_language->close();
+
+// Fetch data from license table
+$sql_license = "SELECT * FROM license WHERE user_id = ?";
+$stmt_license = $conn->prepare($sql_license);
+$stmt_license->bind_param("i", $userId);
+$stmt_license->execute();
+$result_license = $stmt_license->get_result();
+
+// Close the statement after fetching
+$stmt_license->close();
+
+// Fetch data from work_exp table
+$sql_work_exp = "SELECT * FROM work_exp WHERE user_id = ?";
+$stmt_work_exp = $conn->prepare($sql_work_exp);
+$stmt_work_exp->bind_param("i", $userId);
+$stmt_work_exp->execute();
+$result_work_exp = $stmt_work_exp->get_result();
+
+// Close the statement after fetching
+$stmt_work_exp->close();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -146,8 +198,11 @@ $conn->close();
     </a>
 </nav>
 
+
+<form id="optionsForm" action="../../php/applicant/approf.php" method="post" enctype="multipart/form-data">
 <!-- Profile Container -->
 <div class="profile-container container mt-4">
+<input type="hidden" name="id"  value="<?php echo $userId; ?>">
 
   <!-- Combined Personal Information Card -->
 <div class="card mb-4">
@@ -155,18 +210,29 @@ $conn->close();
     <h4>Personal Information</h4>
   </div>
   <div class="card-body">
-
+ 
     <!-- Profile Image -->
     <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="profile_image">Select Profile Image:</label>
-        <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*" required onchange="previewImage(event)">
-      </div>
-      <div class="col-md-6 mb-3 text-center">
-        <img id="profile_image_preview" src="" alt="Profile Image" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
-      </div>
+    <div class="col-md-6 mb-3">
+      <label for="profile_image">Select Profile Image:</label>
+      <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*" onchange="previewImage(event)">
+      <input type="hidden" name="existing_image" value="<?php echo htmlspecialchars($uploadedImage); ?>">
     </div>
 
+    <div class="col-md-6 mb-3 text-center">
+    <img id="profile_image_preview" 
+         src="<?php echo !empty($row['photo']) ? '../../php/applicant/images/' . $row['photo'] : '../../img/user-placeholder.png'; ?>" 
+         alt="Profile Image" 
+         class="rounded-circle img-thumbnail" 
+         style="width: 150px; height: 150px; object-fit: cover;">
+</div>
+<div class="row">
+  <div class="col-md-6 mb-3">
+        <label for="resume">RESUME:</label>
+        <input type="file" name="resume" id="resume" class="form-control">
+        <input type="hidden" name="existing_resume" value="<?php echo htmlspecialchars($uploadedResume); ?>">
+  </div>
+</div>
     <!-- Name Information -->
     <div class="row">
       <div class="col-md-3 mb-3">
@@ -282,36 +348,38 @@ $conn->close();
 
     <!-- Disability and 4Ps -->
     <div class="row">
-      <div class="col-md-3 mb-3">
-        <label for="pwd" class="info">Disability</label>
-        <select class="form-select" id="pwd" name="pwd" required>
-          <option value="">Select</option>
-          <option value="None" <?php echo (isset($row['pwd']) && $row['pwd'] == 'None') ? 'selected' : ''; ?>>None</option>
-          <option value="Visual" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Visual') ? 'selected' : ''; ?>>Visual</option>
-          <option value="Hearing" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Hearing') ? 'selected' : ''; ?>>Hearing</option>
-          <option value="Speech" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Speech') ? 'selected' : ''; ?>>Speech</option>
-          <option value="Physical" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Physical') ? 'selected' : ''; ?>>Physical</option>
-          <option value="Others" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Others') ? 'selected' : ''; ?>>Others</option>
-        </select>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div id="disability-input" class="additional-input">
-          <label for="disability-other" class="info">Please specify:</label>
-          <input type="text" id="disability-other" name="pwd2" class="form-control" value="<?php echo isset($row['pwd2']) ? htmlspecialchars($row['pwd2']) : ''; ?>">
+        <div class="col-md-3 mb-3">
+            <label for="pwd" class="info">Disability</label>
+            <select class="form-select" id="pwd" name="pwd">
+                <option value="">Select</option>
+                <option value="None" <?php echo (isset($row['pwd']) && $row['pwd'] == 'None') ? 'selected' : ''; ?>>None</option>
+                <option value="Visual" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Visual') ? 'selected' : ''; ?>>Visual</option>
+                <option value="Hearing" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Hearing') ? 'selected' : ''; ?>>Hearing</option>
+                <option value="Speech" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Speech') ? 'selected' : ''; ?>>Speech</option>
+                <option value="Physical" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Physical') ? 'selected' : ''; ?>>Physical</option>
+                <option value="Others" <?php echo (isset($row['pwd']) && $row['pwd'] == 'Others') ? 'selected' : ''; ?>>Others</option>
+            </select>
         </div>
-      </div>
+        <div class="col-md-3 mb-3">
+            <div id="disability-input" class="additional-input" style="display: none;">
+                <label for="disability-other" class="info">Please specify:</label>
+                <input type="text" id="disability-other" name="pwd2" class="form-control" value="<?php echo isset($row['pwd2']) ? htmlspecialchars($row['pwd2']) : ''; ?>">
+            </div>
+        </div>
+    </div>
+
       <div class="col-md-3 mb-3">
         <label for="four-ps-beneficiary" class="info">Are you a 4Ps beneficiary?</label>
-        <select class="form-select" id="four-ps-beneficiary" name="four-ps-beneficiary" required>
+        <select class="form-select" id="four-ps-beneficiary" name="four-ps-beneficiary">
           <option value="">Select</option>
-          <option value="Yes" <?php echo (isset($row['four-ps-beneficiary']) && $row['four-ps-beneficiary'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-          <option value="No" <?php echo (isset($row['four-ps-beneficiary']) && $row['four-ps-beneficiary'] == 'No') ? 'selected' : ''; ?>>No</option>
+          <option value="Yes" <?php echo (isset($row['four_ps']) && $row['four_ps'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
+          <option value="No" <?php echo (isset($row['four_ps']) && $row['four_ps'] == 'No') ? 'selected' : ''; ?>>No</option>
         </select>
       </div>
       <div class="col-md-3 mb-3">
         <div id="household-id-input" class="additional-input">
           <label for="household-id" class="info">If yes, Household ID No.</label>
-          <input type="text" id="household-id" class="form-control" placeholder="Household ID">
+          <input type="text" name = "household_id" id="household-id" class="form-control" value="<?php echo isset($row['hhid']) ? htmlspecialchars($row['hhid']) : ''; ?>">
         </div>
       </div>
     </div>
@@ -331,7 +399,7 @@ $conn->close();
     <div class="row">
       <div class="col-md-4 mb-3">
         <label for="employment-status" class="info">Employment Status:</label>
-        <select class="form-select" id="employment-status" name="employent_status" required>
+        <select class="form-select" id="employment-status" name="employent_status">
           <option value="">Select</option>
           <option value="employed" <?php echo (isset($row['employment_status']) && $row['employment_status'] == 'employed') ? 'selected' : ''; ?>>Employed</option>
           <option value="unemployed" <?php echo (isset($row['employment_status']) && $row['employment_status'] == 'unemployed') ? 'selected' : ''; ?>>Unemployed</option>
@@ -340,24 +408,24 @@ $conn->close();
       <div class="col-md-4 mb-3">
         <div id="sub-dropdown" class="sub-dropdown">
           <label for="employment-type" class="info">Employment Type:</label>
-          <select class="form-select" id="employment-type" required>
+          <select class="form-select" name = "es_status" id="employment-type">
             <option value="">Select</option>
-            <option value="wage">Wage Employed</option>
-            <option value="self">Self Employed</option>
-            <option value="fresh_grad" class="unemployed-option">New Entrant/Fresh Graduate</option>
-            <option value="f_contract" class="unemployed-option">Finished Contract</option>
-            <option value="resigned" class="unemployed-option">Resigned</option>
-            <option value="retired" class="unemployed-option">Retired</option>
-            <option value="local" class="unemployed-option">Terminated/Laidoff(local)</option>
-            <option value="abroad" class="unemployed-option">Terminated/Laidoff(abroad)</option>
-            <option value="others" class="unemployed-option">Others, specify</option>
+            <option value="wage" <?php echo (isset($row['es_status']) && $row['es_status'] == 'wage') ? 'selected' : ''; ?>>Wage Employed</option>
+            <option value="self" <?php echo (isset($row['es_status']) && $row['es_status'] == 'self') ? 'selected' : ''; ?>>Self Employed</option>
+            <option value="fresh_grad" <?php echo (isset($row['es_status']) && $row['es_status'] == 'fresh_grad') ? 'selected' : ''; ?>class="unemployed-option">New Entrant/Fresh Graduate</option>
+            <option value="f_contract" <?php echo (isset($row['es_status']) && $row['es_status'] == 'f_contract') ? 'selected' : ''; ?>class="unemployed-option">Finished Contract</option>
+            <option value="resigned" <?php echo (isset($row['es_status']) && $row['es_status'] == 'resigned') ? 'selected' : ''; ?>class="unemployed-option">Resigned</option>
+            <option value="retired" <?php echo (isset($row['es_status']) && $row['es_status'] == 'retired') ? 'selected' : ''; ?>class="unemployed-option">Retired</option>
+            <option value="local" <?php echo (isset($row['es_status']) && $row['es_status'] == 'local') ? 'selected' : ''; ?>class="unemployed-option">Terminated/Laidoff(local)</option>
+            <option value="abroad" <?php echo (isset($row['es_status']) && $row['es_status'] == 'abroad') ? 'selected' : ''; ?>class="unemployed-option">Terminated/Laidoff(abroad)</option>
+            <option value="others" <?php echo (isset($row['es_status']) && $row['es_status'] == 'others') ? 'selected' : ''; ?>class="unemployed-option">Others, specify</option>
           </select>
         </div>
       </div>
       <div class="col-md-4 mb-3">
         <div id="additional-input" class="info">
           <label for="other-reason">Please specify country, others:</label>
-          <input type="text" id="other-reason" class="form-control" placeholder="Enter details here">
+          <input type="text" name="es_others" id="other-reason" class="form-control" value="<?php echo isset($row['es_others']) ? htmlspecialchars($row['es_others']) : ''; ?>">
         </div>
       </div>
     </div>
@@ -366,60 +434,60 @@ $conn->close();
     <div class="row">
       <div class="col-md-4 mb-3">
         <label for="actively-looking" class="info">Are you actively looking for work?</label>
-        <select class="form-select" id="actively-looking" name="actively-looking" required>
+        <select class="form-select" id="actively-looking" name="actively-looking">
           <option value="">Select</option>
-          <option value="Yes" <?php echo (isset($row['actively-looking']) && $row['actively-looking'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-          <option value="No" <?php echo (isset($row['actively-looking']) && $row['actively-looking'] == 'No') ? 'selected' : ''; ?>>No</option>
+          <option value="Yes" <?php echo (isset($row['actively_looking']) && $row['actively_looking'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
+          <option value="No" <?php echo (isset($row['actively_looking']) && $row['actively_looking'] == 'No') ? 'selected' : ''; ?>>No</option>
         </select>
       </div>
       <div class="col-md-4 mb-3">
         <div id="actively-looking-input" class="additional-input">
           <label for="actively-looking-details" class="info">Please specify:</label>
-          <input type="text" id="actively-looking-details" class="form-control" placeholder="How long have you been looking for work?">
+          <input type="text" name = 'al_details' id="actively-looking-details" class="form-control" value="<?php echo isset($row['al_details']) ? htmlspecialchars($row['al_details']) : ''; ?>">
         </div>
       </div>
       <div class="col-md-4 mb-3">
         <label for="willing-to-work" class="info">Willing to work immediately?</label>
-        <select class="form-select" id="willing-to-work" name="willing-to-work" required>
+        <select class="form-select" id="willing-to-work" name="willing_to_work">
           <option value="">Select</option>
-          <option value="Yes" <?php echo (isset($row['willing-to-work']) && $row['willing-to-work'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-          <option value="No" <?php echo (isset($row['willing-to-work']) && $row['willing-to-work'] == 'No') ? 'selected' : ''; ?>>No</option>
+          <option value="Yes" <?php echo (isset($row['willing_to_work']) && $row['willing_to_work'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
+          <option value="No" <?php echo (isset($row['willing_to_work']) && $row['willing_to_work'] == 'No') ? 'selected' : ''; ?>>No</option>
         </select>
       </div>
       <div class="col-md-4 mb-3">
         <div id="willing-to-work-input" class="additional-input">
           <label for="willing-to-work-details" class="info">Please specify:</label>
-          <input type="text" id="willing-to-work-details" class="form-control" placeholder="If no, when?">
+          <input type="text" name="ww_detail" id="willing-to-work-details" class="form-control" value="<?php echo isset($row['ww_details']) ? htmlspecialchars($row['ww_details']) : ''; ?>">
         </div>
       </div>
     </div>
 
     <!-- Job Preference -->
     <div class="row">
-      <div class="col-md-3 mb-3">
-        <label for="occupation" class="info">Preferred Occupation</label>
-      </div>
+        <div class="col-md-3 mb-3">
+            <label for="occupation" class="info">Preferred Occupation</label>
+        </div>
     </div>
     <div class="row">
-      <div class="col-md-3 mb-3">
-        <input type="text" id="occupation_1" name="#" class="form-control ocu_input" placeholder="1 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-      </div>
-      <div class="col-md-3 mb-3">
-        <input type="text" id="occupation_2" name="#" class="form-control ocu_input" placeholder="2 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-      </div>
-      <div class="col-md-3 mb-3">
-        <input type="text" id="occupation_3" name="#" class="form-control ocu_input" placeholder="3 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-      </div>
-      <div class="col-md-3 mb-3">
-        <input type="text" id="occupation_4" name="#" class="form-control ocu_input" placeholder="4 - Occupation" value="<?php echo isset($row['#']) ? htmlspecialchars($row['#']) : ''; ?>">
-      </div>
+        <div class="col-md-3 mb-3">
+            <input type="text" id="occupation_1" name="job[]" class="form-control ocu_input" placeholder="1 - Occupation" value="<?php echo isset($preferred[0]) ? htmlspecialchars($preferred[0]) : ''; ?>">
+        </div>
+        <div class="col-md-3 mb-3">
+            <input type="text" id="occupation_2" name="job[]" class="form-control ocu_input" placeholder="2 - Occupation" value="<?php echo isset($preferred[1]) ? htmlspecialchars($preferred[1]) : ''; ?>">
+        </div>
+        <div class="col-md-3 mb-3">
+            <input type="text" id="occupation_3" name="job[]" class="form-control ocu_input" placeholder="3 - Occupation" value="<?php echo isset($preferred[2]) ? htmlspecialchars($preferred[2]) : ''; ?>">
+        </div>
+        <div class="col-md-3 mb-3">
+            <input type="text" id="occupation_4" name="job[]" class="form-control ocu_input" placeholder="4 - Occupation" value="<?php echo isset($preferred[3]) ? htmlspecialchars($preferred[3]) : ''; ?>">
+        </div>
     </div>
 
     <!-- Preferred Work Location and Salary -->
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="pwl" class="info">Preferred Work Location</label>
-        <select class="form-select" id="pwl" name="pwl" required>
+        <select class="form-select" id="pwl" name="pwl">
           <option value="">Select</option>
           <option value="local" <?php echo (isset($row['pwl']) && $row['pwl'] == 'local') ? 'selected' : ''; ?>>Local, specify cities/municipalities</option>
           <option value="overseas" <?php echo (isset($row['pwl']) && $row['pwl'] == 'overseas') ? 'selected' : ''; ?>>Overseas, specify countries</option>
@@ -427,7 +495,7 @@ $conn->close();
       </div>
       <div class="col-md-6 mb-3">
         <label for="salary" class="info">Expected Salary</label>
-        <input type="text" id="salary" name="salary" class="form-control" placeholder="Input Range" required>
+        <input type="text" id="salary" name="salary" class="form-control" value="<?php echo isset($row['expected_salary']) ? htmlspecialchars($row['expected_salary']) : ''; ?>">
       </div>
     </div>
 
@@ -435,13 +503,13 @@ $conn->close();
     <div id="local-input" class="location-input">
       <div class="row">
         <div class="col-md-4 mb-3">
-          <input type="text" name="local" class="form-control pwl_input" placeholder="1 - City/Municipality" value="<?php echo isset($row['local-city1']) ? htmlspecialchars($row['local-city1']) : ''; ?>">
+          <input type="text" name="local[]" class="form-control pwl_input" placeholder="1 - City/Municipality" value="<?php echo isset($loc2[0]) ? htmlspecialchars($loc2[0]) : ''; ?>">
         </div>
         <div class="col-md-4 mb-3">
-          <input type="text" name="local" class="form-control pwl_input" placeholder="2 - City/Municipality" value="<?php echo isset($row['local-city2']) ? htmlspecialchars($row['local-city2']) : ''; ?>">
+          <input type="text" name="local[]" class="form-control pwl_input" placeholder="2 - City/Municipality" value="<?php echo isset($loc2[1]) ? htmlspecialchars($loc2[1]) : ''; ?>">
         </div>
         <div class="col-md-4 mb-3">
-          <input type="text" name="local" class="form-control pwl_input" placeholder="3 - City/Municipality" value="<?php echo isset($row['local-city3']) ? htmlspecialchars($row['local-city3']) : ''; ?>">
+          <input type="text" name="local[]" class="form-control pwl_input" placeholder="3 - City/Municipality" value="<?php echo isset($loc2[2]) ? htmlspecialchars($loc2[2]) : ''; ?>">
         </div>
       </div>
     </div>
@@ -450,13 +518,13 @@ $conn->close();
     <div id="overseas-input" class="location-input">
       <div class="row">
         <div class="col-md-4 mb-3">
-          <input type="text" name="overseas-country1" class="form-control overseas-option pwl_input" placeholder="1 - Country" value="<?php echo isset($row['overseas-country1']) ? htmlspecialchars($row['overseas-country1']) : ''; ?>">
+          <input type="text" name="overseas[]" class="form-control overseas-option pwl_input" placeholder="1 - Country" value="<?php echo isset($loc1[0]) ? htmlspecialchars($loc1[0]) : ''; ?>">
         </div>
         <div class="col-md-4 mb-3">
-          <input type="text" name="overseas-country2" class="form-control overseas-option pwl_input" placeholder="2 - Country" value="<?php echo isset($row['overseas-country2']) ? htmlspecialchars($row['overseas-country2']) : ''; ?>">
+          <input type="text" name="overseas[]" class="form-control overseas-option pwl_input" placeholder="2 - Country" value="<?php echo isset($loc1[1]) ? htmlspecialchars($loc1[1]) : ''; ?>">
         </div>
         <div class="col-md-4 mb-3">
-          <input type="text" name="overseas-country3" class="form-control overseas-option pwl_input" placeholder="3 - Country" value="<?php echo isset($row['overseas-country3']) ? htmlspecialchars($row['overseas-country3']) : ''; ?>">
+          <input type="text" name="overseas[]" class="form-control overseas-option pwl_input" placeholder="3 - Country" value="<?php echo isset($loc1[2]) ? htmlspecialchars($loc1[2]) : ''; ?>">
         </div>
       </div>
     </div>
@@ -465,11 +533,11 @@ $conn->close();
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="passport" class="info">Passport No.</label>
-        <input type="text" id="passport" name="passport_no" class="form-control" placeholder="Input Passport Number" required>
+        <input type="text" id="passport" name="passport_no" class="form-control" value="<?php echo isset($row['passport_no']) ? htmlspecialchars($row['passport_no']) : ''; ?>">
       </div>
       <div class="col-md-6 mb-3">
         <label for="passport_expiry" class="info">Expiry Date</label>
-        <input type="date" id="passport_expiry" name="passport_expiry" class="form-control" required>
+        <input type="date" id="passport_expiry" name="passport_expiry" class="form-control" required value="<?php echo isset($row['passport_expiry']) ? htmlspecialchars($row['passport_expiry']) : ''; ?>">
       </div>
     </div>
 
@@ -483,56 +551,64 @@ $conn->close();
     <h4>Technical/Vocational and Other Training</h4>
   </div>
   <div class="card-body">
-    <div class="row">
-      <div class="col-md-2 text-center">
-        <label>Training/Vocational Course</label>
-      </div>
-      <div class="col-md-4 text-center">
-        <label>Duration</label>
-      </div>
-      <div class="col-md-2 text-center">
-        <label>Training Institution</label>
-      </div>
-      <div class="col-md-2 text-center">
-        <label>Certificates (upload file)</label>
-      </div>
-      <div class="col-md-1 text-center">
-        <label>Action</label>
-      </div>
-    </div>
-
     <div id="training-container">
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="training[]" placeholder="Training/Vocational">
-        </div>
-        <div class="col-md-4 text-center">
-          <div class="d-flex justify-content-center">
-            <input type="date" class="form-control" name="start_date[]" style="width: 120px;">
-            <span class="mx-2 align-self-center">to</span>
-            <input type="date" class="form-control" name="end_date[]" style="width: 120px;">
+        <?php if ($result_training->num_rows > 0): ?>
+          <?php while ($row_training = $result_training->fetch_assoc()): ?>
+            <div class="row mb-3">
+              <div class="col-md-2">
+                <input type="text" class="form-control" name="training[]" value="<?php echo htmlspecialchars($row_training['training']); ?>" placeholder="Training/Vocational">
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="d-flex justify-content-center">
+                  <input type="date" class="form-control" name="start_date[]" value="<?php echo htmlspecialchars($row_training['start_date']); ?>" style="width: 120px;">
+                  <span class="mx-2 align-self-center">to</span>
+                  <input type="date" class="form-control" name="end_date[]" value="<?php echo htmlspecialchars($row_training['end_date']); ?>" style="width: 120px;">
+                </div>
+              </div>
+              <div class="col-md-2 text-center">
+                <input type="text" class="form-control" name="institution[]" value="<?php echo htmlspecialchars($row_training['institution']); ?>" placeholder="Institution">
+              </div>
+              <div class="col-md-2 text-center">
+                <?php if (!empty($row_training['certificate_path'])):?>
+                  <a href="../../php/applicant/<?php echo htmlspecialchars($row_training['certificate_path']); ?>" class="form-control" target="_blank">View Certificate</a>
+                <?php endif; ?>
+                <input type="file" class="form-control" name="certificate[]">
+              </div>
+            </div>
+          <?php endwhile; ?>
+        <?php else: ?>
+          <!-- No training records found, show an empty row for new input -->
+          <div class="row mb-3">
+            <div class="col-md-2">
+              <input type="text" class="form-control" name="training[]" placeholder="Training/Vocational">
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="d-flex justify-content-center">
+                <input type="date" class="form-control" name="start_date[]" style="width: 120px;">
+                <span class="mx-2 align-self-center">to</span>
+                <input type="date" class="form-control" name="end_date[]" style="width: 120px;">
+              </div>
+            </div>
+            <div class="col-md-2 text-center">
+              <input type="text" class="form-control" name="institution[]" placeholder="Institution">
+            </div>
+            <div class="col-md-2 text-center">
+              <input type="file" class="form-control" name="certificate[]">
+            </div>
+            <div class="col-md-1 text-center">
+              <button type="button" class="btn btn-danger" onclick="removeTrainingGroup(this)">Remove</button>
+            </div>
           </div>
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="text" class="form-control" name="institution[]" placeholder="Institution">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="file" class="form-control" name="certificate[]">
-        </div>
-        <div class="col-md-1 text-center">
-          <button type="button" class="btn btn-danger" onclick="removeTrainingGroup(this)">Remove</button>
-        </div>
+        <?php endif; ?>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-primary" onclick="addTrainingGroup()">Add Another Training Set</button>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-primary" onclick="addTrainingGroup()">Add Another Training Set</button>
+        </div>
       </div>
     </div>
-  </div>
 </div>
-
 <!-- Language/Dialect Proficiency Card -->
 <div class="card mb-4">
   <div class="card-header">
@@ -561,72 +637,70 @@ $conn->close();
       </div>
     </div>
 
-    <!-- English Row -->
+    <!-- Default English Row -->
     <div class="row mb-3">
       <div class="col-md-2">
-        <input type="text" class="form-control" name="language[]" value="English" readonly disable>
+        <input type="text" class="form-control" name="language[]" value="English" readonly>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="read[]" value="1" aria-label="Read English">
+        <input type="checkbox" name="read[]" value="1" <?php echo isset($languageData['English']) && $languageData['English']['read_l'] == 1 ? 'checked' : ''; ?>>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="write[]" value="1" aria-label="Write English">
+        <input type="checkbox" name="write[]" value="1" <?php echo isset($languageData['English']) && $languageData['English']['write_l'] == 1 ? 'checked' : ''; ?>>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="speak[]" value="1" aria-label="Speak English">
+        <input type="checkbox" name="speak[]" value="1" <?php echo isset($languageData['English']) && $languageData['English']['speak_l'] == 1 ? 'checked' : ''; ?>>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="understand[]" value="1" aria-label="Understand English">
-      </div>
-      <div class="col-md-1 text-center">
-        <!-- No action for default rows -->
+        <input type="checkbox" name="understand[]" value="1" <?php echo isset($languageData['English']) && $languageData['English']['understand_l'] == 1 ? 'checked' : ''; ?>>
       </div>
     </div>
 
-    <!-- Filipino Row -->
+    <!-- Default Filipino Row -->
     <div class="row mb-3">
       <div class="col-md-2">
-        <input type="text" class="form-control" name="language[]" value="Filipino" readonly disable>
+        <input type="text" class="form-control" name="language[]" value="Filipino" readonly>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="read[]" value="1" aria-label="Read Filipino">
+        <input type="checkbox" name="read[]" value="1" <?php echo isset($languageData['Filipino']) && $languageData['Filipino']['read_l'] == 1 ? 'checked' : ''; ?>>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="write[]" value="1" aria-label="Write Filipino">
+        <input type="checkbox" name="write[]" value="1" <?php echo isset($languageData['Filipino']) && $languageData['Filipino']['write_l'] == 1 ? 'checked' : ''; ?>>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="speak[]" value="1" aria-label="Speak Filipino">
+        <input type="checkbox" name="speak[]" value="1" <?php echo isset($languageData['Filipino']) && $languageData['Filipino']['speak_l'] == 1 ? 'checked' : ''; ?>>
       </div>
       <div class="col-md-2 text-center">
-        <input type="checkbox" name="understand[]" value="1" aria-label="Understand Filipino">
-      </div>
-      <div class="col-md-1 text-center">
-        <!-- No action for default rows -->
+        <input type="checkbox" name="understand[]" value="1" <?php echo isset($languageData['Filipino']) && $languageData['Filipino']['understand_l'] == 1 ? 'checked' : ''; ?>>
       </div>
     </div>
 
-    <!-- Dynamic Language Container -->
+    <!-- Dynamic Language Rows from Database -->
     <div id="language-container">
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" name="language[]" placeholder="Enter Language">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="checkbox" name="read[]" value="1" aria-label="Read">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="checkbox" name="write[]" value="1" aria-label="Write">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="checkbox" name="speak[]" value="1" aria-label="Speak">
-        </div>
-        <div class="col-md-2 text-center">
-          <input type="checkbox" name="understand[]" value="1" aria-label="Understand">
-        </div>
-        <div class="col-md-1 text-center">
-          <button type="button" class="btn btn-danger" onclick="removeLanguageGroup(this)">Remove</button>
-        </div>
-      </div>
+      <?php foreach ($languageData as $language => $data): ?>
+        <?php if ($language != 'English' && $language != 'Filipino'): ?>
+          <div class="row mb-3">
+            <div class="col-md-2">
+              <input type="text" class="form-control" name="language[]" value="<?php echo htmlspecialchars($language); ?>">
+            </div>
+            <div class="col-md-2 text-center">
+              <input type="checkbox" name="read[]" value="1" <?php echo $data['read_l'] == 1 ? 'checked' : ''; ?>>
+            </div>
+            <div class="col-md-2 text-center">
+              <input type="checkbox" name="write[]" value="1" <?php echo $data['write_l'] == 1 ? 'checked' : ''; ?>>
+            </div>
+            <div class="col-md-2 text-center">
+              <input type="checkbox" name="speak[]" value="1" <?php echo $data['speak_l'] == 1 ? 'checked' : ''; ?>>
+            </div>
+            <div class="col-md-2 text-center">
+              <input type="checkbox" name="understand[]" value="1" <?php echo $data['understand_l'] == 1 ? 'checked' : ''; ?>>
+            </div>
+            <div class="col-md-1 text-center">
+              <button type="button" class="btn btn-danger" onclick="removeLanguageGroup(this)">Remove</button>
+            </div>
+          </div>
+        <?php endif; ?>
+      <?php endforeach; ?>
     </div>
 
     <!-- Add Another Language Set Button -->
@@ -637,7 +711,6 @@ $conn->close();
     </div>
   </div>
 </div>
-
 
 <!-- Eligibility/Professional License Card -->
 <div class="card mb-4">
@@ -663,6 +736,36 @@ $conn->close();
       </div>
     </div>
 
+    <!-- Loop through the result set and display existing data as read-only -->
+    <?php if ($result_license->num_rows > 0): ?>
+      <?php while ($row_license = $result_license->fetch_assoc()): ?>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <!-- Display existing eligibility -->
+            <p><?php echo htmlspecialchars($row_license['eligibility']); ?></p>
+            <input type="hidden" name="existing_eligibility[]" value="<?php echo htmlspecialchars($row_license['eligibility']); ?>">
+          </div>
+          <div class="col-md-2">
+            <!-- Display existing rating -->
+            <p><?php echo htmlspecialchars($row_license['rating']); ?></p>
+            <input type="hidden" name="existing_rating[]" value="<?php echo htmlspecialchars($row_license['rating']); ?>">
+          </div>
+          <div class="col-md-3">
+            <!-- Display existing date of examination -->
+            <p><?php echo htmlspecialchars($row_license['doe']); ?></p>
+            <input type="hidden" name="existing_doe[]" value="<?php echo htmlspecialchars($row_license['doe']); ?>">
+          </div>
+          <div class="col-md-3">
+            <!-- Display existing PRC path (with link to the file) -->
+            <?php if (!empty($row_license['prc_path'])): ?>
+              <a href="../../php/applicant/<?php echo htmlspecialchars($row_license['prc_path']); ?>" class="form-control" target="_blank">View License</a>
+            <?php endif; ?>
+          </div>
+        </div>
+      <?php endwhile; ?>
+    <?php endif; ?>
+
+    <!-- Empty row for new inputs -->
     <div id="input-container">
       <div class="row mb-3">
         <div class="col-md-3">
@@ -678,7 +781,7 @@ $conn->close();
           <input type="file" class="form-control" name="license[]">
         </div>
         <div class="col-md-1 text-center">
-          <!-- Empty action column for the first row -->
+          <button type="button" class="btn btn-danger" onclick="removeInputGroup(this)">Remove</button>
         </div>
       </div>
     </div>
@@ -690,6 +793,7 @@ $conn->close();
     </div>
   </div>
 </div>
+
 
 <!-- Work Experience Card -->
 <div class="card mb-4">
@@ -715,6 +819,36 @@ $conn->close();
       </div>
     </div>
 
+    <!-- Loop through existing work experience data from the database -->
+    <?php if ($result_work_exp->num_rows > 0): ?>
+      <?php while ($row_work_exp = $result_work_exp->fetch_assoc()): ?>
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <p><?php echo htmlspecialchars($row_work_exp['company_name']); ?></p>
+            <input type="hidden" name="existing_company[]" value="<?php echo htmlspecialchars($row_work_exp['company_name']); ?>">
+          </div>
+          <div class="col-md-3">
+            <p><?php echo htmlspecialchars($row_work_exp['address']); ?></p>
+            <input type="hidden" name="existing_address[]" value="<?php echo htmlspecialchars($row_work_exp['address']); ?>">
+          </div>
+          <div class="col-md-2">
+            <p><?php echo htmlspecialchars($row_work_exp['position']); ?></p>
+            <input type="hidden" name="existing_position[]" value="<?php echo htmlspecialchars($row_work_exp['position']); ?>">
+          </div>
+          <div class="col-md-3 text-center">
+            <p><?php echo htmlspecialchars($row_work_exp['started_date']); ?> to <?php echo htmlspecialchars($row_work_exp['termination_date']); ?></p>
+            <input type="hidden" name="existing_start_date[]" value="<?php echo htmlspecialchars($row_work_exp['started_date']); ?>">
+            <input type="hidden" name="existing_end_date[]" value="<?php echo htmlspecialchars($row_work_exp['termination_date']); ?>">
+          </div>
+          <div class="col-md-2">
+            <p><?php echo htmlspecialchars($row_work_exp['status']); ?></p>
+            <input type="hidden" name="existing_status[]" value="<?php echo htmlspecialchars($row_work_exp['status']); ?>">
+          </div>
+        </div>
+      <?php endwhile; ?>
+    <?php endif; ?>
+
+    <!-- Empty row for new inputs -->
     <div id="work-experience-container">
       <div class="row mb-3">
         <div class="col-md-2">
@@ -736,6 +870,9 @@ $conn->close();
         <div class="col-md-2">
           <input type="text" class="form-control" name="status[]" placeholder="Status">
         </div>
+        <div class="col-md-1 text-center">
+          <button type="button" class="btn btn-danger" onclick="removeWorkExperienceGroup(this)">Remove</button>
+        </div>
       </div>
     </div>
 
@@ -746,6 +883,7 @@ $conn->close();
     </div>
   </div>
 </div>
+
 
 <!-- Other Skills Acquired Without Formal Training Card -->
 <div class="card mb-4">
@@ -783,7 +921,15 @@ $conn->close();
     <input type="hidden" name="selectedOptions" id="selectedOptionsHidden">
     <div id="selectedOptionsContainer" class="mt-3">
       <h5>Selected Options:</h5>
-      <ul id="selectedOptionsList"></ul>
+      <ul id="selectedOptionsList">
+        <?php if (!empty($otherSkills)): ?>
+          <?php foreach ($otherSkills as $skill): ?>
+            <li><?php echo htmlspecialchars(trim($skill)); ?></li>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <li>No skills found.</li>
+        <?php endif; ?>
+      </ul>
     </div>
   </div>
 </div>
@@ -890,8 +1036,8 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         updateHiddenField(); // Make sure the hidden field is updated before submission
         console.log("Selected options: " + selectedOptionsHidden.value); // Debugging output
-    });
-});
+      });
+  });
   </script>
 <script>
     function addInputGroup() {
@@ -1056,5 +1202,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <script src="../../javascript/a_profile.js"></script> 
     
 <script src="../../javascript/script.js"></script> 
+</form>
 </body>
 </html>

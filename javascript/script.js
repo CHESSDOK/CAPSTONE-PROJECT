@@ -121,13 +121,25 @@ clearBtn.addEventListener('click', function() {
   searchInput.focus();
 });
 
-function previewImage(event) {
+// Fetch the image URL (from server-side or set it initially when the page loads)
+document.addEventListener('DOMContentLoaded', function() {
+    const existingImageUrl = "{{ image_url }}";  // Fetch this from the server response
+    const imagePreview = document.getElementById('profile_image_preview');
+    
+    // If there is an image URL, show the image
+    if (existingImageUrl) {
+      imagePreview.src = existingImageUrl;
+    }
+  });
+  
+  // Function to preview the new uploaded image
+  function previewImage(event) {
     const reader = new FileReader();
     reader.onload = function() {
       const output = document.getElementById('profile_image_preview');
       output.src = reader.result;
-    }
+    };
     reader.readAsDataURL(event.target.files[0]);
   }
-
+  
   
