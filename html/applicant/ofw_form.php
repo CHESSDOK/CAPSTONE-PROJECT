@@ -134,6 +134,7 @@
 <div class="table-containers">
     <div class="button-container">
         <button class="btn btn-primary" id='openCaseBtn' data-ofw-id="<?php echo $userId; ?>" >File Case</button>
+        <button class="btn btn-primary openStatusBtn" id='openStatusBtn' data-ofw-id="<?php echo $userId; ?>" >File status</button>
         <a class="btn btn-primary" href="ofw_profile.php">OFW Profile</a>
     </div>
     
@@ -321,9 +322,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content p-4">
             <div class="modal-header">
-                <span class="btn-close closBtn closeBtn seccloseBtn">&times;</span>
-                <h5 class="modal-title">OFW File Case</h5>
+                <span class="btn-close seccloseBtn"></span>
             </div>
+            <h3>OFW File Case</h3>
             <div class="modal-body">
                 <form action="../../php/applicant/submit_case.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="userid" id="ofwId">
@@ -353,7 +354,18 @@
     </div>
 </div>
 
+<div id="statusModal" class="modal modal-container">
+    <div class="modal-content">
+    <div class="modal-header">
+        <span class="btn-close thirdcloseBtn"></span>
+    </div>
+        <div id="statussModuleContent">
+            <!-- Module content will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
   <script>
+//file
       const modal = document.getElementById('caseModal');
       const openBtn = document.getElementById('openCaseBtn');
       const seccloseBtn = document.querySelector('.seccloseBtn');
@@ -381,6 +393,33 @@
           modal.style.display = 'none';
         }
       });
+const statusModal = document.getElementById('statusModal');
+const closeModuleBtn = document.querySelector('.thirdcloseBtn');
+// Open profile modal and load data via AJAX
+        $(document).on('click', '.openStatusBtn', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'file_status.php',
+                method: 'GET',
+                success: function(response) {
+                    $('#statussModuleContent').html(response);
+                    statusModal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Close profile modal when 'x' is clicked
+        closeModuleBtn.addEventListener('click', function() {
+            statusModal.style.display = 'none';
+        });
+
+        // Close profile modal when clicking outside the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === statusModal) {
+                statusModal.style.display = 'none';
+            }
+        });
   </script>
   
 
