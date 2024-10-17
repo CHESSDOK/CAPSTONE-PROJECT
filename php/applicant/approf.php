@@ -34,6 +34,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $willing_to_work = htmlspecialchars($_POST['willing_to_work'] ?? '');
     $ww_details  = htmlspecialchars($_POST['ww_detail'] ?? '');
     $passport = htmlspecialchars($_POST['passport_no'] ?? '');
+
+    $school_name1 =  htmlspecialchars($_POST['school_name1'] ?? '');
+    $school_name2 =  htmlspecialchars($_POST['school_name2'] ?? '');
+    $school_name3 =  htmlspecialchars($_POST['school_name3'] ?? '');
+    $school_name4 =  htmlspecialchars($_POST['school_name4'] ?? '');
+
+    $year_grade1 =   htmlspecialchars($_POST['year_grad1'] ?? '');
+    $year_grade2 =   htmlspecialchars($_POST['year_grad2'] ?? '');
+    $year_grade3 =   htmlspecialchars($_POST['year_grad3'] ?? '');
+    $year_grade4 =   htmlspecialchars($_POST['year_grad4'] ?? '');
+
+    $award1 =  htmlspecialchars($_POST['award1'] ?? '');
+    $award2 =  htmlspecialchars($_POST['award2'] ?? '');
+    $award3 =  htmlspecialchars($_POST['award3'] ?? '');
+    $award4 =  htmlspecialchars($_POST['award4'] ?? '');
+
+    $course3 =  htmlspecialchars($_POST['course3'] ?? '');
+    $course4 =  htmlspecialchars($_POST['course4'] ?? '');
+
+    $level3 =  htmlspecialchars($_POST['level3'] ?? '');
+    $level4 =  htmlspecialchars($_POST['level4'] ?? '');
+
+    $year_level3 =  htmlspecialchars($_POST['year_level3'] ?? '');
+    $year_level4 =  htmlspecialchars($_POST['year_level4'] ?? '');
+
     $passport_expiry = $_POST['passport_expiry'] ?? '';
     $salary = htmlspecialchars($_POST['salary'] ?? '');
     $jobs = isset($_POST['job']) ? $_POST['job'] : [];
@@ -101,7 +126,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 pagibig_no = ?, 
                 philhealth_no = ?, 
                 email = ?,
-                preferred_occupation = ?, 
+                preferred_occupation = ?,
+                school_name1 = ?,
+                school_name2 = ?,
+                school_name3 = ?,
+                school_name4 = ?, 
+                year_grad1 = ?,
+                year_grad2 = ?,
+                year_grad3 = ?,
+                year_grad4 = ?,
+                award1 = ?,
+                award2 = ?,
+                award3 = ?,
+                award4 = ?,
+                course3 = ?,
+                course4 = ?,
+                level3 = ?,
+                level4 = ?,
+                year_level3 = ?,
+                year_level4 = ?,
                 pwl  = ?, 
                 overseas_loc = ?, 
                 local_loc = ?, 
@@ -127,11 +170,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE user_id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssssssssssssssssssssssssssssi",
+    $stmt->bind_param("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssi",
         $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
-        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $job_string, $pwl, $overseas_string, $local_string, $contactNo, $landline, $pwd, $pwd2, $fourPs, $household_id, $optionsString, 
-        $employment_status, $es_status, $es_others, $actively_looking, $al_details, $willing_to_work, $ww_details, $passport, $passport_expiry, 
-        $salary, $profile_image, $resume, $id
+        $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $job_string, $school_name1, $school_name2, $school_name3,
+        $school_name4, $year_grade1, $year_grade2, $year_grade3, $year_grade4, $award1, $award2, $award3, $award4,
+        $course3, $course4, $level3, $level4, $year_level3, $year_level4, $pwl, $overseas_string, $local_string, 
+        $contactNo, $landline, $pwd, $pwd2, $fourPs, $household_id, $optionsString, $employment_status, $es_status, 
+        $es_others, $actively_looking, $al_details, $willing_to_work, $ww_details, $passport, $passport_expiry, $salary,
+        $profile_image, $resume, $id
     );
 
     if (!$stmt->execute()) {

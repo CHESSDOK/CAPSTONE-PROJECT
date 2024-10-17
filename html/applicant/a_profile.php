@@ -400,15 +400,15 @@ $stmt_work_exp->close();
             </div>
             <div class="col-md-5">
                 <label for="elemSchoolName" class="form-label">School Name</label>
-                <input type="text" class="form-control" id="elemSchoolName" placeholder="Enter school name">
+                <input type="text" name="school_name1" class="form-control" id="elemSchoolName" value="<?php echo isset($row['school_name1']) ? htmlspecialchars($row['school_name1']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="elemYearGrad" class="form-label">Year Graduated</label>
-                <input type="number" class="form-control" id="elemYearGrad" placeholder="Enter year graduated">
+                <input type="date" name="year_grad1" class="form-control" id="elemYearGrad" value="<?php echo isset($row['year_grad1']) ? htmlspecialchars($row['year_grad1']) : ''; ?>">
             </div>
             <div class="col-md-3">
                 <label for="elemAwards" class="form-label">Awards Received</label>
-                <input type="text" class="form-control" id="elemAwards" placeholder="Enter awards (if any)">
+                <input type="text" name="award1" class="form-control" id="elemAwards" value="<?php echo isset($row['award1']) ? htmlspecialchars($row['award1']) : ''; ?>">
             </div>
         </div>
 
@@ -419,15 +419,15 @@ $stmt_work_exp->close();
             </div>
             <div class="col-md-5">
                 <label for="secSchoolName" class="form-label">School Name</label>
-                <input type="text" class="form-control" id="secSchoolName" placeholder="Enter school name">
+                <input type="text" name="school_name2" class="form-control" id="secSchoolName" value="<?php echo isset($row['school_name2']) ? htmlspecialchars($row['school_name2']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="secYearGrad" class="form-label">Year Graduated</label>
-                <input type="number" class="form-control" id="secYearGrad" placeholder="Enter year graduated">
+                <input type="date" name="year_grad2" class="form-control" id="secYearGrad" value="<?php echo isset($row['year_grad2']) ? htmlspecialchars($row['year_grad2']) : ''; ?>">
             </div>
             <div class="col-md-3">
                 <label for="secAwards" class="form-label">Awards Received</label>
-                <input type="text" class="form-control" id="secAwards" placeholder="Enter awards (if any)">
+                <input type="text" name="award2" class="form-control" id="secAwards" value="<?php echo isset($row['award2']) ? htmlspecialchars($row['award2']) : ''; ?>">
             </div>
         </div>
 
@@ -438,19 +438,19 @@ $stmt_work_exp->close();
             </div>
             <div class="col-md-3">
                 <label for="terSchoolName" class="form-label">School Name</label>
-                <input type="text" class="form-control" id="terSchoolName" placeholder="Enter school name">
+                <input type="text" name="school_name3" class="form-control" id="terSchoolName" value="<?php echo isset($row['school_name3']) ? htmlspecialchars($row['school_name3']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="terCourse" class="form-label">Course</label>
-                <input type="text" class="form-control" id="terCourse" placeholder="Enter course">
+                <input type="text" name="course3" class="form-control" id="terCourse" value="<?php echo isset($row['course3']) ? htmlspecialchars($row['course3']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="terYearGrad" class="form-label">Year Graduated</label>
-                <input type="number" class="form-control" id="terYearGrad" placeholder="Enter year graduated">
+                <input type="date" name="year_grad3" class="form-control" id="terYearGrad" value="<?php echo isset($row['year_grad3']) ? htmlspecialchars($row['year_grad3']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="terAwards" class="form-label">Awards Received</label>
-                <input type="text" class="form-control" id="terAwards" placeholder="Enter awards (if any)">
+                <input type="text" name="award3" class="form-control" id="terAwards" value="<?php echo isset($row['award3']) ? htmlspecialchars($row['award3']) : ''; ?>">
             </div>
         </div>
 
@@ -476,11 +476,11 @@ $stmt_work_exp->close();
     </div>
     <div class="col-md-5">
         <label for="terLevel" class="form-label">Level</label>
-        <input type="text" class="form-control" id="terLevel" placeholder="Enter level (e.g., 2nd year)">
+        <input type="text" name="lavel3" class="form-control" id="terLevel" value="<?php echo isset($row['level3']) ? htmlspecialchars($row['level3']) : ''; ?>">
     </div>
     <div class="col-md-5">
         <label for="terLastYear" class="form-label">Year Last Attended</label>
-        <input type="number" class="form-control" id="terLastYear" placeholder="Enter year last attended">
+        <input type="date" name="year_level3" class="form-control" id="terLastYear" value="<?php echo isset($row['year_level3']) ? htmlspecialchars($row['year_level3']) : ''; ?>">
     </div>
 </div>
 
@@ -491,19 +491,19 @@ $stmt_work_exp->close();
             </div>
             <div class="col-md-3">
                 <label for="gradSchoolName" class="form-label">School Name</label>
-                <input type="text" class="form-control" id="gradSchoolName" placeholder="Enter school name">
+                <input type="text" name="school_name4" class="form-control" id="gradSchoolName" value="<?php echo isset($row['school_name4']) ? htmlspecialchars($row['school_name4']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="gradCourse" class="form-label">Course</label>
-                <input type="text" class="form-control" id="gradCourse" placeholder="Enter course">
+                <input type="text" name="course4" class="form-control" id="gradCourse" value="<?php echo isset($row['course4']) ? htmlspecialchars($row['course4']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="gradYearGrad" class="form-label">Year Graduated</label>
-                <input type="number" class="form-control" id="gradYearGrad" placeholder="Enter year graduated">
+                <input type="date" name="year_grad4" class="form-control" id="gradYearGrad" value="<?php echo isset($row['year_grad4']) ? htmlspecialchars($row['year_grad4']) : ''; ?>">
             </div>
             <div class="col-md-2">
                 <label for="gradAwards" class="form-label">Awards Received</label>
-                <input type="text" class="form-control" id="gradAwards" placeholder="Enter awards (if any)">
+                <input type="text" name="award4" class="form-control" id="gradAwards" value="<?php echo isset($row['award4']) ? htmlspecialchars($row['award4']) : ''; ?>">
             </div>
         </div>
 
@@ -524,11 +524,11 @@ $stmt_work_exp->close();
         <div class="row mb-3" id="gradUndergradFields" style="display: none;">
             <div class="col-md-5">
                 <label for="gradLevel" class="form-label">Level</label>
-                <input type="text" class="form-control" id="gradLevel" placeholder="Enter level (e.g., 2nd year)">
+                <input type="text" name="level4" class="form-control" id="gradLevel" value="<?php echo isset($row['level4']) ? htmlspecialchars($row['level4']) : ''; ?>">
             </div>
             <div class="col-md-5">
                 <label for="gradLastYear" class="form-label">Year Last Attended</label>
-                <input type="number" class="form-control" id="gradLastYear" placeholder="Enter year last attended">
+                <input type="date" name="year_level4" class="form-control" id="gradLastYear" value="<?php echo isset($row['year_level4']) ? htmlspecialchars($row['year_level4']) : ''; ?>">
             </div>
         </div>
     </div>
