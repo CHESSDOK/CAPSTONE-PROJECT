@@ -1086,7 +1086,11 @@ $stmt_work_exp->close();
     <input class="btn btn-primary" type="submit" value="Submit">
   </div>
 </div>
-
+<div class="row mt-4">
+    <div class="col-md-12 text-right">
+        <a href="generate_resume.php" class="btn btn-primary" target="_blank">Generate Resume</a>
+    </div>
+</div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('dynamicSelect');
