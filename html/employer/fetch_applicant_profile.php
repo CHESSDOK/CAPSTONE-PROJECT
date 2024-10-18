@@ -42,8 +42,8 @@ if ($result->num_rows > 0) {
     <div class='row'>
         <div class='col-md-12'>
             <div class='d-flex justify-content-end'>
-                <button class='btn btn-primary btn-sm me-2' data-id='".htmlspecialchars($row['id'])."'>View Resume</button>
-            </div>
+                <a href = 'view_resume.php?file_path=".htmlspecialchars($row['resume'])."' target='_blank' class='btn btn-primary btn-sm me-2'> View Resume</a>
+            </div>  
         </div>
     </div>
 </div>";

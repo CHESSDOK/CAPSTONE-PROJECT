@@ -146,7 +146,7 @@ if (!$row) {
 
     <script>  
         const employerModal = document.getElementById('employerModal');
-        const closeModuleBtn = document.querySelector('.closeBtn');
+        const closeModuleBtn = document.querySelector('.closBtn');
         // Open profile modal and load data via AJAX
         $(document).on('click', '.openEmployersBtn', function(e) {
             e.preventDefault();
