@@ -46,7 +46,7 @@
         }
         }
     // Fetch employer profile
-    $sql = "SELECT * FROM empyers WHERE id = ?";
+    $sql = "SELECT * FROM employer_profile WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
@@ -96,7 +96,7 @@
         
         <div class="profile-icon-employer" data-bs-toggle="popover" data-bs-placement="bottom">
           <?php if (!empty($row['photo'])): ?>
-              <img id="preview" src="php/employer/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+              <img id="preview" src="../../php/employer/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
           <?php else: ?>
               <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
           <?php endif; ?>

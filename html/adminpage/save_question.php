@@ -1,6 +1,6 @@
 <?php
 include 'conn_db.php';
-if (isset($_POST['save'])) {
+if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $eid = mysqli_real_escape_string($conn, $_POST['eid']);
     $questions = $_POST['questions'];

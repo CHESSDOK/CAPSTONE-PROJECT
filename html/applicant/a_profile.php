@@ -476,11 +476,11 @@ $stmt_work_exp->close();
     </div>
     <div class="col-md-5">
         <label for="terLevel" class="form-label">Level</label>
-        <input type="text" name="lavel3" class="form-control" id="terLevel" value="<?php echo isset($row['level3']) ? htmlspecialchars($row['level3']) : ''; ?>">
+        <input type="text" name="level3" class="form-control" id="terLevel" value="<?php echo isset($row['level3']) ? htmlspecialchars($row['level3']) : NULL; ?>">
     </div>
     <div class="col-md-5">
         <label for="terLastYear" class="form-label">Year Last Attended</label>
-        <input type="date" name="year_level3" class="form-control" id="terLastYear" value="<?php echo isset($row['year_level3']) ? htmlspecialchars($row['year_level3']) : ''; ?>">
+        <input type="date" name="year_level3" class="form-control" id="terLastYear" value="<?php echo isset($row['year_level3']) ? htmlspecialchars($row['year_level3']) : NULL; ?>">
     </div>
 </div>
 
@@ -524,11 +524,11 @@ $stmt_work_exp->close();
         <div class="row mb-3" id="gradUndergradFields" style="display: none;">
             <div class="col-md-5">
                 <label for="gradLevel" class="form-label">Level</label>
-                <input type="text" name="level4" class="form-control" id="gradLevel" value="<?php echo isset($row['level4']) ? htmlspecialchars($row['level4']) : ''; ?>">
+                <input type="text" name="level4" class="form-control" id="gradLevel" value="<?php echo isset($row['level4']) ? htmlspecialchars($row['level4']) : NULL; ?>">
             </div>
             <div class="col-md-5">
                 <label for="gradLastYear" class="form-label">Year Last Attended</label>
-                <input type="date" name="year_level4" class="form-control" id="gradLastYear" value="<?php echo isset($row['year_level4']) ? htmlspecialchars($row['year_level4']) : ''; ?>">
+                <input type="date" name="year_level4" class="form-control" id="gradLastYear" value="<?php echo isset($row['year_level4']) ? htmlspecialchars($row['year_level4']) : NULL; ?>">
             </div>
         </div>
     </div>

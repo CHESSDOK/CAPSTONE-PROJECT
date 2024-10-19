@@ -151,16 +151,17 @@ if (!$pic_row) {
                                         <td>".$row['local_agency_name']."</td>
                                         <td>".$row['title']."</td>
                                         <td>".$row['description']."</td>
+                                        <td>".$row['email']."</td>
                                         <td>".$row['status']."</td>
-                                        <td><a class='btn btn-primary  read-link' href='view_case_file.php?file_path=". htmlspecialchars($row["file"])."' target='_blank' >View Document</a></td>";
+                                        <td><a class='btn btn-primary  read-link' href='view_case_file.php?file_path=". htmlspecialchars($row['file'] ?? '', ENT_QUOTES, 'UTF-8')."' target='_blank' >View Document</a></td>";
                                         
 
                                 // Check if status is not "resolved" or "in_progress"
                                 if($row['status'] !== 'resolved') {
                                     if($row['status'] !== 'in_progress') {
-                                        echo "<td> <a class='btn btn-success' href='update_status.php?case_id=".$row['id']."'>Update</a> </td>";
+                                        echo "<td> <a class='btn btn-success' href='update_status.php?case_id=".$row['id']."&email=".$row['email']."'>Update</a> </td>";
                                     }
-                                    echo "<td> <a class='btn btn-success' href='resolve_status.php?case_id=".$row['id']."'>Resolved</a> </td>";
+                                    echo "<td> <a class='btn btn-success' href='resolve_status.php?case_id=".$row['id']."&email=".$row['email']."'>Resolved</a> </td>";
                                 } else {
                                     // If the case is resolved, show no buttons
                                     echo "<td colspan='2'>Case Resolved</td>";

@@ -56,8 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $level3 =  htmlspecialchars($_POST['level3'] ?? '');
     $level4 =  htmlspecialchars($_POST['level4'] ?? '');
 
-    $year_level3 =  htmlspecialchars($_POST['year_level3'] ?? '');
-    $year_level4 =  htmlspecialchars($_POST['year_level4'] ?? '');
+    $year_level3 = isset($_POST['year_level3']) && !empty($_POST['year_level3']) ? $_POST['year_level3'] : NULL;
+    $year_level4 = isset($_POST['year_level4']) && !empty($_POST['year_level4']) ? $_POST['year_level4'] : NULL;
+    
 
     $passport_expiry = $_POST['passport_expiry'] ?? '';
     $salary = htmlspecialchars($_POST['salary'] ?? '');
@@ -170,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE user_id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssi",
+    $stmt->bind_param("sssssssssssssssssssssssssssssssssiissssssssssssssssssssssi",
         $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
         $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $job_string, $school_name1, $school_name2, $school_name3,
         $school_name4, $year_grade1, $year_grade2, $year_grade3, $year_grade4, $award1, $award2, $award3, $award4,

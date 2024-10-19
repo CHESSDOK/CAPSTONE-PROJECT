@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['username'] = $user_input;
                 
-                header("Location: ../index(applicant).php");
+                header("Location: ../html/applicant/a_profile.php");
             } else {
                 echo "<script>alert('Please verify your email before logging in.');</script>";
             }

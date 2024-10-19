@@ -20,7 +20,7 @@ $course_id = $_GET['course_id'];
 
         <input type="hidden" name="eid" value="<?php echo $q_id; ?>">
         <input type="hidden" name="mid" value="<?php echo $module_id; ?>">
-        <input type="number" name="course_id" value="<?php echo $course_id; ?>">
+        <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
         <?php
 
         for($i = 1; $i <= $total; $i++) {

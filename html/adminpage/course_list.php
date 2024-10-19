@@ -14,14 +14,11 @@ function checkSession() {
     }
 }
 
-$admin = checkSession();
-// Fetch all employers
-$sql = "SELECT * FROM courses";
-$result = $conn->query($sql);
+$admin_id = checkSession();
 
 $pic_sql = "SELECT * FROM admin_profile WHERE id = ?";
 $pic_stmt = $conn->prepare($pic_sql);
-$pic_stmt->bind_param("i", $admin);
+$pic_stmt->bind_param("i", $admin_id);
 $pic_stmt->execute();
 $pic_result = $pic_stmt->get_result();
 
@@ -31,8 +28,11 @@ if (!$pic_result) {
 
 $pic_row = $pic_result->fetch_assoc();
 if (!$pic_row) {
-    die("User not found.");
+    die("User not found.".$admin_id);
 }
+// Fetch all employers
+$sql = "SELECT * FROM courses";
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,6 +1,5 @@
 <?php
 include 'conn_db.php';
-session_start();
 $course = $_POST['course'];
 $description = $_POST['description'];
 $numm = $_POST['module_count'];
@@ -21,8 +20,7 @@ if ($stmt->execute()) {
         $module_name = null; // Set module_name to null
         saveModuleToDatabase($last_id, $module_name);
     }
-
-    header("Location: course_list.php?user_id=$last_id"); // Redirect after inserting modules
+ // Redirect after inserting modules
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
@@ -44,8 +42,10 @@ function saveModuleToDatabase($course_id, $module_name) {
     $stmt = $conn->prepare("INSERT INTO modules (course_id, module_name) VALUES (?, ?)");
     $stmt->bind_param("is", $course_id, $module_name); // 's' for string, but null should work as well
 
+
+    header("Location: course_list.php");
     // Execute the statement
-    if (!$stmt->execute()) {
+    if (!$stmt->execute()) {    
         echo "Error inserting module: " . $stmt->error;
     }
 
