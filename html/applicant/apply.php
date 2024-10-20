@@ -41,6 +41,8 @@ if (isset($_GET['job'])) {
 include '../../php/conn_db.php';
 
 
+$jobid = $_GET['jobid'];
+
 // Fetch the user data (assuming you have a way to identify the user, e.g., session)
 $user_id = $_SESSION['id']; // This should be set dynamically based on logged-in user
 $sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
@@ -233,7 +235,7 @@ if (!$user || !$job) {
             
             <!-- Save Job link -->
             <div class="col-auto">
-                <a href="" class="btn btn-link">Save Job</a>
+                <a href="../../php/applicant/save.php?job=<?php echo htmlspecialchars($jobid);?>&userid=<?php echo htmlspecialchars($userId);?>" class="btn btn-link">Save Job</a>
             </div>
         </div>
 

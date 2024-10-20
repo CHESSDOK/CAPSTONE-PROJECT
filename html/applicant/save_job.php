@@ -1,19 +1,13 @@
 <?php
 include '../../php/conn_db.php';
+$userId = $_SESSION['id'];
 // SQL query to fetch applied jobs
 $sql = "
-SELECT a.id AS application_id, 
-       jp.job_title, 
-       jp.job_type, 
-       jp.salary, 
-       a.application_date, 
-       a.status 
-FROM applications a
-JOIN job_postings jp ON a.job_posting_id = jp.j_id
-WHERE a.applicant_id = $userId
-ORDER BY a.application_date DESC
+SELECT s.*, jp.* 
+FROM save_job s
+JOIN job_postings jp ON s.job_id = jp.j_id
+WHERE s.applicant_id = $userId
 ";
-
 $result = $conn->query($sql);
 
 ?>
@@ -32,7 +26,6 @@ $result = $conn->query($sql);
 <body>
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">List of Applied Jobs</h2>
 
     <?php if ($result->num_rows > 0): ?>
         <div class="table-responsive">
@@ -42,8 +35,6 @@ $result = $conn->query($sql);
                         <th>Job Title</th>
                         <th>Job Type</th>
                         <th>Salary</th>
-                        <th>Application Date</th>
-                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,8 +43,6 @@ $result = $conn->query($sql);
                         <td><?php echo htmlspecialchars($row['job_title']); ?></td>
                         <td><?php echo htmlspecialchars($row['job_type']); ?></td>
                         <td><?php echo htmlspecialchars($row['salary']); ?></td>
-                        <td><?php echo htmlspecialchars($row['application_date']); ?></td>
-                        <td><?php echo htmlspecialchars($row['status']); ?></td>
                     </tr>
                     <?php endwhile; ?>
                 </tbody>

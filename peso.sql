@@ -1,12 +1,3 @@
-utf8mb4_unicode_ci19, 2024 at 01:07 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -223,9 +214,9 @@ CREATE TABLE `chat_messages` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `sender` varchar(100) NOT NULL,
-  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `chat_messages`
@@ -451,7 +442,7 @@ CREATE TABLE `language_proficiency` (
   `write_l` tinyint(1) DEFAULT '0',
   `speak_l` tinyint(1) DEFAULT '0',
   `understand_l` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `language_proficiency`
@@ -558,7 +549,7 @@ CREATE TABLE `license` (
   `rating` varchar(255) NOT NULL,
   `doe` date NOT NULL,
   `prc_path` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `license`
@@ -5571,7 +5562,7 @@ CREATE TABLE `training` (
   `end_date` date NOT NULL,
   `institution` varchar(255) NOT NULL,
   `certificate_path` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `training`
@@ -5775,7 +5766,7 @@ CREATE TABLE `work_exp` (
   `started_date` date NOT NULL,
   `termination_date` date NOT NULL,
   `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `work_exp`

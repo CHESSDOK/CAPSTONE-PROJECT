@@ -133,6 +133,9 @@ if (!$row) {
             <a class="nav-link active" id="toggleButton" href="#" role="tab">Job List</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" id="toggleButton4" href="#" role="tab">Recommended Job</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" id="toggleButton2" href="#" role="tab">Saved Job</a>
         </li>
         <li class="nav-item">
@@ -171,11 +174,19 @@ if (!$row) {
         ?>
     </div>
 
+    <div id="recomendedJobListContainer" class="job-list">
+        <?php 
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+            include 'recomended_list.php'; 
+        ?>
+    </div>
+
     <div id="savedJobListContainer" class="job-list">
         <?php 
             error_reporting(E_ALL);
             ini_set('display_errors', 1);
-            include '../../php/applicant/saved_job_list.php'; 
+            include 'save_job.php'; 
         ?>
     </div>
 
@@ -183,7 +194,7 @@ if (!$row) {
         <?php 
             error_reporting(E_ALL);
             ini_set('display_errors', 1);
-            include '../../php/applicant/saved_job_list.php'; 
+            include 'list_applied_jobs.php'; 
         ?>
     </div>
 </div>
@@ -267,7 +278,12 @@ $(document).on('click', function (e) {
 
     document.getElementById('toggleButton3').addEventListener('click', function (event) {
         event.preventDefault(); // Prevent default anchor click behavior
-        toggleJobList('savedJobListContainer', this);
+        toggleJobList('appliedJobListContainer', this);
+    });
+
+    document.getElementById('toggleButton4').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        toggleJobList('recomendedJobListContainer', this);
     });
 
     // Function to toggle job lists
