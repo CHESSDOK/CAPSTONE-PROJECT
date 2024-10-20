@@ -52,11 +52,11 @@
                         <p class="title2">Los Baños Job Portal</p>
                         
 
-                        <form>
+                        <form action="../php/login.php">
                             <div class="form-group">
                                 <p>Please sign in</p>
-                                <input type="email" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email"> 
-                                <input type="password" class="form-control" id="applicantPassword" placeholder="Password">
+                                <input type="text" name="user_input" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email"> 
+                                <input type="password" name="password" class="form-control" id="applicantPassword" placeholder="Password">
                             </div>
                             <div class="forgot">
                                 <a data-toggle="modal" data-target="#forgotPasswordModal" href="#">Forgot Password?</a>
@@ -83,10 +83,10 @@
                         <p class="title2">Los Baños Job Portal</p>
 
                         <form>
-                            <div class="form-group">
+                            <div class="form-group" action="../php/employer/login_employer.php" method="POST">
                                 <p>Please sign in</p>
-                                <input type="email" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email">
-                                <input type="password" class="form-control" id="employerPassword" placeholder="Password">
+                                <input type="text" name="username" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email">
+                                <input type="password" name="password" class="form-control" id="employerPassword" placeholder="Password">
                             </div>
                             <div class="forgot">
                                 <a data-toggle="modal" data-target="#forgotPasswordModal" href="#">Forgot Password?</a>
