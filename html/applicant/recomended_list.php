@@ -124,7 +124,7 @@ while ($job = $result->fetch_assoc()) {
         </p>';
 
     // Apply Button aligned to the right
-    echo '<a href="../../html/applicant/apply.php?job=' . urlencode($job["job_title"]) . '" class="docu">
+    echo '<a href="../../html/applicant/apply.php?job=' . urlencode($job["job_title"]) . '&jobid=' . urlencode($job["j_id"]) . '" class="docu">
             Apply <i class="fa fa-chevron-right"></i>
         </a>';
 
