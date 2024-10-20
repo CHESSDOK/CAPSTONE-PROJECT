@@ -126,13 +126,13 @@
                         </div>
                         <p class="title2">Los Baños Job Portal</p>
 
-                        <form>
+                        <form action="ofw/ofw_register.php" method="post">
                             <div class="form-group">
                                 <p>Please sign up</p> <!-- Changed text to "sign up" -->
-                                <input type="text" class="form-control mb-1" id="employerUsername" placeholder="Enter username">
-                                <input type="email" class="form-control mb-1" id="ofwEmail" placeholder="Enter email">  <div class="row">
+                                <input type="text" name="user" class="form-control mb-1" id="employerUsername" placeholder="Enter username">
+                                <input type="email" name="email" class="form-control mb-1" id="ofwEmail" placeholder="Enter email">  <div class="row">
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="applicantPassword" placeholder="Enter Password">
+                                    <input type="password" name="password" class="form-control" id="applicantPassword" placeholder="Enter Password">
                                 </div>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">

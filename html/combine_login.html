@@ -111,11 +111,11 @@
                         </div>
                         <p class="title2">Los Baños Job Portal</p>
 
-                        <form>
+                        <form action="ofw/ofw_login.php" method="post">
                             <div class="form-group">
                                 <p>Please sign in</p>
-                                <input type="email" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email">
-                                <input type="password" class="form-control" id="ofwPassword" placeholder="Password">
+                                <input type="text" name="user_input" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email">
+                                <input type="password" name="password" class="form-control" id="ofwPassword" placeholder="Password">
                             </div>
                             <div class="forgot">
                                 <a data-toggle="modal" data-target="#forgotPasswordModal" href="#">Forgot Password?</a>

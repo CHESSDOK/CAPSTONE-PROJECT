@@ -19,7 +19,7 @@ $userId = checkSession(); // Call the function and store the returned user ID
 // Assuming $conn is your valid database connection
 include '../../php/conn_db.php'; // Include your database connection script
 
-$sql = "SELECT * FROM ofw_profile WHERE user_id = ?";
+$sql = "SELECT * FROM ofw_profile WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
@@ -61,7 +61,7 @@ if (!$row) {
         <a href="#"> PESO-lb.ph</a>
     </div>
 
-    <div class="profile-icons">
+    <!-- <div class="profile-icons">
         <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
             <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
@@ -74,7 +74,7 @@ if (!$row) {
         <?php endif; ?>
         </div>
 
-    </div>
+    </div> -->
 
     <!-- Burger icon -->
     <div class="burger" id="burgerToggle">
