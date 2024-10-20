@@ -1,4 +1,9 @@
-utf8mb4_unicode_ci19, 2024 at 01:07 AM
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Oct 19, 2024 at 01:23 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
