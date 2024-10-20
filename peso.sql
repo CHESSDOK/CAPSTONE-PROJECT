@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 20, 2024 at 01:47 PM
+-- Generation Time: Oct 20, 2024 at 11:07 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -289,7 +289,8 @@ CREATE TABLE `employer_profile` (
 INSERT INTO `employer_profile` (`id`, `user_id`, `company_name`, `company_address`, `tel_num`, `president`, `HR`, `company_mail`, `HR_mail`, `photo`) VALUES
 (9, 9, 'Wehner inc', '47505 Rosenbaum Rapids', '75', 'Grady Doyle', 'Voluptatum sunt eligendi repellat nihil officiis deleniti quos.', 'Harber, Brown and Strosin', 'your.email+fakedata60367@gmail.com', '67075944b1138.png'),
 (10, 10, 'Lehner Group', '72695 Stoltenberg Parkway', '49', 'Breitenberg Schmitt', 'John Schmitt', 'Senger, Runolfsson and Gerlach', 'your.email+fakedata52491@gmail.com', '6708ea2fc3a24.png'),
-(11, 11, 'Herzog Inc', '25813 Ward Well', '62', 'Lemke O Connell', 'Carol Yundt', 'Hilpert, Lakin and Doyle', 'your.email+fakedata66606@gmail.com', '670760a7022ed.png');
+(11, 11, 'Herzog Inc', '25813 Ward Well', '62', 'Lemke O Connell', 'Carol Yundt', 'Hilpert, Lakin and Doyle', 'your.email+fakedata66606@gmail.com', '670760a7022ed.png'),
+(12, 12, '', '', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -320,7 +321,8 @@ CREATE TABLE `empyers` (
 INSERT INTO `empyers` (`id`, `username`, `password`, `email`, `Fname`, `Lname`, `Bdate`, `contact`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
 (9, 'Mark55', '$2y$10$Pne11S1JqPKgRbXvf88I2OA8wF9hEH8PMenlS26deUJ0GMdu70nlq', 'mercadomarklawrence55@gmail.com', 'Brady Parker', 'Gloria Acevedo', '1976-09-19', 9136, 1, '836619', '2024-10-10 12:32:12', NULL, NULL),
 (10, 'Ict1', '$2y$10$so3p8.RcQnOqPiCAva0X1uGvZ2X7X2wV3aziLsQ2eIT8siaXlZWQC', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 1, '606376', '2024-10-10 12:41:57', NULL, NULL),
-(11, 'Batbat', '$2y$10$QTbi7Iy1aVIVgfFapjB/weUo9TzbOwLaJkN2qP.eFXz4OuBLFBcFG', 'marklawrencemercado8@gmail.com', NULL, NULL, NULL, NULL, 1, '878316', '2024-10-10 12:49:18', NULL, NULL);
+(11, 'Batbat', '$2y$10$QTbi7Iy1aVIVgfFapjB/weUo9TzbOwLaJkN2qP.eFXz4OuBLFBcFG', 'marklawrencemercado8@gmail.com', NULL, NULL, NULL, NULL, 1, '878316', '2024-10-10 12:49:18', NULL, NULL),
+(12, 'Azure', '$2y$10$OfUnTu6QZB3zuL4yquGXk.AEHZUow6tMmb9Qy6FX8//RgjIhNT0CW', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 1, '433105', '2024-10-21 07:07:22', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6070,13 +6072,13 @@ ALTER TABLE `employer_documents`
 -- AUTO_INCREMENT for table `employer_profile`
 --
 ALTER TABLE `employer_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `empyers`
 --
 ALTER TABLE `empyers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `interview`

@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($conn->query($update_sql) === TRUE) {
                 echo "<script type='text/javascript'>
                         alert('Your email has been successfully verified!');
-                        window.location.href='../../html/employer/login_employer.html';
+                        window.location.href='../../html/combine_login.html';
                       </script>";
             } else {
                 echo "Error updating record: " . $conn->error;
@@ -29,13 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "<script type='text/javascript'>
                     alert('Invalid OTP or OTP has expired. Please try again.');
-                    window.location.href='../../html/employer/login_employer.html';
+                    window.location.href='../../html/combine_login.html';
                   </script>";
         }
     } else {
         echo "<script type='text/javascript'>
                 alert('Email not found or already verified.');
-                window.location.href='../../html/employer/login_employer.html';
+                window.location.href='../../html/combine_login.html';
               </script>";
     }
 

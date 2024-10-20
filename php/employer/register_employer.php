@@ -62,10 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../../html/employer/otp_ver.php?email=" . urlencode($email));
                 exit();
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                header("Location: ../../html/combine_register.php");
             }
             } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+                header("Location: ../../html/combine_register.php");
             }
 
             $conn->close();
