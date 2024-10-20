@@ -52,7 +52,7 @@
                         <p class="title2">Los Baños Job Portal</p>
                         
 
-                        <form action="../php/login.php">
+                        <form action="../php/login.php" method="POST" >
                             <div class="form-group">
                                 <p>Please sign in</p>
                                 <input type="text" name="user_input" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email"> 
@@ -82,8 +82,8 @@
                         </div>
                         <p class="title2">Los Baños Job Portal</p>
 
-                        <form>
-                            <div class="form-group" action="../php/employer/login_employer.php" method="POST">
+                        <form action="../php/employer/login_employer.php" method="POST">
+                            <div class="form-group" >
                                 <p>Please sign in</p>
                                 <input type="text" name="username" class="form-control mb-3" id="applicantEmail" placeholder="Username/Email">
                                 <input type="password" name="password" class="form-control" id="employerPassword" placeholder="Password">
