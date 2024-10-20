@@ -103,10 +103,8 @@ $conn->close();
         </div>
         <div class="offcanvas-body">
             <table class="menu">
-                <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
-                <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
-                <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="#" class="active nav-link">OFW</a></td></tr>
+                <tr><td><a href="ofw_home.php" class="nav-link">Home</a></td></tr>
+                <tr><td><a href="ofw_form.php" class="nav-link">Survey</a></td></tr>
                 <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
@@ -118,8 +116,7 @@ $conn->close();
     <div>
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
-        <li class="breadcrumb-item"><a href="ofw_form.php" >OFW Form</a></li>
-        <li class="breadcrumb-item active" aria-current="page">OFW Profile</li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
       </ol>
     </div>
     <a href="javascript:history.back()" class="return me-2">
@@ -469,7 +466,7 @@ $(document).ready(function(){
         animation: true, // Enable animation
         content: function() {
             return `
-                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="ofw_profile.php"  id="emprof">Profile</a><br>
                 <a class="link" href="logout.php">Logout</a>
             `;
         }

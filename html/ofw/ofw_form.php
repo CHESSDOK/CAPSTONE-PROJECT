@@ -108,10 +108,8 @@
             </div>
             <div class="offcanvas-body">
                 <table class="menu">
-                    <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
-                    <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
-                    <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                    <tr><td><a href="#" class="active nav-link">OFW</a></td></tr>
+                    <tr><td><a href="ofw_home.php" class="nav-link">Home</a></td></tr>
+                    <tr><td><a href="ofw_form.php" class="active nav-link">Survey</a></td></tr>
                     <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
                     <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
                 </table>
@@ -135,7 +133,6 @@
     <div class="button-container">
         <button class="btn btn-primary" id='openCaseBtn' data-ofw-id="<?php echo $userId; ?>" >File Case</button>
         <button class="btn btn-primary openStatusBtn" id='openStatusBtn' data-ofw-id="<?php echo $userId; ?>" >File status</button>
-        <a class="btn btn-primary" href="ofw_profile.php">OFW Profile</a>
     </div>
     
         <div class="form-container">
@@ -322,7 +319,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content p-4">
             <div class="modal-header">
-                <span class="btn-close seccloseBtn"></span>
+                <span class="closBtn closeBtn btn-close seccloseBtn">&times;</span>
             </div>
             <h3>OFW File Case</h3>
             <div class="modal-body">
@@ -458,7 +455,7 @@ $(document).ready(function(){
         animation: true, // Enable animation
         content: function() {
             return `
-                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="ofw_profile.php"  id="emprof">Profile</a><br>
                 <a class="link" href="logout.php">Logout</a>
             `;
         }

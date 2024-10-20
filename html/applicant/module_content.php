@@ -124,7 +124,6 @@ $result = $conn->query($sql);
                 <tr><td><a style="text-align:left;" href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a style="text-align:left;" href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a style="text-align:left;" href="#" class="active nav-link">Training</a></td></tr>
-                <tr><td><a style="text-align:left;" href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a style="text-align:left;" href="about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a style="text-align:left;" href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>

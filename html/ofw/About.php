@@ -4,28 +4,31 @@
 include '../../php/conn_db.php';
 
 function checkSession() {
-  session_start(); // Start the session
+    session_start(); // Start the session
 
-  // Check if the session variable 'id' is set
-  if (!isset($_SESSION['id'])) {
-      // Redirect to login page if session not found
-      header("Location: html/login.html");
-      exit();
-  } else {
-      // If session exists, store the session data in a variable
-      return $_SESSION['id'];
-  }
+    // Check if the session variable 'id' is set
+    if (!isset($_SESSION['id'])) {
+        // Redirect to login page if session not found
+        header("Location: html/login_ofw.html");
+        exit();
+    } else {
+        // If session exists, store the session data in a variable
+        return $_SESSION['id'];
+    }
 }
-$userId = checkSession();
+$userId = checkSession(); // Call the function and store the returned user ID
 
-$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
+// Assuming $conn is your valid database connection
+include '../../php/conn_db.php'; // Include your database connection script
+
+$sql = "SELECT * FROM ofw_profile WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if (!$result) {
-    die("Invalid query: " . $conn->error); 
+    die("Invalid query: " . $conn->error);
 }
 
 $row = $result->fetch_assoc();
@@ -72,15 +75,17 @@ if (!$row) {
 
     <div class="profile-icons">
         <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
-        <a class='openEmployersBtn' href='#'><img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle"></a>
+            <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
-        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
+        
+        <div class="profile-icon-ofw" data-bs-toggle="popover" data-bs-placement="bottom">
         <?php if (!empty($row['photo'])): ?>
-            <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <img id="preview" src="../../php/ofw/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
         <?php else: ?>
             <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
         <?php endif; ?>
         </div>
+
     </div>
 
     </div>
@@ -101,11 +106,10 @@ if (!$row) {
         </div>
         <div class="offcanvas-body">
         <table class="menu">
-              <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
-              <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
-              <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-              <tr><td><a href="#" class="active nav-link">About Us</a></td></tr>
-              <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="ofw_home.php" class="nav-link">Home</a></td></tr>
+                <tr><td><a href="ofw_form.php" class="nav-link">Survey</a></td></tr>
+                <tr><td><a href="about.php" class="active nav-link">About Us</a></td></tr>
+                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
           </table>
         </div>
     </div>
@@ -114,7 +118,7 @@ if (!$row) {
 <nav class="bcrumb-container d-flex justify-content-between align-items-center" aria-label="breadcrumb">
     <div>
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="../../index(applicant).php" >Home</a></li>
+        <li class="breadcrumb-item"><a href="ofw_home.php" >Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Profile</li>
       </ol>
     </div>
@@ -333,13 +337,13 @@ burgerToggle.addEventListener('click', function() {
 
 $(document).ready(function(){
     // Initialize popover with multiple links in the content
-    $('.profile-icon').popover({
+    $('.profile-icon-ofw').popover({
         trigger: 'click', 
         html: true, // Allow HTML content
         animation: true, // Enable animation
         content: function() {
             return `
-                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="ofw_profile.php"  id="emprof">Profile</a><br>
                 <a class="link" href="logout.php">Logout</a>
             `;
         }
@@ -347,8 +351,8 @@ $(document).ready(function(){
 // Close popover when clicking outside
 $(document).on('click', function (e) {
     const target = $(e.target);
-    if (!target.closest('.profile-icon').length) {
-        $('.profile-icon').popover('hide');
+    if (!target.closest('.profile-icon-ofw').length) {
+        $('.profile-icon-ofw').popover('hide');
     }
 });
 });
