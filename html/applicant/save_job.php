@@ -1,41 +1,33 @@
 <?php
 include '../../php/conn_db.php';
-$userId = $_SESSION['id']; // Get the applicant's ID from the session
+$userId = $_SESSION['id'];
 
-// SQL query to fetch applied jobs with additional employer and admin details
+// Prepare SQL query to fetch saved jobs along with additional job details
 $sql = "
-SELECT a.id AS application_id, 
-       jp.job_title, 
-       jp.job_type, 
-       jp.salary, 
-       a.application_date, 
-       a.status, 
-       em.company_name, 
-       em.photo, 
-       em.company_address, 
-       em.company_mail, 
-       em.tel_num, 
-       ad.username AS admin_username
-FROM applications a
-JOIN job_postings jp ON a.job_posting_id = jp.j_id
+SELECT jp.*, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username, a.status
+FROM save_job s
+JOIN job_postings jp ON s.job_id = jp.j_id
 LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
 LEFT JOIN admin_profile ad ON jp.admin_id = ad.id
-WHERE a.applicant_id = ?
-ORDER BY a.application_date DESC
+LEFT JOIN applications a ON a.job_posting_id = jp.j_id AND a.applicant_id = ?
+WHERE s.applicant_id = ? AND jp.is_active = 1 AND a.status IS NULL
 ";
 
 // Prepare the statement
 $stmt = $conn->prepare($sql);
 
-// Bind the user ID to the placeholder in the SQL query
-$stmt->bind_param("i", $userId);
+// Bind the parameters for `applicant_id`
+$stmt->bind_param("ii", $userId, $userId);
 
 // Execute the statement
 $stmt->execute();
 
 // Get the result set
 $result = $stmt->get_result();
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,9 +41,7 @@ $result = $stmt->get_result();
 
 </head>
 <body>
-
-
-<?php if ($result->num_rows > 0): ?>
+    <?php if ($result->num_rows > 0): ?>
     <div class="row">
         <?php while ($job = $result->fetch_assoc()): ?>
             <div class="col-md-12">
@@ -75,22 +65,34 @@ $result = $stmt->get_result();
                                 <h4 class="fw-bold mb-0" style="color: #007bff;"><?php echo htmlspecialchars($job["job_title"]); ?></h4>
                             </div>
 
-                            <!-- Job Details -->
-                            <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
-                                <i class="fas fa-clipboard-list" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["job_type"]); ?><br>
-                                <i class="fas fa-dollar-sign" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["salary"]); ?><br>
-                                <i class="fas fa-calendar-alt" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["application_date"]); ?><br>
-                            </p>
+                            <?php if (!empty($job["company_name"])): ?>
+                                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                                    <i class="fas fa-building" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["company_name"]); ?><br>
+                                    <i class="fas fa-map-marker-alt" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["company_address"]); ?><br>
+                                    <i class="fas fa-envelope" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["company_mail"]); ?><br>
+                                    <i class="fas fa-phone" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["tel_num"]); ?>
+                                </p>
+                            <?php else: ?>
+                                <p>Posted by Admin: <strong><?php echo htmlspecialchars($job["admin_username"]); ?></strong></p>
+                            <?php endif; ?>
                         </div>
 
-                        <!-- job status  -->
+                        <!-- Vacancy status and apply button -->
                         <div class="col-md-4 text-end">
-                            <div class="d-flex justify-content-end align-items-center">
-                                <!-- Wrapped icon and status inside a div to control their layout -->
-                                <div class="status-wrapper d-flex align-items-center">
-                                    <i class="fas fa-info-circle text-primary fs-3 me-2"></i> <!-- Bootstrap class for large icon -->
-                                    <span class="fw-bold fs-4"><?php echo htmlspecialchars($job["status"]); ?></span> <!-- Bootstrap class for larger text -->
-                                </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                
+                                <!-- Vacancy Status -->
+                                <p class="mb-1">
+                                    <span class="badge <?php echo ($job["vacant"] > 1 ? 'bg-success' : 'bg-danger'); ?> d-block fs-5 p-2 mb-3">
+                                        <?php echo ($job['vacant'] > 1 ? 'Vacant' : 'Not Vacant'); ?>
+                                    </span>
+                                    <span class="ms-2 fs-5 d-block mb-4"><?php echo htmlspecialchars($job['vacant']); ?> openings</span>
+                                </p>
+                                
+                                <!-- Apply Button -->
+                                <a href="../../html/applicant/apply.php?job=<?php echo urlencode($job["job_title"]); ?>" class="btn btn-primary">
+                                    Apply <i class="fa fa-chevron-right"></i>
+                                </a>
                             </div>
                         </div>
 

@@ -85,8 +85,6 @@ if (!$row) {
                 <tr><td><a href="#" class="active nav-link">Home</a></td></tr>
                 <tr><td><a href="html/applicant/applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="html/applicant/training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="html/applicant/ofw_form.php" class="nav-link">OFW</a></td></tr>
-                <tr><td><a href="html/applicant/list_applied_jobs.php" class="nav-link">applied job</a></td></tr>
                 <tr><td><a href="html/applicant/About.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="html/applicant/Contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>

@@ -41,6 +41,8 @@ if (isset($_GET['job'])) {
 include '../../php/conn_db.php';
 
 
+$jobid = $_GET['jobid'];
+
 // Fetch the user data (assuming you have a way to identify the user, e.g., session)
 $user_id = $_SESSION['id']; // This should be set dynamically based on logged-in user
 $sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
@@ -137,7 +139,6 @@ if (!$user || !$job) {
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
@@ -163,81 +164,87 @@ if (!$user || !$job) {
     <div class="table-container">
         <form action="../../php/applicant/submit_application.php" method="post">
             <div class="card mb-3 p-3 shadow-sm">
-                <div class="row align-items-center">
-                    
-                    <!-- Job Logo / Placeholder (left side) -->
-                    <div class="col-md-2 text-center">
-                        <?php if (!empty($job["photo"])): ?>
-                            <img src="../../php/employer/uploads/<?php echo htmlspecialchars($job["photo"]); ?>" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
-                        <?php else: ?>
-                            <img src="../../img/user-placeholder.png" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
-                        <?php endif; ?>
-                    </div>
+            <div class="row align-items-center">
+    <!-- Job Logo / Placeholder (left side) -->
+    <div class="col-md-2 text-center">
+        <?php if (!empty($job["photo"])): ?>
+            <img src="../../php/employer/uploads/<?php echo htmlspecialchars($job["photo"]); ?>" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
+        <?php else: ?>
+            <img src="../../img/user-placeholder.png" alt="Logo" class="img-fluid rounded-circle mb-3" style="max-width: 100px; height: auto;">
+        <?php endif; ?>
+    </div>
 
-                    <!-- Job Title, Company Name, and Work Location (center part) -->
-                    <div class="col-md-4">
-                        <div class="d-flex flex-column">
-                            <!-- Job Title with Icon -->
-                            <label class="fw-bold mb-0" style="font-size: 1.30rem; color: #007bff;">
-                                <i class="fas fa-briefcase" style="color: #007bff;"></i>
-                                <?php echo htmlspecialchars($jobTitle); ?>
-                            </label>
+    <!-- Job Title, Company Name, and Work Location (center part) -->
+    <div class="col-md-4">
+        <div class="d-flex flex-column">
+            <!-- Job Title with Icon -->
+            <label class="fw-bold mb-0" style="font-size: 1.30rem; color: #007bff;">
+                <i class="fas fa-briefcase" style="color: #007bff;"></i>
+                <?php echo htmlspecialchars($jobTitle); ?>
+            </label>
 
-                            <!-- Company Name with Icon -->
-                            <p class="mb-0" style="font-size: 1rem; color: #007bff;">
-                                <i class="fas fa-building" style="color: #007bff;"></i>
-                                <?php echo isset($job['company_name']) ? htmlspecialchars($job['company_name']) : $job['admincompany']; ?>
-                            </p>
+            <!-- Company Name with Icon -->
+            <p class="mb-0" style="font-size: 1rem; color: #007bff;">
+                <i class="fas fa-building" style="color: #007bff;"></i>
+                <?php echo isset($job['company_name']) ? htmlspecialchars($job['company_name']) : $job['admincompany']; ?>
+            </p>
 
-                            <!-- Work Location with Icon -->
-                            <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
-                                <i class="fas fa-map-marker-alt" style="color: #007bff;"></i>
-                                <?php echo htmlspecialchars($job['work_location']); ?>
-                            </p>
-                        </div>
-                    </div>
+            <!-- Work Location with Icon -->
+            <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                <i class="fas fa-map-marker-alt" style="color: #007bff;"></i>
+                <?php echo htmlspecialchars($job['work_location']); ?>
+            </p>
+        </div>
+    </div>
 
-                    <!-- Requirements and Job Type (Row layout, aligned with Work Location) -->
-                    <div class="col-md-4">
-                        <div class="d-flex flex-row mt-5">
-                            <!-- Requirement -->
-                            <div class="me-5">
-                                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
-                                    <!-- CHANGE TO SALARY -->
-                                    <i class="fas fa-graduation-cap" style="color: #007bff;"></i>
-                                    <?php echo htmlspecialchars($job['education']); ?>
-                                </p>
-                            </div>
-
-                            <!-- Job Type -->
-                            <div>
-                                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
-                                    <i class="fas fa-laptop-code" style="color: #007bff;"></i>
-                                    <?php echo htmlspecialchars($job['job_type']); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Date posted and Apply button (right side) -->
-                    <div class="col-md-2">
-                        <!-- Date posted -->
-                        <div class="mb-0">
-                            <p class="date-posted" style="color: #007bff;">₱
-                                <?php echo htmlspecialchars($job['salary']); ?>
-                            </p>
-                        </div>
-
-                        <!-- Apply button -->
-                        <input type="hidden" name="job" value="<?php echo htmlspecialchars($jobTitle); ?>">
-                        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
-                        <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job['j_id']); ?>">
-                        <input type="submit" value="Apply Now" class="btn btn-primary">
-                    </div>
-
-                </div>
+    <!-- Requirements and Job Type (Row layout, aligned with Work Location) -->
+    <div class="col-md-4">
+        <div class="d-flex flex-row mt-5">
+            <!-- Requirement -->
+            <div class="me-5">
+                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                    <i class="fas fa-graduation-cap" style="color: #007bff;"></i>
+                    <?php echo htmlspecialchars($job['education']); ?>
+                </p>
             </div>
 
+            <!-- Job Type -->
+            <div>
+                <p class="mb-0" style="font-size: 1rem; color: #6c757d;">
+                    <i class="fas fa-laptop-code" style="color: #007bff;"></i>
+                    <?php echo htmlspecialchars($job['job_type']); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <!-- Date posted -->
+        <div class="mb-0">
+            <p class="date-posted" style="color: #007bff;">₱
+                <?php echo htmlspecialchars($job['salary']); ?>
+            </p>
+        </div>
+
+        <div class="row align-items-center">
+            <!-- Apply button -->
+            <div class="col-auto">
+                <input type="submit" value="Apply Now" class="btn btn-primary">
+            </div>
+            
+            <!-- Save Job link -->
+            <div class="col-auto">
+                <a href="../../php/applicant/save.php?job=<?php echo htmlspecialchars($jobid);?>&userid=<?php echo htmlspecialchars($userId);?>" class="btn btn-link">Save Job</a>
+            </div>
+        </div>
+
+        <input type="hidden" name="job" value="<?php echo htmlspecialchars($jobTitle); ?>">
+        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
+        <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job['j_id']); ?>">
+    </div>
+</div>
+
+</div>
             <div class="table-container">
     <div class="card mb-3 p-3 shadow-sm">
         <div class="col align-items-center">

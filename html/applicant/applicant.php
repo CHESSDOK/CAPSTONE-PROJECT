@@ -46,6 +46,12 @@ if (!$row) {
   <link rel="stylesheet" href="../../css/applicant.css">
  
 </head>
+<style>
+    #jobListContainer {
+    display: none; /* Initially hide the job list */
+}
+
+</style>
 <body>
 
     <!-- Navigation -->
@@ -97,7 +103,6 @@ if (!$row) {
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="ofw_form.php" class="nav-link">OFW</a></td></tr>
                 <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
                 <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
@@ -120,37 +125,82 @@ if (!$row) {
 <div class="table-containers">
 <div class="table-container">
 <form method="GET" action="" class="my-4">
-    <div class="d-flex justify-content-between align-items-center">
-        <!-- Left side: Heading -->
-        <h2>Job Listings</h2>
 
-        <!-- Right side: Search input and button -->
-        <div class="d-flex position-relative">
-            <!-- Search Input -->
-            <input type="text" id="search-input" name="search" class="form-control ps-5" placeholder="Search for a job..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+<div class="d-flex justify-content-between align-items-center">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="toggleButton" href="#" role="tab">Job List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="toggleButton4" href="#" role="tab">Recommended Job</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="toggleButton2" href="#" role="tab">Saved Job</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="toggleButton3" href="#" role="tab">Applied Job</a>
+        </li>
+    </ul>
 
-             <!-- Search Icon -->
-            <span class="position-absolute search-icon">
-                <i class="fa fa-search"></i> <!-- FontAwesome search icon -->
-            </span>
-            
-            <!-- Search Button -->
-            <button type="submit" class="btn btn-primary">Search</button>
+    <!-- Right side: Search input and button -->
+    <div class="d-flex position-relative">
+        <!-- Search Input -->
+        <input type="text" id="search-input" name="search" class="form-control ps-5" placeholder="Search for a job..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
 
-            <!-- Clear Button -->
-            <button type="button" class="btn btn-secondary ms-2" id="clear-button" onclick="clearSearch()">Clear</button>
-        </div>
+        <!-- Search Icon -->
+        <span class="position-absolute search-icon" style="left: 10px; top: 50%; transform: translateY(-50%);">
+            <i class="fa fa-search"></i> <!-- FontAwesome search icon -->
+        </span>
+
+        <!-- Search Button -->
+        <button type="submit" class="btn btn-primary ms-2">Search</button>
+
+        <!-- Clear Button -->
+        <button type="button" class="btn btn-secondary ms-2" id="clear-button" onclick="clearSearch()">Clear</button>
     </div>
+</div>
+
 </form>
 
-    <div class="row align-items-start">
-          <?php 
+
+
+<div class="row align-items-start"  style="margin-top:-1.6rem;">
+    <div id="jobListContainer" class="job-list">
+        <?php 
             error_reporting(E_ALL);
             ini_set('display_errors', 1);
             include '../../php/applicant/job_list.php'; 
-          ?>
-          </div>
+        ?>
     </div>
+
+    <div id="recomendedJobListContainer" class="job-list">
+        <?php 
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+            include 'recomended_list.php'; 
+        ?>
+    </div>
+
+    <div id="savedJobListContainer" class="job-list">
+        <?php 
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+            include 'save_job.php'; 
+        ?>
+    </div>
+
+    <div id="appliedJobListContainer" class="job-list">
+        <?php 
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+            include 'list_applied_jobs.php'; 
+        ?>
+    </div>
+</div>
+
+
+
+
 </div>
 
 <script>
@@ -204,5 +254,55 @@ $(document).on('click', function (e) {
 });
 });
 </script>
+
+<script>
+    // Hide all job lists initially
+    document.querySelectorAll('.job-list').forEach(function (list) {
+        list.style.display = 'none';
+    });
+
+    // Show the job list by default
+    document.getElementById('jobListContainer').style.display = 'block';
+
+    // Button event listeners for showing the respective job list
+    document.getElementById('toggleButton').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        toggleJobList('jobListContainer', this);
+    });
+
+    document.getElementById('toggleButton2').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        toggleJobList('savedJobListContainer', this);
+    });
+
+    document.getElementById('toggleButton3').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        toggleJobList('appliedJobListContainer', this);
+    });
+
+    document.getElementById('toggleButton4').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        toggleJobList('recomendedJobListContainer', this);
+    });
+
+    // Function to toggle job lists
+    function toggleJobList(containerId, button) {
+        // Hide all job lists
+        document.querySelectorAll('.job-list').forEach(function (list) {
+            list.style.display = 'none'; 
+        });
+        // Show selected job list
+        document.getElementById(containerId).style.display = 'block'; 
+
+        // Update tab styles
+        document.querySelectorAll('.nav-link').forEach(function (navLink) {
+            navLink.classList.remove('active'); // Remove active class from all links
+        });
+        button.classList.add('active'); // Add active class to the clicked link
+    }
+</script>
+
+
+
 </body>
 </html>
