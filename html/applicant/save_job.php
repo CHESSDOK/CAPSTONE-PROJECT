@@ -104,7 +104,7 @@ $result = $stmt->get_result();
     </div>
 <?php else: ?>
     <div class="alert alert-warning text-center" role="alert">
-        No jobs applied yet.
+        No jobs saved yet.
     </div>
 <?php endif; ?>
 

@@ -287,18 +287,14 @@ $(document).on('click', function (e) {
 
     // Function to toggle job lists
     function toggleJobList(containerId, button) {
-        // Hide all job lists
-        document.querySelectorAll('.job-list').forEach(function (list) {
-            list.style.display = 'none'; 
+        document.querySelectorAll('.job-list').forEach(function(list) {
+            list.style.display = 'none';
         });
-        // Show selected job list
-        document.getElementById(containerId).style.display = 'block'; 
-
-        // Update tab styles
-        document.querySelectorAll('.nav-link').forEach(function (navLink) {
-            navLink.classList.remove('active'); // Remove active class from all links
+        document.getElementById(containerId).style.display = 'block';
+        document.querySelectorAll('.nav-link').forEach(function(navLink) {
+            navLink.classList.remove('active');
         });
-        button.classList.add('active'); // Add active class to the clicked link
+        button.classList.add('active');
     }
 </script>
 
