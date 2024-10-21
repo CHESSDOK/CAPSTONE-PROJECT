@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
+<style>
+        .news-embed {
+            width: 100%;   /* Adjusts the iframe to 100% width of its parent container */
+            max-width: 1200px; /* Max width in case you want a cap */
+            height: 500px;  /* Control height here */
+            border: 1px solid #ccc;
+        }
+    </style>
 <body>
 
     <!-- Navigation -->
@@ -54,47 +62,7 @@
         </div>
     </nav>
     <!-- Body -->
-
-           <table >
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_1">PESO</label>
-               <label class="lbl_2">Los Baños</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_3">Public Employment Service Office</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_4">JOB PORTAL</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_5">YOUR</label>
-               <label class="lbl_6">NEW CAREER</label>
-               <label class="lbl_7">STARTS HERE!</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole">
-               <button class="btn btn-primary lbl_8">Find Job</button>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <textarea readonly>
-                   Available in one roof the various employment promotion, manpower programs, 
-                   and services of the DOLE and other government agencies to enable all types 
-                   of clientele to know more about them and seek specific assistance they require.
-               </textarea>
-             </td>
-           </tr>
-           </table>
-
+    <iframe class="news-embed news-link" src="https://www.gmanetwork.com/news/" frameborder="0"></iframe>
 
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
