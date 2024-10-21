@@ -17,7 +17,7 @@ function checkSession() {
 $userId = checkSession();
 
 // Fetch data from applicant_profile table
-$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
+$sql = "SELECT * FROM ofw_profile WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
@@ -127,7 +127,7 @@ $conn->close();
 <div class="profile-container">
 <div class="form-content">
 <!-- Form Content -->
-<form action="../../php/applicant/ofw_details.php" method="POST">
+<form action="../../php/ofw/ofw_details.php" method="POST">
 <div class="container mt-4">
       <h4 class="mb-3">Personal Information</h4>
       

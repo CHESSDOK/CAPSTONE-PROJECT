@@ -62,32 +62,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Prepare an SQL query to update the applicant_profile table
-    $sql = "UPDATE applicant_profile SET 
-        first_name = ?, middle_name = ?, last_name = ?, age = ?,prefix = ?, dob = ?, contact_no = ?, 
-        sex = ?, civil_status = ?, email = ?, house_address= ?, sss_no = ?, pagibig_no = ?, philhealth_no = ?, 
-        passport_no = ?, immigration_status = ?, spouse_name = ?, spouse_contact = ?, fathers_name = ?, fathers_address = ?, mothers_name = ?, 
-        mothers_address = ?,emergency_contact_name = ?, emergency_contact_num = ?, next_of_kin_relationship = ?, next_of_kin_contact = ?, education_level = ?, occupation = ?, 
-        income = ?, employment_type = ?, employment_form = ?, employer_name = ?, contact_number = ?, employer_address = ?, local_agency_name = ?,
-        local_agency_address = ?, arrival_date = ?, dept_date = ?, country = ?
-        WHERE user_id = ?";
+    $sql = "UPDATE ofw_profile SET 
+    first_name = ?, middle_name = ?, last_name = ?, age = ?, prefix = ?, dob = ?, contact_no = ?, 
+    sex = ?, civil_status = ?, email = ?, house_address = ?, sss_no = ?, pagibig_no = ?, philhealth_no = ?, 
+    passport_no = ?, immigration_status = ?, spouse_name = ?, spouse_contact = ?, fathers_name = ?, fathers_address = ?, mothers_name = ?, 
+    mothers_address = ?, emergency_contact_name = ?, emergency_contact_num = ?, next_of_kin_relationship = ?, next_of_kin_contact = ?, education_level = ?, occupation = ?, 
+    income = ?, employment_type = ?, employment_form = ?, employer_name = ?, contact_number = ?, employer_address = ?, local_agency_name = ?, 
+    local_agency_address = ?, arrival_date = ?, departure_date = ?, country = ? 
+    WHERE id = ?";
 
-    // Prepare the statement
-    if ($stmt = $conn->prepare($sql)) {
-        // Bind parameters to the query
-        $stmt->bind_param("sssisssssssiiiissssssssisississsissssssi",
-            $firstName, $middleName, $lastName, $age, $prefix, $dob, $contactNo,
-            $sex, $civilStatus, $email, $houseNo, $sssNo, $pagibigNo, $philhealthNo, 
-            $passportNo, $immigrationStatus, $spouseName, $spouseContact, $fathersName, $fathersAddress, $mothersName, 
-            $mothersAddress,$emergencyContactName, $emergencyContact, $nextOfKinRelationship, $nextOfKinContact, $educationLevel, $occupation, 
-            $income, $employmentType, $employmentform, $employername, $contactnumber, $employeraddress, $gencyname,
-            $agencyaddress, $arrival, $departure, $destination,
-            $userId
-        );
+if ($stmt = $conn->prepare($sql)) {
+    // Bind parameters to the query
+    $stmt->bind_param("sssisssssssiiiissssssssisississsissssssi",
+        $firstName, $middleName, $lastName, $age, $prefix, $dob, $contactNo,
+        $sex, $civilStatus, $email, $houseAddress, $sssNo, $pagibigNo, $philhealthNo, 
+        $passportNo, $immigrationStatus, $spouseName, $spouseContact, $fathersName, $fathersAddress, $mothersName, 
+        $mothersAddress, $emergencyContactName, $emergencyContactNum, $nextOfKinRelationship, $nextOfKinContact, $educationLevel, $occupation, 
+        $income, $employmentType, $employmentForm, $employerName, $contactNumber, $employerAddress, $localAgencyName, 
+        $localAgencyAddress, $arrivalDate, $departureDate, $country, $userId
+    );
 
         // Execute the query
         if ($stmt->execute()) {
             echo "Record updated successfully!";
-            header("Location: ../../html/applicant/ofw_form.php"); // Redirect to a success page
+            header("Location: ../../html/ofw/ofw_form.php"); // Redirect to a success page
         } else {
             echo "Error updating record: " . $stmt->error;
         }

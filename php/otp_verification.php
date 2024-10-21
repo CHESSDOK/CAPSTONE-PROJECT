@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($conn->query($update_sql) === TRUE) {
                 echo "<script type='text/javascript'>
                         alert('Your email has been successfully verified!');
-                        window.location.href='../html/login1.html';
+                        window.location.href='../html/combine_login_new.html';
                       </script>";
             } else {
                 echo "Error updating record: " . $conn->error;

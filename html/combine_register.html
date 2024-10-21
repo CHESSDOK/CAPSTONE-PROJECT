@@ -51,29 +51,25 @@
                         </div>
                         <p class="title2">Los Baños Job Portal</p>
                         
-
-                        <form>
+                        <form class="form" action="../php/register.php" method="POST" id="applicantForm">
                             <div class="form-group">
-                                <p>Please sign up</p> <!-- Changed text to "sign up" -->
-                                <input type="text" class="form-control mb-1" id="employerUsername" placeholder="Enter username">
-                                <input type="email" class="form-control mb-1" id="applicantEmail" placeholder="Enter email"> 
+                                <p>Please sign up</p> 
+                                <input type="text" name="user" class="form-control mb-1" id="applicantUsername" placeholder="Enter username">
+                                <input type="email" name="email" class="form-control mb-1" id="applicantEmail" placeholder="Enter email"> 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="password" class="form-control" id="applicantPassword" placeholder="Enter Password">
+                                        <input type="password" name="password" minlength="8" maxlength="16" id="applicantPassword" class="form-control" placeholder="Enter Password">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                                        <input type="password" minlength="8" maxlength="16" id="applicantConfirmPassword" class="form-control" placeholder="Confirm Password">
                                     </div>
                                 </div>
-                                
                             </div>
-                            <div class="forgot">
-                                <a data-toggle="modal" data-target="#forgotPasswordModal" href="#">Forgot Password?</a>
-                            </div>
-                            <button type="submit" class="btn btn-primary sign mb-3">Register</button> <!-- Changed button text to "Sign up" -->
+
+                            <button type="submit" class="btn btn-primary sign mb-3">Register</button>
                             <div class="form-group">
                                 <p class="signup">Already have an account?
-                                <a id="signup" href="combine_login.html">Sign in</a> <!-- Changed link text to "Sign in" -->
+                                <a id="signup" href="combine_login.html">Sign in</a>
                             </div>
                         </form>
                     </div>
@@ -90,26 +86,25 @@
                         </div>
                         <p class="title2">Los Baños Job Portal</p>
 
-                        <form action="../php/employer/register_employer.php" method="post">
+                        <form action="../php/employer/register_employer.php" method="post" id="employerForm">
                             <div class="form-group">
-                                <p>Please sign up</p> <!-- Changed text to "sign up" -->
+                                <p>Please sign up</p>
                                 <input type="text" name="user" class="form-control mb-1" id="employerUsername" placeholder="Enter username">
-                                <input type="email" name="email" class="form-control  mb-1" id="employerEmail" placeholder="Enter email">  <div class="row">
-                                <div class="col-md-6">
-                                    <input type="password" name="password" class="form-control" id="applicantPassword" placeholder="Enter Password">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                                </div>
+                                <input type="email" name="email" class="form-control  mb-1" id="employerEmail" placeholder="Enter email"> 
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="password" name="password" class="form-control" id="employerPassword" placeholder="Enter Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="password" class="form-control" id="employerConfirmPassword" placeholder="Confirm Password">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="forgot">
-                                <a data-toggle="modal" data-target="#forgotPasswordModal" href="#">Forgot Password?</a>
-                            </div>
-                            <button type="submit" class="btn btn-secondary sign mb-3">Register</button> <!-- Changed button text to "Sign up" -->
+
+                            <button type="submit" class="btn btn-secondary sign mb-3">Register</button>
                             <div class="form-group">
                                 <p class="signup">Already have an account?
-                                <a id="signup" href="combine_login.html">Sign in</a> <!-- Changed link text to "Sign in" -->
+                                <a id="signup" href="combine_login.html">Sign in</a>
                             </div>
                         </form>
                     </div>
@@ -126,26 +121,25 @@
                         </div>
                         <p class="title2">Los Baños Job Portal</p>
 
-                        <form action="ofw/ofw_register.php" method="post">
+                        <form action="ofw/ofw_register.php" method="post" id="ofwForm">
                             <div class="form-group">
-                                <p>Please sign up</p> <!-- Changed text to "sign up" -->
-                                <input type="text" name="user" class="form-control mb-1" id="employerUsername" placeholder="Enter username">
-                                <input type="email" name="email" class="form-control mb-1" id="ofwEmail" placeholder="Enter email">  <div class="row">
-                                <div class="col-md-6">
-                                    <input type="password" name="password" class="form-control" id="applicantPassword" placeholder="Enter Password">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                                </div>
+                                <p>Please sign up</p>
+                                <input type="text" name="user" class="form-control mb-1" id="ofwUsername" placeholder="Enter username">
+                                <input type="email" name="email" class="form-control mb-1" id="ofwEmail" placeholder="Enter email">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="password" name="password" class="form-control" id="ofwPassword" placeholder="Enter Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="password" class="form-control" id="ofwConfirmPassword" placeholder="Confirm Password">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="forgot">
-                                <a data-toggle="modal" data-target="#forgotPasswordModal" href="#">Forgot Password?</a>
-                            </div>
-                            <button type="submit" class="btn btn-info sign mb-3">Register</button> <!-- Changed button text to "Sign up" -->
+
+                            <button type="submit" class="btn btn-info sign mb-3">Register</button>
                             <div class="form-group">
                                 <p class="signup">Already have an account?
-                                <a id="signup" href="combine_login.html">Sign in</a> <!-- Changed link text to "Sign in" -->
+                                <a id="signup" href="combine_login.html">Sign in</a>
                             </div>
                         </form>
                     </div>
@@ -156,6 +150,51 @@
     </div>
 
     <script>
+        // Common validation function
+        function validateForm(event, formId, passwordId, confirmPasswordId, emailId) {
+            const password = document.getElementById(passwordId).value;
+            const confirmPassword = document.getElementById(confirmPasswordId).value;
+            const email = document.getElementById(emailId).value;
+
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasDigit = /\d/.test(password);
+
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                event.preventDefault();
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            if (!hasUpperCase || !hasLowerCase || !hasDigit) {
+                event.preventDefault();
+                alert('Password must contain at least one uppercase letter, one lowercase letter, and one digit.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert('Passwords do not match.');
+                return;
+            }
+        }
+
+        // Validate Applicant form
+        document.getElementById('applicantForm').addEventListener('submit', function(event) {
+            validateForm(event, 'applicantForm', 'applicantPassword', 'applicantConfirmPassword', 'applicantEmail');
+        });
+
+        // Validate Employer form
+        document.getElementById('employerForm').addEventListener('submit', function(event) {
+            validateForm(event, 'employerForm', 'employerPassword', 'employerConfirmPassword', 'employerEmail');
+        });
+
+        // Validate OFW form
+        document.getElementById('ofwForm').addEventListener('submit', function(event) {
+            validateForm(event, 'ofwForm', 'ofwPassword', 'ofwConfirmPassword', 'ofwEmail');
+        });
+
         // Hide all forms initially
         document.querySelectorAll('.login-form').forEach(function (form) {
             form.style.display = 'none';

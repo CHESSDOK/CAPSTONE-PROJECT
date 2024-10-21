@@ -41,11 +41,13 @@ if (!$row) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page</title>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/notif.css">
   <style>
     a.disabled {
       color: #d3d3d3;
@@ -61,20 +63,20 @@ if (!$row) {
         <a href="#"> PESO-lb.ph</a>
     </div>
 
-    <!-- <div class="profile-icons">
+    <div class="profile-icons">
         <div class="notif-icon" data-bs-toggle="popover" data-bs-content="#" data-bs-placement="bottom">
             <img id="#" src="../../img/notif.png" alt="Profile Picture" class="rounded-circle">
         </div>
         
-        <div class="profile-icon-ofw" data-bs-toggle="popover" data-bs-placement="bottom">
+        <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
         <?php if (!empty($row['photo'])): ?>
-        <img id="preview" src="../../php/ofw/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <img id="preview" src="../../php/applicant/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
         <?php else: ?>
             <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
         <?php endif; ?>
         </div>
 
-    </div> -->
+    </div>
 
     <!-- Burger icon -->
     <div class="burger" id="burgerToggle">
@@ -165,7 +167,7 @@ burgerToggle.addEventListener('click', function() {
 
 $(document).ready(function(){
     // Initialize popover with multiple links in the content
-    $('.profile-icon-ofw').popover({
+    $('.profile-icon').popover({
         trigger: 'click', 
         html: true, // Allow HTML content
         animation: true, // Enable animation
@@ -188,7 +190,6 @@ $(document).on('click', function (e) {
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script src="../../javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
 </body>
