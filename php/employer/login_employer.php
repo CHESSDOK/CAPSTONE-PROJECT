@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Invalid password.";
         }
     } else {
-        echo "No user found with this username.";
+        echo "<script>alert('No account found with this username/email.');
+                window.location.href = '../../html/combine_login.html';</script>";
     }
 }
 

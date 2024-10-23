@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input_otp = $conn->real_escape_string($_POST['otp']);
 
     // Fetch the user's OTP and expiry from the database
-    $sql = "SELECT otp, otp_expiry FROM register WHERE email = '$email' AND is_verified = 0";
+    $sql = "SELECT otp, otp_expiry FROM applicant_profile WHERE email = '$email' AND is_verified = 0";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if OTP matches and if it hasn't expired
         if ($input_otp == $stored_otp && strtotime($otp_expiry) > time()) {
             // OTP is valid and not expired, update the user to verified
-            $update_sql = "UPDATE register SET is_verified = 1 WHERE email = '$email'";
+            $update_sql = "UPDATE applicant_profile SET is_verified = 1 WHERE email = '$email'";
             if ($conn->query($update_sql) === TRUE) {
                 echo "<script type='text/javascript'>
                         alert('Your email has been successfully verified!');

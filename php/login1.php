@@ -8,10 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if the user_input is an email or username (case-sensitive using BINARY)
     if (filter_var($user_input, FILTER_VALIDATE_EMAIL)) {
-        $sql = "SELECT * FROM register WHERE BINARY email='$user_input'";
+        $sql = "SELECT * FROM applicant_profile WHERE BINARY email='$user_input'";
     } else {
-        $sql = "SELECT * FROM register WHERE BINARY username='$user_input'";
+        $sql = "SELECT * FROM applicant_profile WHERE BINARY username='$user_input'";
     }
+
 
     $result = $conn->query($sql);
 
@@ -21,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Password verification (already case-sensitive)
         if (password_verify($password, $user['password'])) {
             if ($user['is_verified'] == 1) {
-                $_SESSION['id'] = $user['id'];
+                $_SESSION['id'] = $user['user_id'];
                 $_SESSION['username'] = $user_input;
                 
                 header("Location: ../html/applicant/a_profile.php");

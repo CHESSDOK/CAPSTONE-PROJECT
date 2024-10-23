@@ -55,24 +55,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $otp_expiry = date("Y-m-d H:i:s", strtotime('+5 minutes'));
 
     // Insert the new user into the register table
-    $sql = "INSERT INTO register (email, username, password, otp, otp_expiry, is_verified) 
+    $sql = "INSERT INTO applicant_profile (email, username, password, otp, otp_expiry, is_verified) 
             VALUES ('$email', '$username', '$hashedPassword', '$otp', '$otp_expiry', 0)";
 
     if ($conn->query($sql) === TRUE) {
-        $last_id = $conn->insert_id;
-
-        // Insert into `applicant_profile`
-        $sql = "INSERT INTO applicant_profile (user_id, email) VALUES ('$last_id','$email')";
-        if ($conn->query($sql) === TRUE) {
-            // Send OTP email
             sendOtpEmail($email, $otp);
-
             // Redirect to OTP verification page with email
             header("Location: ../html/otp_ver.php?email=" . urlencode($email));
-            exit();
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

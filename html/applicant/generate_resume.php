@@ -43,7 +43,7 @@ function checkSession() {
  }
  
  // Fetch data from register table using new approach
- $sql_new = "SELECT * FROM register WHERE id = ?";
+ $sql_new = "SELECT * FROM applicant_profile WHERE user_id = ?";
  $stmt_new = $conn->prepare($sql_new);
  $stmt_new->bind_param("i", $userId);
  $stmt_new->execute();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 20, 2024 at 11:07 PM
+-- Generation Time: Oct 23, 2024 at 01:30 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -53,8 +53,14 @@ INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level
 --
 
 CREATE TABLE `applicant_profile` (
-  `id` int NOT NULL,
   `user_id` int NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT '0',
+  `otp` varchar(6) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `otp_expiry` datetime DEFAULT NULL,
+  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token_expiry` datetime DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `first_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `last_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -98,7 +104,7 @@ CREATE TABLE `applicant_profile` (
   `local_loc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `pwd` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `pwd2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII','none') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `four_ps` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `hhid` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `selected_options` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -119,12 +125,8 @@ CREATE TABLE `applicant_profile` (
 -- Dumping data for table `applicant_profile`
 --
 
-INSERT INTO `applicant_profile` (`id`, `user_id`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `school_name1`, `year_grad1`, `award1`, `school_name2`, `year_grad2`, `award2`, `school_name3`, `course3`, `year_grad3`, `award3`, `level3`, `year_level3`, `school_name4`, `course4`, `year_grad4`, `award4`, `level4`, `year_level4`, `preferred_occupation`, `pwl`, `overseas_loc`, `local_loc`, `pwd`, `pwd2`, `prefix`, `four_ps`, `hhid`, `selected_options`, `religion`, `employment_status`, `es_status`, `es_others`, `actively_looking`, `al_details`, `willing_to_work`, `ww_details`, `passport_expiry`, `expected_salary`, `resume`) VALUES
-(26, 43, 'jervinguevarra123@gmail.com', 'jervin', 'guevarra', 'Anderson Nolan', '2024-05-03', '28464 Wolf Light', 10, 'Illum id commodi amet nisi officiis odio provident animi.', 'male', 'Married', '836-628-2910', '916-888-5629', 'woman.png', 'Camp Vicente Lim Purok 1 #221 Mayapa Calamba Laguna', 'Earum a quia neque animi tempore.', '71', '546', 'Reiciendis eum cumqu', '263', 'Scot Mueller', '2025-03-15', 'Autem temporibus quas quae.', 'Vern Larkin', '2025-07-09', 'Praesentium ea consequatur ipsa possimus optio.', 'Logan Spencer', 'Pitcairn Islands', '2024-11-10', 'Voluptates id optio accusamus nulla alias.', '', NULL, 'Ibrahim Christiansen', 'Guinea-Bissau', '2025-10-03', 'Laborum maiores saepe accusamus excepturi consequatur doloribus adipisci.', '423', NULL, 'Product Identity Representative,Global Usability Assistant,Lead Brand Administrator,Chief Quality Administrator', 'overseas', 'Bulgaria,Mayotte,Antigua and Barbuda', 'Sayreville,Brandon,Rogers', 'Visual', 'GUEVARRA5', 'IV', 'No', 'GUEVARRA2', '', 'Perferendis soluta fugiat maiores consectetur.', 'unemployed', '', 'Philippines', 'Yes', 'Sequi dolores quisquam magni aliquam.', 'Yes', 'after 3 months', '2024-08-09', 0, 'Performance-Task-2-Part-1_ITEP-413.pdf'),
-(27, 44, 'raqitym@mailinator.com', 'Dillon', 'Henderson', 'Quon Mcdaniel', '1992-08-29', '', 87, NULL, 'male', 'Widowed', '5889', NULL, '6707dba238f33.png', 'Sunt et quo volupta', NULL, '0', '0', '0', '16', '0', NULL, '0', '0', NULL, '0', '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '', 'V', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 45, 'your.email+fakedata40179@gmail.com', 'Carmine', 'Halvorson', 'Maxwell Kshlerin', '2024-08-18', '9017 Ressie Crescent', 69, '35', 'female', 'Widowed', '461-316-4958', '369-441-3564', '456338803_483159741228069_3311839368960614240_n.jpg', '78105 Darby Plaza', 'Blanditiis nam explicabo voluptatum sed ipsam cumque.', '556', '580', '342423', '9', '0', NULL, '0', '0', NULL, '0', '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, 'Hearing', '', 'V', 'Yes', NULL, 'Tailoring,Sewing,Painter/Artist,Masonry,new1,new2', 'Fuga reprehenderit architecto occaecati vel accusantium pariatur.', 'employed', NULL, NULL, 'Yes', NULL, 'No', NULL, '2025-01-18', 12432, ''),
-(29, 46, 'your.email+fakedata92204@gmail.com', 'Coty', 'Ebert', 'Rahsaan Greenholt', '2024-01-05', '300 Dietrich Valleys', 16, '123', 'female', 'Single', '829-082-9515', '5056', '457146626_1974469039642222_919670330705078606_n.jpg', '7419 Keaton Forks', 'Praesentium est accusamus ratione sunt.', '529', '44', '123', '492', '0', NULL, '0', '0', NULL, '0', '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, 'Hearing', '', 'Jr.', 'No', NULL, 'Beautician,Auto Mechanic,Carpentry Work', 'Nisi perferendis illum voluptatem incidunt illo velit nam consequatur.', 'employed', NULL, NULL, 'No', NULL, 'No', NULL, '2025-07-17', 2233321, ''),
-(30, 47, 'your.email+fakedata39399@gmail.com', 'Maxie', 'Bergnaum', 'Raphaelle Ledner', '2024-07-31', '929 Lang Skyway', NULL, '123', 'female', 'Separated', '024-785-5345', '440-616-6935', 'favicon.ico', '712 Tremblay View', 'Ullam deleniti qui.', '386', '285', '123', '521', 'Jay Hahn', '2025-01-13', 'Commodi nemo enim necessitatibus harum aliquid dicta fugit.', 'Geoffrey Hauck', '2025-03-24', 'Inventore rerum repellendus blanditiis vero porro voluptatibus.', 'Arnold Gorczany', 'Bolivia', '2024-04-26', 'Harum labore quas eveniet culpa.', '', NULL, 'Lucio Gleason', 'Denmark', '2025-10-03', 'Quia quaerat enim similique ratione laudantium est hic nihil.', '', NULL, 'Product Solutions Agent,Future Intranet Strategist,Direct Interactions Liaison,Corporate Data Supervisor', '', 'Niger,Svalbard & Jan Mayen Islands,Cayman Islands', 'Oklahoma City,Ellicott City,Bothell', 'None', 'Z4WAKJWVZSBVik5', 'V', 'No', 'Harum veritatis voluptate numquam fugiat facere.', 'Sewing,Stenography,Tailoring,Photography', 'Tempore animi accusantium deleniti distinctio saepe maxime quod quaerat molestiae.', '', '', '', '', 'Voluptates incidunt nesciunt quisquam.', '', '', '2024-01-29', 123, '');
+INSERT INTO `applicant_profile` (`user_id`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `school_name1`, `year_grad1`, `award1`, `school_name2`, `year_grad2`, `award2`, `school_name3`, `course3`, `year_grad3`, `award3`, `level3`, `year_level3`, `school_name4`, `course4`, `year_grad4`, `award4`, `level4`, `year_level4`, `preferred_occupation`, `pwl`, `overseas_loc`, `local_loc`, `pwd`, `pwd2`, `prefix`, `four_ps`, `hhid`, `selected_options`, `religion`, `employment_status`, `es_status`, `es_others`, `actively_looking`, `al_details`, `willing_to_work`, `ww_details`, `passport_expiry`, `expected_salary`, `resume`) VALUES
+(32, 'Mark55', '$2y$10$HYshoSww3G9b7mmEiLnJ5OGbL8tOzOhsr49sbiqn8rsVvLOWeWXa.', 1, '227423', '2024-10-23 08:58:08', NULL, NULL, 'mercadomarklawrence55@gmail.com', 'Asa', 'Gislason', 'Santiago Lakin', '2024-07-15', '67593 Herman Locks', NULL, '126', 'male', 'Separated', '460-498-5818', '190-499-3352', 'b40ec453123f7ad36c28d9906ab43ca0.png', '866 Mante Radial', 'Expedita pariatur id voluptatibus minima vel in eveniet voluptates hic.', '70', '638', '15437567856', '425', 'Terrill Macejkovic', '2024-10-18', 'Perferendis beatae delectus quidem asperiores eos aut vero.', 'Carolanne Aufderhar', '2023-12-17', 'Nihil molestias libero.', 'Melyna Nikolaus', 'Turks and Caicos Islands', '2025-08-01', 'Eligendi dicta totam.', '', NULL, 'Karli Borer', 'Democratic Republic of the Congo', '2024-01-02', 'Similique nesciunt dicta ex id voluptatum fuga.', '', NULL, 'Dynamic Solutions Specialist,Chief Tactics Engineer,Global Interactions Associate,Chief Quality Coordinator', 'local', '', 'Palo Alto,Rochester,Mission Viejo', 'Physical', '', 'none', '', 'Asperiores facere harum.', '', 'Incidunt accusantium est sed beatae ea aut voluptas.', 'employed', 'wage', '', 'No', 'Architecto autem sunt aut voluptatem ducimus facere quis quasi quo.', 'Yes', '', '2024-04-17', 20000, '');
 
 -- --------------------------------------------------------
 
@@ -146,7 +148,7 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(123, 43, 34, '2024-10-20', 'pending', 'Chief Data Consultant');
+(124, 32, 17, '2024-10-23', 'pending', 'Principal Creative Specialist');
 
 -- --------------------------------------------------------
 
@@ -164,20 +166,6 @@ CREATE TABLE `cases` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `cases`
---
-
-INSERT INTO `cases` (`id`, `user_id`, `title`, `description`, `file`, `status`, `created_at`) VALUES
-(12, 45, 'Abusive employer', 'harassment, physical abuse', '../uploads/462463385_1483381795713486_9058732459192274728_n.png', 'resolved', '2024-10-10 16:14:44'),
-(13, 44, 'Underpaid', 'Salary decrease and unpaid work', 'uploads/PESO.pdf', 'resolved', '2024-10-10 16:18:25'),
-(14, 43, 'LAw', 'fgsadfawee', 'uploads/PESO.pdf', 'resolved', '2024-10-12 04:12:46'),
-(15, 43, 'LAwnew', 'fgsadfawee', 'uploads/e-Phil-ID.pdf', 'resolved', '2024-10-12 05:19:48'),
-(16, 43, 'Direct Marketing Specialist', 'Amet aspernatur minus atque facilis quod nemo nulla.', NULL, 'resolved', '2024-10-18 14:44:55'),
-(17, 43, 'Direct Applications Coordinator', 'Doloribus eaque sequi quis earum ratione.', NULL, 'resolved', '2024-10-18 14:50:10'),
-(18, 43, 'Customer Program Assistant', 'Debitis eveniet aliquid ratione.', NULL, 'in_progress', '2024-10-18 14:59:47'),
-(19, 43, 'Chief Division Associate', 'Eum enim eius assumenda asperiores saepe laborum delectus.', NULL, 'in_progress', '2024-10-18 15:06:10');
-
 -- --------------------------------------------------------
 
 --
@@ -191,16 +179,6 @@ CREATE TABLE `chat_messages` (
   `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `chat_messages`
---
-
-INSERT INTO `chat_messages` (`id`, `user_id`, `sender`, `message`, `timestamp`) VALUES
-(7, 43, 'user', 'Hi', '2024-10-11 23:19:48'),
-(8, 43, 'user', 'hello', '2024-10-18 01:47:49'),
-(9, 43, 'admin', 'reply', '2024-10-18 02:27:39'),
-(10, 43, 'admin', 'hsadasd', '2024-10-18 02:28:23');
 
 -- --------------------------------------------------------
 
@@ -341,17 +319,6 @@ CREATE TABLE `interview` (
   `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `interview`
---
-
-INSERT INTO `interview` (`id`, `user_id`, `Job_id`, `sched_date`, `sched_time`, `interview`, `meeting`, `is_read`) VALUES
-(22, 43, 23, '2024-10-24', '15:00:00', 'online', '', 0),
-(23, 43, 24, '2024-10-25', '19:19:00', 'FacetoFace', 'Voluptatem Doloremq', 0),
-(24, 43, 29, '2024-10-31', '19:30:00', 'online', '', 0),
-(25, 43, 25, '2024-11-10', '09:30:00', 'online', 'https://www.youtube.com/watch?v=WvoAL44J42g', 0),
-(26, 43, 17, '2024-10-25', '12:15:00', 'FacetoFace', '302 Sanford Mountains', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -365,7 +332,7 @@ CREATE TABLE `job_postings` (
   `job_title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `company_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `job_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `salary` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `salary` int DEFAULT NULL,
   `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `selected_options` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vacant` int NOT NULL,
@@ -382,27 +349,27 @@ CREATE TABLE `job_postings` (
 --
 
 INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `company_name`, `job_type`, `salary`, `job_description`, `selected_options`, `vacant`, `requirment`, `work_location`, `education`, `remarks`, `date_posted`, `is_active`) VALUES
-(17, 9, NULL, 'Principal Creative Specialist', NULL, 'Part time', '20000', 'sdavervcaefasdfcaweefc', 'Beautician,Carpentry Work,Gardening,Stenography', 223, '• werwewe\r\n• fsdgser\r\n• asdfasfawe', '3012 Raynor Junction', 'Undergraduate', '', '2024-10-14', 1),
+(17, 9, NULL, 'Principal Creative Specialist', NULL, 'Part time', 20000, 'sdavervcaefasdfcaweefc', 'Beautician,Carpentry Work,Gardening,Stenography', 223, '• werwewe\r\n• fsdgser\r\n• asdfasfawe', '3012 Raynor Junction', 'Undergraduate', '', '2024-10-14', 1),
 (18, 10, NULL, 'Corporate Markets Strategist', NULL, '', NULL, 'Customer Response Administrator', '', 25, 'Market graduate, ', '8747 Shanie Islands', NULL, '', '2024-10-10', 1),
 (19, 11, NULL, 'Human Communications Engineer', NULL, '', NULL, 'Legacy Optimization Agent', '', 439, '2ys work experience ', '417 Kub Locks', NULL, '', '2024-10-10', 1),
-(23, NULL, 1, 'Customer Branding Analyst', 'Ullrich, Williamson and Stanton', 'Part time', '20000', 'dgr5gd5rggdr5g', '', 840, 'Cumque totam suscipit explicabo cum blanditiis laborum quibusdam excepturi doloribus.', 'Asperiores repellendus quasi distinctio.', 'Undergraduate', 'Quos dolore vero.', '2024-10-14', 1),
-(24, NULL, 1, 'Product Response Agent', NULL, 'Prelance', '20000', 'Lead Optimization Orchestrator', 'Beautician,Painter/Artist,Tailoring,Electrician', 185, 'Quod animi sint laboriosam.', 'Deleniti repudiandae assumenda.', 'College Graduate', 'Neque harum dicta consectetur illo nihil molestiae nostrum ex iusto.', '2024-10-12', 1),
-(25, NULL, 1, 'Internal Tactics Specialist', NULL, 'Prelance', '20000', 'Internal Accounts Analyst', '', 262, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.\r\n• asdawdasdaw\r\n• asdawdawfhg\r\n• fgjfghrt\r\n• cvbcvbcfb', '31659 Justina Extension', 'Undergraduate', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-14', 1),
+(23, NULL, 1, 'Customer Branding Analyst', 'Ullrich, Williamson and Stanton', 'Part time', 20000, 'dgr5gd5rggdr5g', '', 840, 'Cumque totam suscipit explicabo cum blanditiis laborum quibusdam excepturi doloribus.', 'Asperiores repellendus quasi distinctio.', 'Undergraduate', 'Quos dolore vero.', '2024-10-14', 1),
+(24, NULL, 1, 'Product Response Agent', NULL, 'Prelance', 20000, 'Lead Optimization Orchestrator', 'Beautician,Painter/Artist,Tailoring,Electrician', 185, 'Quod animi sint laboriosam.', 'Deleniti repudiandae assumenda.', 'College Graduate', 'Neque harum dicta consectetur illo nihil molestiae nostrum ex iusto.', '2024-10-12', 1),
+(25, NULL, 1, 'Internal Tactics Specialist', NULL, 'Prelance', 20000, 'Internal Accounts Analyst', '', 262, 'Unde dignissimos repellendus dolorum corporis voluptate voluptatum.\r\n• asdawdasdaw\r\n• asdawdawfhg\r\n• fgjfghrt\r\n• cvbcvbcfb', '31659 Justina Extension', 'Undergraduate', 'Voluptas temporibus alias eius ipsam ipsum blanditiis cum fuga saepe.', '2024-10-14', 1),
 (26, NULL, 11, 'Corporate Metrics Liaison', NULL, '', NULL, 'Principal Mobility Manager', '', 639, 'Distinctio ipsum saepe nobis asperiores temporibus iste quas sunt.', 'Ab minus tempore commodi iste.', NULL, 'Nihil veritatis porro culpa eligendi impedit nostrum cupiditate impedit voluptatum.', '2024-10-12', 1),
 (27, NULL, 11, 'Future Tactics Manager', NULL, '', NULL, 'Customer Accounts Strategist', '', 510, 'Incidunt facilis ut natus nisi architecto accusamus nam ea.', 'Harum iusto rerum libero.', NULL, 'Iusto harum tenetur iusto optio dolore distinctio labore.', '2024-10-12', 1),
-(28, 9, NULL, 'Human Mobility Assistant', NULL, 'Part time', '233', 'inulit ko ito', '', 544, 'ito yung ayaw\r\n• ito din\r\n• tapos ito\r\n• pede din to\r\n• last na to', 'Voluptatibus molestias culpa expedita vero exercitationem.', 'Undergraduate', 'pati ito', '2024-10-12', 1),
-(29, NULL, 1, 'District Directives Specialist', NULL, 'Fulltime', '20000', 'Dynamic Factors Supervisor', '', 49, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', NULL, 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
-(30, NULL, 1, 'International Tactics Supervisor', NULL, 'Fulltime', '20000', 'Principal Implementation Analyst', '', 100, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', NULL, 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1),
+(28, 9, NULL, 'Human Mobility Assistant', NULL, 'Part time', 233, 'inulit ko ito', '', 544, 'ito yung ayaw\r\n• ito din\r\n• tapos ito\r\n• pede din to\r\n• last na to', 'Voluptatibus molestias culpa expedita vero exercitationem.', 'Undergraduate', 'pati ito', '2024-10-12', 1),
+(29, NULL, 1, 'District Directives Specialist', NULL, 'Fulltime', 20000, 'Dynamic Factors Supervisor', '', 49, 'Repellat a eveniet fugiat sequi modi occaecati nesciunt.', '7001 Johnston Ferry', NULL, 'Necessitatibus ea magni aut soluta magnam iure sequi quasi.', '2024-10-13', 1),
+(30, NULL, 1, 'International Tactics Supervisor', NULL, 'Fulltime', 20000, 'Principal Implementation Analyst', '', 100, 'Incidunt laborum facere voluptatem quia placeat.', '7994 Brandt Forest', NULL, 'Adipisci nesciunt perferendis magni dignissimos dolore.', '2024-10-13', 1),
 (31, NULL, 11, 'Direct Paradigm Officer', NULL, 'Fulltime', NULL, 'Dynamic Infrastructure Designer', '', 235, 'Ea repellat nobis modi.', 'Voluptatem pariatur minima vel repellendus aut perferendis.', NULL, 'Veritatis quam aut quibusdam qui explicabo minus.', '2024-10-13', 1),
 (32, NULL, 11, 'Central Markets Designer', NULL, 'Fulltime', NULL, 'International Quality Representative', '', 132, 'Aliquam debitis sint voluptate nihil dolores reiciendis provident quam.', 'Quibusdam dolor voluptates quia magnam voluptate porro dignissimos aliquid culpa.', NULL, 'Animi odio accusamus reiciendis placeat sunt.', '2024-10-13', 1),
 (33, NULL, 11, 'District Brand Director', NULL, 'Fulltime', NULL, 'Direct Tactics Administrator', '', 92, 'Porro distinctio commodi dolorem harum quia.', 'Asperiores neque fugit repudiandae temporibus porro illo qui eligendi amet.', NULL, 'Modi magnam quasi quaerat omnis et error.', '2024-10-13', 1),
-(34, 9, NULL, 'Chief Data Consultant', NULL, 'Fulltime', '265', 'Internal Optimization Facilitator', 'new1', 444, 'ito rin ayaw\r\n• ito ayaw\r\n• ito ayaw', 'Recusandae adipisci corrupti quis suscipit.', 'College Graduate', 'Vero optio soluta.', '2024-10-14', 1),
-(35, 9, NULL, 'Principal Tactics Facilitator', NULL, 'Fulltime', 'Aut ipsum reiciendis quas suscipit a quidem.', 'Chief Infrastructure Associate', 'new1,,Auto Mechanic,computer programming,Beautician', 158, 'Fugiat magnam pariatur possimus adipisci eveniet unde accusamus sit ut.', 'Dolores enim delectus soluta.', NULL, 'Tempore libero aperiam sunt cum vel ea.', '2024-10-14', 1),
-(36, NULL, 1, 'Investor Brand Executive', NULL, 'Part time', 'Quidem nulla delectus illum tempore dolorum dolore expedita.', 'Legacy Infrastructure Engineer', 'Auto Mechanic,Beautician,Tailoring', 62, 'Porro suscipit ad velit rem perspiciatis natus recusandae.', 'Provident iure adipisci placeat porro consequuntur tempora repellendus.', NULL, 'Neque nemo enim sequi praesentium.', '2024-10-15', 1),
-(37, NULL, 1, 'Forward Intranet Agent', NULL, 'Prelance', 'Ea sunt doloremque aliquid.', 'Human Usability Strategist', 'Beautician,Carpentry Work,Auto Mechanic,newadmin2', 75, 'Ut minus molestiae velit facere quam nostrum eum modi.', 'Architecto dicta facilis inventore excepturi cupiditate quos.', NULL, 'Dignissimos unde accusantium ratione nam ipsam nesciunt.', '2024-10-15', 1),
-(38, 9, NULL, 'Newly created', NULL, 'Part time', '20000', 'asdfasdfawe', '', 0, '• dfasdf\r\n• asdfasd\r\n• sdfasdf\r\n• zxcvzxcvzxc', 'sadsafawefawef', 'High School Graduate', 'dvdsvervser', '2024-10-15', 0),
-(39, NULL, 1, 'Global Accounts Producer', 'Ankunding - Spencer', 'Fulltime', 'Expedita unde eius ad.', 'Senior Web Assistant', 'Carpentry Work,Beautician,Auto Mechanic', 271, 'Itaque eius error perspiciatis.', '438 Celestino Ford', 'College Graduate', 'Minima saepe quis cumque eius.', '2024-10-15', 1),
-(40, NULL, 1, 'Global Interactions Administrator', 'Wisoky - Kreiger', 'Prelance', 'A ipsam ratione quae molestiae totam.', 'Regional Functionality Designer', 'Beautician,Photography,Painting Jobs,Plumbing', 43, 'Labore a at harum.', 'Itaque ab unde dolorem laudantium possimus blanditiis veniam.', 'High School Graduate', 'Mollitia suscipit expedita ad ab optio minus.', '2024-10-18', 1);
+(34, 9, NULL, 'Chief Data Consultant', NULL, 'Fulltime', 265, 'Internal Optimization Facilitator', 'new1', 444, 'ito rin ayaw\r\n• ito ayaw\r\n• ito ayaw', 'Recusandae adipisci corrupti quis suscipit.', 'College Graduate', 'Vero optio soluta.', '2024-10-14', 1),
+(35, 9, NULL, 'Principal Tactics Facilitator', NULL, 'Fulltime', NULL, 'Chief Infrastructure Associate', 'new1,,Auto Mechanic,computer programming,Beautician', 158, 'Fugiat magnam pariatur possimus adipisci eveniet unde accusamus sit ut.', 'Dolores enim delectus soluta.', NULL, 'Tempore libero aperiam sunt cum vel ea.', '2024-10-14', 1),
+(36, NULL, 1, 'Investor Brand Executive', NULL, 'Part time', NULL, 'Legacy Infrastructure Engineer', 'Auto Mechanic,Beautician,Tailoring', 62, 'Porro suscipit ad velit rem perspiciatis natus recusandae.', 'Provident iure adipisci placeat porro consequuntur tempora repellendus.', NULL, 'Neque nemo enim sequi praesentium.', '2024-10-15', 1),
+(37, NULL, 1, 'Forward Intranet Agent', NULL, 'Prelance', NULL, 'Human Usability Strategist', 'Beautician,Carpentry Work,Auto Mechanic,newadmin2', 75, 'Ut minus molestiae velit facere quam nostrum eum modi.', 'Architecto dicta facilis inventore excepturi cupiditate quos.', NULL, 'Dignissimos unde accusantium ratione nam ipsam nesciunt.', '2024-10-15', 1),
+(38, 9, NULL, 'Newly created', NULL, 'Part time', 20000, 'asdfasdfawe', '', 0, '• dfasdf\r\n• asdfasd\r\n• sdfasdf\r\n• zxcvzxcvzxc', 'sadsafawefawef', 'High School Graduate', 'dvdsvervser', '2024-10-15', 0),
+(39, NULL, 1, 'Global Accounts Producer', 'Ankunding - Spencer', 'Fulltime', NULL, 'Senior Web Assistant', 'Carpentry Work,Beautician,Auto Mechanic', 271, 'Itaque eius error perspiciatis.', '438 Celestino Ford', 'College Graduate', 'Minima saepe quis cumque eius.', '2024-10-15', 1),
+(40, NULL, 1, 'Global Interactions Administrator', 'Wisoky - Kreiger', 'Prelance', NULL, 'Regional Functionality Designer', 'Beautician,Photography,Painting Jobs,Plumbing', 43, 'Labore a at harum.', 'Itaque ab unde dolorem laudantium possimus blanditiis veniam.', 'High School Graduate', 'Mollitia suscipit expedita ad ab optio minus.', '2024-10-18', 1);
 
 -- --------------------------------------------------------
 
@@ -425,92 +392,10 @@ CREATE TABLE `language_proficiency` (
 --
 
 INSERT INTO `language_proficiency` (`id`, `user_id`, `language_p`, `read_l`, `write_l`, `speak_l`, `understand_l`) VALUES
-(64, 43, 'English', 1, 1, 1, 1),
-(65, 43, 'Filipino', 1, 1, 1, 1),
-(66, 43, 'English', 1, 1, 1, 1),
-(67, 43, 'Filipino', 1, 1, 1, 1),
-(68, 43, 'English', 1, 1, 1, 1),
-(69, 43, 'Filipino', 1, 1, 1, 1),
-(70, 43, 'bisaya', 0, 0, 1, 1),
-(71, 43, 'English', 1, 1, 1, 1),
-(72, 43, 'Filipino', 1, 1, 1, 1),
-(73, 43, 'bisaya', 0, 0, 1, 1),
-(74, 43, 'English', 1, 1, 1, 1),
-(75, 43, 'Filipino', 1, 1, 1, 1),
-(76, 43, 'bisaya', 0, 0, 1, 1),
-(77, 43, 'English', 1, 1, 1, 1),
-(78, 43, 'Filipino', 1, 1, 1, 1),
-(79, 43, 'bisaya', 0, 0, 1, 1),
-(80, 43, 'English', 1, 1, 1, 1),
-(81, 43, 'Filipino', 1, 1, 1, 1),
-(82, 43, 'bisaya', 0, 0, 1, 1),
-(83, 43, 'English', 1, 1, 1, 1),
-(84, 43, 'Filipino', 1, 1, 1, 1),
-(85, 43, 'bisaya', 0, 0, 1, 1),
-(86, 43, 'English', 1, 1, 1, 1),
-(87, 43, 'Filipino', 1, 1, 1, 1),
-(88, 43, 'bisaya', 0, 1, 1, 1),
-(89, 43, 'mandarin', 0, 0, 0, 0),
-(90, 43, 'English', 1, 1, 1, 1),
-(91, 43, 'Filipino', 1, 1, 1, 1),
-(92, 43, 'bisaya', 0, 1, 1, 1),
-(93, 43, 'mandarin', 0, 1, 0, 0),
-(94, 43, 'English', 1, 1, 1, 1),
-(95, 43, 'Filipino', 1, 1, 1, 1),
-(96, 43, 'bisaya', 0, 1, 1, 1),
-(97, 43, 'mandarin', 0, 1, 0, 0),
-(98, 43, 'English', 1, 1, 1, 1),
-(99, 43, 'Filipino', 1, 1, 1, 1),
-(100, 43, 'bisaya', 0, 1, 1, 1),
-(101, 43, 'mandarin', 0, 1, 0, 0),
-(102, 43, 'English', 1, 1, 1, 1),
-(103, 43, 'Filipino', 1, 1, 1, 1),
-(104, 43, 'bisaya', 0, 1, 1, 1),
-(105, 43, 'mandarin', 0, 1, 0, 0),
-(106, 43, 'English', 1, 1, 1, 1),
-(107, 43, 'Filipino', 1, 1, 1, 1),
-(108, 43, 'bisaya', 0, 1, 1, 1),
-(109, 43, 'mandarin', 0, 1, 0, 0),
-(110, 43, 'English', 1, 1, 1, 1),
-(111, 43, 'Filipino', 1, 1, 1, 1),
-(112, 43, 'bisaya', 0, 1, 1, 1),
-(113, 43, 'mandarin', 0, 1, 0, 0),
-(114, 43, 'English', 1, 1, 1, 1),
-(115, 43, 'Filipino', 1, 1, 1, 1),
-(116, 43, 'bisaya', 0, 1, 1, 1),
-(117, 43, 'mandarin', 0, 1, 0, 0),
-(118, 43, 'English', 1, 1, 1, 1),
-(119, 43, 'Filipino', 1, 1, 1, 1),
-(120, 43, 'bisaya', 0, 1, 1, 1),
-(121, 43, 'mandarin', 0, 1, 0, 0),
-(122, 43, 'English', 1, 1, 1, 1),
-(123, 43, 'Filipino', 1, 1, 1, 1),
-(124, 43, 'bisaya', 0, 1, 1, 1),
-(125, 43, 'mandarin', 0, 1, 0, 0),
-(126, 43, 'English', 1, 1, 1, 1),
-(127, 43, 'Filipino', 1, 1, 1, 1),
-(128, 43, 'bisaya', 0, 1, 1, 1),
-(129, 43, 'mandarin', 0, 1, 0, 0),
-(130, 43, 'English', 1, 1, 1, 1),
-(131, 43, 'Filipino', 1, 1, 1, 1),
-(132, 43, 'bisaya', 0, 1, 1, 1),
-(133, 43, 'mandarin', 0, 1, 0, 0),
-(134, 43, 'English', 1, 1, 1, 1),
-(135, 43, 'Filipino', 1, 1, 1, 1),
-(136, 43, 'bisaya', 0, 1, 1, 1),
-(137, 43, 'mandarin', 0, 1, 0, 0),
-(138, 43, 'English', 1, 1, 1, 1),
-(139, 43, 'Filipino', 1, 1, 1, 1),
-(140, 43, 'bisaya', 0, 1, 1, 1),
-(141, 43, 'mandarin', 0, 1, 0, 0),
-(142, 43, 'English', 1, 1, 1, 1),
-(143, 43, 'Filipino', 1, 1, 1, 1),
-(144, 43, 'bisaya', 0, 1, 1, 1),
-(145, 43, 'mandarin', 0, 1, 0, 0),
-(146, 47, 'English', 1, 0, 1, 0),
-(147, 47, 'Filipino', 0, 0, 0, 0),
-(148, 47, 'English', 0, 1, 1, 0),
-(149, 47, 'Filipino', 0, 1, 0, 0);
+(172, 32, 'English', 0, 1, 1, 1),
+(173, 32, 'Filipino', 0, 0, 0, 0),
+(174, 32, 'English', 0, 1, 1, 1),
+(175, 32, 'Filipino', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -532,10 +417,7 @@ CREATE TABLE `license` (
 --
 
 INSERT INTO `license` (`id`, `user_id`, `eligibility`, `rating`, `doe`, `prc_path`) VALUES
-(18, 43, 'Jurupa Valley', 'rate1', '2024-09-15', 'license_files/Performance-Task-2-Individual-Work_ITEC-306.pdf'),
-(19, 43, 'Lexington-Fayette', 'rate2', '2021-07-18', 'license_files/Blue-Professional-CV-Resume_2.pdf'),
-(20, 47, 'Attleboro', 'Aperiam nulla voluptates voluptatibus ipsa nobis.', '2025-07-13', ''),
-(21, 47, 'West Lafayette', 'Corporis accusamus placeat voluptate fuga nesciunt.', '2025-08-31', '');
+(24, 32, 'Boise City', 'Pariatur ducimus nisi.', '2024-07-21', 'license_files/ITEP414-SAM-Assignment-1-and-Task-1.pdf');
 
 -- --------------------------------------------------------
 
@@ -5152,19 +5034,6 @@ CREATE TABLE `modules_taken` (
   `date_taken` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `modules_taken`
---
-
-INSERT INTO `modules_taken` (`id`, `user_id`, `module_id`, `status`, `date_taken`) VALUES
-(14, 45, 9, 'passed', '2024-10-10'),
-(15, 45, 10, 'passed', '2024-10-10'),
-(16, 45, 11, 'passed', '2024-10-10'),
-(17, 43, 9, 'passed', '2024-10-11'),
-(18, 43, 10, 'passed', '2024-10-11'),
-(19, 43, 11, 'passed', '2024-10-11'),
-(20, 43, 1, 'fail', '2024-10-18');
-
 -- --------------------------------------------------------
 
 --
@@ -5264,7 +5133,7 @@ CREATE TABLE `ofw_profile` (
 --
 
 INSERT INTO `ofw_profile` (`id`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`, `is_verified`, `username`, `password`, `profile_image`, `last_name`, `first_name`, `middle_name`, `prefix`, `dob`, `sex`, `age`, `civil_status`, `house_address`, `contact_no`, `email`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `education_level`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `emergency_contact_num`, `next_of_kin_relationship`, `next_of_kin_contact`, `occupation`, `income`, `employment_type`, `country`, `employment_form`, `contact_number`, `employer_name`, `employer_address`, `local_agency_name`, `local_agency_address`, `departure_date`, `arrival_date`) VALUES
-(1, '378081', '2024-10-20 21:48:07', NULL, NULL, 1, 'Azure', '$2y$10$10ks1MnGIR.B73Mntstg3ePlPq7Uk3UPehRJK2zByYmmELLeFi5pi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mercadomarklawrence55@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, '378081', '2024-10-20 21:48:07', NULL, NULL, 1, 'Azure', '$2y$10$10ks1MnGIR.B73Mntstg3ePlPq7Uk3UPehRJK2zByYmmELLeFi5pi', NULL, 'Mayer', 'Amelia', 'Fred Cronin', 'VI', '2025-01-31', 'Female', 362, 'Widowed', NULL, '788-783-7169', 'your.email+fakedata97820@gmail.com', '368', '509', '0', '455', 'Returning', 'Elementary Undergraduate', 'Camylle.Stiedemann', '188', 'Velda', '6522 Halvorson Inlet', 'Gabrielle.Flatley', '40190 Valentine Valley', 'Sporer', NULL, 'Consequuntur quos aliquid nihil doloribus dolorum.', '97', 'Household Service Worker (Domestic Helper)', 499.00, 'Land-Based', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5516,35 +5385,6 @@ INSERT INTO `quiz_name` (`id`, `module_id`, `title`, `correct_ans`, `wrong_ans`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `register`
---
-
-CREATE TABLE `register` (
-  `id` int NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_verified` tinyint(1) NOT NULL DEFAULT '0',
-  `otp` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `otp_expiry` datetime DEFAULT NULL,
-  `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reset_token_expiry` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `register`
---
-
-INSERT INTO `register` (`id`, `email`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
-(43, 'mercadomarklawrence55@gmail.com', 'Mark55', '$2y$10$hOzr8CnHcqsbz8AUmYa62eSxITdZTZWZW26jnhFremy1KfApEbtY2', 1, '755668', '2024-10-10 12:19:31', NULL, NULL),
-(44, 'ict1mercado.cdlb@gmail.com', 'Ict1', '$2y$10$dw2KZgMQI0DhNNh5iMPyveUa1y4I2itlra5GB56qW2gdoCE4JxZ.i', 1, '351097', '2024-10-10 12:23:51', NULL, NULL),
-(45, 'marklawrencemercado8@gmail.com', 'Batbat', '$2y$10$.V.hAcf04TXC9RjQ4m8wQepu3c.B3SyapjnECl0tjOV8w89s4G32G', 1, '440801', '2024-10-10 12:26:17', NULL, NULL),
-(46, 'batbattmercado@gmail.com', 'Rhave', '$2y$10$HvsxRxY4xJu1vSqIVb8SGu0/iqW89pjBDcK0.SfsionuWD1QnN7YO', 1, '178237', '2024-10-10 12:29:16', NULL, NULL),
-(47, 'julietamercado165@gmail.com', 'Tryaccount1', '$2y$10$ed7d5JN5szzQtz4mn48z5.XxqddUVZNTyNzH70zMzS38zsbVoznom', 1, '510476', '2024-10-18 13:12:19', NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `save_job`
 --
 
@@ -5559,9 +5399,7 @@ CREATE TABLE `save_job` (
 --
 
 INSERT INTO `save_job` (`id`, `applicant_id`, `job_id`) VALUES
-(2, 43, 28),
-(3, 43, 17),
-(5, 43, 35);
+(7, 32, 28);
 
 -- --------------------------------------------------------
 
@@ -5630,10 +5468,7 @@ CREATE TABLE `training` (
 --
 
 INSERT INTO `training` (`id`, `user_id`, `training`, `start_date`, `end_date`, `institution`, `certificate_path`) VALUES
-(14, 43, 'Appcon', '2023-10-10', '2024-06-30', 'OTIS JAPAN INC.', 'training_files/APPCONN.pdf'),
-(21, 43, 'TopCIT', '2024-04-23', '2024-07-01', 'TOPCIT', 'training_files/TOPCIT.pdf'),
-(22, 47, 'Nostrum expedita corporis exercitationem at ab similique.', '2024-10-03', '2023-11-09', 'Dolore quaerat a.', ''),
-(23, 47, 'Iste cupiditate soluta magnam quisquam.', '2025-05-08', '2024-06-28', 'Rem magnam voluptates quas.', '');
+(26, 32, 'Porro odio eveniet dicta ducimus delectus laborum dolores quaerat.', '2025-03-01', '2025-06-14', 'Deleniti quia quis tempora dolore ducimus cupiditate ullam quos debitis.', 'training_files/PESO.pdf');
 
 -- --------------------------------------------------------
 
@@ -5648,140 +5483,6 @@ CREATE TABLE `user_answers` (
   `quiz_id` int DEFAULT NULL,
   `answer` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user_answers`
---
-
-INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `quiz_id`, `answer`) VALUES
-(438, 14, 120, 14, ''),
-(439, 14, 121, 14, 'a'),
-(440, 14, 122, 14, 'a'),
-(441, 14, 123, 14, 'a'),
-(442, 14, 124, 14, ''),
-(443, 14, 125, 14, ''),
-(444, 14, 126, 14, 'a'),
-(445, 14, 127, 14, ''),
-(446, 14, 128, 14, 'a'),
-(447, 14, 129, 14, 'a'),
-(448, 14, 130, 14, ''),
-(449, 14, 131, 14, 'a'),
-(450, 14, 132, 14, ''),
-(451, 14, 133, 14, ''),
-(452, 14, 134, 14, 'a'),
-(453, 14, 50, 10, 'a'),
-(454, 14, 51, 10, 'c'),
-(455, 14, 52, 10, 'c'),
-(456, 14, 53, 10, 'a'),
-(457, 14, 54, 10, 'd'),
-(458, 14, 8, 5, 'b'),
-(459, 14, 9, 5, 'c'),
-(470, 14, 10, 6, 'c'),
-(471, 14, 11, 6, 'c'),
-(472, 14, 12, 6, 'a'),
-(473, 14, 13, 6, 'b'),
-(474, 14, 14, 6, 'b'),
-(475, 14, 15, 6, 'b'),
-(476, 14, 16, 6, 'b'),
-(477, 14, 17, 6, 'b'),
-(478, 14, 18, 6, 'b'),
-(479, 14, 19, 6, 'c'),
-(480, 28, 55, 11, 'a'),
-(481, 28, 56, 11, 'a'),
-(482, 28, 57, 11, 'b'),
-(483, 28, 58, 11, 'a'),
-(484, 28, 59, 11, 'a'),
-(495, 28, 157, 30, 'a'),
-(496, 28, 158, 30, 'a'),
-(497, 28, 159, 30, 'b'),
-(498, 28, 160, 30, 'b'),
-(499, 28, 161, 30, 'a'),
-(515, 28, 162, 31, 'b'),
-(516, 28, 163, 31, 'b'),
-(517, 28, 164, 31, 'c'),
-(518, 28, 165, 31, 'b'),
-(519, 28, 166, 31, 'a'),
-(525, 28, 147, 28, 'b'),
-(526, 28, 148, 28, 'a'),
-(527, 28, 149, 28, 'b'),
-(528, 28, 150, 28, 'a'),
-(529, 28, 151, 28, 'a'),
-(535, 27, 147, 28, 'b'),
-(536, 27, 148, 28, 'a'),
-(537, 27, 149, 28, 'b'),
-(538, 27, 150, 28, 'a'),
-(539, 27, 151, 28, 'a'),
-(545, 28, 152, 29, 'c'),
-(546, 28, 153, 29, 'b'),
-(547, 28, 154, 29, 'b'),
-(548, 28, 155, 29, 'a'),
-(549, 28, 156, 29, 'b'),
-(565, 27, 152, 29, 'c'),
-(566, 27, 153, 29, 'b'),
-(567, 27, 154, 29, 'c'),
-(568, 27, 155, 29, 'b'),
-(569, 27, 156, 29, 'a'),
-(570, 27, 157, 30, 'b'),
-(571, 27, 158, 30, 'b'),
-(572, 27, 159, 30, 'b'),
-(573, 27, 160, 30, 'a'),
-(574, 27, 161, 30, 'b'),
-(580, 27, 162, 31, 'b'),
-(581, 27, 163, 31, 'b'),
-(582, 27, 164, 31, 'c'),
-(583, 27, 165, 31, 'b'),
-(584, 27, 166, 31, 'b'),
-(585, 27, 172, 37, 'b'),
-(586, 27, 173, 37, 'b'),
-(587, 27, 174, 37, 'b'),
-(588, 27, 175, 37, 'b'),
-(589, 27, 176, 37, 'b'),
-(590, 27, 177, 38, 'a'),
-(591, 27, 178, 38, 'c'),
-(592, 27, 179, 38, 'b'),
-(593, 27, 180, 38, 'b'),
-(594, 27, 181, 38, 'b'),
-(595, 27, 182, 38, 'b'),
-(596, 27, 183, 38, 'c'),
-(597, 45, 172, 37, 'b'),
-(598, 45, 173, 37, 'b'),
-(599, 45, 174, 37, 'b'),
-(600, 45, 175, 37, 'b'),
-(601, 45, 176, 37, 'b'),
-(602, 45, 177, 38, 'b'),
-(603, 45, 178, 38, 'b'),
-(604, 45, 179, 38, 'b'),
-(605, 45, 180, 38, 'b'),
-(606, 45, 181, 38, 'a'),
-(607, 45, 182, 38, 'a'),
-(608, 45, 183, 38, 'c'),
-(609, 45, 184, 39, 'b'),
-(610, 45, 185, 39, 'b'),
-(611, 45, 186, 39, 'b'),
-(612, 45, 187, 39, 'b'),
-(613, 45, 188, 39, 'b'),
-(614, 43, 172, 37, 'b'),
-(615, 43, 173, 37, 'b'),
-(616, 43, 174, 37, 'b'),
-(617, 43, 175, 37, 'b'),
-(618, 43, 176, 37, 'b'),
-(619, 43, 177, 38, 'b'),
-(620, 43, 178, 38, 'b'),
-(621, 43, 179, 38, 'b'),
-(622, 43, 180, 38, 'b'),
-(623, 43, 181, 38, 'a'),
-(624, 43, 182, 38, 'a'),
-(625, 43, 183, 38, 'a'),
-(626, 43, 184, 39, 'b'),
-(627, 43, 185, 39, 'b'),
-(628, 43, 186, 39, 'b'),
-(629, 43, 187, 39, 'b'),
-(630, 43, 188, 39, 'b'),
-(656, 43, 147, 28, 'd'),
-(657, 43, 148, 28, 'c'),
-(658, 43, 149, 28, 'b'),
-(659, 43, 150, 28, 'b'),
-(660, 43, 151, 28, 'b');
 
 -- --------------------------------------------------------
 
@@ -5798,19 +5499,6 @@ CREATE TABLE `user_score` (
   `wrong_answers` int DEFAULT NULL,
   `dates` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user_score`
---
-
-INSERT INTO `user_score` (`id`, `user_id`, `quiz_id`, `score`, `correct_answers`, `wrong_answers`, `dates`) VALUES
-(69, 45, 37, 5, 5, 0, '2024-10-09 08:00:00'),
-(70, 45, 38, 6, 6, 1, '2024-10-09 08:00:00'),
-(71, 45, 39, 5, 5, 0, '2024-10-09 08:00:00'),
-(72, 43, 37, 5, 5, 0, '2024-10-10 08:00:00'),
-(73, 43, 38, 5, 5, 2, '2024-10-10 08:00:00'),
-(74, 43, 39, 5, 5, 0, '2024-10-10 08:00:00'),
-(80, 43, 28, 1, 1, 4, '2024-10-17 08:00:00');
 
 -- --------------------------------------------------------
 
@@ -5834,10 +5522,7 @@ CREATE TABLE `work_exp` (
 --
 
 INSERT INTO `work_exp` (`id`, `user_id`, `company_name`, `address`, `position`, `started_date`, `termination_date`, `status`) VALUES
-(10, 43, 'Pfeffer - Langosh', '1002 Murazik Centers', 'Porro voluptate inventore fugiat ipsa.', '2023-10-10', '2024-06-30', 'resigned'),
-(11, 43, 'Douglas and Sons', '6707 Heller Run', 'Voluptatem facilis dolore quis.', '2023-10-10', '2024-06-30', 'Termminated'),
-(12, 47, 'Bartell, Braun and Hessel', '36375 Murray Corner', 'Et repellendus totam vel.', '2024-10-03', '2023-11-09', 'Wisconsin'),
-(13, 47, 'Wolf, Auer and Sporer', '13568 Magdalena Spur', 'Reprehenderit fugiat inventore consectetur nostrum saepe asperiores repellat eos.', '2025-05-08', '2024-06-28', 'Colorado');
+(17, 32, 'Schinner Group', 'your.email+fakedata32908@gmail.com', 'Officia cum error quo culpa earum quasi ea.', '2025-03-01', '2025-06-14', 'Iowa');
 
 --
 -- Indexes for dumped tables
@@ -5853,7 +5538,7 @@ ALTER TABLE `admin_profile`
 -- Indexes for table `applicant_profile`
 --
 ALTER TABLE `applicant_profile`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `applications`
@@ -5969,12 +5654,6 @@ ALTER TABLE `quiz_name`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `register`
---
-ALTER TABLE `register`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `save_job`
 --
 ALTER TABLE `save_job`
@@ -6030,13 +5709,13 @@ ALTER TABLE `admin_profile`
 -- AUTO_INCREMENT for table `applicant_profile`
 --
 ALTER TABLE `applicant_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -6096,13 +5775,13 @@ ALTER TABLE `job_postings`
 -- AUTO_INCREMENT for table `language_proficiency`
 --
 ALTER TABLE `language_proficiency`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `license`
 --
 ALTER TABLE `license`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `modules`
@@ -6141,16 +5820,10 @@ ALTER TABLE `quiz_name`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT for table `register`
---
-ALTER TABLE `register`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
---
 -- AUTO_INCREMENT for table `save_job`
 --
 ALTER TABLE `save_job`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `survey_form`
@@ -6168,7 +5841,7 @@ ALTER TABLE `survey_reponse`
 -- AUTO_INCREMENT for table `training`
 --
 ALTER TABLE `training`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user_answers`
@@ -6186,7 +5859,7 @@ ALTER TABLE `user_score`
 -- AUTO_INCREMENT for table `work_exp`
 --
 ALTER TABLE `work_exp`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
