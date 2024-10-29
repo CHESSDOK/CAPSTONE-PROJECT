@@ -99,10 +99,10 @@ nav {
 }
 
 .logo a {
-	color: #333;
+	color: rgb(45, 255, 255);
 	text-decoration: none;
-	font-size: 24px;
-	font-weight:400;
+	font-size: 16px;
+	font-weight:300;
 	margin-left:10px;
 }
 
