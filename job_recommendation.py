@@ -4,6 +4,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 import json
 from rapidfuzz import process, fuzz
+import sys
 
 # MySQL database connection using SQLAlchemy
 def get_db_connection():
@@ -13,8 +14,8 @@ def get_db_connection():
         connection = engine.connect()
         return connection
     except Exception as err:
-        print(f"Error: {err}")
-        return None
+        print(json.dumps({"error": f"Database connection error: {err}"}))
+        sys.exit(1)
 
 # Fetch applicant profiles from the database
 def fetch_applicant_profiles(conn):
@@ -22,7 +23,7 @@ def fetch_applicant_profiles(conn):
         query = "SELECT * FROM applicant_profile"
         return pd.read_sql(query, conn)
     except Exception as e:
-        print(f"Error fetching applicant profiles: {e}")
+        print(json.dumps({"error": f"Error fetching applicant profiles: {e}"}))
         return pd.DataFrame()  # Return an empty DataFrame on error
 
 # Fetch job postings from the database
@@ -31,15 +32,11 @@ def fetch_job_postings(conn):
         query = "SELECT * FROM job_postings WHERE is_active = 1"
         return pd.read_sql(query, conn)
     except Exception as e:
-        print(f"Error fetching job postings: {e}")
+        print(json.dumps({"error": f"Error fetching job postings: {e}"}))
         return pd.DataFrame()  # Return an empty DataFrame on error
 
 # Function to perform fuzzy matching
 def fuzzy_merge(applicant_occupations, job_titles, threshold=80):
-    """
-    Perform fuzzy matching between applicant occupations and job titles.
-    Returns a DataFrame with matched pairs.
-    """
     matches = []
     for occupation in applicant_occupations:
         match = process.extractOne(occupation, job_titles, scorer=fuzz.token_sort_ratio)
@@ -73,50 +70,36 @@ def get_logged_in_applicant_recommendations(logged_in_user_id):
         # Further normalize after splitting
         applicant_profiles['preferred_occupation'] = applicant_profiles['preferred_occupation'].str.lower().str.strip()
 
-
         # Perform fuzzy matching
         matched_df = fuzzy_merge(applicant_profiles['preferred_occupation'].unique(), job_postings['job_title'].unique(), threshold=80)
 
-        # Merge matched_df back with applicant_profiles and job_postings to get full records
         if matched_df.empty:
             return json.dumps({"error": "No fuzzy matches found between applicants and job postings"})
 
         # Merge applicant_profiles with matched_df to filter relevant applicants
         applicant_matched = pd.merge(applicant_profiles, matched_df, on='preferred_occupation', how='inner')
-
-        # Merge with job_postings to get job details
         data = pd.merge(applicant_matched, job_postings, left_on='job_title', right_on='job_title', how='inner')
 
-        # Check the merged data
         if data.empty:
             return json.dumps({"error": "No matches found between applicants and job postings after fuzzy matching"})
 
         # Handle missing or NaN values
         data['age'] = pd.to_numeric(data['age'], errors='coerce')
-        data['expected_salary'] = pd.to_numeric(data['expected_salary'], errors='coerce')  # Ensure numeric
-
-        # Handle 'salary' from job_postings if needed
-        # Attempt to convert 'salary' to numeric; set errors='coerce' to handle non-numeric values
+        data['expected_salary'] = pd.to_numeric(data['expected_salary'], errors='coerce')
         data['salary'] = pd.to_numeric(data['salary'], errors='coerce')
 
         # For clustering, use 'age' and 'expected_salary'
         data_cleaned = data[['age', 'expected_salary']].copy()
 
-        if data_cleaned.empty:
-            return json.dumps({"error": "No valid data available for imputation"})
-
-        # Imputation
+        # Imputation for missing data
         imputer = SimpleImputer(strategy='mean')
         data_cleaned[['age', 'expected_salary']] = imputer.fit_transform(data_cleaned[['age', 'expected_salary']])
 
         # Prepare data for clustering
         features = data_cleaned[['age', 'expected_salary']]
 
-        if features.empty:
-            return json.dumps({"error": "No valid features available for clustering"})
-
         # Apply DBSCAN clustering
-        dbscan = DBSCAN(eps=5, min_samples=2)  # Adjust eps as needed
+        dbscan = DBSCAN(eps=5, min_samples=2)
         clusters = dbscan.fit_predict(features)
         data_cleaned['cluster'] = clusters
 
@@ -127,34 +110,29 @@ def get_logged_in_applicant_recommendations(logged_in_user_id):
         logged_in_user_data = data[data['user_id'] == logged_in_user_id]
 
         if not logged_in_user_data.empty:
-            # Assuming the user has multiple entries due to multiple preferred occupations
-            # Aggregate clusters assigned to the user
             user_clusters = logged_in_user_data['cluster'].unique()
-            user_clusters = [cluster for cluster in user_clusters if cluster != -1]  # Exclude noise
+            user_clusters = [cluster for cluster in user_clusters if cluster != -1]
 
-            if len(user_clusters) == 0:
+            if not user_clusters:
                 return json.dumps({"error": "Logged-in user does not belong to any cluster"})
 
-            # Get jobs from the same clusters
             recommendations = data[data['cluster'].isin(user_clusters)][['preferred_occupation', 'job_title', 'salary']].drop_duplicates().to_dict(orient='records')
-
-            # Remove entries with NaN salary if necessary
             recommendations = [rec for rec in recommendations if pd.notna(rec['salary'])]
 
             if not recommendations:
                 return json.dumps({"error": "No job recommendations found in the user's cluster(s)"})
 
-            # Convert to JSON and return
             return json.dumps(recommendations, ensure_ascii=False)
         else:
             return json.dumps({"error": "Logged-in user not found in applicant profiles"})
     finally:
-        # Ensure the connection is closed even if an error occurs
         conn.close()
 
-# Example usage
 if __name__ == "__main__":
-    logged_in_user_id = 32  # Replace with actual logged-in user ID
-    recommendations = get_logged_in_applicant_recommendations(logged_in_user_id)
-    print(recommendations)
-
+    if len(sys.argv) > 1:
+        logged_in_user_id = int(sys.argv[1])
+        recommendations = get_logged_in_applicant_recommendations(logged_in_user_id)
+        print(recommendations)
+    else:
+        print(json.dumps({"error": "User ID not provided"}))
+        sys.exit(1)
