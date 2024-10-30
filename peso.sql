@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2024 at 01:30 AM
+-- Generation Time: Oct 30, 2024 at 06:59 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -126,7 +126,8 @@ CREATE TABLE `applicant_profile` (
 --
 
 INSERT INTO `applicant_profile` (`user_id`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `school_name1`, `year_grad1`, `award1`, `school_name2`, `year_grad2`, `award2`, `school_name3`, `course3`, `year_grad3`, `award3`, `level3`, `year_level3`, `school_name4`, `course4`, `year_grad4`, `award4`, `level4`, `year_level4`, `preferred_occupation`, `pwl`, `overseas_loc`, `local_loc`, `pwd`, `pwd2`, `prefix`, `four_ps`, `hhid`, `selected_options`, `religion`, `employment_status`, `es_status`, `es_others`, `actively_looking`, `al_details`, `willing_to_work`, `ww_details`, `passport_expiry`, `expected_salary`, `resume`) VALUES
-(32, 'Mark55', '$2y$10$HYshoSww3G9b7mmEiLnJ5OGbL8tOzOhsr49sbiqn8rsVvLOWeWXa.', 1, '227423', '2024-10-23 08:58:08', NULL, NULL, 'mercadomarklawrence55@gmail.com', 'Asa', 'Gislason', 'Santiago Lakin', '2024-07-15', '67593 Herman Locks', NULL, '126', 'male', 'Separated', '460-498-5818', '190-499-3352', 'b40ec453123f7ad36c28d9906ab43ca0.png', '866 Mante Radial', 'Expedita pariatur id voluptatibus minima vel in eveniet voluptates hic.', '70', '638', '15437567856', '425', 'Terrill Macejkovic', '2024-10-18', 'Perferendis beatae delectus quidem asperiores eos aut vero.', 'Carolanne Aufderhar', '2023-12-17', 'Nihil molestias libero.', 'Melyna Nikolaus', 'Turks and Caicos Islands', '2025-08-01', 'Eligendi dicta totam.', '', NULL, 'Karli Borer', 'Democratic Republic of the Congo', '2024-01-02', 'Similique nesciunt dicta ex id voluptatum fuga.', '', NULL, 'Dynamic Solutions Specialist,Chief Tactics Engineer,Global Interactions Associate,Chief Quality Coordinator', 'local', '', 'Palo Alto,Rochester,Mission Viejo', 'Physical', '', 'none', '', 'Asperiores facere harum.', '', 'Incidunt accusantium est sed beatae ea aut voluptas.', 'employed', 'wage', '', 'No', 'Architecto autem sunt aut voluptatem ducimus facere quis quasi quo.', 'Yes', '', '2024-04-17', 20000, '');
+(32, 'Mark55', '$2y$10$HYshoSww3G9b7mmEiLnJ5OGbL8tOzOhsr49sbiqn8rsVvLOWeWXa.', 1, '227423', '2024-10-23 08:58:08', NULL, NULL, 'mercadomarklawrence55@gmail.com', 'Asa', 'Gislason', 'Santiago Lakin', '2000-07-23', '67593 Herman Locks', 24, '126', 'male', 'Separated', '460-498-5818', '190-499-3352', 'b40ec453123f7ad36c28d9906ab43ca0.png', '866 Mante Radial', 'Expedita pariatur id voluptatibus minima vel in eveniet voluptates hic.', '70', '638', '15437567856', '425', 'Terrill Macejkovic', '2024-10-18', 'Perferendis beatae delectus quidem asperiores eos aut vero.', 'Carolanne Aufderhar', '2023-12-17', 'Nihil molestias libero.', 'Melyna Nikolaus', 'Turks and Caicos Islands', '2025-08-01', 'Eligendi dicta totam.', '', NULL, 'Karli Borer', 'Democratic Republic of the Congo', '2024-01-02', 'Similique nesciunt dicta ex id voluptatum fuga.', '', NULL, 'Human Communications Engineer,Principal Creative Specialist,Customer Branding Analyst,Investor Brand Executive', 'local', '', 'Palo Alto,Rochester,Mission Viejo', 'Physical', '', 'none', '', 'Asperiores facere harum.', '', 'Incidunt accusantium est sed beatae ea aut voluptas.', 'employed', 'wage', '', 'No', 'Architecto autem sunt aut voluptatem ducimus facere quis quasi quo.', 'Yes', '', '2024-04-17', 20000, ''),
+(33, 'Azure', '$2y$10$IAcbsq1N6J3.XniyPpVnT.5mIRhsNQxM3gyC5ox4IkMfc7Frr7qbG', 1, '133699', '2024-10-29 07:40:12', NULL, NULL, 'your.email+fakedata23654@gmail.com', 'Walter', 'Grady', 'Kaylin Kiehn', '2024-05-19', '49414 Braun Ramp', 0, '154', 'male', 'Live-in', '485-587-6711', '035-377-6244', 'Screenshot 2024-09-01 132748.png', '23915 Mertz Causeway', 'Fuga ab quasi itaque est optio sapiente rem.', '160', '38', '12432', '580', 'Kaitlyn Bartoletti', '2024-05-04', 'Deleniti itaque quod eum excepturi quis reprehenderit repellat autem adipisci.', 'Eugenia Crooks', '2024-09-14', 'Fuga laudantium vel at laboriosam aut praesentium.', 'Carey Murazik', 'Nicaragua', '2024-01-25', 'Cumque maiores explicabo est in.', '', NULL, 'Benedict Marks', 'Pakistan', '2024-06-09', 'Asperiores perferendis necessitatibus accusamus tempore esse ut sed veniam id.', '', NULL, 'Global Interactions Administrator,Global Accounts Producer,Forward Intranet Agent,Investor Brand Executive', 'local', 'Heard Island and McDonald Islands,Cameroon,Guinea', 'Davenport,Ontario,Sunrise Manor', 'Physical', '', 'Jr.', 'Yes', 'Porro eligendi similique ullam inventore tempora.', '', 'Iste facere et modi quisquam odit nesciunt quas.', 'employed', '', '', 'No', 'Quod odio mollitia.', 'Yes', '', '2024-05-12', 15000, '');
 
 -- --------------------------------------------------------
 
@@ -395,7 +396,19 @@ INSERT INTO `language_proficiency` (`id`, `user_id`, `language_p`, `read_l`, `wr
 (172, 32, 'English', 0, 1, 1, 1),
 (173, 32, 'Filipino', 0, 0, 0, 0),
 (174, 32, 'English', 0, 1, 1, 1),
-(175, 32, 'Filipino', 0, 0, 0, 0);
+(175, 32, 'Filipino', 0, 0, 0, 0),
+(176, 32, 'English', 0, 1, 1, 1),
+(177, 32, 'Filipino', 0, 0, 0, 0),
+(178, 32, 'English', 0, 1, 1, 1),
+(179, 32, 'Filipino', 0, 0, 0, 0),
+(180, 32, 'English', 0, 1, 1, 1),
+(181, 32, 'Filipino', 0, 0, 0, 0),
+(182, 32, 'English', 0, 1, 1, 1),
+(183, 32, 'Filipino', 0, 0, 0, 0),
+(184, 33, 'English', 1, 0, 0, 1),
+(185, 33, 'Filipino', 0, 0, 0, 0),
+(186, 33, 'English', 1, 0, 0, 1),
+(187, 33, 'Filipino', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -417,7 +430,8 @@ CREATE TABLE `license` (
 --
 
 INSERT INTO `license` (`id`, `user_id`, `eligibility`, `rating`, `doe`, `prc_path`) VALUES
-(24, 32, 'Boise City', 'Pariatur ducimus nisi.', '2024-07-21', 'license_files/ITEP414-SAM-Assignment-1-and-Task-1.pdf');
+(24, 32, 'Boise City', 'Pariatur ducimus nisi.', '2024-07-21', 'license_files/ITEP414-SAM-Assignment-1-and-Task-1.pdf'),
+(25, 33, 'Leesburg', 'Quo facilis beatae.', '2025-02-11', 'license_files/philsys id.png');
 
 -- --------------------------------------------------------
 
@@ -5468,7 +5482,8 @@ CREATE TABLE `training` (
 --
 
 INSERT INTO `training` (`id`, `user_id`, `training`, `start_date`, `end_date`, `institution`, `certificate_path`) VALUES
-(26, 32, 'Porro odio eveniet dicta ducimus delectus laborum dolores quaerat.', '2025-03-01', '2025-06-14', 'Deleniti quia quis tempora dolore ducimus cupiditate ullam quos debitis.', 'training_files/PESO.pdf');
+(26, 32, 'Porro odio eveniet dicta ducimus delectus laborum dolores quaerat.', '2025-03-01', '2025-06-14', 'Deleniti quia quis tempora dolore ducimus cupiditate ullam quos debitis.', 'training_files/PESO.pdf'),
+(27, 33, 'Sint in laborum similique minima amet quidem sapiente.', '2024-05-17', '2024-09-13', 'Saepe saepe assumenda.', 'training_files/philsys id.png');
 
 -- --------------------------------------------------------
 
@@ -5522,7 +5537,8 @@ CREATE TABLE `work_exp` (
 --
 
 INSERT INTO `work_exp` (`id`, `user_id`, `company_name`, `address`, `position`, `started_date`, `termination_date`, `status`) VALUES
-(17, 32, 'Schinner Group', 'your.email+fakedata32908@gmail.com', 'Officia cum error quo culpa earum quasi ea.', '2025-03-01', '2025-06-14', 'Iowa');
+(17, 32, 'Schinner Group', 'your.email+fakedata32908@gmail.com', 'Officia cum error quo culpa earum quasi ea.', '2025-03-01', '2025-06-14', 'Iowa'),
+(18, 33, 'Schamberger, Beatty and Dickens', 'your.email+fakedata23654@gmail.com', 'Doloremque modi adipisci in laborum quas reiciendis voluptate.', '2024-05-17', '2024-09-13', 'Arkansas');
 
 --
 -- Indexes for dumped tables
@@ -5709,7 +5725,7 @@ ALTER TABLE `admin_profile`
 -- AUTO_INCREMENT for table `applicant_profile`
 --
 ALTER TABLE `applicant_profile`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `applications`
@@ -5775,13 +5791,13 @@ ALTER TABLE `job_postings`
 -- AUTO_INCREMENT for table `language_proficiency`
 --
 ALTER TABLE `language_proficiency`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT for table `license`
 --
 ALTER TABLE `license`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `modules`
@@ -5841,7 +5857,7 @@ ALTER TABLE `survey_reponse`
 -- AUTO_INCREMENT for table `training`
 --
 ALTER TABLE `training`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `user_answers`
@@ -5859,7 +5875,7 @@ ALTER TABLE `user_score`
 -- AUTO_INCREMENT for table `work_exp`
 --
 ALTER TABLE `work_exp`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

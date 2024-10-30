@@ -69,6 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $profile_image = $_POST['existing_image'] ?? ''; // Retain the existing image
     $resume = $_POST['existing_resume'] ?? '';       // Retain the existing resume
 
+    if (!empty($dob)) {
+        $dobDate = new DateTime($dob);
+        $currentDate = new DateTime();
+        $age = $currentDate->diff($dobDate)->y; // Get the difference in years
+    } else {
+        $age = NULL; // Handle case where dob is empty
+    }
+
 
     $local = array_filter($local);
     $local_string = implode(',', $local);
@@ -117,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 prefix = ?, 
                 dob = ?, 
                 pob = ?, 
+                age =  ?, 
                 religion = ?, 
                 house_address = ?, 
                 civil_status = ?, 
@@ -171,8 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE user_id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssssssssssssssssssssssiissssssssssssssssssssssi",
-        $lastName, $firstName, $middleName, $suffix, $dob, $pob, $religion, $houseadd, $civilStatus, $sex, $height, 
+    $stmt->bind_param("ssssssssssssssssssssssssssssssssssiissssssssssssssssssssssi",
+        $lastName, $firstName, $middleName, $suffix, $dob, $pob, $age, $religion, $houseadd, $civilStatus, $sex, $height, 
         $tin, $sssNo, $pagibigNo, $philhealthNo, $email, $job_string, $school_name1, $school_name2, $school_name3,
         $school_name4, $year_grade1, $year_grade2, $year_grade3, $year_grade4, $award1, $award2, $award3, $award4,
         $course3, $course4, $level3, $level4, $year_level3, $year_level4, $pwl, $overseas_string, $local_string, 
