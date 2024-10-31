@@ -1,16 +1,16 @@
 <?php
-include '../conn_db.php';
+include 'conn_db.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
-require '../mailer/vendor/autoload.php';
+require 'mailer/vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $conn->real_escape_string($_POST['email']);
 
     // Check if the email exists in the database
-    $sql = "SELECT id FROM empyers WHERE email = '$email'";
+    $sql = "SELECT id FROM ofw_profile WHERE email = '$email'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -20,17 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $expiry_time = date("Y-m-d H:i:s", strtotime('+5 minutes')); // Token valid for 1 hour
 
         // Store the token and expiry time in the database
-        $sql = "UPDATE empyers SET reset_token = '$token', reset_token_expiry = '$expiry_time' WHERE email = '$email'";
+        $sql = "UPDATE ofw_profile SET reset_token = '$token', reset_token_expiry = '$expiry_time' WHERE email = '$email'";
         $conn->query($sql);
 
         // Send email with reset link
-        $reset_link = "localhost/wakey/html/employer/reset_password.php?token=" . urlencode($token);
+        $reset_link = "localhost/wakey/html/reset_password.php?token=" . urlencode($token);
 
         sendResetEmail($email, $reset_link);
 
-        echo "<script>alert('A reset link has been sent to your email address.'); window.location.href='../../html/employer/combine_login.html';</script>";
+        echo "<script>alert('A reset link has been sent to your email address.'); window.location.href='../html/combine_login.html';</script>";
     } else {
-        echo "<script>alert('No account found with that email address.'); window.location.href='../../html/employer/combine_login.html';</script>";
+        echo "<script>alert('No account found with that email address.'); window.location.href='../html/combine_login.html';</script>";
     }
 
     $conn->close();
