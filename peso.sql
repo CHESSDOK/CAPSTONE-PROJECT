@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 30, 2024 at 06:59 AM
+-- Generation Time: Nov 01, 2024 at 08:51 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin_profile` (
   `id` int NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_level` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `full_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `profile_picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_level` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `full_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -54,71 +54,71 @@ INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level
 
 CREATE TABLE `applicant_profile` (
   `user_id` int NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `is_verified` tinyint(1) NOT NULL DEFAULT '0',
-  `otp` varchar(6) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `otp` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `otp_expiry` datetime DEFAULT NULL,
-  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `first_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `last_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `middle_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `first_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `middle_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `pob` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pob` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `age` int DEFAULT NULL,
-  `height` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sex` enum('male','female') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `civil_status` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `contact_no` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `landline` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'user.png',
-  `house_address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sss_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pagibig_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `philhealth_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `passport_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `school_name1` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `height` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sex` enum('male','female') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `civil_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `contact_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `landline` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'user.png',
+  `house_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sss_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pagibig_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `philhealth_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `passport_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `school_name1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `year_grad1` date DEFAULT NULL,
-  `award1` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `school_name2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `award1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `school_name2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `year_grad2` date DEFAULT NULL,
-  `award2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `school_name3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `course3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `award2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `school_name3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `course3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `year_grad3` date DEFAULT NULL,
-  `award3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `level3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `award3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `level3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `year_level3` date DEFAULT NULL,
-  `school_name4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `course4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `school_name4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `course4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `year_grad4` date DEFAULT NULL,
-  `award4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `level4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `award4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `level4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `year_level4` date DEFAULT NULL,
-  `preferred_occupation` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pwl` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `overseas_loc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `local_loc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pwd` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pwd2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `preferred_occupation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pwl` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `overseas_loc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `local_loc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pwd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pwd2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `prefix` enum('Sr.','Jr.','II','III','IV','V','VI','VII','none') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `four_ps` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `hhid` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `selected_options` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `religion` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `employment_status` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `es_status` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `es_others` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `actively_looking` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `al_details` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `willing_to_work` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ww_details` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `four_ps` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `hhid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `selected_options` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `religion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `employment_status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `es_status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `es_others` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `actively_looking` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `al_details` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `willing_to_work` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ww_details` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `passport_expiry` date DEFAULT NULL,
   `expected_salary` int DEFAULT NULL,
-  `resume` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `resume` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -126,8 +126,8 @@ CREATE TABLE `applicant_profile` (
 --
 
 INSERT INTO `applicant_profile` (`user_id`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `school_name1`, `year_grad1`, `award1`, `school_name2`, `year_grad2`, `award2`, `school_name3`, `course3`, `year_grad3`, `award3`, `level3`, `year_level3`, `school_name4`, `course4`, `year_grad4`, `award4`, `level4`, `year_level4`, `preferred_occupation`, `pwl`, `overseas_loc`, `local_loc`, `pwd`, `pwd2`, `prefix`, `four_ps`, `hhid`, `selected_options`, `religion`, `employment_status`, `es_status`, `es_others`, `actively_looking`, `al_details`, `willing_to_work`, `ww_details`, `passport_expiry`, `expected_salary`, `resume`) VALUES
-(32, 'Mark55', '$2y$10$HYshoSww3G9b7mmEiLnJ5OGbL8tOzOhsr49sbiqn8rsVvLOWeWXa.', 1, '227423', '2024-10-23 08:58:08', NULL, NULL, 'mercadomarklawrence55@gmail.com', 'Asa', 'Gislason', 'Santiago Lakin', '2000-07-23', '67593 Herman Locks', 24, '126', 'male', 'Separated', '460-498-5818', '190-499-3352', 'b40ec453123f7ad36c28d9906ab43ca0.png', '866 Mante Radial', 'Expedita pariatur id voluptatibus minima vel in eveniet voluptates hic.', '70', '638', '15437567856', '425', 'Terrill Macejkovic', '2024-10-18', 'Perferendis beatae delectus quidem asperiores eos aut vero.', 'Carolanne Aufderhar', '2023-12-17', 'Nihil molestias libero.', 'Melyna Nikolaus', 'Turks and Caicos Islands', '2025-08-01', 'Eligendi dicta totam.', '', NULL, 'Karli Borer', 'Democratic Republic of the Congo', '2024-01-02', 'Similique nesciunt dicta ex id voluptatum fuga.', '', NULL, 'Human Communications Engineer,Principal Creative Specialist,Customer Branding Analyst,Investor Brand Executive', 'local', '', 'Palo Alto,Rochester,Mission Viejo', 'Physical', '', 'none', '', 'Asperiores facere harum.', '', 'Incidunt accusantium est sed beatae ea aut voluptas.', 'employed', 'wage', '', 'No', 'Architecto autem sunt aut voluptatem ducimus facere quis quasi quo.', 'Yes', '', '2024-04-17', 20000, ''),
-(33, 'Azure', '$2y$10$IAcbsq1N6J3.XniyPpVnT.5mIRhsNQxM3gyC5ox4IkMfc7Frr7qbG', 1, '133699', '2024-10-29 07:40:12', NULL, NULL, 'your.email+fakedata23654@gmail.com', 'Walter', 'Grady', 'Kaylin Kiehn', '2024-05-19', '49414 Braun Ramp', 0, '154', 'male', 'Live-in', '485-587-6711', '035-377-6244', 'Screenshot 2024-09-01 132748.png', '23915 Mertz Causeway', 'Fuga ab quasi itaque est optio sapiente rem.', '160', '38', '12432', '580', 'Kaitlyn Bartoletti', '2024-05-04', 'Deleniti itaque quod eum excepturi quis reprehenderit repellat autem adipisci.', 'Eugenia Crooks', '2024-09-14', 'Fuga laudantium vel at laboriosam aut praesentium.', 'Carey Murazik', 'Nicaragua', '2024-01-25', 'Cumque maiores explicabo est in.', '', NULL, 'Benedict Marks', 'Pakistan', '2024-06-09', 'Asperiores perferendis necessitatibus accusamus tempore esse ut sed veniam id.', '', NULL, 'Global Interactions Administrator,Global Accounts Producer,Forward Intranet Agent,Investor Brand Executive', 'local', 'Heard Island and McDonald Islands,Cameroon,Guinea', 'Davenport,Ontario,Sunrise Manor', 'Physical', '', 'Jr.', 'Yes', 'Porro eligendi similique ullam inventore tempora.', '', 'Iste facere et modi quisquam odit nesciunt quas.', 'employed', '', '', 'No', 'Quod odio mollitia.', 'Yes', '', '2024-05-12', 15000, '');
+(32, 'Mark55', '$2y$10$HYshoSww3G9b7mmEiLnJ5OGbL8tOzOhsr49sbiqn8rsVvLOWeWXa.', 1, '227423', '2024-10-23 08:58:08', '914d350e7030e725605aeb3c6c48dc76c2fec783851b04c1ec2535a38e2998ab370eb49b4d3c336cf1e467cb3da6b83f0fbf', '2024-10-31 16:40:11', 'mercadomarklawrence55@gmail.com', 'Asa', 'Gislason', 'Santiago Lakin', '2000-07-23', '67593 Herman Locks', 24, '126', 'male', 'Separated', '460-498-5818', '190-499-3352', 'b40ec453123f7ad36c28d9906ab43ca0.png', '866 Mante Radial', 'Expedita pariatur id voluptatibus minima vel in eveniet voluptates hic.', '70', '638', '15437567856', '425', 'Terrill Macejkovic', '2024-10-18', 'Perferendis beatae delectus quidem asperiores eos aut vero.', 'Carolanne Aufderhar', '2023-12-17', 'Nihil molestias libero.', 'Melyna Nikolaus', 'Turks and Caicos Islands', '2025-08-01', 'Eligendi dicta totam.', '', NULL, 'Karli Borer', 'Democratic Republic of the Congo', '2024-01-02', 'Similique nesciunt dicta ex id voluptatum fuga.', '', NULL, 'Human Communications Engineer,Principal Creative Specialist,Customer Branding Analyst,Investor Brand Executive', 'local', '', 'Palo Alto,Rochester,Mission Viejo', 'Physical', '', 'none', '', 'Asperiores facere harum.', '', 'Incidunt accusantium est sed beatae ea aut voluptas.', 'employed', 'wage', '', 'No', 'Architecto autem sunt aut voluptatem ducimus facere quis quasi quo.', 'Yes', '', '2024-04-17', 20000, ''),
+(33, 'Azure', '$2y$10$IAcbsq1N6J3.XniyPpVnT.5mIRhsNQxM3gyC5ox4IkMfc7Frr7qbG', 1, '133699', '2024-10-29 07:40:12', NULL, NULL, 'your.email+fakedata23654@gmail.com', 'Walter', 'Grady', 'Kaylin Kiehn', '2024-05-19', '49414 Braun Ramp', 0, '154', 'male', 'Live-in', '485-587-6711', '035-377-6244', 'Screenshot 2024-09-01 132748.png', '23915 Mertz Causeway', 'Fuga ab quasi itaque est optio sapiente rem.', '160', '38', '12432', '580', 'Kaitlyn Bartoletti', '2024-05-04', 'Deleniti itaque quod eum excepturi quis reprehenderit repellat autem adipisci.', 'Eugenia Crooks', '2024-09-14', 'Fuga laudantium vel at laboriosam aut praesentium.', 'Carey Murazik', 'Nicaragua', '2024-01-25', 'Cumque maiores explicabo est in.', '', NULL, 'Benedict Marks', 'Pakistan', '2024-06-09', 'Asperiores perferendis necessitatibus accusamus tempore esse ut sed veniam id.', '', NULL, 'Global Interactions Administrator,Customer Branding Analyst,Product Response Agent', 'local', 'Heard Island and McDonald Islands,Cameroon,Guinea', 'Davenport,Ontario,Sunrise Manor', 'Physical', '', 'Jr.', 'Yes', 'Porro eligendi similique ullam inventore tempora.', '', 'Iste facere et modi quisquam odit nesciunt quas.', 'employed', '', '', 'No', 'Quod odio mollitia.', 'Yes', '', '2024-05-12', 15000, '');
 
 -- --------------------------------------------------------
 
@@ -140,8 +140,8 @@ CREATE TABLE `applications` (
   `applicant_id` int DEFAULT NULL,
   `job_posting_id` int DEFAULT NULL,
   `application_date` date DEFAULT NULL,
-  `status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
-  `job` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
+  `job` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -160,10 +160,10 @@ INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application
 CREATE TABLE `cases` (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('filed','in_progress','resolved') COLLATE utf8mb4_unicode_ci DEFAULT 'filed',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('filed','in_progress','resolved') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'filed',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -176,8 +176,8 @@ CREATE TABLE `cases` (
 CREATE TABLE `chat_messages` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `sender` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sender` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -189,10 +189,10 @@ CREATE TABLE `chat_messages` (
 
 CREATE TABLE `contact_us` (
   `id` int NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `subject` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `messages` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `messages` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -203,8 +203,8 @@ CREATE TABLE `contact_us` (
 
 CREATE TABLE `courses` (
   `id` int NOT NULL,
-  `course_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `course_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `module_count` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -227,10 +227,10 @@ INSERT INTO `courses` (`id`, `course_name`, `description`, `module_count`) VALUE
 CREATE TABLE `employer_documents` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `document_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `document_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_verified` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `document_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `document_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_verified` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -251,14 +251,14 @@ INSERT INTO `employer_documents` (`id`, `user_id`, `document_name`, `document_pa
 CREATE TABLE `employer_profile` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `company_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `company_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tel_num` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `president` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `HR` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `company_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `HR_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `company_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tel_num` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `president` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `HR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `HR_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -279,17 +279,17 @@ INSERT INTO `employer_profile` (`id`, `user_id`, `company_name`, `company_addres
 
 CREATE TABLE `empyers` (
   `id` int NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Fname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Lname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Bdate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Fname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Lname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Bdate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contact` int DEFAULT NULL,
   `is_verified` tinyint DEFAULT NULL,
-  `otp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `otp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `otp_expiry` datetime DEFAULT NULL,
-  `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -298,7 +298,7 @@ CREATE TABLE `empyers` (
 --
 
 INSERT INTO `empyers` (`id`, `username`, `password`, `email`, `Fname`, `Lname`, `Bdate`, `contact`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`) VALUES
-(9, 'Mark55', '$2y$10$Pne11S1JqPKgRbXvf88I2OA8wF9hEH8PMenlS26deUJ0GMdu70nlq', 'mercadomarklawrence55@gmail.com', 'Brady Parker', 'Gloria Acevedo', '1976-09-19', 9136, 1, '836619', '2024-10-10 12:32:12', NULL, NULL),
+(9, 'Mark55', '$2y$10$Pne11S1JqPKgRbXvf88I2OA8wF9hEH8PMenlS26deUJ0GMdu70nlq', 'mercadomarklawrence55@gmail.com', 'Brady Parker', 'Gloria Acevedo', '1976-09-19', 9136, 1, '836619', '2024-10-10 12:32:12', '212881808a7442443a15cd372ee75f2cab51a98de249e2614db2ea7ffe65b9c24f3005fe08b5b38b61b2f6153a46b4b12158', '2024-10-31 16:38:27'),
 (10, 'Ict1', '$2y$10$so3p8.RcQnOqPiCAva0X1uGvZ2X7X2wV3aziLsQ2eIT8siaXlZWQC', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 1, '606376', '2024-10-10 12:41:57', NULL, NULL),
 (11, 'Batbat', '$2y$10$QTbi7Iy1aVIVgfFapjB/weUo9TzbOwLaJkN2qP.eFXz4OuBLFBcFG', 'marklawrencemercado8@gmail.com', NULL, NULL, NULL, NULL, 1, '878316', '2024-10-10 12:49:18', NULL, NULL),
 (12, 'Azure', '$2y$10$OfUnTu6QZB3zuL4yquGXk.AEHZUow6tMmb9Qy6FX8//RgjIhNT0CW', 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, 1, '433105', '2024-10-21 07:07:22', NULL, NULL);
@@ -315,8 +315,8 @@ CREATE TABLE `interview` (
   `Job_id` int DEFAULT NULL,
   `sched_date` date DEFAULT NULL,
   `sched_time` time DEFAULT NULL,
-  `interview` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meeting` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `interview` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meeting` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `is_read` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -330,17 +330,17 @@ CREATE TABLE `job_postings` (
   `j_id` int NOT NULL,
   `employer_id` int DEFAULT NULL,
   `admin_id` int DEFAULT NULL,
-  `job_title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `company_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `job_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `job_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `salary` int DEFAULT NULL,
-  `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `selected_options` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `job_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `selected_options` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vacant` int NOT NULL,
-  `requirment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `work_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `education` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `requirment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `work_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `education` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_posted` date NOT NULL,
   `is_active` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -381,7 +381,7 @@ INSERT INTO `job_postings` (`j_id`, `employer_id`, `admin_id`, `job_title`, `com
 CREATE TABLE `language_proficiency` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `language_p` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `language_p` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `read_l` tinyint(1) DEFAULT '0',
   `write_l` tinyint(1) DEFAULT '0',
   `speak_l` tinyint(1) DEFAULT '0',
@@ -419,10 +419,10 @@ INSERT INTO `language_proficiency` (`id`, `user_id`, `language_p`, `read_l`, `wr
 CREATE TABLE `license` (
   `id` int UNSIGNED NOT NULL,
   `user_id` int DEFAULT NULL,
-  `eligibility` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rating` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `eligibility` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rating` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `doe` date NOT NULL,
-  `prc_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `prc_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -442,7 +442,7 @@ INSERT INTO `license` (`id`, `user_id`, `eligibility`, `rating`, `doe`, `prc_pat
 CREATE TABLE `modules` (
   `id` int NOT NULL,
   `course_id` int DEFAULT NULL,
-  `module_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `module_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5044,7 +5044,7 @@ CREATE TABLE `modules_taken` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `module_id` int NOT NULL,
-  `status` varchar(200) COLLATE utf8mb4_general_ci DEFAULT 'fail',
+  `status` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'fail',
   `date_taken` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -5056,9 +5056,9 @@ CREATE TABLE `modules_taken` (
 
 CREATE TABLE `module_content` (
   `id` int NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `video` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `video` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `modules_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5093,41 +5093,41 @@ INSERT INTO `module_content` (`id`, `description`, `video`, `file_path`, `module
 
 CREATE TABLE `ofw_profile` (
   `id` int NOT NULL,
-  `otp` varchar(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `otp` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `otp_expiry` datetime NOT NULL,
   `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `profile_image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `last_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `first_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `middle_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `prefix` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `profile_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `middle_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `prefix` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `sex` enum('Male','Female') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sex` enum('Male','Female') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `age` int DEFAULT NULL,
-  `civil_status` enum('Single','Married','Widowed','Separated') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `house_address` text COLLATE utf8mb4_general_ci,
-  `contact_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sss_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pagibig_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `philhealth_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `passport_no` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `immigration_status` enum('Documented','Undocumented','Returning','Repatriated') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `education_level` enum('Elementary Undergraduate','Elementary Graduate','High School Undergraduate','High School Graduate','College Undergraduate','College Graduate','Vocational') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `spouse_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `spouse_contact` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fathers_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fathers_address` text COLLATE utf8mb4_general_ci,
-  `mothers_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `mothers_address` text COLLATE utf8mb4_general_ci,
-  `emergency_contact_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `emergency_contact_num` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `next_of_kin_relationship` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `next_of_kin_contact` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `civil_status` enum('Single','Married','Widowed','Separated') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `house_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `contact_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sss_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pagibig_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `philhealth_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `passport_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `immigration_status` enum('Documented','Undocumented','Returning','Repatriated') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `education_level` enum('Elementary Undergraduate','Elementary Graduate','High School Undergraduate','High School Graduate','College Undergraduate','College Graduate','Vocational') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `spouse_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `spouse_contact` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fathers_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fathers_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `mothers_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mothers_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `emergency_contact_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `emergency_contact_num` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `next_of_kin_relationship` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `next_of_kin_contact` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `occupation` enum('Administrative Work','Medical Work','Factory/Manufacturing','Farmers (Agriculture)','Teaching','Information Technology','Engineering','Restaurant Jobs (F&B)','Seaman (Sea-Based)','Household Service Worker (Domestic Helper)','Construction Work','Entertainment','Tourism Sector','Hospitality Sector','Others') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `income` decimal(10,2) DEFAULT NULL,
   `employment_type` enum('Land-Based','Sea-Based') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -5147,7 +5147,8 @@ CREATE TABLE `ofw_profile` (
 --
 
 INSERT INTO `ofw_profile` (`id`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`, `is_verified`, `username`, `password`, `profile_image`, `last_name`, `first_name`, `middle_name`, `prefix`, `dob`, `sex`, `age`, `civil_status`, `house_address`, `contact_no`, `email`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `immigration_status`, `education_level`, `spouse_name`, `spouse_contact`, `fathers_name`, `fathers_address`, `mothers_name`, `mothers_address`, `emergency_contact_name`, `emergency_contact_num`, `next_of_kin_relationship`, `next_of_kin_contact`, `occupation`, `income`, `employment_type`, `country`, `employment_form`, `contact_number`, `employer_name`, `employer_address`, `local_agency_name`, `local_agency_address`, `departure_date`, `arrival_date`) VALUES
-(1, '378081', '2024-10-20 21:48:07', NULL, NULL, 1, 'Azure', '$2y$10$10ks1MnGIR.B73Mntstg3ePlPq7Uk3UPehRJK2zByYmmELLeFi5pi', NULL, 'Mayer', 'Amelia', 'Fred Cronin', 'VI', '2025-01-31', 'Female', 362, 'Widowed', NULL, '788-783-7169', 'your.email+fakedata97820@gmail.com', '368', '509', '0', '455', 'Returning', 'Elementary Undergraduate', 'Camylle.Stiedemann', '188', 'Velda', '6522 Halvorson Inlet', 'Gabrielle.Flatley', '40190 Valentine Valley', 'Sporer', NULL, 'Consequuntur quos aliquid nihil doloribus dolorum.', '97', 'Household Service Worker (Domestic Helper)', 499.00, 'Land-Based', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, '378081', '2024-10-20 21:48:07', NULL, NULL, 1, 'Azure', '$2y$10$10ks1MnGIR.B73Mntstg3ePlPq7Uk3UPehRJK2zByYmmELLeFi5pi', NULL, 'Mayer', 'Amelia', 'Fred Cronin', 'VI', '2025-01-31', 'Female', 362, 'Widowed', NULL, '788-783-7169', 'your.email+fakedata97820@gmail.com', '368', '509', '0', '455', 'Returning', 'Elementary Undergraduate', 'Camylle.Stiedemann', '188', 'Velda', '6522 Halvorson Inlet', 'Gabrielle.Flatley', '40190 Valentine Valley', 'Sporer', NULL, 'Consequuntur quos aliquid nihil doloribus dolorum.', '97', 'Household Service Worker (Domestic Helper)', 499.00, 'Land-Based', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '784434', '2024-10-31 15:25:07', NULL, NULL, 1, 'TRAC', '$2y$10$fnkk5CQGxziG3fYc.aolNuQKmHC2OCBmyxuurjnm4e9PwMbrR2HOu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ict1mercado.cdlb@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5158,12 +5159,12 @@ INSERT INTO `ofw_profile` (`id`, `otp`, `otp_expiry`, `reset_token`, `reset_toke
 CREATE TABLE `question` (
   `id` int NOT NULL,
   `quiz_id` int DEFAULT NULL,
-  `question` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `option_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `option_b` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `option_c` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `option_d` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `correct_answer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_a` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_b` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_c` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `option_d` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `correct_answer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `marks` int DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5357,11 +5358,11 @@ INSERT INTO `question` (`id`, `quiz_id`, `question`, `option_a`, `option_b`, `op
 CREATE TABLE `quiz_name` (
   `id` int NOT NULL,
   `module_id` int DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `correct_ans` int DEFAULT NULL,
   `wrong_ans` int DEFAULT NULL,
   `total` int DEFAULT NULL,
-  `tag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5423,8 +5424,8 @@ INSERT INTO `save_job` (`id`, `applicant_id`, `job_id`) VALUES
 
 CREATE TABLE `survey_form` (
   `id` int NOT NULL,
-  `question` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `category` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `question` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `category` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5458,7 +5459,7 @@ CREATE TABLE `survey_reponse` (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
   `survey_id` int DEFAULT NULL,
-  `reponse` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `reponse` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5470,11 +5471,11 @@ CREATE TABLE `survey_reponse` (
 CREATE TABLE `training` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `training` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `training` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `institution` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `certificate_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `institution` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `certificate_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5496,7 +5497,7 @@ CREATE TABLE `user_answers` (
   `user_id` int DEFAULT NULL,
   `question_id` int DEFAULT NULL,
   `quiz_id` int DEFAULT NULL,
-  `answer` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `answer` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -5524,12 +5525,12 @@ CREATE TABLE `user_score` (
 CREATE TABLE `work_exp` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `company_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `position` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `position` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `started_date` date NOT NULL,
   `termination_date` date NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5821,7 +5822,7 @@ ALTER TABLE `module_content`
 -- AUTO_INCREMENT for table `ofw_profile`
 --
 ALTER TABLE `ofw_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `question`
