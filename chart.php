@@ -91,6 +91,7 @@ echo '
     <html lang="en">
     <head>
         <link rel="stylesheet" href="css/visualization.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
 
@@ -132,7 +133,12 @@ echo '
         </div>
     </div>
     <div class="container-bot">
-        <div class="bottom-left"></div>
+        <div class="bottom-left">
+            <div class="bar-container">
+                <h3>OFW Chart</h3>
+                <canvas id="casesBarChart" width="500" height="200"></canvas>
+            </div>
+        </div>
         <div class="bottom-right"></div>
     </div>
         <script>
@@ -177,7 +183,45 @@ echo '
                     }
                 });
             });
+ document.addEventListener("DOMContentLoaded", function () {
+        // Data from PHP
+        const titles = ' . json_encode($titles) . ';
+        const counts = ' . json_encode($counts) . ';
+
+        const ctx = document.getElementById("casesBarChart").getContext("2d");
+        const casesBarChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: titles.length ? titles : ["No Data"], // Ensure titles is not empty
+                datasets: [{
+                    label: "Number of Unique Cases",
+                    data: counts.length ? counts : [0], // Ensure counts is not empty
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: ""
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Case Title"
+                        }
+                    }
+                }
+            }
+        });
+    });
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
 ';

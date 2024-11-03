@@ -6,7 +6,7 @@ function checkSession() {
     // Check if the session variable 'id' is set
     if (!isset($_SESSION['id'])) {
         // Redirect to login page if session not found
-        header("Location: ../login.html");
+        header("Location: ../combine_login.html");
         exit();
     } else {
         // If session exists, store the session data in a variable

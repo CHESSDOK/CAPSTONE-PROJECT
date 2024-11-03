@@ -158,7 +158,7 @@
     <div id="chartwidget">
       <span class="btn-close-widget">&times;</span>
       <div id="chartModuleContent">
-          <!-- Sample News Layout -->
+        <?php include 'chart.php'; ?>
       </div>
     </div>
     <!-- Body -->
@@ -201,48 +201,38 @@
              </td>
            </tr>
            </table>
-           <script src="javascript/piechart.js"></script>
-      <script>  
-      $(document).ready(function () {
-          // Load the widget content on page load
-          $.ajax({
-              url: 'joblist.php',
-              method: 'GET',
-              success: function (response) {
-                  $('#employersModuleContent').html(response);
-                  $('#employerWidget').fadeIn(); // Display the widget on load
-              }
-          });
+           <script>
+              $(document).ready(function () {
+                // Load the widget content on page load
+                $.ajax({
+                  url: 'joblist.php',
+                  method: 'GET',
+                  success: function (response) {
+                    $('#employersModuleContent').html(response);
+                    $('#employerWidget').fadeIn(); // Display the widget on load
+                  }
+                });
 
-          // Load the latest news content dynamically
-          $.ajax({
-              url: 'news.php', // Path to the PHP file
-              method: 'GET',
-              success: function (response) {
-                  $('#newsModuleContent').html(response);
-                  $('#newsWidget').fadeIn(); // Display the news widget on load
-              }
-          });
-          $.ajax({
-            url: 'chart.php',
-            method: 'GET',
-            success: function (response) {
-                $('#chartModuleContent').html(response);
-                $('#chartwidget').fadeIn(); // Display the chart widget on load
+                // Load the latest news content dynamically
+                $.ajax({
+                  url: 'news.php', // Path to the PHP file
+                  method: 'GET',
+                  success: function (response) {
+                    $('#newsModuleContent').html(response);
+                    $('#newsWidget').fadeIn(); // Display the news widget on load
+                  }
+                });
 
-                // Initialize the pie chart after loading the content
-                initializeChart(); // Call the chart initialization function
-            },
-            error: function (xhr, status, error) {
-                console.error('AJAX Error:', status, error); // Log AJAX errors
-            }
-        });
-          // Close widgets when the close button is clicked
-          $('.btn-close-widget').click(function () {
-              $(this).closest('.widget').fadeOut();
-          });
-      });
-      </script>
+                // Display the chart widget and initialize the chart
+                $('#chartwidget').fadeIn();
+                initializeChart(); // Initialize the chart after page loads
+
+                // Close widgets when the close button is clicked
+                $('.btn-close-widget').click(function () {
+                  $(this).closest('.widget').fadeOut();
+                });
+              });
+          </script>
 
 
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
