@@ -127,7 +127,7 @@ echo '
                     <!-- Pie Chart -->
                         <div class="pie-container">
                             <h3>Applicants Chart</h3>
-                            <canvas id="userPieChart" width="200" height="200"></canvas>
+                            <canvas id="userPieChart" width="90" height="90"></canvas>
                         </div>
                 </div>
         </div>
@@ -136,7 +136,7 @@ echo '
         <div class="bottom-left">
             <div class="bar-container">
                 <h3>OFW Chart</h3>
-                <canvas id="casesBarChart" width="500" height="200"></canvas>
+                <canvas id="casesBarChart" width="200" height="90"></canvas>
             </div>
         </div>
         <div class="bottom-right"></div>
@@ -150,7 +150,7 @@ echo '
                         labels: ["Hired Applicant", "Rejected Applicant", "Pending Applicant", "For Interview"],
                         datasets: [{
                             label: "Percentage",
-                            data: [' . $accepted_percentage . ', ' . $reject_percentage . ', ' . $pending_percentage . ', ' . $interview_percentage . '],
+                            data: ['. $accepted_percentage . ', ' . $reject_percentage . ', ' . $pending_percentage . ', ' . $interview_percentage . '],
                             backgroundColor: ["#4CAF50", "#FF6347", "#FFCE54", "#5D9CEC"],
                             borderWidth: 1
                         }]

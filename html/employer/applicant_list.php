@@ -178,7 +178,7 @@
                                         // Show the Accept and Reject buttons only if the status is neither 'accepted' nor 'interview'
                                         if ($status != 'accepted' && $status != 'interview') {
                                             echo "
-                                            <a class='btn btn-success btn-sm me-1' href='../../php/employer/application_process.php?id=".htmlspecialchars($row['user_id'])."'>Accept</a>
+                                            <a class='btn btn-success btn-sm me-1' href='../../php/employer/application_process.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Accept</a>
                                             <a class='btn btn-danger btn-sm me-1' href='../../php/employer/application_rejection.php?id=".htmlspecialchars($row['user_id'])."&job_id=".htmlspecialchars($row['job_posting_id'])."'>Reject</a>
                                             <button class='openFormBtn btn btn-primary btn-sm me-1' 
                                                 data-applicant-id='".htmlspecialchars($row["applicant_id"])."' 

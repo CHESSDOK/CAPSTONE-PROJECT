@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 01, 2024 at 08:51 AM
+-- Generation Time: Nov 03, 2024 at 10:44 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -43,8 +43,7 @@ CREATE TABLE `admin_profile` (
 --
 
 INSERT INTO `admin_profile` (`id`, `username`, `password`, `email`, `admin_level`, `full_name`, `phone`, `profile_picture`) VALUES
-(1, 'Admin', '$2y$10$szZWza9fsLiGXs4evidE7.uc3zwFoQjs/hfwGvw2Vd6lddYLzBuTW', 'mercadomarklawrence55@gmail.com', 'super_admin', 'Mark Azre', '09762848025', 'uploads/woman-portrait.png'),
-(11, 'Azure', '$2y$10$YuRbmR/kQCpQboBgFIElG.RcD9HI.1fcK15MQIngeRH1arwEyofJq', 'hygoteba@mailinator.com', 'admin', 'Kylan Mcmahon', '7551', 'uploads/barack-obama.png');
+(1, 'Admin', '$2y$10$szZWza9fsLiGXs4evidE7.uc3zwFoQjs/hfwGvw2Vd6lddYLzBuTW', 'mercadomarklawrence55@gmail.com', 'super_admin', 'Mark Azre', '09762848025', 'uploads/woman-portrait.png');
 
 -- --------------------------------------------------------
 
@@ -127,7 +126,7 @@ CREATE TABLE `applicant_profile` (
 
 INSERT INTO `applicant_profile` (`user_id`, `username`, `password`, `is_verified`, `otp`, `otp_expiry`, `reset_token`, `reset_token_expiry`, `email`, `first_name`, `last_name`, `middle_name`, `dob`, `pob`, `age`, `height`, `sex`, `civil_status`, `contact_no`, `landline`, `photo`, `house_address`, `tin`, `sss_no`, `pagibig_no`, `philhealth_no`, `passport_no`, `school_name1`, `year_grad1`, `award1`, `school_name2`, `year_grad2`, `award2`, `school_name3`, `course3`, `year_grad3`, `award3`, `level3`, `year_level3`, `school_name4`, `course4`, `year_grad4`, `award4`, `level4`, `year_level4`, `preferred_occupation`, `pwl`, `overseas_loc`, `local_loc`, `pwd`, `pwd2`, `prefix`, `four_ps`, `hhid`, `selected_options`, `religion`, `employment_status`, `es_status`, `es_others`, `actively_looking`, `al_details`, `willing_to_work`, `ww_details`, `passport_expiry`, `expected_salary`, `resume`) VALUES
 (32, 'Mark55', '$2y$10$HYshoSww3G9b7mmEiLnJ5OGbL8tOzOhsr49sbiqn8rsVvLOWeWXa.', 1, '227423', '2024-10-23 08:58:08', '914d350e7030e725605aeb3c6c48dc76c2fec783851b04c1ec2535a38e2998ab370eb49b4d3c336cf1e467cb3da6b83f0fbf', '2024-10-31 16:40:11', 'mercadomarklawrence55@gmail.com', 'Asa', 'Gislason', 'Santiago Lakin', '2000-07-23', '67593 Herman Locks', 24, '126', 'male', 'Separated', '460-498-5818', '190-499-3352', 'b40ec453123f7ad36c28d9906ab43ca0.png', '866 Mante Radial', 'Expedita pariatur id voluptatibus minima vel in eveniet voluptates hic.', '70', '638', '15437567856', '425', 'Terrill Macejkovic', '2024-10-18', 'Perferendis beatae delectus quidem asperiores eos aut vero.', 'Carolanne Aufderhar', '2023-12-17', 'Nihil molestias libero.', 'Melyna Nikolaus', 'Turks and Caicos Islands', '2025-08-01', 'Eligendi dicta totam.', '', NULL, 'Karli Borer', 'Democratic Republic of the Congo', '2024-01-02', 'Similique nesciunt dicta ex id voluptatum fuga.', '', NULL, 'Human Communications Engineer,Principal Creative Specialist,Customer Branding Analyst,Investor Brand Executive', 'local', '', 'Palo Alto,Rochester,Mission Viejo', 'Physical', '', 'none', '', 'Asperiores facere harum.', '', 'Incidunt accusantium est sed beatae ea aut voluptas.', 'employed', 'wage', '', 'No', 'Architecto autem sunt aut voluptatem ducimus facere quis quasi quo.', 'Yes', '', '2024-04-17', 20000, ''),
-(33, 'Azure', '$2y$10$IAcbsq1N6J3.XniyPpVnT.5mIRhsNQxM3gyC5ox4IkMfc7Frr7qbG', 1, '133699', '2024-10-29 07:40:12', NULL, NULL, 'your.email+fakedata23654@gmail.com', 'Walter', 'Grady', 'Kaylin Kiehn', '2024-05-19', '49414 Braun Ramp', 0, '154', 'male', 'Live-in', '485-587-6711', '035-377-6244', 'Screenshot 2024-09-01 132748.png', '23915 Mertz Causeway', 'Fuga ab quasi itaque est optio sapiente rem.', '160', '38', '12432', '580', 'Kaitlyn Bartoletti', '2024-05-04', 'Deleniti itaque quod eum excepturi quis reprehenderit repellat autem adipisci.', 'Eugenia Crooks', '2024-09-14', 'Fuga laudantium vel at laboriosam aut praesentium.', 'Carey Murazik', 'Nicaragua', '2024-01-25', 'Cumque maiores explicabo est in.', '', NULL, 'Benedict Marks', 'Pakistan', '2024-06-09', 'Asperiores perferendis necessitatibus accusamus tempore esse ut sed veniam id.', '', NULL, 'Global Interactions Administrator,Customer Branding Analyst,Product Response Agent', 'local', 'Heard Island and McDonald Islands,Cameroon,Guinea', 'Davenport,Ontario,Sunrise Manor', 'Physical', '', 'Jr.', 'Yes', 'Porro eligendi similique ullam inventore tempora.', '', 'Iste facere et modi quisquam odit nesciunt quas.', 'employed', '', '', 'No', 'Quod odio mollitia.', 'Yes', '', '2024-05-12', 15000, '');
+(33, 'Azure', '$2y$10$IAcbsq1N6J3.XniyPpVnT.5mIRhsNQxM3gyC5ox4IkMfc7Frr7qbG', 1, '133699', '2024-10-29 07:40:12', NULL, NULL, 'your.email+fakedata23654@gmail.com', 'Walter', 'Grady', 'Kaylin Kiehn', '2024-05-19', '49414 Braun Ramp', 0, '154', 'male', 'Live-in', '485-587-6711', '035-377-6244', 'Screenshot 2024-09-01 132748.png', '23915 Mertz Causeway', 'Fuga ab quasi itaque est optio sapiente rem.', '160', '38', '12432', '580', 'Kaitlyn Bartoletti', '2024-05-04', 'Deleniti itaque quod eum excepturi quis reprehenderit repellat autem adipisci.', 'Eugenia Crooks', '2024-09-14', 'Fuga laudantium vel at laboriosam aut praesentium.', 'Carey Murazik', 'Nicaragua', '2024-01-25', 'Cumque maiores explicabo est in.', '', NULL, 'Benedict Marks', 'Pakistan', '2024-06-09', 'Asperiores perferendis necessitatibus accusamus tempore esse ut sed veniam id.', '', NULL, 'Global Interactions Administrator,Direct Paradigm Officer,Product Response Agent,Future Tactics Manager', 'local', 'Heard Island and McDonald Islands,Cameroon,Guinea', 'Davenport,Ontario,Sunrise Manor', 'Physical', '', 'Jr.', 'Yes', 'Porro eligendi similique ullam inventore tempora.', '', 'Iste facere et modi quisquam odit nesciunt quas.', 'employed', '', '', 'No', 'Quod odio mollitia.', 'Yes', '', '2024-05-12', 15000, '');
 
 -- --------------------------------------------------------
 
@@ -149,7 +148,11 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id`, `applicant_id`, `job_posting_id`, `application_date`, `status`, `job`) VALUES
-(124, 32, 17, '2024-10-23', 'pending', 'Principal Creative Specialist');
+(124, 32, 17, '2024-10-23', 'pending', 'Principal Creative Specialist'),
+(125, 32, 30, '2024-11-02', 'pending', 'International Tactics Supervisor'),
+(126, 32, 25, '2024-11-02', 'pending', 'Internal Tactics Specialist'),
+(127, 32, 24, '2024-11-02', 'pending', 'Product Response Agent'),
+(128, 32, 29, '2024-11-02', 'pending', 'District Directives Specialist');
 
 -- --------------------------------------------------------
 
@@ -408,7 +411,9 @@ INSERT INTO `language_proficiency` (`id`, `user_id`, `language_p`, `read_l`, `wr
 (184, 33, 'English', 1, 0, 0, 1),
 (185, 33, 'Filipino', 0, 0, 0, 0),
 (186, 33, 'English', 1, 0, 0, 1),
-(187, 33, 'Filipino', 0, 0, 0, 0);
+(187, 33, 'Filipino', 0, 0, 0, 0),
+(188, 33, 'English', 1, 0, 0, 1),
+(189, 33, 'Filipino', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5088,6 +5093,27 @@ INSERT INTO `module_content` (`id`, `description`, `video`, `file_path`, `module
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `title`, `image`, `description`, `created_at`) VALUES
+(2, 'Awarding ceremony', 'news/VR-Awards-2018-award-ceremony-production.jpg', 'Giving award to the passers of NC2 training for dressmaking', '2024-11-03 03:16:09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ofw_profile`
 --
 
@@ -5653,6 +5679,12 @@ ALTER TABLE `module_content`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ofw_profile`
 --
 ALTER TABLE `ofw_profile`
@@ -5732,7 +5764,7 @@ ALTER TABLE `applicant_profile`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -5792,7 +5824,7 @@ ALTER TABLE `job_postings`
 -- AUTO_INCREMENT for table `language_proficiency`
 --
 ALTER TABLE `language_proficiency`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT for table `license`
@@ -5817,6 +5849,12 @@ ALTER TABLE `modules_taken`
 --
 ALTER TABLE `module_content`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ofw_profile`

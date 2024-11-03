@@ -17,10 +17,10 @@
     /* Style for the employer widget on the left */
     #employerWidget {
       position: fixed;
-      top: 8%;
+      top: 12%;
       left: 0;
       width: 34%;
-      height: 400px;
+      height: 35%;
       background: white;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -37,7 +37,7 @@
       top: 50%;
       left: 0;
       width: 34%;
-      height: 450px;
+      height: 50%;
       background: white;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -48,7 +48,17 @@
       padding: 20px;
     }
 
-    .btn-close-widget {
+    .btn-close-widget3 {
+      float: right;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .btn-close-widget2 {
+      float: right;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .btn-close-widget1 {
       float: right;
       font-size: 1.2rem;
       cursor: pointer;
@@ -77,10 +87,10 @@
 
     #chartwidget {
       position: fixed;
-      top: 8%;
+      top: 12%;
       right: 0;
       width: 64%;
-      height: 900px;
+      height: 555px;
       background: white;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -141,14 +151,14 @@
      
     <!-- Left Side Widget for Employers -->
     <div id="employerWidget">
-      <span class="btn-close-widget">&times;</span>
+      <span class="btn-close-widget3"></span>
       <div id="employersModuleContent">
           <!-- Module content will be dynamically loaded here -->
       </div>
     </div>
     <!-- News Widget -->
     <div id="newsWidget">
-      <span class="btn-close-widget">&times;</span>
+      <span class="btn-close-widget2"></span>
       <div id="newsModuleContent">
           <!-- Sample News Layout -->
       </div>
@@ -156,7 +166,7 @@
 
     <!-- chart Widget -->
     <div id="chartwidget">
-      <span class="btn-close-widget">&times;</span>
+      <span class="btn-close-widget1"></span>
       <div id="chartModuleContent">
         <?php include 'chart.php'; ?>
       </div>
@@ -201,38 +211,44 @@
              </td>
            </tr>
            </table>
-           <script>
-              $(document).ready(function () {
-                // Load the widget content on page load
-                $.ajax({
-                  url: 'joblist.php',
-                  method: 'GET',
-                  success: function (response) {
-                    $('#employersModuleContent').html(response);
-                    $('#employerWidget').fadeIn(); // Display the widget on load
-                  }
-                });
+<script>
+    $(document).ready(function () {
+        // Load the widget content on page load
+        $.ajax({
+            url: 'joblist.php',
+            method: 'GET',
+            success: function (response) {
+                $('#employersModuleContent').html(response);
+                $('#employerWidget').fadeIn(); // Display the widget on load
+            }
+        });
 
-                // Load the latest news content dynamically
-                $.ajax({
-                  url: 'news.php', // Path to the PHP file
-                  method: 'GET',
-                  success: function (response) {
-                    $('#newsModuleContent').html(response);
-                    $('#newsWidget').fadeIn(); // Display the news widget on load
-                  }
-                });
+        // Load the latest news content dynamically
+        $.ajax({
+            url: 'news.php', // Path to the PHP file
+            method: 'GET',
+            success: function (response) {
+                $('#newsModuleContent').html(response);
+                $('#newsWidget').fadeIn(); // Display the news widget on load
+            }
+        });
 
-                // Display the chart widget and initialize the chart
-                $('#chartwidget').fadeIn();
-                initializeChart(); // Initialize the chart after page loads
+        // Display the chart widget and initialize the chart
+        $('#chartwidget').fadeIn();
+        initializeChart(); // Initialize the chart after page loads
 
-                // Close widgets when the close button is clicked
-                $('.btn-close-widget').click(function () {
-                  $(this).closest('.widget').fadeOut();
-                });
-              });
-          </script>
+        // Close widgets when the close button is clicked
+        $('.btn-close-widget1').click(function () {
+            $('#chartwidget').fadeOut();
+        });
+        $('.btn-close-widget2').click(function () {
+            $('#newsWidget').fadeOut();
+        });
+        $('.btn-close-widget3').click(function () {
+            $('#employerWidget').fadeOut();
+        });
+    });
+</script>
 
 
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
