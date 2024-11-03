@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/notif.css">
   <style>
-    /* Style for the widget on the left */
+    /* Style for the employer widget on the left */
     #employerWidget {
       position: fixed;
       top: 8%;
@@ -26,7 +26,24 @@
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
       z-index: 1000;
       overflow-y: auto;
-      display: none; /* Hide initially */
+      display: none;
+      padding: 20px;
+    }
+
+    /* Style for the news widget below the employer widget */
+    #newsWidget {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      width: 700px;
+      height: 450px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      overflow-y: auto;
+      display: none;
       padding: 20px;
     }
 
@@ -34,6 +51,27 @@
       float: right;
       font-size: 1.2rem;
       cursor: pointer;
+    }
+
+    /* Sample layout for news item */
+    .news-item {
+      margin-bottom: 15px;
+    }
+
+    .news-item img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .news-title {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+
+    .news-description {
+      font-size: 0.9em;
+      color: #555;
     }
   </style>
 </head>
@@ -82,7 +120,7 @@
             </div>
         </div>
     </nav>
-    <!-- Body -->
+    
      
     <!-- Left Side Widget for Employers -->
     <div id="employerWidget">
@@ -90,7 +128,15 @@
       <div id="employersModuleContent">
           <!-- Module content will be dynamically loaded here -->
       </div>
-  </div>
+    </div>
+    <!-- News Widget -->
+    <div id="newsWidget">
+      <span class="btn-close-widget">&times;</span>
+      <div id="newsModuleContent">
+          <!-- Sample News Layout -->
+      </div>
+    </div>
+    <!-- Body -->
            <table >
            <tr>
              <td class="container_whole" colspan="2">
@@ -131,33 +177,34 @@
            </tr>
            </table>
 
-           <!-- <div id="employerModal" class="modal modal-container">
-            <div class="modal-content">
-                <span class="btn-close closBtn">&times;</span>
-                <div id="employersModuleContent">
-                    
-                </div>
-            </div>
-        </div> -->
-        
-            <script>  
-        $(document).ready(function () {
-            // Load the widget content on page load
-            $.ajax({
-                url: 'joblist.php',
-                method: 'GET',
-                success: function (response) {
-                    $('#employersModuleContent').html(response);
-                    $('#employerWidget').fadeIn(); // Display the widget on load
-                }
-            });
+      <script>  
+      $(document).ready(function () {
+          // Load the widget content on page load
+          $.ajax({
+              url: 'joblist.php',
+              method: 'GET',
+              success: function (response) {
+                  $('#employersModuleContent').html(response);
+                  $('#employerWidget').fadeIn(); // Display the widget on load
+              }
+          });
 
-            // Close widget when the close button is clicked
-            $('.btn-close-widget').click(function () {
-                $('#employerWidget').fadeOut();
-            });
-        });
-            </script>
+          // Load the latest news content dynamically
+          $.ajax({
+              url: 'news.php', // Path to the PHP file
+              method: 'GET',
+              success: function (response) {
+                  $('#newsModuleContent').html(response);
+                  $('#newsWidget').fadeIn(); // Display the news widget on load
+              }
+          });
+
+          // Close widgets when the close button is clicked
+          $('.btn-close-widget').click(function () {
+              $(this).closest('.widget').fadeOut();
+          });
+      });
+      </script>
 
 
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -1,11 +1,12 @@
 <?php
 include 'conn_db.php';
-
+$job_posting_id = $_GET['job_id'];
 $user_id = $_GET['id'];
 
 
 // Update the application status for the given applicant ID
-$sql = "UPDATE applications SET status = 'accepted' WHERE applicant_id = '$user_id'";
+$sql = "UPDATE applications SET status = 'accepted' WHERE applicant_id = '$user_id' AND job_posting_id = '$job_posting_id'";
+
 
 if ($conn->query($sql) === TRUE) {
     // Fetch the job_id related to the applicant

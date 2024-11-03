@@ -298,3 +298,48 @@ nav {
     max-width: 1200px; /* Optional: for controlling the maximum width */
 }
 
+/* News Form Container Styling */
+.news-form-container {
+    position: fixed;
+    top: 12%; /* Adjust this to control vertical alignment */
+    left: 2%;
+    width: 300px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow-y: auto;
+    height: 50%; /* Makes the container fill most of the page vertically */
+    border-radius: 10px 10px 10px 10px;
+}
+
+/* Title for the News Form */
+.news-form-container h3 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Adjust form elements within the container */
+.news-form-container .form-control {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.news-form-container .btn-primary {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .news-form-container {
+        width: 100%; /* Make the form take up the full width on smaller screens */
+        position: relative;
+        top: 0;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
