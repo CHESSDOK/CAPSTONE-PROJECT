@@ -82,8 +82,8 @@
           </div>
           
           <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-      <?php if (!empty($row['photo'])): ?>
-          <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+      <?php if (!empty($row['profile_image'])): ?>
+          <img id="preview" src="../../php/ofw/profile/<?php echo $row['profile_image']; ?>" alt="Profile Image" class="circular--square">
       <?php else: ?>
           <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
       <?php endif; ?>
@@ -110,8 +110,8 @@
                 <table class="menu">
                     <tr><td><a href="ofw_home.php" class="nav-link">Home</a></td></tr>
                     <tr><td><a href="ofw_form.php" class="active nav-link">Survey</a></td></tr>
-                    <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
-                    <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
+                    <tr><td><a href="About.php" class="nav-link">About Us</a></td></tr>
+                    <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
                 </table>
             </div>
         </div>
@@ -145,7 +145,7 @@
                   <th class="text-center">Always</th>
               </thead>
 
-        <form action='../../php/applicant/survey_reponse.php' method='POST' onsubmit='submitSurvey()'>
+        <form action='../../php/ofw/survey_reponse.php' method='POST' onsubmit='submitSurvey()'>
             <?php
               $sql = "SELECT * FROM survey_form ORDER BY category";
               $result = $conn->query($sql);
@@ -258,7 +258,7 @@
     }
 
     function fetchMessages() {
-        fetch(`../../php/applicant/get_messages.php?customer_id=${customerId}`)
+        fetch(`../../php/ofw/get_messages.php?customer_id=${customerId}`)
             .then(response => response.json())
             .then(data => {
                 const messageList = document.getElementById('messageList');
@@ -287,7 +287,7 @@
         const userMessage = document.getElementById('userMessage').value;
 
         if (userMessage) {
-            fetch('../../php/applicant/send_message.php', {
+            fetch('../../php/ofw/send_message.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -323,7 +323,7 @@
             </div>
             <h3>OFW File Case</h3>
             <div class="modal-body">
-                <form action="../../php/applicant/submit_case.php" method="POST" enctype="multipart/form-data">
+                <form action="../../php/ofw/submit_case.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="userid" id="ofwId">
 
                     <div class="form-group">

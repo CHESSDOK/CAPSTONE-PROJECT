@@ -23,6 +23,12 @@ body::before {
 	filter: blur(4px); 
 	z-index: -1; 
 }
+.profile-login {
+	margin-top: 4%;
+    margin-right: 3vw;
+}
+
+
 .profile-icons, .profile-icon-employer, .profile-index {
     display: flex;            /* Use flexbox for layout */
     align-items: center;     /* Center items vertically */

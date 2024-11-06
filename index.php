@@ -17,11 +17,19 @@
     /* Style for the employer widget on the left */
     #employerWidget {
       position: fixed;
+<<<<<<<< HEAD:index.php
       top: 12%;
       left: 0;
       width: 30%;
       height: 35%;
       background: rgba(255, 255, 255, 0.9);
+========
+      top: 8%;
+      left: 0;
+      width: 34%;
+      height: 400px;
+      background: white;
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
       border: 1px solid #ccc;
       border-radius: 8px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
@@ -36,9 +44,15 @@
       position: fixed;
       top: 50%;
       left: 0;
+<<<<<<<< HEAD:index.php
       width: 30%;
       height: 50%;
       background: rgba(255, 255, 255, 0.9);
+========
+      width: 34%;
+      height: 450px;
+      background: white;
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
       border: 1px solid #ccc;
       border-radius: 8px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
@@ -48,6 +62,7 @@
       padding: 20px;
     }
 
+<<<<<<<< HEAD:index.php
     .btn-close-widget3 {
       float: right;
       font-size: 1.2rem;
@@ -59,6 +74,9 @@
       cursor: pointer;
     }
     .btn-close-widget1 {
+========
+    .btn-close-widget {
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
       float: right;
       font-size: 1.2rem;
       cursor: pointer;
@@ -85,6 +103,24 @@
       color: #555;
     }
 
+<<<<<<<< HEAD:index.php
+========
+    #chartwidget {
+      position: fixed;
+      top: 8%;
+      right: 0;
+      width: 64%;
+      height: 900px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      overflow-y: auto;
+      display: none;
+      padding: 20px;
+    }
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
   </style>
 </head>
 <body>
@@ -97,8 +133,19 @@
             <a href="#"> PESO-lb.ph</a>
         </div>
     
+<<<<<<<< HEAD:index.php
        <div class="profile-login">
             <a href = "html/combine_login.html"><button class="btn btn-primary lbl_8">login / signup</button></a>
+========
+        <div class="profile-icons">
+            <div class="notif-icon" data-bs-toggle="popover" data-bs-content="Notification" data-bs-placement="bottom">
+              <a class='openEmployersBtn' href='#'><img id="#" src="img/notif.png" alt="Profile Picture" class="rounded-circle"></a>
+            </div>
+            
+            <div class="profile-icon"  data-bs-toggle="popover_index" data-bs-content="Login/Register" data-bs-placement="bottom">
+                <img src="img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
+            </div>
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
         </div>
     
         <!-- Burger icon -->
@@ -130,18 +177,37 @@
      
     <!-- Left Side Widget for Employers -->
     <div id="employerWidget">
+<<<<<<<< HEAD:index.php
       <span class="btn-close-widget3">&times;</span>
+========
+      <span class="btn-close-widget">&times;</span>
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
       <div id="employersModuleContent">
           <!-- Module content will be dynamically loaded here -->
       </div>
     </div>
     <!-- News Widget -->
     <div id="newsWidget">
+<<<<<<<< HEAD:index.php
       <span class="btn-close-widget2">&times;</span>
+========
+      <span class="btn-close-widget">&times;</span>
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
       <div id="newsModuleContent">
           <!-- Sample News Layout -->
       </div>
     </div>
+<<<<<<<< HEAD:index.php
+========
+
+    <!-- chart Widget -->
+    <div id="chartwidget">
+      <span class="btn-close-widget">&times;</span>
+      <div id="chartModuleContent">
+          <!-- Sample News Layout -->
+      </div>
+    </div>
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
     <!-- Body -->
            <table >
            <tr>
@@ -175,6 +241,7 @@
              </td>
            </tr>
            </table>
+<<<<<<<< HEAD:index.php
            
 <script>
     $(document).ready(function () {
@@ -207,6 +274,50 @@
         });
     });
 </script>
+========
+           <script src="javascript/piechart.js"></script>
+      <script>  
+      $(document).ready(function () {
+          // Load the widget content on page load
+          $.ajax({
+              url: 'joblist.php',
+              method: 'GET',
+              success: function (response) {
+                  $('#employersModuleContent').html(response);
+                  $('#employerWidget').fadeIn(); // Display the widget on load
+              }
+          });
+
+          // Load the latest news content dynamically
+          $.ajax({
+              url: 'news.php', // Path to the PHP file
+              method: 'GET',
+              success: function (response) {
+                  $('#newsModuleContent').html(response);
+                  $('#newsWidget').fadeIn(); // Display the news widget on load
+              }
+          });
+          $.ajax({
+            url: 'chart.php',
+            method: 'GET',
+            success: function (response) {
+                $('#chartModuleContent').html(response);
+                $('#chartwidget').fadeIn(); // Display the chart widget on load
+
+                // Initialize the pie chart after loading the content
+                initializeChart(); // Call the chart initialization function
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', status, error); // Log AJAX errors
+            }
+        });
+          // Close widgets when the close button is clicked
+          $('.btn-close-widget').click(function () {
+              $(this).closest('.widget').fadeOut();
+          });
+      });
+      </script>
+>>>>>>>> 5b2aeccbb35cdd0885444b197adf91ca14a2d613:index.html
 
 
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

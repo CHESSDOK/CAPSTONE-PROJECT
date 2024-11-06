@@ -240,6 +240,15 @@ nav {
     border-radius: 15px;
     box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+.news-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    width: auto; 
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
 
 .applicant-container {
     overflow: auto;
@@ -297,4 +306,3 @@ nav {
     width: 100%; /* Adjust the width as needed */
     max-width: 1200px; /* Optional: for controlling the maximum width */
 }
-

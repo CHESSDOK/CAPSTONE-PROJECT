@@ -178,8 +178,8 @@ $stmt_work_exp->close();
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="applicant.php" class="nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="About.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
@@ -682,7 +682,7 @@ $stmt_work_exp->close();
       </div>
       <div class="col-md-6 mb-3">
         <label for="passport_expiry" class="info">Expiry Date</label>
-        <input type="date" id="passport_expiry" name="passport_expiry" class="form-control" required value="<?php echo isset($row['passport_expiry']) ? htmlspecialchars($row['passport_expiry']) : ''; ?>">
+        <input type="date" id="passport_expiry" name="passport_expiry" class="form-control" value="<?php echo isset($row['passport_expiry']) ? htmlspecialchars($row['passport_expiry']) : ''; ?>">
       </div>
     </div>
 
@@ -1367,6 +1367,21 @@ document.addEventListener('DOMContentLoaded', function() {
     <script src="../../javascript/a_profile.js"></script> 
     
 <script src="../../javascript/script.js"></script> 
+<script>
+$(document).ready(function(){
+    // Initialize popover with multiple links in the content
+    $('.profile-icon').popover({
+        trigger: 'click', 
+        html: true, // Allow HTML content
+        animation: true, // Enable animation
+        content: function() {
+            return `
+                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="logout.php">Logout</a>
+            `;
+        }
+    });
+</script>
 </form>
 </body>
 </html>

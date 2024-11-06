@@ -44,28 +44,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $_POST['password'];
 
-    // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    // Check if email already exists
+    $checkEmailQuery = "SELECT email FROM applicant_profile WHERE email = '$email'";
+    $result = $conn->query($checkEmailQuery);
 
-    // Generate a 6-digit OTP
-    $otp = mt_rand(100000, 999999);
+    if ($result->num_rows > 0) {
+                    echo "<script type='text/javascript'>
+                    alert('Email is already taken');
+                    window.location.href='../html/combine_register.html';
+                  </script>";
+    } else {
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    // Set the OTP expiration time (current time + 10 minutes)
-    date_default_timezone_set('Asia/Manila');
-    $otp_expiry = date("Y-m-d H:i:s", strtotime('+5 minutes'));
+        // Generate a 6-digit OTP
+        $otp = mt_rand(100000, 999999);
 
-    // Insert the new user into the register table
-    $sql = "INSERT INTO applicant_profile (email, username, password, otp, otp_expiry, is_verified) 
-            VALUES ('$email', '$username', '$hashedPassword', '$otp', '$otp_expiry', 0)";
+        // Set the OTP expiration time (current time + 10 minutes)
+        date_default_timezone_set('Asia/Manila');
+        $otp_expiry = date("Y-m-d H:i:s", strtotime('+5 minutes'));
 
-    if ($conn->query($sql) === TRUE) {
+        // Insert the new user into the register table
+        $sql = "INSERT INTO applicant_profile (email, username, password, otp, otp_expiry, is_verified) 
+                VALUES ('$email', '$username', '$hashedPassword', '$otp', '$otp_expiry', 0)";
+
+        if ($conn->query($sql) === TRUE) {
             sendOtpEmail($email, $otp);
             // Redirect to OTP verification page with email
             header("Location: ../html/otp_ver.php?email=" . urlencode($email));
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 
     $conn->close();
-    }
+}
 ?>

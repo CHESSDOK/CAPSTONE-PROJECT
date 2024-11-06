@@ -46,6 +46,21 @@ if (!$row) {
   <link rel="stylesheet" href="css/modal-form.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/notif.css">
+  <style>
+    .widget-container {
+    position: fixed; /* Keeps the widget in the same position as you scroll */
+    right: 0; /* Positions the container on the right side */
+    top: 80px; /* Adjust the vertical positioning */
+    width: 25vw; /* Set the desired width */
+    padding: 20px; /* Padding inside the widget */
+    background-color: #f8f9fa; /* Background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a shadow for better visibility */
+    z-index: 1000; /* Ensures the widget is on top */
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    }
+
+  </style>
 </head>
 <body>
 <nav>
@@ -132,6 +147,10 @@ if (!$row) {
     </tr>
     </table>
 
+    <div id="widgetContainer" class="widget-container">
+      <h4>Recommended Job</h4>
+      <div id="recommendationResults">
+  </div>
   
 <div id="employerModal" class="modal modal-container">
     <div class="modal-content">
@@ -171,9 +190,63 @@ if (!$row) {
             }
         });
     </script>
+    
+<script>
+    // Automatically load job recommendations on page load
+    $(document).ready(function() {
+        $.ajax({
+            url: 'php/job_recommendation.php', // PHP script that runs the Python script
+            method: 'GET',
+            success: function(response) {
+                try {
+                    const recommendations = JSON.parse(response);
 
+                    // If the Python script returns an error, show the message
+                    if (recommendations.error) {
+                        document.getElementById('recommendationResults').innerHTML = `<p>${recommendations.error}</p>`;
+                        return;
+                    }
+
+                    // Display job recommendations
+                    let resultsHTML = '<h3>Job Recommendations:</h3>';
+                    recommendations.forEach(function(job) {
+                        resultsHTML += `
+                            <p><strong>Job Title:</strong> ${job.job_title}</p>
+                            <p><strong>Salary:</strong> ${job.salary}</p>
+                            <p><strong>Preferred Occupation:</strong> ${job.preferred_occupation}</p>
+                            <hr>
+                        `;
+                    });
+                    document.getElementById('recommendationResults').innerHTML = resultsHTML;
+                } catch (error) {
+                    console.error("Error parsing JSON response:", error);
+                    alert("Error processing recommendations. Please check the console for details.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error loading recommendations:", error);
+                alert("Error loading recommendations. Please check the console for details.");
+            }
+        });
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
+<script>
+$(document).ready(function(){
+    // Initialize popover with multiple links in the content
+    $('.profile-icon').popover({
+        trigger: 'click', 
+        html: true, // Allow HTML content
+        animation: true, // Enable animation
+        content: function() {
+            return `
+                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="logout.php">Logout</a>
+            `;
+        }
+    });
+</script>
 </body>
 </html>

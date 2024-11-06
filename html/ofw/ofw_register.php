@@ -44,6 +44,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $_POST['password'];
 
+    // Check if email already exists
+    $checkEmailQuery = "SELECT email FROM ofw_profile WHERE email = '$email'";
+    $result = $conn->query($checkEmailQuery);
+
+    if ($result->num_rows > 0) {
+                    echo "<script type='text/javascript'>
+                    alert('Email is already taken');
+                    window.location.href='../html/combine_register.html';
+                  </script>";
+    } else {
     // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
@@ -68,4 +78,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
     }
+}
 ?>

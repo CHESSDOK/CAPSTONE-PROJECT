@@ -33,7 +33,7 @@ if (!$row) {
 }
 
 // Fetch data from register table
-$sql_new = "SELECT * FROM register WHERE id = ?";
+$sql_new = "SELECT * FROM ofw_profile WHERE id = ?";
 $stmt_new = $conn->prepare($sql_new);
 $stmt_new->bind_param("i", $userId);
 $stmt_new->execute();
@@ -80,8 +80,8 @@ $conn->close();
         </div>
 
         <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-            <?php if (!empty($row['photo'])): ?>
-                <img id="preview" src="../../php/applicant/images/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+            <?php if (!empty($row['profile_image'])): ?>
+                <img id="preview" src="../../php/ofw/profile/<?php echo $row['profile_image']; ?>" alt="Profile Image" class="circular--square">
             <?php else: ?>
                 <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
             <?php endif; ?>
@@ -105,8 +105,8 @@ $conn->close();
             <table class="menu">
                 <tr><td><a href="ofw_home.php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="ofw_form.php" class="nav-link">Survey</a></td></tr>
-                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="About.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>
@@ -127,7 +127,7 @@ $conn->close();
 <div class="profile-container">
 <div class="form-content">
 <!-- Form Content -->
-<form action="../../php/ofw/ofw_details.php" method="POST">
+<form action="../../php/ofw/ofw_details.php" method="POST" enctype="multipart/form-data">
 <div class="container mt-4">
       <h4 class="mb-3">Personal Information</h4>
       
@@ -137,9 +137,7 @@ $conn->close();
           <label for="profile_image">Select Profile Image:</label>
           <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*" required onchange="previewImage(event)">
         </div>
-        <div class="col-md-6 mb-3 text-center">
-          <img id="profile_image_preview" src="" alt="Profile Image" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
-        </div>
+        <input type="hidden" name="existing_image" value="<?php echo htmlspecialchars($uploadedImage); ?>">
       </div>
 
       <!-- Name Information -->
@@ -422,7 +420,7 @@ $conn->close();
 <div class="row">
     <div class="col-md-6 mb-3">
         <label for="departureDate" class="info">Date of Departure from the Philippines</label>
-        <input type="date" id="departureDate" name="departure_date" class="form-control" value="<?php echo isset($row['dept_date']) ? htmlspecialchars($row['dept_date']) : ''; ?>" required>
+        <input type="date" id="departureDate" name="departure_date" class="form-control" value="<?php echo isset($row['departure_date']) ? htmlspecialchars($row['departure_date']) : ''; ?>" required>
     </div>
 
     <div class="col-md-6 mb-3">

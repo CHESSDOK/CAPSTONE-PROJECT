@@ -21,7 +21,7 @@ $module_title = $_GET['q_title'];
 $questions_query = "SELECT * FROM question WHERE quiz_id='$q_id' ORDER BY RAND() LIMIT 20";
 $questions_result = mysqli_query($conn, $questions_query);
 
-$sql = "SELECT * FROM register WHERE id = ?";
+$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();

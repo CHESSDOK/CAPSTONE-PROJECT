@@ -156,9 +156,9 @@ $result = $conn->query($sql);
                               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.png/1200px-YouTube_icon_%282013-2017%29.png" 
                               alt="YouTube Logo" style="width: 45px; height: 30px; vertical-align: middle;">
                               View Video</a>';
-                        echo '<a href="' . htmlspecialchars($row['file_path']) . '" target="_blank">
-                              <img class="icon" src="../../img/file_icon.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
-                              Open File</a>';
+                        echo '<a href="../adminpage/view_module_content.php?module_path='.htmlspecialchars($row['file_path']).'" target="_blank">
+                                <img class="icon" src="../../img/file_icon.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
+                                Open File</a>';
                         echo '<a href="take_exam.php?module_id=' . htmlspecialchars($row["modules_id"]) . '&q_id=' . htmlspecialchars($quiz_id) . '&q_title=' . htmlspecialchars($quiz_title) . '" target="_blank">
                               <img class="icon" src="../../img/quiz.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
                               Take Quiz</a>';

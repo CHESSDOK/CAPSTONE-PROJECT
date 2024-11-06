@@ -31,7 +31,7 @@ $conn->close();
 
 function saveModuleToDatabase($course_id, $module_name) {
     // Database connection (replace with your actual connection details)
-    $conn = new mysqli('localhost', 'root', '', 'peso');
+    $conn = new mysqli('sql113.infinityfree.com', 'if0_37485657', '0c1Lrqmw4l9t4Rm', 'if0_37485657_peso');
 
     // Check connection
     if ($conn->connect_error) {

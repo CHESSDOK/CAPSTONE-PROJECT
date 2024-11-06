@@ -139,8 +139,8 @@ if (!$user || !$job) {
                 <tr><td><a href="../../index(applicant).php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Applicant</a></td></tr>
                 <tr><td><a href="training_list.php" class="nav-link">Training</a></td></tr>
-                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="About.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>

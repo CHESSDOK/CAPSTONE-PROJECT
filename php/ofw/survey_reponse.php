@@ -15,7 +15,7 @@ foreach ($survey_ids as $survey_id) {
         // Update existing response
         $update_sql = "UPDATE survey_reponse SET reponse = '$response' WHERE user_id = $user_id AND survey_id = $survey_id";
         if ($conn->query($update_sql) === TRUE) {
-            header("Location: ../../html/applicant/ofw_form.php");
+            header("Location: ../../html/ofw/ofw_form.php");
         } else {
             echo "Error updating response for survey ID $survey_id: " . $conn->error . "<br>";
         }
@@ -23,7 +23,7 @@ foreach ($survey_ids as $survey_id) {
         // Insert new response
         $insert_sql = "INSERT INTO survey_reponse (user_id, survey_id, reponse) VALUES ($user_id, $survey_id, '$response')";
         if ($conn->query($insert_sql) === TRUE) {
-            header("Location: ../../html/applicant/ofw_form.php");
+            header("Location: ../../html/ofw/ofw_form.php");
         } else {
             echo "Error inserting response for survey ID $survey_id: " . $conn->error . "<br>";
         }

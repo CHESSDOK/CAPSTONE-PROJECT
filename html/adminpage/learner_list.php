@@ -2,7 +2,7 @@
 include 'conn_db.php';
 
 // Fetch the list of applicants taking the course along with module progress
-$sql = "SELECT ap.id, ap.first_name, ap.middle_name, ap.last_name, ap.email, 
+$sql = "SELECT ap.user_id, ap.first_name, ap.middle_name, ap.last_name, ap.email, 
                m.module_name, c.course_name, mt.status
         FROM modules_taken mt
         JOIN applicant_profile ap ON ap.user_id = mt.user_id
