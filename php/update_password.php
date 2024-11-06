@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = password_hash($new_password, PASSWORD_BCRYPT);
 
     // Update the password in the database
-    $sql = "UPDATE register SET password = '$hashedPassword', reset_token = NULL, reset_token_expiry = NULL WHERE email = '$email'";
+    $sql = "UPDATE applicant_profile SET password = '$hashedPassword', reset_token = NULL, reset_token_expiry = NULL WHERE email = '$email'";
     if ($conn->query($sql) === TRUE) {
-        echo "Password has been reset successfully.";
+        echo "<script>alert('Password reset success.'); window.location.href='../../html/combine_login.html';</script>";
     } else {
         echo "Error updating record: " . $conn->error;
     }

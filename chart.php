@@ -91,6 +91,8 @@ echo '
     <html lang="en">
     <head>
         <link rel="stylesheet" href="css/visualization.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
@@ -123,13 +125,7 @@ echo '
             </div>
         </div>
         <div class="top-right-large">
-                <div class="chart-container">
-                    <!-- Pie Chart -->
-                        <div class="pie-container">
-                            <h3>Applicants Chart</h3>
-                            <canvas id="userPieChart" width="90" height="90"></canvas>
-                        </div>
-                </div>
+                
         </div>
     </div>
     <div class="container-bot">
@@ -139,7 +135,15 @@ echo '
                 <canvas id="casesBarChart" width="200" height="90"></canvas>
             </div>
         </div>
-        <div class="bottom-right"></div>
+        <div class="bottom-right">
+            <div class="chart-container">
+                    <!-- Pie Chart -->
+                        <div class="pie-container">
+                            <h3>Applicants Chart</h3>
+                            <canvas id="userPieChart" width="200" height="200"></canvas>
+                        </div>
+            </div>
+        </div>
     </div>
         <script>
             document.addEventListener("DOMContentLoaded", function () {

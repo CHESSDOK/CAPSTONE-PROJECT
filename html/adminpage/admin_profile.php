@@ -60,8 +60,8 @@ if (!$row) {
         </div>
         
         <div class="profile-icon-admin" data-bs-toggle="popover" data-bs-placement="bottom">
-            <?php if (!empty($pic_row['profile_picture'])): ?>
-                <img id="preview" src="<?php echo $pic_row['profile_picture']; ?>" alt="Profile Image" class="circular--square">
+            <?php if (!empty($row['profile_picture'])): ?>
+                <img id="preview" src="<?php echo $row['profile_picture']; ?>" alt="Profile Image" class="circular--square">
             <?php else: ?>
                 <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
             <?php endif; ?>

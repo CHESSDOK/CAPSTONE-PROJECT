@@ -124,8 +124,8 @@
                 <tr><td><a href="../../html/employer/employer_home.php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="../../html/employer/job_creat.php" class="nav-link">Post Job</a></td></tr>
                 <tr><td><a href="#" class="active nav-link">Job List</a></td></tr>
-                <tr><td><a href="../../html/about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="../../html/contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="About.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>

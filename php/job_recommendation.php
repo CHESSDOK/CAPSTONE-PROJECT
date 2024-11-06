@@ -1,10 +1,10 @@
 <?php
 // Database connection function
 function getDbConnection() {
-    $host = 'localhost'; // Database host
-    $db = 'peso';        // Database name
-    $user = 'root';      // Database user
-    $pass = '';          // Database password
+    $host = 'sql113.infinityfree.com'; // Database host
+    $db = 'if0_37485657_peso';        // Database name
+    $user = 'if0_37485657';      // Database user
+    $pass = '0c1Lrqmw4l9t4Rm';          // Database password
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("isss", $userId, $title, $description, $file);
     if ($stmt->execute()) {
         echo "Case filed successfully!";
-        header("Location: ../../html/applicant/ofw_form.php");
+        header("Location: ../../html/ofw/ofw_form.php");
     } else {
         echo "Error filing case: " . $stmt->error;
     }

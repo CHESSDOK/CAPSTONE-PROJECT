@@ -69,8 +69,8 @@ if (!$row) {
         </div>
         
         <div class="profile-icon" data-bs-toggle="popover" data-bs-placement="bottom">
-        <?php if (!empty($row['photo'])): ?>
-        <img id="preview" src="../../php/applicant/uploads/<?php echo $row['photo']; ?>" alt="Profile Image" class="circular--square">
+        <?php if (!empty($row['profile_image'])): ?>
+        <img id="preview" src="../../php/ofw/profile/<?php echo $row['profile_image']; ?>" alt="Profile Image" class="circular--square">
         <?php else: ?>
             <img src="../../img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
         <?php endif; ?>
@@ -98,8 +98,8 @@ if (!$row) {
             <table class="menu">
                 <tr><td><a href="ofw_home.php" class="active nav-link">Home</a></td></tr>
                 <tr><td><a href="ofw_form.php" class="nav-link">Survey</a></td></tr>
-                <tr><td><a href="about.php" class="nav-link">About Us</a></td></tr>
-                <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
+                <tr><td><a href="About.php" class="nav-link">About Us</a></td></tr>
+                <tr><td><a href="Contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>
         </div>
     </div>

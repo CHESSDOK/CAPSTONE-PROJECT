@@ -233,5 +233,20 @@ if (!$row) {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
+<script>
+$(document).ready(function(){
+    // Initialize popover with multiple links in the content
+    $('.profile-icon').popover({
+        trigger: 'click', 
+        html: true, // Allow HTML content
+        animation: true, // Enable animation
+        content: function() {
+            return `
+                <a class="link" href="a_profile.php"  id="emprof">Profile</a><br>
+                <a class="link" href="logout.php">Logout</a>
+            `;
+        }
+    });
+</script>
 </body>
 </html>

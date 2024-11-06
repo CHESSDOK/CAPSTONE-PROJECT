@@ -4,8 +4,8 @@ $userId = $_SESSION['id'];
 
 // Prepare SQL query to fetch saved jobs along with additional job details
 $sql = "
-SELECT jp.*, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username, a.status
-FROM save_job s
+SELECT jp.*, jp.company_name AS company, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username, a.status
+FROM save_job s 
 JOIN job_postings jp ON s.job_id = jp.j_id
 LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
 LEFT JOIN admin_profile ad ON jp.admin_id = ad.id
@@ -73,7 +73,7 @@ $result = $stmt->get_result();
                                     <i class="fas fa-phone" style="color: #007bff;"></i> <?php echo htmlspecialchars($job["tel_num"]); ?>
                                 </p>
                             <?php else: ?>
-                                <p>Posted by Admin: <strong><?php echo htmlspecialchars($job["admin_username"]); ?></strong></p>
+                                <p>Posted by Admin: <strong><?php echo htmlspecialchars($job["company"]); ?></strong></p>
                             <?php endif; ?>
                         </div>
 

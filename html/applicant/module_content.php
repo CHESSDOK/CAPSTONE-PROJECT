@@ -72,6 +72,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <link rel="stylesheet" href="../../css/nav_float.css">
     <link rel="stylesheet" href="../../css/content.css">
 </head>
@@ -155,9 +156,9 @@ $result = $conn->query($sql);
                               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.png/1200px-YouTube_icon_%282013-2017%29.png" 
                               alt="YouTube Logo" style="width: 45px; height: 30px; vertical-align: middle;">
                               View Video</a>';
-                        echo '<a href="' . htmlspecialchars($row['file_path']) . '" target="_blank">
-                              <img class="icon" src="../../img/file_icon.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
-                              Open File</a>';
+                        echo '<a href="../adminpage/view_module_content.php?module_path='.htmlspecialchars($row['file_path']).'" target="_blank">
+                                <img class="icon" src="../../img/file_icon.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
+                                Open File</a>';
                         echo '<a href="take_exam.php?module_id=' . htmlspecialchars($row["modules_id"]) . '&q_id=' . htmlspecialchars($quiz_id) . '&q_title=' . htmlspecialchars($quiz_title) . '" target="_blank">
                               <img class="icon" src="../../img/quiz.png" alt="Logo" style="width: 32.5px; height: 35px; vertical-align: middle;">
                               Take Quiz</a>';

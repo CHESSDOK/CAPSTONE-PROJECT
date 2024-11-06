@@ -28,14 +28,33 @@ if (isset($_POST['submit'])) {
 
         // Upload file to server
         if (move_uploaded_file($_FILES['files']['tmp_name'][$key], $targetFilePath)) {
-            // Insert file and other data into database
-            $sql = "INSERT INTO module_content (modules_id, description, file_path, video) 
-                    VALUES ('$modules_id', '$description', '$targetFilePath', '$videoLink')";
+            // Check if record already exists
+            $checkSql = "SELECT * FROM module_content WHERE modules_id = '$modules_id'";
+            $result = $conn->query($checkSql);
 
-            if ($conn->query($sql) === TRUE) {
-                echo "<script type='text/javascript'> alert('File has been uploaded and saved to the database'); window.location.href='module_list.php?course_id=" . $course_id . "'; </script>";
+            if ($result->num_rows > 0) {
+                // Update existing record
+                $updateSql = "UPDATE module_content 
+                              SET description = '$description', 
+                                  file_path = '$targetFilePath', 
+                                  video = '$videoLink' 
+                              WHERE modules_id = '$modules_id'";
+
+                if ($conn->query($updateSql) === TRUE) {
+                    echo "<script type='text/javascript'> alert('File has been updated and saved to the database'); window.location.href='module_list.php?course_id=" . $course_id . "'; </script>";
+                } else {
+                    echo "Database error: " . $conn->error . "<br>";
+                }
             } else {
-                echo "Database error: " . $conn->error . "<br>";
+                // Insert new record
+                $insertSql = "INSERT INTO module_content (modules_id, description, file_path, video) 
+                              VALUES ('$modules_id', '$description', '$targetFilePath', '$videoLink')";
+
+                if ($conn->query($insertSql) === TRUE) {
+                    echo "<script type='text/javascript'> alert('File has been uploaded and saved to the database'); window.location.href='module_list.php?course_id=" . $course_id . "'; </script>";
+                } else {
+                    echo "Database error: " . $conn->error . "<br>";
+                }
             }
         } else {
             echo "Error uploading file: " . htmlspecialchars(basename($filename)) . "<br>";

@@ -14,7 +14,7 @@ $userId = $_SESSION['id']; // Get the logged-in user's ID
 $searchTerm = isset($_GET['search']) ? '%' . $conn->real_escape_string($_GET['search']) . '%' : '%';
 
 // Base SQL query for fetching jobs
-$sql = "SELECT jp.*, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username
+$sql = "SELECT jp.*, jp.company_name AS company, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username
         FROM job_postings jp
         LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
         LEFT JOIN admin_profile ad ON jp.admin_id = ad.id
@@ -75,7 +75,7 @@ while ($job = $result->fetch_assoc()) {
     
     } else {
         // Job posted by admin
-        echo '<p>Posted by Admin: <strong>' . htmlspecialchars($job["admin_username"]) . '</strong></p>';
+        echo '<p>Posted by Admin: <strong>' . htmlspecialchars($job["company"]) . '</strong></p>';
     }
     echo '</div>';
 

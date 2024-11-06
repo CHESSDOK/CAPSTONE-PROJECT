@@ -1,10 +1,10 @@
 <?php
-include 'conn_db.php';
+include '../conn_db.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
-require 'mailer/vendor/autoload.php';
+require '../mailer/vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $conn->real_escape_string($_POST['email']);
@@ -24,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->query($sql);
 
         // Send email with reset link
-        $reset_link = "localhost/wakey/html/reset_password.php?token=" . urlencode($token);
+        $reset_link = "http://localhost/wakey/html/ofw/reset_password.php?token=" . urlencode($token);
 
         sendResetEmail($email, $reset_link);
 
-        echo "<script>alert('A reset link has been sent to your email address.'); window.location.href='../html/combine_login.html';</script>";
+        echo "<script>alert('A reset link has been sent to your email address.'); window.location.href='../../html/combine_login.html';</script>";
     } else {
-        echo "<script>alert('No account found with that email address.'); window.location.href='../html/combine_login.html';</script>";
+        echo "<script>alert('No account found with that email address.'); window.location.href='../../html/combine_login.html';</script>";
     }
 
     $conn->close();

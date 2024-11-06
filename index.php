@@ -19,9 +19,9 @@
       position: fixed;
       top: 12%;
       left: 0;
-      width: 34%;
+      width: 30%;
       height: 35%;
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid #ccc;
       border-radius: 8px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
@@ -36,9 +36,9 @@
       position: fixed;
       top: 50%;
       left: 0;
-      width: 34%;
+      width: 30%;
       height: 50%;
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid #ccc;
       border-radius: 8px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
@@ -85,21 +85,6 @@
       color: #555;
     }
 
-    #chartwidget {
-      position: fixed;
-      top: 12%;
-      right: 0;
-      width: 64%;
-      height: 555px;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      overflow-y: auto;
-      display: none;
-      padding: 20px;
-    }
   </style>
 </head>
 <body>
@@ -112,14 +97,8 @@
             <a href="#"> PESO-lb.ph</a>
         </div>
     
-        <div class="profile-icons">
-            <div class="notif-icon" data-bs-toggle="popover" data-bs-content="Notification" data-bs-placement="bottom">
-              <a class='openEmployersBtn' href='#'><img id="#" src="img/notif.png" alt="Profile Picture" class="rounded-circle"></a>
-            </div>
-            
-            <div class="profile-icon"  data-bs-toggle="popover_index" data-bs-content="Login/Register" data-bs-placement="bottom">
-                <img src="img/user-placeholder.png" alt="Profile Picture" class="rounded-circle">
-            </div>
+       <div class="profile-login">
+            <a href = "html/combine_login.html"><button class="btn btn-primary lbl_8">login / signup</button></a>
         </div>
     
         <!-- Burger icon -->
@@ -151,24 +130,16 @@
      
     <!-- Left Side Widget for Employers -->
     <div id="employerWidget">
-      <span class="btn-close-widget3"></span>
+      <span class="btn-close-widget3">&times;</span>
       <div id="employersModuleContent">
           <!-- Module content will be dynamically loaded here -->
       </div>
     </div>
     <!-- News Widget -->
     <div id="newsWidget">
-      <span class="btn-close-widget2"></span>
+      <span class="btn-close-widget2">&times;</span>
       <div id="newsModuleContent">
           <!-- Sample News Layout -->
-      </div>
-    </div>
-
-    <!-- chart Widget -->
-    <div id="chartwidget">
-      <span class="btn-close-widget1"></span>
-      <div id="chartModuleContent">
-        <?php include 'chart.php'; ?>
       </div>
     </div>
     <!-- Body -->
@@ -190,13 +161,6 @@
              </td>
            </tr>
            <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_5">YOUR</label>
-               <label class="lbl_6">NEW CAREER</label>
-               <label class="lbl_7">STARTS HERE!</label>
-             </td>
-           </tr>
-           <tr>
              <td class="container_whole">
                <button class="btn btn-primary lbl_8">Find Job</button>
              </td>
@@ -211,6 +175,7 @@
              </td>
            </tr>
            </table>
+           
 <script>
     $(document).ready(function () {
         // Load the widget content on page load
@@ -233,14 +198,7 @@
             }
         });
 
-        // Display the chart widget and initialize the chart
-        $('#chartwidget').fadeIn();
-        initializeChart(); // Initialize the chart after page loads
-
         // Close widgets when the close button is clicked
-        $('.btn-close-widget1').click(function () {
-            $('#chartwidget').fadeOut();
-        });
         $('.btn-close-widget2').click(function () {
             $('#newsWidget').fadeOut();
         });

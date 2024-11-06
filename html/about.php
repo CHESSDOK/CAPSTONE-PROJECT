@@ -56,7 +56,7 @@
         </div>
         <div class="offcanvas-body">
             <table class="menu">
-                <tr><td><a href="../index.html" class="nav-link">Home</a></td></tr>
+                <tr><td><a href="../index.php" class="nav-link">Home</a></td></tr>
                 <tr><td><a href="about.php" class="active nav-link">About Us</a></td></tr>
                 <tr><td><a href="contact.php" class="nav-link">Contact Us</a></td></tr>
             </table>

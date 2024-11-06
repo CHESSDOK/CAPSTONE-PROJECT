@@ -174,25 +174,6 @@ $result = $conn->query($sql);
         </table>
     </div>
 </div>
-
-    <div class="news-form-container">
-        <h3>Add News</h3>
-        <form id="newsForm" action="save_news.php" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="newsTitle" class="form-label">News Title</label>
-                <input type="text" class="form-control" id="newsTitle" name="title" required>
-            </div>
-            <div class="mb-3">
-                <label for="newsImage" class="form-label">News Image</label>
-                <input type="file" class="form-control" id="newsImage" name="image" accept="image/*" required>
-            </div>
-            <div class="mb-3">
-                <label for="newsDescription" class="form-label">News Description</label>
-                <textarea class="form-control" id="newsDescription" name="description" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
         <div class="admin-container">
             <div class="num-container">
                 <!--hiring rate-->
@@ -256,6 +237,25 @@ $result = $conn->query($sql);
         <div class="bar-container">
             <h3>OFW Chart</h3>
             <canvas id="casesBarChart" width="500" height="200"></canvas>
+        </div>
+    <!-- Bar Chart -->
+        <div class="news-container">
+        <h3>Add News</h3>
+        <form id="newsForm" action="save_news.php" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="newsTitle" class="form-label">News Title</label>
+                <input type="text" class="form-control" id="newsTitle" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="newsImage" class="form-label">News Image</label>
+                <input type="file" class="form-control" id="newsImage" name="image" accept="image/*" required>
+            </div>
+            <div class="mb-3">
+                <label for="newsDescription" class="form-label">News Description</label>
+                <textarea class="form-control" id="newsDescription" name="description" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
         </div>
 </div>
 </div>

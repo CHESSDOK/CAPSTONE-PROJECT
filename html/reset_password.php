@@ -6,7 +6,7 @@ if (isset($_GET['token'])) {
     $token = $_GET['token'];
 
     // Verify the token
-    $sql = "SELECT email, reset_token_expiry FROM register WHERE reset_token = '$token' AND reset_token_expiry > NOW()";
+    $sql = "SELECT email, reset_token_expiry FROM applicant_profile WHERE reset_token = '$token' AND reset_token_expiry > NOW()";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

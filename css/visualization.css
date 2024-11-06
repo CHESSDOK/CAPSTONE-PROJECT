@@ -4,13 +4,13 @@
     grid-template-rows: 200px 0px;
     gap: 2px;
     width: 100%;
-    border: 1px solid black;
+    
 }
 
 .top-left-large {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    border: 1px solid black;
+    
 }
 
 .top-middle-small {
@@ -22,13 +22,13 @@
 }
 
 .small-box1, .small-box2 {
-    border: 1px solid black;
+   
 }
 
 .top-right-large {
     grid-column: 3 / 4;
     grid-row: 1 / 2;
-    border: 1px solid black;
+   
 }
 
 .container-bot {
@@ -37,17 +37,16 @@
     grid-template-rows: 0px 300px;
     gap: 2px;
     width: 100%;
-    border: 1px solid black;
+   
 }
 
 .bottom-left {
     grid-column: 1 / 2; /* Occupy 50% width */
     grid-row: 2 / 3;
-    border: 1px solid black;
+
 }
 
 .bottom-right {
     grid-column: 2 / 2; /* Occupy 50% width */
     grid-row: 2 / 3;
-    border: 1px solid black;
 }

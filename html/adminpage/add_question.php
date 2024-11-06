@@ -124,6 +124,7 @@ if (!$pic_row) {
                 <h2 class="title mb-4">Enter Questions</h2>
                 <input type="hidden" name="eid" value="<?php echo $q_id; ?>">
                 <input type="hidden" name="mid" value="<?php echo $module_id; ?>">
+                <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
                 <?php for($i = 1; $i <= $total; $i++) { ?>
                 <div class="form-container mb-4">
                     <div class="row">
@@ -158,8 +159,9 @@ if (!$pic_row) {
                     </div>
                 </div>
                 <?php } ?>
+                <button type="submit" name="save" class="btn btn-primary">SAVE QUESTIONS</button>
             </form>
-            <button type="submit" name="save" class="btn btn-primary">SAVE QUESTIONS</button>
+            
         </div>
 
         <div class="scrollable-container table-section">

@@ -20,7 +20,7 @@ $admin = checkSession();
 // Fetch all cases
 $sql = "SELECT c.*, ap.*, c.id
         FROM cases c
-        JOIN applicant_profile ap ON c.user_id = ap.user_id
+        JOIN ofw_profile ap ON c.user_id = ap.id
        ";
 $result = $conn->query($sql);
 
@@ -123,7 +123,7 @@ if (!$pic_row) {
 
 <div class="table-containers">
     <div class="button-container">
-        <a style="width: 130px;"  class="btn btn-primary" href="user_chat.php">View Inquiries</a>
+        <a style="width: 130px;"  class="btn btn-primary" href="user_ct.php">View Inquiries</a>
         <a style="width: 130px;" class="btn btn-primary" href="create_survey.php">Create Survey</a>
     </div>
 
@@ -191,11 +191,11 @@ if (!$pic_row) {
                 <tbody>
                 <?php
                     $sql_new1 = "SELECT survey_reponse.user_id, 
-                                    MAX(applicant_profile.first_name) AS first_name, 
-                                    MAX(applicant_profile.middle_name) AS middle_name, 
-                                    MAX(applicant_profile.last_name) AS last_name
+                                    MAX(ofw_profile.first_name) AS first_name, 
+                                    MAX(ofw_profile.middle_name) AS middle_name, 
+                                    MAX(ofw_profile.last_name) AS last_name
                                 FROM survey_reponse
-                                INNER JOIN applicant_profile ON survey_reponse.user_id = applicant_profile.user_id
+                                INNER JOIN ofw_profile ON survey_reponse.user_id = ofw_profile.id
                                 GROUP BY survey_reponse.user_id";
                     $result_new = $conn->query($sql_new1);
 
