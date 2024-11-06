@@ -7,7 +7,7 @@ function checkSession() {
    // Check if the session variable 'id' is set
    if (!isset($_SESSION['id'])) {
        // Redirect to login page if session not found
-       header("Location: ../login.html");
+       header("Location: ../combine_login.html");
        exit();
    } else {
        // If session exists, store the session data in a variable
@@ -41,7 +41,7 @@ if (!$row) {
 }
 
 // Fetch data from register table using new approach
-$sql_new = "SELECT * FROM register WHERE id = ?";
+$sql_new = "SELECT * FROM applicant_profile WHERE user_id = ?";
 $stmt_new = $conn->prepare($sql_new);
 $stmt_new->bind_param("i", $userId);
 $stmt_new->execute();
