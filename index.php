@@ -134,9 +134,9 @@
                           <nav aria-label="breadcrumb">
                               <ol class="breadcrumb">
                                   <li><label class="lbl_4">LOGIN/REGISTER AS A &nbsp</label></li>
-                                  <li class="breadcrumb-item"><a href="#"> Applicant</a></li>
-                                  <li class="breadcrumb-item"><a href="#">Employer</a></li>
-                                  <li class="breadcrumb-item"><a href="#">OFW</a></li>
+                                  <li class="breadcrumb-item"><a href="html/applicant_login.html"> Applicant</a></li>
+                                  <li class="breadcrumb-item"><a href="html/employer_login.html">Employer</a></li>
+                                  <li class="breadcrumb-item"><a href="html/ofw_login.html#">OFW</a></li>
                               </ol>
                           </nav>
 
