@@ -33,12 +33,38 @@
             <button type="submit" class="btn btn-primary">Verify OTP</button>
         </form>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" id="resendOtpBtn">Resend OTP</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Include Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('resendOtpBtn').addEventListener('click', function() {
+    const email = document.getElementById('emailOtp').value;
+
+    fetch('../../php/employer/resend_otp.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            email: email,
+        }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+    })
+    .catch(error => {
+        alert('Error resending OTP. Please try again.');
+        console.error('Error:', error);
+    });
+});
+</script>
 
 </body>
 </html>
