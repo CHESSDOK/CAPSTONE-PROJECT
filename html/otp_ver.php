@@ -10,11 +10,11 @@
 </head>
 <body>
 <nav>
-        <div class="logo">
-            <img src="../img/logo_peso.png" alt="Logo">
-            <a href="#"> PESO-lb.ph</a>
-        </div>
-    </nav>
+    <div class="logo">
+        <img src="../img/logo_peso.png" alt="Logo">
+        <a href="#"> PESO-lb.ph</a>
+    </div>
+</nav>
 
 <!-- OTP Verification Modal -->
 <div class="modal fade show" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true" style="display:block; margin:30vh auto;">
@@ -33,12 +33,38 @@
             <button type="submit" class="btn btn-primary">Verify OTP</button>
         </form>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" id="resendOtpBtn">Resend OTP</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Include Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('resendOtpBtn').addEventListener('click', function() {
+    const email = document.getElementById('emailOtp').value;
+
+    fetch('../php/resend_otp.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            email: email,
+        }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+    })
+    .catch(error => {
+        alert('Error resending OTP. Please try again.');
+        console.error('Error:', error);
+    });
+});
+</script>
 
 </body>
 </html>

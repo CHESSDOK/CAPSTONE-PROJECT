@@ -13,20 +13,26 @@ $userId = $_SESSION['id']; // Get the logged-in user's ID
 // Capture the search term from the search input (use real_escape_string to prevent SQL injection)
 $searchTerm = isset($_GET['search']) ? '%' . $conn->real_escape_string($_GET['search']) . '%' : '%';
 
-// Base SQL query for fetching jobs
+// Pagination setup
+$jobsPerPage = 10; // Number of jobs per page
+$currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1; // Current page
+$offset = ($currentPage - 1) * $jobsPerPage; // Calculate the offset for SQL query
+
+// Base SQL query for fetching jobs with pagination
 $sql = "SELECT jp.*, jp.company_name AS company, em.company_name, em.photo, em.company_address, em.company_mail, em.tel_num, ad.username AS admin_username
         FROM job_postings jp
         LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
         LEFT JOIN admin_profile ad ON jp.admin_id = ad.id
         LEFT JOIN applications a ON a.job_posting_id = jp.j_id AND a.applicant_id = ?
         WHERE jp.is_active = 1 AND a.status IS NULL
-        AND (jp.job_title LIKE ? OR em.company_name LIKE ? OR em.company_address LIKE ? OR ad.username LIKE ?)";
+        AND (jp.job_title LIKE ? OR em.company_name LIKE ? OR em.company_address LIKE ? OR ad.username LIKE ?)
+        LIMIT ? OFFSET ?";
 
 // Prepare the SQL query
 $stmt = $conn->prepare($sql);
 
-// Bind the search parameters and the user ID (for checking status related to the current user)
-$stmt->bind_param("sssss", $userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+// Bind the search parameters, user ID, and pagination variables
+$stmt->bind_param("ssssssi", $userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $jobsPerPage, $offset);
 
 // Execute the query and get the result set
 $stmt->execute();
@@ -108,7 +114,35 @@ while ($job = $result->fetch_assoc()) {
     echo '</div>'; // Close card
 }
 
+// Pagination controls
+// Count total jobs matching the criteria for pagination
+$countSql = "SELECT COUNT(*) as totalJobs
+             FROM job_postings jp
+             LEFT JOIN employer_profile em ON jp.employer_id = em.user_id
+             LEFT JOIN admin_profile ad ON jp.admin_id = ad.id
+             LEFT JOIN applications a ON a.job_posting_id = jp.j_id AND a.applicant_id = ?
+             WHERE jp.is_active = 1 AND a.status IS NULL
+             AND (jp.job_title LIKE ? OR em.company_name LIKE ? OR em.company_address LIKE ? OR ad.username LIKE ?)";
+$countStmt = $conn->prepare($countSql);
+$countStmt->bind_param("sssss", $userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+$countStmt->execute();
+$countResult = $countStmt->get_result();
+$totalJobs = $countResult->fetch_assoc()['totalJobs'];
+$totalPages = ceil($totalJobs / $jobsPerPage);
+
+// Display pagination links
+echo '<nav aria-label="Page navigation">';
+echo '<ul class="pagination justify-content-center">';
+for ($i = 1; $i <= $totalPages; $i++) {
+    echo '<li class="page-item ' . ($i === $currentPage ? 'active' : '') . '">';
+    echo '<a class="page-link" href="?page=' . $i . '&search=' . urlencode(isset($_GET['search']) ? $_GET['search'] : '') . '">' . $i . '</a>';
+    echo '</li>';
+}
+echo '</ul>';
+echo '</nav>';
+
 // Close the statement and connection
 $stmt->close();
+$countStmt->close();
 $conn->close();
 ?>
