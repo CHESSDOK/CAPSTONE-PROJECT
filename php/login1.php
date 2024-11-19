@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             echo "<script> alert('Invalid username/email or password.');
-                    window.location.href = '../html/login.html';</script>";
+                    window.location.href = '../html/applicant_login.html';</script>";
         }
     } else {
         echo "<script>alert('No account found with this username/email.');
-                window.location.href = '../html/login.html';</script>";
+                window.location.href = '../html/applicant_login.html';</script>";
     }
 }
 ?>

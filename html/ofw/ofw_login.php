@@ -30,11 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             echo "<script> alert('Invalid username/email or password.');
-                    window.location.href = '../combine_login.html';</script>";
+                    window.location.href = '../ofw_login.html';</script>";
         }
     } else {
         echo "<script>alert('No account found with this username/email.');
-                window.location.href = '../combine_login.html';</script>";
+                window.location.href = '../ofw_login.html';</script>";
     }
 }
 ?>
