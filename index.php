@@ -56,6 +56,20 @@
             font-size: 0.9em;
             color: #555;
         }
+        #employerWidget, #newsWidget, .background-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #employerWidget { top: 12%; height: 35%; }
+        #newsWidget { top: 50%; height: 50%; }
+        .btn-close-widget { float: right; font-size: 1.2rem; cursor: pointer; }
+        .news-item { margin-bottom: 15px; }
+        .news-item img { width: 100%; border-radius: 8px; }
+        .news-title { font-weight: bold; margin-top: 10px; font-size: 1.2em; }
+        .news-description { font-size: 0.9em; color: #555; }
     </style>
 
     <!-- JavaScript Libraries -->
@@ -143,20 +157,29 @@ of clientele to know more about them and seek specific assistance they require.
 
 
   <!-- JavaScript: Widget and Popover Initialization -->
-<script>
-$(document).ready(function () {
-    // Load employer widget content on page load
-    $.ajax({
-        url: 'joblist.php',
-        method: 'GET',
-        success: function (response) {
-            $('#employersModuleContent').html(response);
-            $('#employerWidget').fadeIn();
-        }
-    });
+  <script>
+        $(document).ready(function () {
+            function loadJobList(page = 1, search = '') {
+                $.ajax({
+                    url: 'joblist.php',
+                    method: 'GET',
+                    data: { page: page, search: search },
+                    success: function (response) {
+                        $('#employersModuleContent').html(response);
+                    }
+                });
+            }
 
-    // Load latest news content dynamically
-    $.ajax({
+            loadJobList();
+
+            $(document).on('click', '.pagination a', function (e) {
+                e.preventDefault();
+                const page = $(this).data('page');
+                const search = $('#searchInput').val() || '';
+                loadJobList(page, search);
+            });
+        });
+        $.ajax({
         url: 'news.php',
         method: 'GET',
         success: function (response) {
@@ -164,15 +187,7 @@ $(document).ready(function () {
             $('#newsWidget').fadeIn();
         }
     });
-
-    // Disable the close button by commenting out the close functionality
-    // $('.btn-close-widget').click(function () {
-    //     var widget = $(this).closest('div');  // Find the closest widget container
-    //     widget.fadeOut();  // Remove this line to prevent closing
-    // });
-});
-
-</script>
+    </script>
 
 
 

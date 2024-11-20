@@ -44,7 +44,7 @@ if (!$row) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="css/modal-form.css">
-  <link rel="stylesheet" href="css/style_main.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/notif.css">
   <style>
     .widget-container {
@@ -147,13 +147,13 @@ if (!$row) {
     </tr>
     </table>
 
-    <div id="widgetContainer" class="widget-container modal-con">
+    <div id="widgetContainer" class="widget-container">
       <h4>Recommended Job</h4>
       <div id="recommendationResults">
   </div>
   
 <div id="employerModal" class="modal modal-container">
-    <div class="modal-content ">
+    <div class="modal-content">
         <span class="btn-close closBtn">&times;</span>
         <div id="employersModuleContent">
             <!-- Module content will be dynamically loaded here -->
@@ -191,7 +191,7 @@ if (!$row) {
         });
     </script>
     
-<script>
+<!-- <script>
     // Automatically load job recommendations on page load
     $(document).ready(function() {
         $.ajax({
@@ -229,7 +229,7 @@ if (!$row) {
             }
         });
     });
-</script>
+</script> -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
