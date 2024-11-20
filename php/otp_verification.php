@@ -29,13 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "<script type='text/javascript'>
                     alert('Invalid OTP or OTP has expired. Please try again.');
-                    window.location.href='../html/otp_verification.html';
+                    window.location.href='../html/otp_ver.php?email=$email';
                   </script>";
         }
     } else {
         echo "<script type='text/javascript'>
                 alert('Email not found or already verified.');
-                window.location.href='../html/register.html';
+                window.location.href='../html/applicant_register.html';
               </script>";
     }
 

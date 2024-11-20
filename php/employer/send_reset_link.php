@@ -28,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         sendResetEmail($email, $reset_link);
 
-        echo "<script>alert('A reset link has been sent to your email address.'); window.location.href='../../html/employer/combine_login.html';</script>";
+        echo "<script>alert('A reset link has been sent to your email address.'); window.location.href='../../html/employer_login.html';</script>";
     } else {
-        echo "<script>alert('No account found with that email address.'); window.location.href='../../html/employer/combine_login.html';</script>";
+        echo "<script>alert('No account found with that email address.'); window.location.href='../../html/employer_login.html';</script>";
     }
 
     $conn->close();
