@@ -382,10 +382,9 @@ $stmt_work_exp->close();
         </div>
       </div>
     </div>
-
+ 
   </div>
 </div>
-
 <!-- Educational Background Card -->
 <div class="card mb-4">
     <div class="card-header">

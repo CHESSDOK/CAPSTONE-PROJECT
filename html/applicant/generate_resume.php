@@ -1,177 +1,171 @@
 <?php
-include '../../php/conn_db.php'; // Database connection
+include '../../php/conn_db.php';
+
 function checkSession() {
-    session_start(); // Start the session
- 
-    // Check if the session variable 'id' is set
+    session_start();
     if (!isset($_SESSION['id'])) {
-        // Redirect to login page if session not found
         header("Location: ../login.html");
         exit();
-    } else {
-        // If session exists, store the session data in a variable
-        return $_SESSION['id'];
     }
- }
- $userId = checkSession();
- 
- //Fetch data from applicant_profile table
- $sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
- $stmt = $conn->prepare($sql);
- $stmt->bind_param("i", $userId);
- $stmt->execute();
- $result = $stmt->get_result();
- 
- if (!$result) {
-    die("Invalid query: " . $conn->error); 
- }
- $row = $result->fetch_assoc();
- $preferred = isset($row['preferred_occupation']) ? explode(',', $row['preferred_occupation']) : '';
- $loc1 = isset($row['overseas_loc']) ? explode(',',$row['overseas_loc']) : ''; 
- $loc2 = isset($row['local_loc']) ? explode(',',$row['local_loc']) : ''; 
- $otherSkills = isset($row['selected_options']) ? explode(',', $row['selected_options']) : [];
- $uploadedImage = isset($row['photo']) ? $row['photo'] : '';  // Use the value from the database
- $imagePath = '../../php/applicant/images/' . $uploadedImage;  // Assuming this is the directory where the images are stored
- $uploadedResume = isset($row['resume']) ? $row['resume'] : '';  // Use the value from the database
- $resumePath = '../../php/applicant/resume/' . $uploadedResume;  // Assuming this is the directory where the images are stored
- $fullname =  $row['last_name']  . ', ' . $row['first_name']  . ' ' . $row['middle_name'];
+    return $_SESSION['id'];
+}
 
+$userId = checkSession();
 
+$sql = "SELECT * FROM applicant_profile WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
 
- if (!$row) {
+if (!$result) {
+    die("Invalid query: " . $conn->error);
+}
+
+$row = $result->fetch_assoc();
+if (!$row) {
     die("User not found in applicant_profile.");
- }
- 
- // Fetch data from register table using new approach
- $sql_new = "SELECT * FROM applicant_profile WHERE user_id = ?";
- $stmt_new = $conn->prepare($sql_new);
- $stmt_new->bind_param("i", $userId);
- $stmt_new->execute();
- $result_new = $stmt_new->get_result();
- 
- if ($result_new->num_rows > 0) {
-     $row_new = $result_new->fetch_assoc(); // Fetch the data into a separate variable
- } else {
-     $row_new = array(); // If no data found, initialize as an empty array
- }
- 
- //training
- $sql_training = "SELECT * FROM training WHERE user_id = ?";
- $stmt_training = $conn->prepare($sql_training);
- $stmt_training->bind_param("i", $userId);
- $stmt_training->execute();
- $result_training = $stmt_training->get_result();
- // Close the connection
- 
- //language
- $sql_language = "SELECT * FROM language_proficiency WHERE user_id = ?";
- $stmt_language = $conn->prepare($sql_language);
- $stmt_language->bind_param("i", $userId);
- $stmt_language->execute();
- $result_language = $stmt_language->get_result();
- 
- // Create an array to hold language proficiency data
- $languageData = [];
- while ($row_language = $result_language->fetch_assoc()) {
-     $languageData[$row_language['language_p']] = $row_language;
- }
- 
- // Close the statement
- $stmt_language->close();
- 
- // Fetch data from license table
- $sql_license = "SELECT * FROM license WHERE user_id = ?";
- $stmt_license = $conn->prepare($sql_license);
- $stmt_license->bind_param("i", $userId);
- $stmt_license->execute();
- $result_license = $stmt_license->get_result();
- 
- // Close the statement after fetching
- $stmt_license->close();
- 
- // Fetch data from work_exp table
- $sql_work_exp = "SELECT * FROM work_exp WHERE user_id = ?";
- $stmt_work_exp = $conn->prepare($sql_work_exp);
- $stmt_work_exp->bind_param("i", $userId);
- $stmt_work_exp->execute();
- $result_work_exp = $stmt_work_exp->get_result();
- 
- // Close the statement after fetching
- $stmt_work_exp->close(); 
+}
+
+$preferred = isset($row['preferred_occupation']) ? explode(',', $row['preferred_occupation']) : [];
+$otherSkills = isset($row['selected_options']) ? explode(',', $row['selected_options']) : [];
+$uploadedImage = isset($row['photo']) ? $row['photo'] : '';
+$imagePath = '../../php/applicant/images/' . $uploadedImage;
+
+$sql_work_exp = "SELECT * FROM work_exp WHERE user_id = ?";
+$stmt_work_exp = $conn->prepare($sql_work_exp);
+$stmt_work_exp->bind_param("i", $userId);
+$stmt_work_exp->execute();
+$result_work_exp = $stmt_work_exp->get_result();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 30px;
+        }
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .resume-container {
+            background-color: #fff;
             padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
         .resume-header {
-            text-align: center;
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between; /* Align items to opposite ends */
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .resume-header img {
+            margin-left: 20px; /* Optional spacing for the image */
+        }
+        .resume-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #333;
+        }
+        .section-title {
+            color: #0d6efd;
+            margin-bottom: 10px;
         }
         .resume-section {
             margin-bottom: 20px;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .resume-section p {
+            margin: 5px 0;
+        }
+        .contact-details p {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
 
-<div class="resume">
-    <div class="resume-header">
-        <h1><?php echo htmlspecialchars($fullname); ?></h1>
-        <p><?php echo htmlspecialchars($row['email']) . " | " . htmlspecialchars($row['contact_no']) . " | " . htmlspecialchars($row['house_address']); ?></p>
-    </div>
+<div class="container">
+    <div class="resume-container">
+        <!-- Resume Header -->
+        <div class="resume-header">
+            <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="Profile Photo" class="profile-image">
+        </div>
 
-    <div class="resume-section">
-        <h2>Personal Information</h2>
-        <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($row['dob']); ?></p>
-        <p><strong>Civil Status:</strong> <?php echo htmlspecialchars($row['civil_status']); ?></p>
-    </div>
+        <!-- Personal Information Section -->
+        <div class="resume-section">
+            <h2 class="section-title">Personal Information</h2>
+            <p><strong>Name:</strong> <?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></p>
+            <p><strong>Sex:</strong> <?php echo htmlspecialchars($row['sex']); ?></p>
+            <p><strong>Civil Status:</strong> <?php echo htmlspecialchars($row['civil_status']); ?></p>
+            <p><strong>Address:</strong> <?php echo htmlspecialchars($row['house_address']); ?></p>
+        </div>
 
-    <div class="resume-section">
-        <h2>Work Experience</h2>
-        <ul>
-            <?php if ($result_work_exp->num_rows > 0): ?>
-                <?php while ($row_work_exp = $result_work_exp->fetch_assoc()): ?>
-                    <li><strong><?php echo htmlspecialchars($row_work_exp['position']); ?></strong> at <?php echo htmlspecialchars($row_work_exp['company_name']); ?> (<?php echo htmlspecialchars($row_work_exp['company_name']); ?> to <?php echo htmlspecialchars($row_work_exp['termination_date']); ?>)</li>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <li>No work experience found.</li>
-            <?php endif; ?>
-        </ul>
-    </div>
+        <!-- Education Section -->
+        <div class="resume-section">
+            <h2 class="section-title">Education</h2>
+            <p><strong>Highest level:</strong> <?php echo htmlspecialchars($row['education_level']); ?></p>
+        </div>
 
-    <div class="resume-section">
-        <h2>Education</h2>
-    </div>
+        <!-- Preferred Positions Section -->
+        <div class="resume-section">
+            <h2 class="section-title">Preferred Positions</h2>
+            <p><strong>Position Title:</strong> <?php echo htmlspecialchars($row['preferred_position']); ?></p>
+        </div>
 
-    <div class="resume-section">
-        <h2>Skills</h2>
-        <ul id="selectedOptionsList">
-        <?php if (!empty($otherSkills)): ?>
-          <?php foreach ($otherSkills as $skill): ?>
-            <li><?php echo htmlspecialchars(trim($skill)); ?></li>
-          <?php endforeach; ?>
-        <?php else: ?>
-          <li>No skills found.</li>
-        <?php endif; ?>
-      </ul>
-    </div>
+        <!-- Work Experience Section -->
+        <div class="resume-section">
+            <h2 class="section-title">Work Experience</h2>
+            <ul>
+                <?php if ($result_work_exp->num_rows > 0): ?>
+                    <?php while ($row_work_exp = $result_work_exp->fetch_assoc()): ?>
+                        <li><strong><?php echo htmlspecialchars($row_work_exp['position']); ?></strong> at 
+                            <?php echo htmlspecialchars($row_work_exp['company_name']); ?> 
+                            (<?php echo htmlspecialchars($row_work_exp['start_date']); ?> to <?php echo htmlspecialchars($row_work_exp['termination_date']); ?>)
+                        </li>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <li>No work experience found.</li>
+                <?php endif; ?>
+            </ul>
+        </div>
 
+        <!-- Skills Section -->
+        <div class="resume-section">
+            <h2 class="section-title">Skills</h2>
+            <ul>
+                <?php if (!empty($otherSkills)): ?>
+                    <?php foreach ($otherSkills as $skill): ?>
+                        <li><?php echo htmlspecialchars(trim($skill)); ?></li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>No skills found.</li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <!-- Contact Details Section -->
+        <div class="resume-section contact-details">
+            <h2 class="section-title">Contact Details</h2>
+            <p><strong>Cellphone:</strong> <?php echo htmlspecialchars($row['contact_no']); ?></p>
+            <p><strong>Email Address:</strong> <?php echo htmlspecialchars($row['email']); ?></p>
+        </div>
+    </div>
 </div>
 
 <script>
     window.print(); // Automatically trigger the print dialog
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

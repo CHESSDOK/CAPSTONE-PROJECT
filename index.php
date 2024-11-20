@@ -135,10 +135,7 @@
 
             <!-- Description Text Area -->
             <textarea readonly>
-Available in one roof the various employment promotion, manpower programs, 
-and services of the DOLE and other government agencies to enable all types 
-of clientele to know more about them and seek specific assistance they require.
-            </textarea>
+Available in one roof the various employment promotion, manpower programs, and services of the DOLE and other government agencies to enable all types of clientele to know more about them and seek specific assistance they require.</textarea>
         </div>
 
         <!-- News Widget (Col 3) -->
