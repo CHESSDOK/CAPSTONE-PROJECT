@@ -191,7 +191,7 @@ if (!$row) {
         });
     </script>
     
-<script>
+<!-- <script>
     // Automatically load job recommendations on page load
     $(document).ready(function() {
         $.ajax({
@@ -229,7 +229,7 @@ if (!$row) {
             }
         });
     });
-</script>
+</script> -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->

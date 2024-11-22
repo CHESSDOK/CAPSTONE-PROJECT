@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         echo "<script>alert('No account found with this username/email.');
-                window.location.href = '../../html/combine_login.html';</script>";
+                window.location.href = '../../html/employer_login.html';</script>";
     }
 }
 

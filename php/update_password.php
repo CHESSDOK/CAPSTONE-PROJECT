@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Update the password in the database
     $sql = "UPDATE applicant_profile SET password = '$hashedPassword', reset_token = NULL, reset_token_expiry = NULL WHERE email = '$email'";
     if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Password reset success.'); window.location.href='../../html/combine_login.html';</script>";
+        echo "<script>alert('Password reset success.'); window.location.href='../../html/applicant_login.html';</script>";
     } else {
         echo "Error updating record: " . $conn->error;
     }

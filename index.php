@@ -1,116 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Landing Page</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="css/modal-form.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/notif.css">
-  <style>
-    /* Style for the employer widget on the left */
-    #employerWidget {
-      position: fixed;
-      top: 12%;
-      left: 0;
-      width: 30%;
-      height: 35%;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      overflow-y: auto;
-      display: none;
-      padding: 20px;
-    }
+    <title>Landing Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- External CSS and Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/modal-form.css">
+    <link rel="stylesheet" href="css/style.css">
 
-    /* Style for the news widget below the employer widget */
-    #newsWidget {
-      position: fixed;
-      top: 50%;
-      left: 0;
-      width: 30%;
-      height: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      overflow-y: auto;
-      display: none;
-      padding: 20px;
-    }
+    <!-- Internal Styles for Widgets -->
+    <style>
+        /* Styles for widgets */
+        #employerWidget, #newsWidget, .background-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+        
+        #employerWidget {
+            top: 12%;
+            height: 35%;
+        }
+        
+        #newsWidget {
+            top: 50%;
+            height: 50%;
+        }
 
-    .btn-close-widget3 {
-      float: right;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    .btn-close-widget2 {
-      float: right;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    .btn-close-widget1 {
-      float: right;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
+        .btn-close-widget {
+            float: right;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
 
-    /* Sample layout for news item */
-    .news-item {
-      margin-bottom: 15px;
-    }
+        .news-item {
+            margin-bottom: 15px;
+        }
 
-    .news-item img {
-      width: 100%;
-      border-radius: 8px;
-    }
+        .news-item img {
+            width: 100%;
+            border-radius: 8px;
+        }
 
-    .news-title {
-      font-weight: bold;
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
+        .news-title {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
 
-    .news-description {
-      font-size: 0.9em;
-      color: #555;
-    }
+        .news-description {
+            font-size: 0.9em;
+            color: #555;
+        }
+        #employerWidget, #newsWidget, .background-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-  </style>
+        #employerWidget { top: 12%; height: 35%; }
+        #newsWidget { top: 50%; height: 50%; }
+        .btn-close-widget { float: right; font-size: 1.2rem; cursor: pointer; }
+        .news-item { margin-bottom: 15px; }
+        .news-item img { width: 100%; border-radius: 8px; }
+        .news-title { font-weight: bold; margin-top: 10px; font-size: 1.2em; }
+        .news-description { font-size: 0.9em; color: #555; }
+    </style>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-
     <!-- Navigation -->
-
     <nav>
         <div class="logo">
             <img src="img/logo_peso.png" alt="Logo">
-            <a href="#"> PESO-lb.ph</a>
+            <a href="#"> PESO-Los Baños.ph</a>
         </div>
-    
-       <div class="profile-login">
-            <a href = "html/combine_login.html"><button class="btn btn-primary lbl_8">login / signup</button></a>
-        </div>
-    
-        <!-- Burger icon -->
+        
+        <div class="profile-login"></div>
+        
+        <!-- Burger Icon -->
         <div class="burger" id="burgerToggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
-    </td>
-    </tr>
-    </table>
-    
+        
         <!-- Offcanvas Menu -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
             <div class="offcanvas-header">
@@ -126,122 +111,86 @@
             </div>
         </div>
     </nav>
-    
-     
-    <!-- Left Side Widget for Employers -->
-    <div id="employerWidget">
-      <span class="btn-close-widget3">&times;</span>
-      <div id="employersModuleContent">
-          <!-- Module content will be dynamically loaded here -->
-      </div>
+
+   <!-- Body Content -->
+   <div class="table-containers">
+    <div class="row">
+
+        <!-- Main Content Fields (Col 6) -->
+        <div class="col-md-8 background-container">
+            <!-- PESO and Location Information -->
+            <label class="lbl_1">PESO</label>
+            <label class="lbl_2">Los Baños</label><br>
+
+            <!-- Public Employment Service Office Label -->
+            <label class="lbl_3">Public Employment Service Office</label>
+
+            <!-- "I AM" Section with Links (Breadcrumb) -->
+            <ol class="breadcrumb">
+                <li><label class="lbl_4">LOGIN/REGISTER AS A &nbsp;</label></li>
+                <li class="breadcrumb-item lbl_5"><a href="html/applicant_login.html">APPLICANT</a></li>
+                <li class="breadcrumb-item lbl_5"><a href="html/employer_login.html">EMPLOYER</a></li>
+                <li class="breadcrumb-item lbl_5"><a href="html/ofw_login.html#">OFW</a></li>
+            </ol>
+
+            <!-- Description Text Area -->
+            <textarea readonly>
+Available in one roof the various employment promotion, manpower programs, and services of the DOLE and other government agencies to enable all types of clientele to know more about them and seek specific assistance they require.</textarea>
+        </div>
+
+        <!-- News Widget (Col 3) -->
+        <div id="newsWidget" class="col-md-3">
+            <div id="newsModuleContent">
+                <!-- Sample News Layout -->
+            </div>
+
+            <div id="employersModuleContent">
+                <!-- Module content will be dynamically loaded here -->
+            </div>
+        </div>
     </div>
-    <!-- News Widget -->
-    <div id="newsWidget">
-      <span class="btn-close-widget2">&times;</span>
-      <div id="newsModuleContent">
-          <!-- Sample News Layout -->
-      </div>
-    </div>
-    <!-- Body -->
-           <table >
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_1">PESO</label>
-               <label class="lbl_2">Los Baños</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_3">Public Employment Service Office</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <label class="lbl_4">JOB PORTAL</label>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole">
-               <button class="btn btn-primary lbl_8">Find Job</button>
-             </td>
-           </tr>
-           <tr>
-             <td class="container_whole" colspan="2">
-               <textarea readonly>
-                   Available in one roof the various employment promotion, manpower programs, 
-                   and services of the DOLE and other government agencies to enable all types 
-                   of clientele to know more about them and seek specific assistance they require.
-               </textarea>
-             </td>
-           </tr>
-           </table>
-           
-<script>
-    $(document).ready(function () {
-        // Load the widget content on page load
-        $.ajax({
-            url: 'joblist.php',
-            method: 'GET',
-            success: function (response) {
-                $('#employersModuleContent').html(response);
-                $('#employerWidget').fadeIn(); // Display the widget on load
+</div>
+
+
+
+  <!-- JavaScript: Widget and Popover Initialization -->
+  <script>
+        $(document).ready(function () {
+            function loadJobList(page = 1, search = '') {
+                $.ajax({
+                    url: 'joblist.php',
+                    method: 'GET',
+                    data: { page: page, search: search },
+                    success: function (response) {
+                        $('#employersModuleContent').html(response);
+                    }
+                });
             }
-        });
 
-        // Load the latest news content dynamically
+            loadJobList();
+
+            $(document).on('click', '.pagination a', function (e) {
+                e.preventDefault();
+                const page = $(this).data('page');
+                const search = $('#searchInput').val() || '';
+                loadJobList(page, search);
+            });
+        });
         $.ajax({
-            url: 'news.php', // Path to the PHP file
-            method: 'GET',
-            success: function (response) {
-                $('#newsModuleContent').html(response);
-                $('#newsWidget').fadeIn(); // Display the news widget on load
-            }
-        });
-
-        // Close widgets when the close button is clicked
-        $('.btn-close-widget2').click(function () {
-            $('#newsWidget').fadeOut();
-        });
-        $('.btn-close-widget3').click(function () {
-            $('#employerWidget').fadeOut();
-        });
-    });
-</script>
-
-
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-   <script>
-
-    
-$(document).ready(function(){
-    // Initialize popover with multiple links in the content
-    $('.profile-icon').popover({
-        trigger: 'click', 
-        html: true, // Allow HTML content
-        animation: true, // Enable animation
-        content: function() {
-            return `
-                <a class="link" >Profile</a><br>
-                <a class="link" href="html/combine_login.html" id="link3">Login</a>
-            `;
+        url: 'news.php',
+        method: 'GET',
+        success: function (response) {
+            $('#newsModuleContent').html(response);
+            $('#newsWidget').fadeIn();
         }
     });
+    </script>
 
-    // Close popover when clicking outside
-    $(document).on('click', function (e) {
-        const target = $(e.target);
-        if (!target.closest('.profile-icon').length) {
-            $('.profile-icon').popover('hide');
-        }
-    });
-});
 
-   </script>
 
-   <script src="javascript/script.js"></script> <!-- You can link your JavaScript file here if needed -->
+
+
+    <!-- External JavaScript File -->
+    <script src="javascript/script.js"></script>
 </body>
 </html>

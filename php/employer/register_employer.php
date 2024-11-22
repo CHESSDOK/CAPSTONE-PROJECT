@@ -72,10 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../../html/employer/otp_ver.php?email=" . urlencode($email));
                 exit();
             } else {
-                header("Location: ../../html/combine_register.php");
+                header("Location: ../../html/employer_register.php");
             }
             } else {
-                header("Location: ../../html/combine_register.php");
+                header("Location: ../../html/employer_register.php");
             }
 
             $conn->close();

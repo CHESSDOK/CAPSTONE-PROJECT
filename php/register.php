@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
                     echo "<script type='text/javascript'>
                     alert('Email is already taken');
-                    window.location.href='../html/combine_register.html';
+                    window.location.href='../html/applicant_register.html';
                   </script>";
     } else {
         // Hash the password

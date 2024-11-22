@@ -23,12 +23,12 @@
             <div class="col-md-5">
                 <div class="card login-form">
                     <div class="card-body">
-                        <h2 class="card-title text-center">Applicant Login</h2>
+                        <h2 class="card-title text-center">Employer Login</h2>
                         <div class="logol">
                             <img src="../img/logo_peso.png" alt="Logo">
                         </div>
 
-                        <form action="../php/login.php" method="POST">
+                        <form action="../php/employer/login_employer.php" method="POST">
                             <div class="form-group">
                                 <p>Please sign in</p>
                                 <input type="text" name="user_input" class="form-control mb-3" placeholder="Username/Email">
@@ -39,7 +39,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary sign mb-3">Login</button>
                             <div class="form-group">
-                                <p class="signup">Don't have an account? <a href="applicant_register.html">Signup</a></p>
+                                <p class="signup">Don't have an account? <a href="employer_register.html">Signup</a></p>
                             </div>
                         </form>
                     </div>
@@ -57,7 +57,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form action="../php/send_reset_link.php" method="POST">
+                    <form action="../php/employer/send_reset_link.php" method="POST">
                         <div class="form-group">
                             <label for="email">Enter your email address:</label>
                             <input type="email" class="form-control" id="email" name="email" required>
