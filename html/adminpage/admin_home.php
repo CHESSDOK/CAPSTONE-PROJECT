@@ -171,6 +171,9 @@ $result = $conn->query($sql);
             <tr><td><a href="employer_list.php" class="nav-link">Employer List</a></td></tr>
             <tr><td><a href="course_list.php" class="nav-link">Course List</a></td></tr>
             <tr><td><a href="ofw_case.php" class="nav-link">OFW Cases</a></td></tr>
+            <tr><td><a href="list_applicant.php" class="nav-link" target="_blank">Manage Applicants</a></td></tr>
+            <tr><td><a href="admin_list.php" class="nav-link" target="_blank">Manage Admins</a></td></tr>
+            <tr><td><a href="manage_news.php" class="nav-link" target="_blank">Manage News Page</a></td></tr>
         </table>
     </div>
 </div>
